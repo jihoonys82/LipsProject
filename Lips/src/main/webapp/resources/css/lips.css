@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+
+.header  { 
+	padding: 10px;
+	
+}
+
+.headerLogo {
+	float:left; 
+	width: 100px;
+	height: 50px; 
+	margin-right: 50px;
+}
+
+.menu-right {
+	padding: 10px;
+}
+
+.clearfix::after { 
+	content:"";
+	clear: both; 
+	z-index: -1;
+}

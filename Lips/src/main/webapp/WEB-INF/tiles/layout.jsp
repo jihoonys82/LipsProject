@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Lips - Project Management System</title>
 <!-- ### Stylesheet link here ### -->
 <!-- Basic style components -->
 <link rel="stylesheet" href="/resources/jui/dist/ui.min.css" />
@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="/resources/jui/dist/grid-dark.min.css" />
 
 <!-- project Default StyleSheet -->
-<link rel="stylesheet" href="/resources/css/lips.css?ver=1"  />
+<link rel="stylesheet" href="/resources/css/lips.css?ver=4"  />
 
 <!-- ### Script Load here ### -->
 <!-- Required script files -->
@@ -27,7 +27,14 @@
 <!-- header  -->
 <tiles:insertAttribute name="header" />
 <div class="container">
-	<tiles:insertAttribute name="body" />
+	<div class="row">
+		<div class="col col-10">
+			<tiles:insertAttribute name="body" />
+		</div>
+		<div class="col col-2">
+			<tiles:insertAttribute name="aside" />
+		</div>
+	</div>
 </div>
 <!-- footer -->
 <tiles:insertAttribute name="footer" />

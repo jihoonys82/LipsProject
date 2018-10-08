@@ -6,6 +6,7 @@
 	<definition name="tilesbase" template="/WEB-INF/tiles/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp"/>
 		<put-attribute name="body" value=""/>
+		<put-attribute name="aside" value="/WEB-INF/tiles/layout/aside.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp"/>
 	</definition>
 	<definition name="*" extends="tilesbase">

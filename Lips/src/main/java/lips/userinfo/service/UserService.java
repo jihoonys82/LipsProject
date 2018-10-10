@@ -8,5 +8,6 @@ public interface UserService {
 	public User loginAuto(String sessionId);
 	public void join(User user);
 	public User update(User user);
+	public void addLoginServer(User user, String sessionId);
 	
 }

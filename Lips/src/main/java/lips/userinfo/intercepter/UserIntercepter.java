@@ -26,24 +26,21 @@ public class UserIntercepter extends HandlerInterceptorAdapter{
          
         if ( obj == null ){ 
             Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+ 
             if ( loginCookie != null ){ 
                 String sessionId = loginCookie.getValue();
 
                 User loginUser = userService.loginAuto(sessionId);
                  
-                if ( loginUser != null ){ 
-
-                    session.setAttribute("login", loginUser);
-                    return true;
+                if ( loginUser != null ){
+                	loginUser.setPw(null);
+        			session.setAttribute("user", loginUser);
+        			session.setAttribute("login", true);
+                    response.sendRedirect("/");
                 }
             }
-             
-    
-            response.sendRedirect("/login");
 
         }
-
         return true;
-
 	}
 }

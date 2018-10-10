@@ -6,4 +6,19 @@
  	<select id="selectUserByIdAndPw" parameterType="lips.userinfo.dto.User" resultType="lips.userinfo.dto.User">
  		SELECT * from userinfo WHERE userid=#{userId } AND pw=#{pw }
  	</select>
+ 	<select id="selectUserById" parameterType="lips.userinfo.dto.User" resultType="lips.userinfo.dto.User">
+ 		SELECT * from userinfo where userid=#{userId }
+ 	</select>
+ 	<select id="selectUserIdBySessionId" parameterType="String" resultType="lips.userinfo.dto.User">
+ 		SELECT userid from user_autologin WHERE sessionid=#{value }
+ 	</select>	
+ 	<select id="selectLoginServerCntByUserId" parameterType="String" resultType="int">
+ 		SELECT count(*) from user_autologin where userId=#{value }
+ 	</select>
+ 	<insert id="insertUserDataBySessionId" parameterType="HashMap">
+ 		INSERT INTO user_autologin (USERID,SESSIONID,LASTREQUEST,LASTACTIVITY,CONNECTEDIP) VALUES (#{user.userId},#{sessionId},sysdate , null , null )
+ 	</insert>
+ 	<update id="updateUserDataBySessionId" parameterType="HashMap">
+ 		UPDATE user_autologin SET SESSIONID=#{sessionId}, LASTREQUEST= sysdate WHERE USERID=#{user.userId }
+ 	</update>
  </mapper>

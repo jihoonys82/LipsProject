@@ -20,10 +20,10 @@
 			<a class="btn">Search</a>
 		</div>
 		<c:if test="${sessionScope.login eq true }" >
-			<a href="/user/logout"><button id="logout" class="btn">Logout</button></a>
+			<a class="btn" href="/user/logout" id="logout" >logout</a>
 		</c:if>
 		<c:if test="${sessionScope.login ne true }" >
-			<a href="/user/login"><button id="login" class="btn">login</button></a>
+			<a class="btn" href="/user/login" id="login">login</a>
 		</c:if>
 	</div>
 	

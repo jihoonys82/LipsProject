@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="navbar header">
 	<div class="headerLogo">
@@ -18,7 +19,12 @@
 			<input type="text" class="input" />
 			<a class="btn">Search</a>
 		</div>
-		<button id="logout" class="btn">Logout</button>
+		<c:if test="${sessionScope.login eq true }" >
+			<a href="/user/logout"><button id="logout" class="btn">Logout</button></a>
+		</c:if>
+		<c:if test="${sessionScope.login ne true }" >
+			<a href="/user/login"><button id="login" class="btn">login</button></a>
+		</c:if>
 	</div>
 	
 </div>

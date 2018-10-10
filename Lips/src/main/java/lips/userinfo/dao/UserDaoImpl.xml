@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="lips.userinfo.dao.UserDao">
+ 	<select id="selectUserByIdAndPw" parameterType="lips.userinfo.dto.User" resultType="lips.userinfo.dto.User">
+ 		SELECT * from userinfo WHERE userid=#{userId } AND pw=#{pw }
+ 	</select>
+ </mapper>

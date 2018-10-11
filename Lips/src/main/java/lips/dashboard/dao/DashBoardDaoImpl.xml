@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="lips.dashboard.dao.DashBoardDao">
-	<select id="viewDash" parameterType="lips.dashboard.dao.DashBoardDto" resultType="lips.dashboard.dao.DashBoardDto">
-		SELECT*FROM
+	<select id="viewDash" parameterType="lips.dashboard.dto.DashBoardDto" resultType="lips.dashboard.dto.DashBoardDto">
+	
 	</select>
 </mapper>

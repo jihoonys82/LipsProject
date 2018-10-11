@@ -25,5 +25,9 @@ public class mainController {
 		
 		return "intro";
 	}
+	@RequestMapping(value="/main", method=RequestMethod.GET)
+	public String main() {
+		return "home";
+	}
 	
 }

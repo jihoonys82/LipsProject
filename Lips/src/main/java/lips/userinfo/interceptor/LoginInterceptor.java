@@ -43,7 +43,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
     				userService.addLoginServer(loginUser, session.getId());
     				cookie.setMaxAge(60*60*24*7);
     				response.addCookie(cookie);
-                    response.sendRedirect("/");
+                    response.sendRedirect("/main");
                     return false;
                 }
             }   

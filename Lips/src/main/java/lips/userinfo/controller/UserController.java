@@ -43,7 +43,7 @@ public class UserController {
 				response.addCookie(loginCookie);
 			}
 			userService.addLoginServer(loginUser, session.getId());
-			mav.setViewName("redirect:/");
+			mav.setViewName("redirect:/main");
 		}else{
 			mav.setViewName("user/login");
 		}
@@ -57,6 +57,6 @@ public class UserController {
 		Cookie cookie = new Cookie("loginCookie","");
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
-		return "redirect:/";
+		return "redirect:/main";
 	}
 }

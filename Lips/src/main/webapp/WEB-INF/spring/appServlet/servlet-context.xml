@@ -19,6 +19,7 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/**" />
+			<exclude-mapping path="/resources/**" />
 			<exclude-mapping path="/intro"/>
 			<exclude-mapping path="/user/login"/>
 			<exclude-mapping path="/user/logout"/>

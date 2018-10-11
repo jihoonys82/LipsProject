@@ -42,7 +42,7 @@ public class UserController {
 				loginCookie.setMaxAge(60*60*24*7);
 				response.addCookie(loginCookie);
 			}
-			mav.setViewName("redirect:/");
+			mav.setViewName("redirect:/intro");
 		}else{
 			mav.setViewName("user/login");
 		}
@@ -56,6 +56,6 @@ public class UserController {
 		Cookie cookie = new Cookie("loginCookie","");
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
-		return "redirect:/";
+		return "redirect:/intro";
 	}
 }

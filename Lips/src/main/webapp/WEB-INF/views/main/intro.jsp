@@ -68,7 +68,7 @@
 
 
 		<!-- 버튼 start -->
-		<a href="/login">
+		<a href="/user/login">
 		<button class="button">get Started</button>
 		</a>
 		 <a href='#'>

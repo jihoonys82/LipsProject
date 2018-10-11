@@ -43,10 +43,20 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
     				userService.addLoginServer(loginUser, session.getId());
     				cookie.setMaxAge(60*60*24*7);
     				response.addCookie(cookie);
+<<<<<<< HEAD
                     response.sendRedirect("/");
                     return false;
                 }
             }   
+=======
+                    response.sendRedirect("/intro");
+                    return false;
+                }
+            }   
+        }else {
+        	response.sendRedirect("/intro");
+        	return false;
+>>>>>>> branch 'master' of https://github.com/jihoonys82/LipsProject.git
         }
         return true;
 	}

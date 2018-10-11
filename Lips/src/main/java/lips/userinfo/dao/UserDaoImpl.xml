@@ -3,25 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="lips.userinfo.dao.UserDao">
- 	<select id="selUserByIdPw" parameterType="lips.userinfo.dto.User" resultType="lips.userinfo.dto.User">
+ 	<select id="selectUserByIdAndPw" parameterType="lips.userinfo.dto.User" resultType="lips.userinfo.dto.User">
  		SELECT * from userinfo WHERE userid=#{userId } AND pw=#{pw }
  	</select>
- 	<select id="selUserById" parameterType="lips.userinfo.dto.User" resultType="lips.userinfo.dto.User">
+ 	<select id="selectUserById" parameterType="lips.userinfo.dto.User" resultType="lips.userinfo.dto.User">
  		SELECT * from userinfo where userid=#{userId }
  	</select>
- 	<select id="selIdBySessionId" parameterType="String" resultType="lips.userinfo.dto.User">
- 		SELECT userid from user_autologin WHERE sessionId=#{value }
+ 	<select id="selectUserIdBySessionId" parameterType="String" resultType="lips.userinfo.dto.User">
+ 		SELECT userid from user_autologin WHERE sessionid=#{value }
  	</select>	
- 	<select id="selLoginCntByUserId" parameterType="String" resultType="int">
+ 	<select id="selectLoginServerCntByUserId" parameterType="String" resultType="int">
  		SELECT count(*) from user_autologin where userId=#{value }
  	</select>
- 	<select id="selLoginCntBySessionId" parameterType="String" resultType="int">
- 		SELECT count(*) from user_autologin where sessionId=#{value }
- 	</select>
- 	<insert id="inUserLoginServer" parameterType="HashMap">
+ 	<insert id="insertUserDataBySessionId" parameterType="HashMap">
  		INSERT INTO user_autologin (USERID,SESSIONID,LASTREQUEST,LASTACTIVITY,CONNECTEDIP) VALUES (#{user.userId},#{sessionId},sysdate , null , null )
  	</insert>
- 	<update id="upUserLoginServer" parameterType="HashMap">
+ 	<update id="updateUserDataBySessionId" parameterType="HashMap">
  		UPDATE user_autologin SET SESSIONID=#{sessionId}, LASTREQUEST= sysdate WHERE USERID=#{user.userId }
  	</update>
  </mapper>

@@ -36,14 +36,13 @@ public class UserController {
 			loginUser.setPw(null);
 			session.setAttribute("user", loginUser);
 			session.setAttribute("login", true);
-			if(useCookie != null) {
+			if(useCookie.equals("true")) {
 				Cookie loginCookie = new Cookie("loginCookie", session.getId());
 				userService.addLoginServer(user, session.getId());
 				loginCookie.setMaxAge(60*60*24*7);
 				response.addCookie(loginCookie);
 			}
-			userService.addLoginServer(loginUser, session.getId());
-			mav.setViewName("redirect:/");
+			mav.setViewName("redirect:/intro");
 		}else{
 			mav.setViewName("user/login");
 		}
@@ -57,6 +56,6 @@ public class UserController {
 		Cookie cookie = new Cookie("loginCookie","");
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
-		return "redirect:/";
+		return "redirect:/intro";
 	}
 }

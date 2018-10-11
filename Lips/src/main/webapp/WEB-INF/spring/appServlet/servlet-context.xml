@@ -15,7 +15,14 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/user/login" />
-			<beans:bean class="lips.userinfo.intercepter.UserIntercepter"/>
+			<beans:bean class="lips.userinfo.intercepter.LoginIntercepter" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/**" />
+			<exclude-mapping path="/intro"/>
+			<exclude-mapping path="/user/login"/>
+			<exclude-mapping path="/user/logout"/>
+			<beans:bean class="lips.userinfo.intercepter.UserIntercepter" />
 		</interceptor>
 	</interceptors>
 

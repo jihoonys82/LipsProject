@@ -36,12 +36,13 @@ public class UserController {
 			loginUser.setPw(null);
 			session.setAttribute("user", loginUser);
 			session.setAttribute("login", true);
-			if(useCookie.equals("true")) {
+			if(useCookie != null) {
 				Cookie loginCookie = new Cookie("loginCookie", session.getId());
 				userService.addLoginServer(user, session.getId());
 				loginCookie.setMaxAge(60*60*24*7);
 				response.addCookie(loginCookie);
 			}
+			userService.addLoginServer(loginUser, session.getId());
 			mav.setViewName("redirect:/");
 		}else{
 			mav.setViewName("user/login");

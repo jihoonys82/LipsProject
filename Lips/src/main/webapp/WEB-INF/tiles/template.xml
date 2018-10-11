@@ -22,4 +22,9 @@
 	<!-- 제외하고 싶을때는 아래와 같이 추가한다. -->
 <!-- 	<definition name="main" template="/WEB-INF/views/main.jsp"> -->
 <!-- 	</definition> -->
+
+
+<!-- 예외추가_인트로페이지_모영호 -->
+	<definition name="intro" template="/WEB-INF/views/main/intro.jsp">
+	</definition>
 </tiles-definitions>

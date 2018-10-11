@@ -1,4 +1,4 @@
-package lips.userinfo.intercepter;
+package lips.userinfo.interceptor;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +14,10 @@ import org.springframework.web.util.WebUtils;
 import lips.userinfo.dto.User;
 import lips.userinfo.service.UserService;
 
-public class LoginIntercepter extends HandlerInterceptorAdapter{
+public class LoginInterceptor extends HandlerInterceptorAdapter{
 	
 	@Autowired UserService userService;
-	private static final Logger logger = LoggerFactory.getLogger(LoginIntercepter.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {

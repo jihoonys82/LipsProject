@@ -23,8 +23,12 @@
 <!-- 	<definition name="main" template="/WEB-INF/views/main.jsp"> -->
 <!-- 	</definition> -->
 
+<!-- hhgygy -->
+
 
 <!-- 예외추가_인트로페이지_모영호 -->
 	<definition name="intro" template="/WEB-INF/views/main/intro.jsp">
 	</definition>
+	
+	
 </tiles-definitions>

@@ -15,7 +15,6 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/user/login" />
-<<<<<<< HEAD
 			<beans:bean class="lips.userinfo.intercepter.LoginIntercepter" />
 		</interceptor>
 		<interceptor>
@@ -25,9 +24,7 @@
 			<exclude-mapping path="/user/login"/>
 			<exclude-mapping path="/user/logout"/>
 			<beans:bean class="lips.userinfo.intercepter.UserIntercepter" />
-=======
-			<beans:bean class="lips.userinfo.intercepter.UserIntercepter"/>
->>>>>>> refs/remotes/origin/master
+
 		</interceptor>
 	</interceptors>
 

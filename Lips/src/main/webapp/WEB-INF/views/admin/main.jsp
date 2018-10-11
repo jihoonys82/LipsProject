@@ -27,25 +27,20 @@
 </head>
 <body class="jui">
 
-	<!-- <nav class="navbar navbar-inverse navbar-global navbar-fixed-top"> -->
-			<div class="navbar flat" style="overflow: hidden;">
-				<div class="inline right">
-					<span>admin 님 어서오세요</span>
-				</div>
-			</div>
-	<!-- </nav> -->
+<div class="navbar flat" style="overflow: hidden;">
+	<div class="inline right">
+		<span>admin 님 어서오세요</span>
+	</div>
+</div>
 	
-	
-
 <nav class="navbar-primary">
-  <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-menu-left"></span></a>
   <ul class="navbar-primary-menu">
     <li>
-      <a href="#"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">대시보드</span></a>
-      <a href="#"><span class="glyphicon glyphicon-envelope"></span><span class="nav-label">공지사항</span></a>
-      <a href="#"><span class="glyphicon glyphicon-cog"></span><span class="nav-label">프로젝트</span></a>
-      <a href="#"><span class="glyphicon glyphicon-film"></span><span class="nav-label">사용자</span></a>
-      <a href="#"><span class="glyphicon glyphicon-calendar"></span><span class="nav-label">서비스</span></a>
+      <a href="#"><span class="nav-label">대시보드</span></a>
+      <a href="#"><span class="nav-label">공지사항</span></a>
+      <a href="#"><span class="nav-label">프로젝트</span></a>
+      <a href="#"><span class="nav-label">사용자</span></a>
+      <a href="#"><span class="nav-label">서비스</span></a>
     </li>
   </ul>
 </nav>

@@ -37,7 +37,7 @@
 	</div>
 </div>
 <!-- footer -->
-<tiles:insertAttribute name="footer" />
+<%-- <tiles:insertAttribute name="footer" /> --%>
 
 <!-- Script link here  -->
 <script type="text/javascript" src="/resources/js/lips.js"></script>

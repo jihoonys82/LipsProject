@@ -1,4 +1,4 @@
-package lips.intro.controller;
+package lips.admin.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class IntroController {
+public class AdminController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(IntroController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	/**
 	 * Simply selects the home view to render by returning its name.

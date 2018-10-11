@@ -15,6 +15,7 @@ import lips.userinfo.dto.User;
 import lips.userinfo.service.UserService;
 
 public class LoginIntercepter extends HandlerInterceptorAdapter{
+	
 	@Autowired UserService userService;
 	private static final Logger logger = LoggerFactory.getLogger(LoginIntercepter.class);
 	@Override

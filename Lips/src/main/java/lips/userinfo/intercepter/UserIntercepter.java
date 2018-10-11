@@ -14,6 +14,7 @@ import org.springframework.web.util.WebUtils;
 import lips.userinfo.service.UserService;
 
 public class UserIntercepter extends HandlerInterceptorAdapter{
+	
 	@Autowired UserService userService;
 	private static final Logger logger = LoggerFactory.getLogger(LoginIntercepter.class);
 	@Override

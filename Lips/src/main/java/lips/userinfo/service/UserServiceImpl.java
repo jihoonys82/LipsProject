@@ -13,14 +13,12 @@ public class UserServiceImpl implements UserService{
 	@Autowired UserDao userDao;
 	@Override
 	public User login(User user) {
-		return userDao.selUserByIdPw(user);
+		return userDao.selectUserByIdAndPw(user);
 	}
 
 	@Override
 	public User loginAuto(String sessionId) {
-		User user =userDao.selIdBySessionId(sessionId);
-		if(user!=null)  return userDao.selUserById(user);
-		return null;
+		 return userDao.selectUserById(userDao.selectUserIdBySessionId(sessionId));
 	}
 
 	@Override
@@ -40,17 +38,12 @@ public class UserServiceImpl implements UserService{
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("user", user);
 		map.put("sessionId", sessionId);
-		if(userDao.selLoginCntByUserId(user.getUserId())==0) {
-			userDao.inUserLoginServer(map);
+		if(userDao.selectLoginServerCntByUserId(user.getUserId())==0) {
+			userDao.insertUserDataBySessionId(map);
 		}else {
-			userDao.upUserLoginServer(map);
+			userDao.updateUserDataBySessionId(map);
 		}
 		
-	}
-
-	@Override
-	public int checkLoginServer(String sessionId) {
-		return userDao.selLoginCntBySessionId(sessionId);
 	}
 
 }

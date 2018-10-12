@@ -116,3 +116,58 @@ body {
 	}
 
 	/* Issue - create */
+	
+	
+	
+	
+	
+/* Project */
+
+.ProjectBoxing {
+	
+	background-color: #6e6f737d;
+    margin: 0.65em;
+    margin-left: 0.05em;
+    height: auto;
+}
+
+
+.ProjectBox{
+	background-color: blue;
+	margin:2.5em;
+	height:15em;
+}
+
+.CreateProjectBox{
+	background-color: red;
+    margin: 1em;
+    height: 40%;
+    top: 1em;
+    position: relative;
+}
+
+.ProjectNav {
+	background-image: -webkit-linear-gradient(top,#272727 0,#111 100%);
+	border : 1px solid #404040;
+    border-radius: 5px;
+    margin: 0.65em;
+    margin-left: 0.05em;
+    height: auto;
+}
+
+.ProjectCreateWindow {
+	
+	background-color:green; 
+	border:1px solid gray;
+}
+
+#ProjectNavName {
+    margin: 0.5em auto;
+    margin-left: 1em;
+}
+
+#ProjectCreateForm .tr {
+	color : red !important;
+}
+
+/* Project */

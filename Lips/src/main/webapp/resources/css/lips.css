@@ -33,52 +33,25 @@ body {
 	background-color: #333;
 }
 
+/* 공통 */
+.alignCenter {
+	display: 		block; 
+	text-align: 	center;
+}
 
+.mt-1 {
+	margin-top : 	1em;
+}
+.mb-1 {
+	margin-bottom:	1em;
+}
 
 .clearfix::after { 
 	content			:"";
 	clear			: both; 
 	z-index			: -1;
 }
-
-/* 20181012 모영호_css */
-
-.ProjectBoxing {
-	
-	background-color: #6e6f737d;
-    margin: 0.65em;
-    margin-left: 0.05em;
-    height: auto;
-}
-
-
-.ProjectBox{
-	background-color: blue;
-	margin:2.5em;
-	height:15em;
-}
-
-.CreateProjectBox{
-	background-color: red;
-    margin: 1em;
-    height: 40%;
-    top: 1em;
-    position: relative;
-}
-
-.ProjectNav {
-	
-	background-color: #6e6f737d;
-    margin: 0.65em;
-    margin-left: 0.05em;
-    height: auto;
-}
-
-.ProjectCreateWindow {
-	
-	background-color:green; 
-	border:1px solid gray;
-}
+/*공통end  */
 
 
 /* Issue create by Jihoon Jeong  */
@@ -116,7 +89,18 @@ body {
 	}
 
 	/* Issue - create */
-	
+.issue-form-row {
+	width: 		100%;
+	margin:		1em;
+}
+.issue-form-row .issue-form-label {
+	display: inline-block;
+	width: 		15%;
+	margin-right: 5px;
+}
+.issue-form-row .issue-form-input {
+	width: 		60%;
+}
 	
 	
 	

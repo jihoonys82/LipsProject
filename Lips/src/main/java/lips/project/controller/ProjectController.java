@@ -17,7 +17,7 @@ public class ProjectController {
 	public String project() {
 		logger.info("project탭 활성화");
 
-		return "project/project";
+		return "project/main";
 	}
 
 	// 프로젝트 생성페이지

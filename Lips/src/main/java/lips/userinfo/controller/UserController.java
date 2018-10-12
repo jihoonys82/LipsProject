@@ -18,6 +18,7 @@ import lips.userinfo.service.UserService;
 @Controller
 @RequestMapping(value="/user")
 public class UserController {
+	
 
 	@Autowired UserService userService;
 	
@@ -36,13 +37,14 @@ public class UserController {
 			loginUser.setPw(null);
 			session.setAttribute("user", loginUser);
 			session.setAttribute("login", true);
-			if(useCookie.equals("true")) {
+			if(useCookie != null) {
 				Cookie loginCookie = new Cookie("loginCookie", session.getId());
 				userService.addLoginServer(user, session.getId());
 				loginCookie.setMaxAge(60*60*24*7);
 				response.addCookie(loginCookie);
 			}
-			mav.setViewName("redirect:/");
+			userService.addLoginServer(loginUser, session.getId());
+			mav.setViewName("redirect:/main");
 		}else{
 			mav.setViewName("user/login");
 		}
@@ -56,6 +58,6 @@ public class UserController {
 		Cookie cookie = new Cookie("loginCookie","");
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
-		return "redirect:/";
+		return "redirect:/main";
 	}
 }

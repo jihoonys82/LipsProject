@@ -13,4 +13,8 @@ public class IssueController {
 		
 	}
 	
+	@RequestMapping(value="/create", method=RequestMethod.GET)
+	public void issueCreateForm() {
+		
+	}
 }

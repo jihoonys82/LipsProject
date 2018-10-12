@@ -22,8 +22,7 @@
 <script src="/resources/jui/dist/core.min.js"></script>
 <script src="/resources/jui/dist/ui.min.js"></script>
 <script src="/resources/jui/dist/grid.min.js"></script>
-<script src="/resources/jui/dist/core.min.js"></script>
-<script src="/resources/jui/dist/chart.min.js"></script>
+<script src="/resources/jui/dist/chart.js"></script>
 
 
 </head>

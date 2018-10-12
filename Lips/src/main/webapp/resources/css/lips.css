@@ -52,7 +52,6 @@ body {
 }
 
 
-
 .ProjectBox{
 	background-color: blue;
 	margin:2.5em;
@@ -66,4 +65,19 @@ body {
     top: 1em;
     position: relative;
 }
+
+.ProjectNav {
+	
+	background-color: #6e6f737d;
+    margin: 0.65em;
+    margin-left: 0.05em;
+    height: auto;
+}
+
+.ProjectCreateWindow {
+	
+	background-color:green; 
+	border:1px solid gray;
+}
+
 

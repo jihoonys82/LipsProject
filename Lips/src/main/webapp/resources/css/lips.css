@@ -1,157 +1,168 @@
 @charset "UTF-8";
 
 * {
-	color 			: #FFFFFF;
+	color: #FFFFFF;
 }
+
 body {
 	background-color: #000000;
 }
-.header  { 
-	padding			: 10px;
-	
+
+.header {
+	padding: 10px;
 }
 
 .headerLogo {
-	float			:left; 
-	width			: 150px;
-	height			: 50px; 
+	float: left
+	width: 150px;
+	height: 50px;
 }
 
 .menu-right {
-	padding			: 10px;
+	padding: 10px;
 }
-.activityLog{
-	margin-top		: 10px;
-	padding			: 5px;
-	border			: 1px solid #ccc;
-	min-height		: 30em;
+
+.activityLog {
+	margin-top: 10px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	min-height: 30em;
 }
 
 .footer {
-	width			: 100%;
-	height			: 10em;
+	width: 100%;
+	height: 10em;
 	background-color: #333;
 }
 
 /* 공통 */
 .alignCenter {
-	display: 		block; 
-	text-align: 	center;
+	display: block;
+	text-align: center;
 }
 
 .mt-1 {
-	margin-top : 	1em;
-}
-.mb-1 {
-	margin-bottom:	1em;
+	margin-top: 1em;
 }
 
-.clearfix::after { 
-	content			:"";
-	clear			: both; 
-	z-index			: -1;
+.mb-1 {
+	margin-bottom: 1em;
+}
+
+.clearfix::after {
+	content: "";
+	clear: both;
+	z-index: -1;
 }
 /*공통end  */
 
-
 /* Issue create by Jihoon Jeong  */
-	/* Issue - common */
+/* Issue - common */
+
+.issueHeading {
+	margin: 10px;
+	padding: 10px;
+	border-bottom: 1px solid #999;
+}
+
 .btnMore {
-	float: 		right;
+	float: right;
 }
 
-	/* Issue - main  */
+/* Issue - main  */
 .issueHeadline {
-	padding: 	10px;
+	padding: 10px;
 }
-	.issueHeadline .twidth {
-		width: 		30%;
-	}
-.myIssue {
-	padding: 	10px;
-}
-	.myIssue .myCols-1 {
-		width: 		10%;
-	}
-	.myIssue .myCols-2 {
-		width: 		15%;
-	}
-	.myIssue .myCols-3 {
-		width: 		5%;
-	}
-	.myIssue .myIssueStage {
-		display: 	block; 
-		text-align:	center;
-	}
-	.myIssue .myIssueStageBtn {
-		margin-left: 	5px;
-		margin-right: 	5px;
-	}
 
-	/* Issue - create */
-.issue-form-row {
-	width: 		100%;
-	margin:		1em;
+.issueHeadline .twidth {
+	width: 30%;
 }
-.issue-form-row .issue-form-label {
-	display: inline-block;
-	width: 		15%;
+
+.myIssue {
+	padding: 10px;
+}
+
+.myIssue .myCols-1 {
+	width: 10%;
+}
+
+.myIssue .myCols-2 {
+	width: 15%;
+}
+
+.myIssue .myCols-3 {
+	width: 5%;
+}
+
+.myIssue .myIssueStage {
+	display: block;
+	text-align: center;
+}
+
+.myIssue .myIssueStageBtn {
+	margin-left: 5px;
 	margin-right: 5px;
 }
+
+/* Issue - create */
+.issue-form-row {
+	width: 100%;
+	margin: 1em;
+}
+
+.issue-form-row .issue-form-label {
+	display: inline-block;
+	width: 15%;
+	margin-right: 5px;
+}
+
 .issue-form-row .issue-form-input {
-	width: 		60%;
+	width: 60%;
 }
-	
-	
-	
-	
+
 /* Project */
-
 .ProjectBoxing {
-	
 	background-color: #6e6f737d;
-    margin: 0.65em;
-    margin-left: 0.05em;
-    height: auto;
+	margin: 0.65em;
+	margin-left: 0.05em;
+	height: auto;
 }
 
-
-.ProjectBox{
+.ProjectBox {
 	background-color: blue;
-	margin:2.5em;
-	height:15em;
+	margin: 2.5em;
+	height: 15em;
 }
 
-.CreateProjectBox{
+.CreateProjectBox {
 	background-color: red;
-    margin: 1em;
-    height: 40%;
-    top: 1em;
-    position: relative;
+	margin: 1em;
+	height: 40%;
+	top: 1em;
+	position: relative;
 }
 
 .ProjectNav {
-	background-image: -webkit-linear-gradient(top,#272727 0,#111 100%);
-	border : 1px solid #404040;
-    border-radius: 5px;
-    margin: 0.65em;
-    margin-left: 0.05em;
-    height: auto;
+	background-image: -webkit-linear-gradient(top, #272727 0, #111 100%);
+	border: 1px solid #404040;
+	border-radius: 5px;
+	margin: 0.65em;
+	margin-left: 0.05em;
+	height: auto;
 }
 
 .ProjectCreateWindow {
-	
-	background-color:green; 
-	border:1px solid gray;
+	background-color: green;
+	border: 1px solid gray;
 }
 
 #ProjectNavName {
-    margin: 0.5em auto;
-    margin-left: 1em;
+	margin: 0.5em auto;
+	margin-left: 1em;
 }
 
 #ProjectCreateForm .tr {
-	color : red !important;
+	color: red !important;
 }
 
 /* Project */

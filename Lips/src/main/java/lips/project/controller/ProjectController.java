@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import lips.project.dto.ProjectDto;
+
 @Controller
 @RequestMapping(value="/project")
 public class ProjectController {
@@ -30,8 +32,11 @@ public class ProjectController {
 
 	// 프로젝트 생성처리
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public void projectCreateProc() {
-		logger.info("project 생성 처리");
+	public void projectCreateProc(ProjectDto dto) {
+		logger.info("----------------------------------");
+		logger.info(dto.toString());
+		//20181012 여기까지함 
+		//받은 dto 처리하는것부터하기 
 
 	}
 

@@ -23,19 +23,19 @@ public interface UserDao {
 	 * @return User
 	 * 쿠키값을 조회하여 아이디를 반환한다.
 	 */
-	public User selIdBySessionId(String sessionId);
+	public User selIdBySId(String sessionId);
 	/**
 	 * @param sessionId_cookie
 	 * @return int
 	 * 로그인서버에 세션정보와 아이디가 존재하는지 확인한다.
 	 */
-	public int selLoginCntBySessionId(String sessionId);
+	public int selLoginCntBySId(String sessionId);
 	/**
 	 * @param userId
 	 * @return int
 	 * 로그인서버에 세션정보와 아이디가 존재하는지 확인한다.
 	 */
-	public int selLoginCntByUserId(String userId);
+	public int selLoginCntByUId(String userId);
 	
 	/**
 	 * @param map

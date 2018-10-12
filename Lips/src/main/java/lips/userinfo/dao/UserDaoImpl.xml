@@ -10,13 +10,13 @@
  	<select id="selUserById" parameterType="lips.userinfo.dto.User" resultType="lips.userinfo.dto.User">
  		SELECT * from userinfo where userid=#{userId }
  	</select>
- 	<select id="selIdBySessionId" parameterType="String" resultType="lips.userinfo.dto.User">
+ 	<select id="selIdBySId" parameterType="String" resultType="lips.userinfo.dto.User">
  		SELECT userid from user_autologin WHERE sessionId=#{value }
  	</select>	
- 	<select id="selLoginCntByUserId" parameterType="String" resultType="int">
+ 	<select id="selLoginCntByUId" parameterType="String" resultType="int">
  		SELECT count(*) from user_autologin where userId=#{value }
  	</select>
- 	<select id="selLoginCntBySessionId" parameterType="String" resultType="int">
+ 	<select id="selLoginCntBySId" parameterType="String" resultType="int">
  		SELECT count(*) from user_autologin where sessionId=#{value }
  	</select>
  	<insert id="inUserLoginServer" parameterType="HashMap">

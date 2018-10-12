@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public User loginAuto(String sessionId) {
-		User user =userDao.selIdBySessionId(sessionId);
+		User user =userDao.selIdBySId(sessionId);
 		if(user!=null)  return userDao.selUserById(user);
 		return null;
 	}
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService{
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("user", user);
 		map.put("sessionId", sessionId);
-		if(userDao.selLoginCntByUserId(user.getUserId())==0) {
+		if(userDao.selLoginCntByUId(user.getUserId())==0) {
 			userDao.inUserLoginServer(map);
 		}else {
 			userDao.upUserLoginServer(map);
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int checkLoginServer(String sessionId) {
-		return userDao.selLoginCntBySessionId(sessionId);
+		return userDao.selLoginCntBySId(sessionId);
 	}
 
 }

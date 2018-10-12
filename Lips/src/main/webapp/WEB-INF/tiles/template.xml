@@ -27,9 +27,6 @@
 <!-- 예외추가_인트로페이지_모영호 -->
 	<definition name="intro" template="/WEB-INF/views/main/intro.jsp">
 	</definition>
-
-<!-- 예외추가_관리자페이지_송주현 -->
 	<definition name="admin/main" template="/WEB-INF/views/admin/main.jsp">
-	</definition>	
-	
+	</definition>
 </tiles-definitions>

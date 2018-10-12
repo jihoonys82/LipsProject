@@ -6,4 +6,5 @@ public interface DashBoardDao {
 	public DashBoardDto viewDash(DashBoardDto dto);
 	
 	public DashBoardDto viewDashBasic();
+	
 }

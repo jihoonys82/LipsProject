@@ -16,11 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import lips.dashboard.dto.DashBoardDto;
 import lips.dashboard.service.DashBoardService;
 
-<<<<<<< HEAD
- 
-=======
 
->>>>>>> refs/remotes/origin/master
 @Controller
 public class DashBoardController {
 	

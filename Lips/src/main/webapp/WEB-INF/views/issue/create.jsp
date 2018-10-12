@@ -8,9 +8,22 @@
 	border-bottom: 1px solid #999;
 }
 
+.alignCenter {
+	display: 		block; 
+	text-align: 	center;
+}
+
+.mt-1 {
+	margin-top : 	1em;
+}
+.mb-1 {
+	margin-bottom:	1em;
+}
+
+/* issue form */
 .issue-form-row {
 	width: 		100%;
-	margin:		5px;
+	margin:		1em;
 }
 .issue-form-row .issue-form-label {
 	display: inline-block;
@@ -20,6 +33,7 @@
 .issue-form-row .issue-form-input {
 	width: 		60%;
 }
+
 
 </style>
 
@@ -33,13 +47,14 @@
 		</div>
 		<div class="body">
 			<form action="/issue/create" method="post" enctype="multipart/form-data">
+				<div class="h4 mb-1">기본항목</div>
 				<div class="issue-form-row">
 					<label for="issueTitle" class="issue-form-label">제목</label>
 					<input type="text" name="issueTitle" id="issueTitle" class=" input issue-form-input" />
 				</div>
 				<div class="issue-form-row">
 					<label for="issueTitle" class="issue-form-label">카테고리</label>
-					<select name="issueTitle" id="issueTitle" class=" input issue-form-input">
+					<select name="issueTitle" id="issueTitle" class="input issue-form-input">
 						<option value="1">이슈</option>
 						<option value="2">버그</option>
 						<option value="3">테스팅</option>
@@ -56,20 +71,30 @@
 				<div class="issue-form-row">
 					<label for="issueTitle" class="issue-form-label">이슈 단계</label>
 					<input type="text" name="issueTitle" id="issueTitle" class=" input issue-form-input" />
-					<button class="btn focus">단계 설정</button>
+					<button type="button" class="btn focus">단계 설정</button>
 				</div>
 				<div class="issue-form-row">
 					<label for="issueContent" class="issue-form-label">내용</label>
-					<textarea name="issueContent" id="issueContent" class="input issue-form-input"></textarea>
+					<textarea name="issueContent" id="issueContent" class="input issue-form-input" rows="10"></textarea>
 				</div>
 				<div class="issue-form-row">
-					<label for="issueFile" class="issue-form-label">내용</label>
-					<input type="file" name="issueFile" id="issueFile" class=" input issue-form-input" />
+					<label for="issueFile" class="issue-form-label">파일 업로드</label>
+					추가예정
+
+				</div>
+				<div class="hr mt-1 mb-1"></div>
+				<div class="h4 mt-1 mb-1">추가항목</div>
+				<div class="issue-form-row">
+					<label for="issueCustom1" class="issue-form-label">커스텀1</label>
+					추가예정
+
 				</div>
 				
 			</form>
-			
-		
+		</div>
+		<div class="foot alignCenter">
+			<button type="button" id="issueFormSubmit" class="btn focus">Submit</button>
+			<button type="button" id="issueFormCancel" class="btn">Cancel</button>
 		</div>
 	</div>
 	

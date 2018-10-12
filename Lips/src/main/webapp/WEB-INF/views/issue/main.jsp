@@ -74,7 +74,7 @@
 		<div class="panel">
 			<div class="head">
 				<strong>내게 할당된 이슈</strong>
-				<button class="btn focus btn-small btnMore">더보기</button>
+				<button class="btn focus small btnMore">더보기</button>
 			</div>
 			<table class="table classic hover">
 				<thead>
@@ -111,7 +111,7 @@
 		<div class="panel">
 			<div class="head">
 				<strong>내가 팔로잉한 이슈</strong>
-				<button class="btn focus btn-small btnMore">더보기</button>
+				<button class="btn focus small btnMore">더보기</button>
 			</div>
 			<table class="table classic hover">
 				<thead>

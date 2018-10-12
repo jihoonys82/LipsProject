@@ -81,3 +81,38 @@ body {
 }
 
 
+/* Issue create by Jihoon Jeong  */
+	/* Issue - common */
+.btnMore {
+	float: 		right;
+}
+
+	/* Issue - main  */
+.issueHeadline {
+	padding: 	10px;
+}
+	.issueHeadline .twidth {
+		width: 		30%;
+	}
+.myIssue {
+	padding: 	10px;
+}
+	.myIssue .myCols-1 {
+		width: 		10%;
+	}
+	.myIssue .myCols-2 {
+		width: 		15%;
+	}
+	.myIssue .myCols-3 {
+		width: 		5%;
+	}
+	.myIssue .myIssueStage {
+		display: 	block; 
+		text-align:	center;
+	}
+	.myIssue .myIssueStageBtn {
+		margin-left: 	5px;
+		margin-right: 	5px;
+	}
+
+	/* Issue - create */

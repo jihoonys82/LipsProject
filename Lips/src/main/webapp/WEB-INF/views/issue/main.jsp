@@ -1,37 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<style> 
-.issueHeadline {
-	padding: 	10px;
-}
-.issueHeadline .twidth {
-	width: 		30%;
-}
-.myIssue {
-	padding: 	10px;
-}
-.myIssue .myCols-1 {
-	width: 		10%;
-}
-.myIssue .myCols-2 {
-	width: 		15%;
-}
-.myIssue .myCols-3 {
-	width: 5%;
-}
-.myIssue .myIssueStage {
-	display: 	block; 
-	text-align:	center;
-}
-.myIssue .myIssueStageBtn {
-	margin-left: 	5px;
-	margin-right: 	5px;
-}
-.btnMore {
-	float: 		right;
-}
 
-</style>
 <div class="row">
 	<div class="col col-6 issueHeadline">
 		<h3>데드라인이 가까운 이슈</h3>

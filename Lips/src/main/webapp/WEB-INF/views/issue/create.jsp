@@ -87,9 +87,7 @@
 				<div class="issue-form-row">
 					<label for="issueCustom1" class="issue-form-label">커스텀1</label>
 					추가예정
-
 				</div>
-				
 			</form>
 		</div>
 		<div class="foot alignCenter">
@@ -97,7 +95,4 @@
 			<button type="button" id="issueFormCancel" class="btn">Cancel</button>
 		</div>
 	</div>
-	
-
-
 </div>

@@ -16,6 +16,9 @@
 .myIssue .myCols-2 {
 	width: 		15%;
 }
+.myIssue .myCols-3 {
+	width: 5%;
+}
 .myIssue .myIssueStage {
 	display: 	block; 
 	text-align:	center;
@@ -24,6 +27,10 @@
 	margin-left: 	5px;
 	margin-right: 	5px;
 }
+.btnMore {
+	float: 		right;
+}
+
 </style>
 <div class="row">
 	<div class="col col-6 issueHeadline">
@@ -98,6 +105,7 @@
 		<div class="panel">
 			<div class="head">
 				<strong>내게 할당된 이슈</strong>
+				<button class="btn focus btn-small btnMore">더보기</button>
 			</div>
 			<table class="table classic hover">
 				<thead>
@@ -127,5 +135,37 @@
 			</table>
 		</div>
 	 </div>
+</div>
 
+<div class="row">
+	<div class="col col-12 myIssue">
+		<div class="panel">
+			<div class="head">
+				<strong>내가 팔로잉한 이슈</strong>
+				<button class="btn focus btn-small btnMore">더보기</button>
+			</div>
+			<table class="table classic hover">
+				<thead>
+					<tr>
+						<th class="myCols-1">이슈번호</th>
+						<th>제목</th>
+						<th class="myCols-1">이슈 생성자</th>
+						<th class="myCols-1">이슈 담당자</th>
+						<th class="myCols-2">남은 기간</th>
+						<th class="myCols-1">단계</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>A</td>
+						<td>B</td>
+						<td>C</td>
+						<td>D</td>
+						<td>E</td>
+						<td>F</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	 </div>
 </div>

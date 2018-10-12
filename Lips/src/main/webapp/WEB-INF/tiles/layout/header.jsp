@@ -8,7 +8,7 @@
 	</div><!-- end of headerLogo -->
 	<div class="inline">
 		<ul class="nav">
-			<li><a href="#">프로젝트</a></li>
+			<li><a href="/project">프로젝트</a></li>
 			<li><a href="#">이슈</a></li>
 			<li><a href="#">마이페이지</a></li>
 			<li><a href="#">가이드</a></li>

@@ -68,7 +68,7 @@
 
 
 		<!-- 버튼 start -->
-		<a href="/login">
+		<a href="/user/login">
 		<button class="button">get Started</button>
 		</a>
 		 <a href='#'>
@@ -78,27 +78,34 @@
 
 
 	</div>
-
-
-
-	<!-- footer -->
-	<footer class="container-fluid">
-
-		<div class="row">
-			<div>
-
-				<h3 id="introfooter">Copyright ⓒ 2018. KH정보교육원 B반 파이널프로젝트 3조
-					Lips all rights reserved.</h3>
-			</div>
+<footer class="container-fluid">
+	<div class="row">
+		<div>
+			<h3 Style="font-size: 0.7rem;color: gray; text-align: center;
+			position : fixed; width:100%; bottom: 0px; left: 0px;
+			background : #343a40;
+			margin : 0;
+			line-height : 2rem";>
+			
+			
+			
+			Copyright ⓒ 2018. KH B-Class반 파이널프로젝트 3조 -김용재/김혁수/모영호/문재환/이현우/ all rights reserved.</h3>
 		</div>
-	</footer>
+		</div>
+		
+	
+</footer>
+
 
 
 
 
 	<!-- Script link here  -->
 	<!--  자바스크립트-->
-	<script type="text/javascript" src="/resources/js/lips.js"></script>
+<!-- 	<script type="text/javascript" src="/resources/js/lips.js"></script> -->
+
+	
+	<!-- 캐러셀 속도조정  -->
 	<script type="text/javascript">
 		$('.carousel').carousel({
 			interval : 3000

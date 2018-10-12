@@ -29,4 +29,6 @@
 	</definition>
 	<definition name="admin/main" template="/WEB-INF/views/admin/main.jsp">
 	</definition>
+	<definition name="admin/project/chart" template="/WEB-INF/views/admin/project/chart.jsp">
+	</definition>
 </tiles-definitions>

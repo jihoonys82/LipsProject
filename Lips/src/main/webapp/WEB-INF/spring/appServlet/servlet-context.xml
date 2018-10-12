@@ -20,6 +20,7 @@
 			<mapping path="/**" />
 			<exclude-mapping path="/resources/**" />
 			<exclude-mapping path="/intro"/>
+			<exclude-mapping path="/admin/**"/> <!--  테스트용 -->
 			<exclude-mapping path="/user/login"/>
 			<exclude-mapping path="/user/logout"/>
 			<beans:bean class="lips.userinfo.interceptor.UserInterceptor" />

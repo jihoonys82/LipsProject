@@ -32,7 +32,7 @@
 			<thead>
 				<tr>
 					<th class="twidth">이슈 제목</th>
-					<th></th>
+					<th></th> 
 				</tr>
 			</thead>
 		 	<tbody>

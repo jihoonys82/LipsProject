@@ -25,6 +25,7 @@
 <script src="/resources/jui/dist/core.min.js"></script>
 <script src="/resources/jui/dist/chart.min.js"></script>
 
+
 </head>
 <body class="jui">
 <!-- header  -->

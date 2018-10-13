@@ -4,7 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="lips.dashboard.dao.DashBoardDao">
-	<select id="viewDash" parameterType="lips.dashboard.dto.DashBoardDto" resultType="lips.dashboard.dto.DashBoardDto">
-	
+	<select id="seldashboardDashDto"
+		parameterType="lips.dashboard.dto.DashBoardDto"
+		resultType="lips.dashboard.dto.DashBoardDto">
+		SELECT*FROM dashboard WHERE userId=#{userId} AND projectId=#{projectId}
+	</select>
+	<select id="selJoinAssetDto"
+		parameterType="lips.dashboard.dto.DashBoardDto" resultType="list">
+		SELECT
+		D.dashboardid,D.assetid,D.positionx,D.positiony,D.assetvalue,A.assetname,A.assetdescription,A.assetview
+		FROM
+		Dashboard_user_asset D,Dashboard_asset A
+		WHERE D.assetId=A.assetId AND DashboardId=#{dashboardId}
+		ORDER BY positionx 
 	</select>
 </mapper>

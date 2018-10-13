@@ -1,7 +1,9 @@
 package lips.dashboard.controller;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import lips.dashboard.dto.DashBoardAssetDto;
 import lips.dashboard.dto.DashBoardDto;
 import lips.dashboard.service.DashBoardService;
 
@@ -25,21 +28,31 @@ public class DashBoardController {
 
 	
 	@RequestMapping(value = "/dashboard/dashview", method = RequestMethod.GET)
-	public ModelAndView dashBoardView(String userid , String projectname , DashBoardDto dto) {
+	public ModelAndView dashBoardView(String userId , int projectId , DashBoardDto dto) {
 		ModelAndView mav = new ModelAndView();
-		//임시 데이터
-		userid = "skt5015";
-		projectname = "dashex";
-		//임시 데이터
+		List<DashBoardAssetDto> assetList = new ArrayList<DashBoardAssetDto>();
+		DashBoardAssetDto assetdto = new DashBoardAssetDto();
+
+		userId="skt5015";
+		projectId = 1;
 		
-		DashBoardDto dashview = dbsvc.ViewPreset(dto);
+		dto.setProjectId(projectId);
+		dto.setUserid(userId);
+		
+		
+		DashBoardDto Boarddto = dbsvc.checkPreset(dto);
+		assetList = dbsvc.presetData(Boarddto);
 
 		
+		logger.info("Boarddto : " + Boarddto);
+		logger.info("assetData : " + assetList);
+		
+		mav.addObject("Boarddto",Boarddto);
+		mav.addObject("assetData", assetList);
 		
 		
 		mav.setViewName("/dashboard/dashview");
 		
-		logger.info("project start /dashboard view");
 		
 		return mav;
 	}

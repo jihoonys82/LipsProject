@@ -15,6 +15,11 @@ public class AdminController {
       
       return "admin/main";
    }
+   
+   @RequestMapping(value="/admin/notice", method=RequestMethod.GET)
+   public void notice() {
+	   logger.info("공지 페이지");
+   }
   
    @RequestMapping(value="/admin/project/chart", method=RequestMethod.GET)
    public String proChart() {
@@ -22,5 +27,23 @@ public class AdminController {
 	   
 	   return "admin/project/chart";
    }
+   
+   @RequestMapping(value="/admin/project/text", method=RequestMethod.GET)
+   public String proText() {
+	   logger.info("프로젝트 텍스트 페이지");
+	   
+	   return "admin/project/text";
+   }
+   
+   @RequestMapping(value="/admin/user/chart", method=RequestMethod.GET)
+   public void userChart() {
+	   logger.info("유저 차트 페이지");
+   }
+   
+   @RequestMapping(value="/admin/user/text", method=RequestMethod.GET)
+   public void userText() {
+	   logger.info("유저 텍스트 페이지");
+   }
+   
    
 }

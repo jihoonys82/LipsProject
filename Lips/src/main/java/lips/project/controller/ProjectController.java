@@ -2,16 +2,20 @@ package lips.project.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import lips.project.dto.ProjectDto;
+import lips.project.service.ProjectService;
 
 @Controller
-@RequestMapping(value="/project")
+@RequestMapping(value = "/project")
 public class ProjectController {
 
+	@Autowired
+	ProjectService service;
 	private static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
 	// 프로젝트 기본 페이지
@@ -35,9 +39,26 @@ public class ProjectController {
 	public void projectCreateProc(ProjectDto dto) {
 		logger.info("----------------------------------");
 		logger.info(dto.toString());
-		//20181012 여기까지함 
-		//받은 dto 처리하는것부터하기 
+		// 20181012 여기까지함
+		// 받은 dto 처리하는것부터하기
 
 	}
 
+	// 프로젝트 수정 페이지
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public void projectUpdate(ProjectDto dto) {
+
+	}
+
+	// 프로젝트 수정 페이지 프로세스
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public void projectUpdateProc(ProjectDto dto) {
+
+	}
+
+	// 프로젝트 삭제 프로세스
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public void projectDeleteProc(ProjectDto dto) {
+
+	}
 }

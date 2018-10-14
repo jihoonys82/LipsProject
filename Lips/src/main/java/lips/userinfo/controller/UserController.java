@@ -60,4 +60,12 @@ public class UserController {
 		response.addCookie(cookie);
 		return "redirect:/main";
 	}
+	@RequestMapping(value="logoutauto")
+	public String logoutAuto(HttpSession session,HttpServletResponse response) {	
+		session.invalidate();
+		Cookie cookie = new Cookie("loginCookie","");
+		cookie.setMaxAge(0);
+		response.addCookie(cookie);
+		return "/user/logoutauto";
+	}
 }

@@ -31,7 +31,7 @@ public class UserInterceptor extends HandlerInterceptorAdapter{
 					int state = userService.checkLoginServer(session.getId());
 					
 					if(state==0) {//다른사용자가 로그인한 경우
-						response.sendRedirect("/user/logout");
+						response.sendRedirect("/user/logoutauto");
 						return false;
 					}
 				}

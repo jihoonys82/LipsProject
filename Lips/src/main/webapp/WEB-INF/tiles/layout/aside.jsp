@@ -3,6 +3,4 @@
 <div class="activityLog">
 
 
-
-
 </div>

@@ -21,12 +21,12 @@ public class IssueService {
 	public ModelAndView setIssueMain(HttpSession session) {
 		
 		User user = (User)session.getAttribute("user");
-		logger.info(user.toString());
+//		logger.info(user.toString());
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("issueCloseDeadline", issueDao.selIssueByDealine(user));
-//		mav.addObject("issueMostFollowed", issueDao.selIssueByFollower(user));
-//		mav.addObject("issueAssigned", issueDao.selIssueByAssginee(user));
-//		mav.addObject("issueFollowing", issueDao.selIssueByFollowing(user));
+		mav.addObject("issueMostFollowed", issueDao.selIssueByFollower(user));
+		mav.addObject("issueAssigned", issueDao.selIssueByAssignee(user));
+		mav.addObject("issueFollowing", issueDao.selIssueByFollowing(user));
 		
 		mav.setViewName("issue/main");
 		

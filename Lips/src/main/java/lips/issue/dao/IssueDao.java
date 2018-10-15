@@ -26,7 +26,7 @@ public interface IssueDao {
 	 * @param user
 	 * @return
 	 */
-	public List<IssueDto> selIssueByAssginee(User user);
+	public List<IssueDto> selIssueByAssignee(User user);
 	
 	/**
 	 * Issue the user is following

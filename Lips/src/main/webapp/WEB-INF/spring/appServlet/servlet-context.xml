@@ -18,15 +18,15 @@
 		</interceptor>
 		
 		<!--  페이지 이동시 로그인 서버 검증 interceptor -->
-<!-- 		<interceptor> -->
-<!-- 			<mapping path="/**" /> -->
-<!-- 			<exclude-mapping path="/resources/**" /> -->
-<!-- 			<exclude-mapping path="/intro"/> -->
-<!-- 			<exclude-mapping path="/admin/**"/> --> 
-<!-- 			<exclude-mapping path="/user/login"/> -->
-<!-- 			<exclude-mapping path="/user/logout*"/> -->
-<!-- 			<beans:bean class="lips.userinfo.interceptor.UserInterceptor" /> -->
-<!-- 		</interceptor> -->
+		<interceptor>
+			<mapping path="/**" />
+			<exclude-mapping path="/resources/**" />
+			<exclude-mapping path="/intro"/>
+			<exclude-mapping path="/admin/**"/> 
+			<exclude-mapping path="/user/login"/>
+			<exclude-mapping path="/user/logout*"/>
+			<beans:bean class="lips.userinfo.interceptor.UserInterceptor" />
+		</interceptor>
 		
 	</interceptors>
 

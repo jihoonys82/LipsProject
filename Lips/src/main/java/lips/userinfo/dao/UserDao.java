@@ -47,4 +47,11 @@ public interface UserDao {
 	 * 로그인서버에 유저정보를 갱신한다.
 	 */
 	public void upUserLoginServer(HashMap<String,Object> map);
+	
+	/**
+	 *  
+	 * @return int
+	 * 접속중인 유저수를 반환한다.
+	 */
+	public int selActiveUserCnt();
 }

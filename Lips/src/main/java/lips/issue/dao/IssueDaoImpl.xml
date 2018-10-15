@@ -2,7 +2,42 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
  <mapper namespace="lips.issue.dao.IssueDao">
+ 	<select id="selIssueByDealine" parameterType="lips.userinfo.dto.User" resultType="lips.issue.dto.IssueDto">
+ 		SELECT * FROM issue 
+ 		WHERE assignee=#{userId} AND ROWNUM=1 
+ 		ORDER BY expectedEndDate
+ 	</select>
+ 	
+ 	<select id="selIssueByFollower" parameterType="lips.userinfo.dto.User" resultType="lips.issue.dto.IssueDto">
+ 		SELECT T.* 
+		FROM 
+		    (SELECT A.*, B.Watcher
+		        FROM issue A, 
+		            (SELECT issueid, COUNT(userId) Watcher 
+		                FROM issue_watcher 
+		                GROUP BY issueId 
+		                ORDER BY Watcher DESC
+		            ) B
+		        WHERE A.issueId = B.issueId 
+		            AND A.assignee=#{userId}
+		        ORDER BY B.Watcher DESC
+		    ) T
+		WHERE ROWNUM=1
+ 	</select>
+ 	
+ 	<select id="selIssueByAssignee" parameterType="lips.userinfo.dto.User" resultType="lips.issue.dto.IssueDto">
+ 		SELECT * FROM issue
+		WHERE assignee = #{userId}
+		ORDER BY issueStage, expectedEndDate, createDate
+ 	</select>
+ 	
+ 	<select id="selIssueByFollowing" parameterType="lips.userinfo.dto.User" resultType="lips.issue.dto.IssueDto">
+ 		SELECT *
+		FROM issue 
+		WHERE issueId IN (
+		    SELECT issueId FROM issue_watcher WHERE userId='test'
+		)
+ 	</select>
  
  </mapper>  

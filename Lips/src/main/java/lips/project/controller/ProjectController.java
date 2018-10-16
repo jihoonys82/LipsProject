@@ -1,14 +1,18 @@
 package lips.project.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import lips.project.dto.ProjectDto;
 import lips.project.service.ProjectService;
+import lips.userinfo.dto.User;
 
 @Controller
 @RequestMapping(value = "/project")
@@ -20,10 +24,18 @@ public class ProjectController {
 
 	// 프로젝트 기본 페이지
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String project() {
+	public void project(String create, HttpSession session, ModelAndView mav) {
 		logger.info("project탭 활성화");
+		
+//		User user = (User)session.getAttribute("user");
+//		
+//		
+//		
+//		mav.addObject("userProjectInfo", service.selPro(user));
+		mav.setViewName("project/main");
+		
 
-		return "project/main";
+		
 	}
 
 	// 프로젝트 생성페이지
@@ -36,11 +48,19 @@ public class ProjectController {
 
 	// 프로젝트 생성처리
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public void projectCreateProc(ProjectDto dto) {
+	public String projectCreateProc(ProjectDto dto,HttpSession session) {
 		logger.info("----------------------------------");
 		logger.info(dto.toString());
-		// 20181012 여기까지함
-		// 받은 dto 처리하는것부터하기
+		User user = (User)session.getAttribute("user");
+		System.out.println("유저나오니?"+user.toString());
+		int create =service.inPro(dto,user);
+	
+		if(create>=0) {
+			return "redirect:/project/main?create=success";	
+		}
+		else {
+			return "redirect:/project/main?create=fail";
+		}
 
 	}
 

@@ -5,6 +5,7 @@
  
  <div class="ProjectBoxing row">
   
+  <!-- 프로젝트 성공/실패에 따른 모달처리하기! -->
  
  <!-- 프로젝트 생성/참가 - 고정 -->
   <div class="col col-4">

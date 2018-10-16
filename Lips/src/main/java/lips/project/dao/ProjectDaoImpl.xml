@@ -3,5 +3,34 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="lips.project.dao.ProjectDao">
- 
+ 	
+ 	<!-- 프로젝트 조회 -->
+ 	<select id="selPro" parameterType="Map" resultType="List">
+ 		SELECT * from userinfo
+ 	</select>
+ 	
+ 	
+ 	<!-- 프로젝트 인서트 -->
+ 	<insert id="inPro" parameterType="lips.project.dto.ProjectDto">
+ 	
+ 		INSERT INTO projectinfo 
+ 		(projectId,projectName,projectKey,projectOpen,projectCreater,projectLeader,closeDate,status,projectDesc) 
+ 		VALUES 
+ 		(project_SEQ.NEXTVAL,#{projectName},#{projectKey},#{projectOpen},#{projectCreater},#{projectCreater},#{closeDate},'OPEN',#{projectDesc} )
+ 	
+ 	
+ 	<!-- 셀렉트키   -->
+ 	<!-- 파라미터타입(dto)의  변수(projectId)에 리절트타입(Interger)로 값을 반환   -->
+ 	  <selectKey keyProperty="projectId" resultType="Integer" order="AFTER">
+ 	  SELECT project_SEQ.CURRVAL FROM dual
+       </selectKey>
+ 	</insert>
+ 	
+ 	<insert id="inProMember" parameterType="hashmap">
+
+ 		INSERT INTO project_member 
+ 		(projectId,userId) VALUES
+ 		(${projectId},#{user.userId} )
+ 	
+ 	</insert>
  </mapper>

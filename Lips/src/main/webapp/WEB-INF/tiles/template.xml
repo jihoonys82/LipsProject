@@ -31,4 +31,17 @@
 	</definition>
 	<definition name="admin/project/chart" template="/WEB-INF/views/admin/project/chart.jsp">
 	</definition>
+	<definition name="admin/project/text" template="/WEB-INF/views/admin/project/text.jsp">
+	</definition>
+	<definition name="admin/user/chart" template="/WEB-INF/views/admin/user/chart.jsp">
+	</definition>
+	<definition name="admin/user/text" template="/WEB-INF/views/admin/project/text.jsp">
+	</definition>	
+	<definition name="admin/user/view" template="/WEB-INF/views/admin/user/view.jsp">
+	</definition>	
+	<definition name="admin/project/view" template="/WEB-INF/views/admin/project/view.jsp">
+	</definition>
+	<definition name="admin/notice" template="/WEB-INF/views/admin/notice.jsp">
+	</definition>		
+			
 </tiles-definitions>

@@ -107,8 +107,19 @@ body {
 	margin-right: 3em;
 }
 
+/* 수정 필요 */
+.marginForBox {
+	margin : 2em;
+}
+
 /* 이름 변경 */
 .test {
+	display: inline-block;
+	text-align: center;
+}
+
+.alignCenter {
+	display: block;
 	text-align: center;
 }
 
@@ -142,4 +153,55 @@ body {
 	border: 1px solid gray;
 	padding: 1em;
 	color: black;
+}
+
+/* user_view */
+
+.view-form-row {
+	width: 100%;
+	margin: 1em;
+}
+
+.view-form-row .view-form-label {
+	display: inline-block;
+	width: 15%;
+	margin-right: 5px;
+}
+
+.view-form-row .view-form-input {
+	width: 60%;
+}
+
+.viewUserBox {
+	height: 48.2em;
+}
+.viewUserBtn{ 
+    bottom: -20em;
+    text-align: center;
+    position: relative;
+}
+
+
+/* project_view */
+.viewProBox {
+	height: 44.3em;
+}
+.viewProBtn{ 
+    text-align: right;
+    position: relative;
+}
+
+.viewTwinBox {
+	display: inline-block;
+	border: 1px solid gray;
+	padding: 1em;
+	margin: 1em;
+	color: black;
+	margin-left: 3em;
+	margin-right: 3em;
+	height: 39.5em;
+}
+
+.forPaging{
+	margin : 8em;
 }

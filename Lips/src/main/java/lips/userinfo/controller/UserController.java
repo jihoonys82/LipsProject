@@ -26,12 +26,8 @@ public class UserController {
 	
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public void login(String useCookie, HttpSession session, HttpServletResponse response) {
-		User user = new User();
-		user.setUserId("test");
-		user.setPw("1234");
-		loginProc(user,"",session,response);
-	}
+	public void login() {}
+	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView loginProc(User user, String useCookie, HttpSession session, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();

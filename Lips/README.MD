@@ -65,3 +65,10 @@
     </pre></code>
     - SecurityContextHolder가 받은 요청의 Authentication객체의 값을 받는다.
       전달받은 값이 User와 같은 타입의 객체일 경우 (User) 로 캐스팅 하여 사용한다.
+      
+      <h2>유저객체 변경사항 10-17 17:00 commit 이후 적용</h2>
+      <pre><code>
+      	User user = new GetUserByToken();
+      </code></pre>
+      
+      객체 생성하여 사용가능

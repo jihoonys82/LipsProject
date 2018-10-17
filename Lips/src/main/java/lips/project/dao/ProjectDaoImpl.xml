@@ -5,8 +5,9 @@
  <mapper namespace="lips.project.dao.ProjectDao">
  	
  	<!-- 프로젝트 조회 -->
- 	<select id="selPro" parameterType="Map" resultType="List">
- 		SELECT * from userinfo
+ 	<select id="selPro" parameterType="lips.userinfo.dto.User" resultType="lips.project.dto.ProjectDto">
+ 		SELECT * FROM projectinfo pf, project_member pm
+	WHERE pf.PROJECTID = pm.PROJECTID AND USERID=#{userId}
  	</select>
  	
  	
@@ -26,6 +27,8 @@
        </selectKey>
  	</insert>
  	
+ 	
+ 	<!-- 프로젝트 멤버 인서트 ( 프로젝트 인서트와 동시에 실행) -->
  	<insert id="inProMember" parameterType="hashmap">
 
  		INSERT INTO project_member 

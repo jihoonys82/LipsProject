@@ -14,12 +14,14 @@ public class ProjectDto {
 	private String closeDate;
 	private String status;
 	private String projectDesc;
+	//프로젝트 메인페이지 조회용
+	private String UserId;
 	@Override
 	public String toString() {
 		return "ProjectDto [projectId=" + projectId + ", projectName=" + projectName + ", projectKey=" + projectKey
 				+ ", projectOpen=" + projectOpen + ", projectCreater=" + projectCreater + ", projectLeader="
 				+ projectLeader + ", createDate=" + createDate + ", closeDate=" + closeDate + ", status=" + status
-				+ ", projectDesc=" + projectDesc + "]";
+				+ ", projectDesc=" + projectDesc + ", UserId=" + UserId + "]";
 	}
 	public int getProjectId() {
 		return projectId;
@@ -81,6 +83,11 @@ public class ProjectDto {
 	public void setProjectDesc(String projectDesc) {
 		this.projectDesc = projectDesc;
 	}
-	
-	
+	public String getUserId() {
+		return UserId;
+	}
+	public void setUserId(String userId) {
+		UserId = userId;
+	}
+		
 }

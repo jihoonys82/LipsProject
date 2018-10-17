@@ -1,10 +1,12 @@
 package lips.project.controller;
 
-import javax.servlet.http.HttpSession;
+import java.util.Iterator;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,18 +26,34 @@ public class ProjectController {
 
 	// 프로젝트 기본 페이지
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public void project(String create, HttpSession session, ModelAndView mav) {
+	public ModelAndView project(String create, ModelAndView mav) {
 		logger.info("project탭 활성화");
 		
-//		User user = (User)session.getAttribute("user");
-//		
-//		
-//		
-//		mav.addObject("userProjectInfo", service.selPro(user));
+		// 내가 던져준 애 . 받은 객체 . 그 중에 토큰 정보 . 내가지정한 값
+		Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User loginUser = null;
+		// 토큰에서 받아온 유저랑 비교한다(데이터타입을) dto유저랑
+		if (user instanceof User) {
+			loginUser = (User) user;
+		} else {
+			logger.info(user.toString());
+		}
+		
+		////////////////////////
+		
+		System.out.println("--------------------------");
+	
+		List<ProjectDto> list = service.selPro(loginUser);
+//		Iterator<ProjectDto> itr =  list.iterator();
+//		 while (itr.hasNext()) { 
+//		      System.out.println("테스트"+itr.next().getProjectId()); }		      
+		
+		
+		
+	
+		mav.addObject("userProjectInfo", list);
 		mav.setViewName("project/main");
-		
-
-		
+		return mav;
 	}
 
 	// 프로젝트 생성페이지
@@ -48,17 +66,23 @@ public class ProjectController {
 
 	// 프로젝트 생성처리
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String projectCreateProc(ProjectDto dto,HttpSession session) {
-		logger.info("----------------------------------");
-		logger.info(dto.toString());
-		User user = (User)session.getAttribute("user");
-		System.out.println("유저나오니?"+user.toString());
-		int create =service.inPro(dto,user);
-	
-		if(create>=0) {
-			return "redirect:/project/main?create=success";	
+	public String projectCreateProc(ProjectDto dto) {
+		// 내가 던져준 애 . 받은 객체 . 그 중에 토큰 정보 . 내가지정한 값
+		Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User loginUser = null;
+		// 토큰에서 받아온 유저랑 비교한다(데이터타입을) dto유저랑
+		if (user instanceof User) {
+			loginUser = (User) user;
+		} else {
+			logger.info(user.toString());
 		}
-		else {
+		// loginUser.getNick();
+
+		int create = service.inPro(dto, loginUser);
+
+		if (create >= 0) {
+			return "redirect:/project/main?create=success";
+		} else {
 			return "redirect:/project/main?create=fail";
 		}
 

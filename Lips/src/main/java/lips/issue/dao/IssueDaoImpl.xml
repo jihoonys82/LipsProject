@@ -36,8 +36,18 @@
  		SELECT *
 		FROM issue 
 		WHERE issueId IN (
-		    SELECT issueId FROM issue_watcher WHERE userId='test'
+		    SELECT issueId FROM issue_watcher WHERE userId=#{userId}
 		)
  	</select>
- 
+ 	
+ 	<select id="selIssueWatcherCount" parameterType="lips.issue.dto.IssueDto" resultType="int">
+ 		SELECT COUNT(*) FROM issue_watcher
+ 		WHERE issueId=#{issueId}
+ 	</select>
+ 	
+ 	<select id="selIssueCommentCount" parameterType="lips.issue.dto.IssueDto" resultType="int">
+ 		SELECT COUNT(*) FROM issue_comment 
+ 		WHERE issueId=#{issueId}
+ 	</select>
+ 	
  </mapper>  

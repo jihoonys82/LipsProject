@@ -35,4 +35,19 @@ public interface IssueDao {
 	 */
 	public List<IssueDto> selIssueByFollowing(User user);
 	
+	/**
+	 * Get the number of watcher 
+	 * @param issueDto
+	 * @return
+	 */
+	public int selIssueWatcherCount(IssueDto issueDto);
+	
+	/**
+	 * get the number of comment
+	 * @param issueDto
+	 * @return
+	 */
+	public int selIssueCommentCount(IssueDto issueDto);
+	
+	
 }

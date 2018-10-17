@@ -10,7 +10,6 @@ import lips.userinfo.dto.User;
 public interface ProjectDao {
 	public List selPro(User user);
 	public int inPro(ProjectDto dto); 
-//	public void inProMember(User user);
 	public void inProMember(Map map);
 	public int upPro(ProjectDto dto);
 	public int delPro(ProjectDto dto);

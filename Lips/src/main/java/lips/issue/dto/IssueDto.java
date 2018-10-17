@@ -19,6 +19,10 @@ public class IssueDto {
 	private int issueStage;
 	private int stagePresetId;
 	
+	private String issueStageName;
+	private int numCommnet;
+	private int numWatcher;
+
 	@Override
 	public String toString() {
 		return "IssueDto [issueId=" + issueId + ", projectId=" + projectId + ", issueTitle=" + issueTitle
@@ -26,7 +30,8 @@ public class IssueDto {
 				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", startDate=" + startDate
 				+ ", expectedEndDate=" + expectedEndDate + ", actualEndDate=" + actualEndDate + ", issueContent="
 				+ issueContent + ", customValues=" + customValues + ", issueStage=" + issueStage + ", stagePresetId="
-				+ stagePresetId + "]";
+				+ stagePresetId + ", issueStageName=" + issueStageName + ", numCommnet=" + numCommnet + ", numWatcher="
+				+ numWatcher + "]";
 	}
 
 	public int getIssueId() {
@@ -147,5 +152,29 @@ public class IssueDto {
 
 	public void setStagePresetId(int stagePresetId) {
 		this.stagePresetId = stagePresetId;
+	}
+
+	public int getNumCommnet() {
+		return numCommnet;
+	}
+
+	public void setNumCommnet(int numCommnet) {
+		this.numCommnet = numCommnet;
+	}
+
+	public int getNumWatcher() {
+		return numWatcher;
+	}
+
+	public void setNumWatcher(int numWatcher) {
+		this.numWatcher = numWatcher;
+	}
+
+	public String getIssueStageName() {
+		return issueStageName;
+	}
+
+	public void setIssueStageName(String issueStageName) {
+		this.issueStageName = issueStageName;
 	}
 }

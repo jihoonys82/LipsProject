@@ -1,17 +1,14 @@
 package lips.main.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import lips.admin.controller.AdminController;
+import lips.userinfo.dto.UserByToken;
+import lips.userinfo.dto.User;
 
 @Controller
 public class MainController {
@@ -23,20 +20,17 @@ public class MainController {
 	@RequestMapping(value = "/intro", method = RequestMethod.GET)
 	public String intro() {
 		logger.info("intro 활성화");
-		
-		
 		return "intro";
 	}
 	
 
-
-	
 	//메인페이지 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main() {
 		logger.info("main 활성화");
 		
-		
+		User user = new UserByToken().getInstance();
+		logger.info("로그인사용자" + user.getNick());
 		return "main/main";
 	}
 	

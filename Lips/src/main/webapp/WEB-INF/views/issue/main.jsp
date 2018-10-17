@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script type="text/javascript" src="/resources/js/moment.min.js"></script>
 <div class="row">
 	<div class="col col-6 issueHeadline">
 		<h3>데드라인이 가까운 이슈</h3>
@@ -14,8 +15,8 @@
 			</thead>
 		 	<tbody>
 		 		<tr>
-					<td>남은 기간</td>
-					<td><span id="remainTime"></span></td>		
+					<td>남은 기간 </td>	
+					<td><span class="countDate"><fmt:formatDate value="${issueCloseDeadline.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>		
 		 		</tr>
 		 		<tr>
 					<td>이슈 내용</td>
@@ -27,11 +28,11 @@
 		 		</tr>
 		 		<tr>
 					<td>이슈댓글 수</td>
-					<td></td>		
+					<td>${commentCloseDeadline }</td>		
 		 		</tr>
 		 		<tr>
 					<td>팔로워 수</td>
-					<td></td>		
+					<td>${watcherCloseDeadline }</td>		
 		 		</tr>
 		 	</tbody>
 		</table>
@@ -42,29 +43,29 @@
 			<thead>
 				<tr>
 					<th class="twidth">이슈 제목</th>
-					<th></th>
+					<th>${issueMostFollowed.issueTitle }</th>
 				</tr>
 			</thead>
 		 	<tbody>
 		 		<tr>
 					<td>남은 기간</td>
-					<td></td>		
+					<td><span class="countDate"><fmt:formatDate value="${issueMostFollowed.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>		
 		 		</tr>
 		 		<tr>
 					<td>이슈 내용</td>
-					<td></td>		
+					<td>${issueMostFollowed.issueContent }</td>		
 		 		</tr>
 		 		<tr>
 					<td>이슈진행단계</td>
-					<td></td>		
+					<td>${issueMostFollowed.issueStage }</td>		
 		 		</tr>
 		 		<tr>
 					<td>이슈댓글 수</td>
-					<td></td>		
+					<td>${commentMostFollowed }</td>		
 		 		</tr>
 		 		<tr>
 					<td>팔로워 수</td>
-					<td></td>		
+					<td>${watcherMostFollowed }</td>		
 		 		</tr>
 		 	</tbody>
 		</table>
@@ -88,19 +89,21 @@
 					</tr>
 				</thead>
 				<tbody>
+					<c:forEach items="${issueAssigned }" var="issue">
 					<tr>
-						<td>A</td>
-						<td>B</td>
-						<td>C</td>
-						<td>D</td>
+						<td>${issue.issueId }</td>
+						<td>${issue.issueTitle }</td>
+						<td>${issue.createUser }</td>
+						<td><span class="countDate"><fmt:formatDate value="${issue.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>
 						<td>
 							<div class="myIssueStage">
 								<button class="btn btn-small myIssueStageBtn"><span class="icon icon-chevron-left"></span></button>
-								E
+								${issue.issueStage }
 								<button class="btn btn-small myIssueStageBtn"><span class="icon icon-chevron-right"></span></button>							
 							</div>
 						</td>
 					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
@@ -126,16 +129,41 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>A</td>
-						<td>B</td>
-						<td>C</td>
-						<td>D</td>
-						<td>E</td>
-						<td>F</td>
-					</tr>
+					<c:forEach items="${issueFollowing }" var="folIssue">
+						<tr>
+							<td>${folIssue.issueId }</td>
+							<td>${folIssue.issueTitle }</td>
+							<td>${folIssue.createUser }</td>
+							<td>${folIssue.assignee }</td>
+							<td><span class="countDate"><fmt:formatDate value="${folIssue.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>
+							<td>${folIssue.issueStage }</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
 	 </div>
 </div>
+<script>
+$(document).ready(function() {
+	//countDate("countDate");
+	var cdList = document.getElementsByClassName("countDate");
+
+	for(i=0; i<cdList.length;i++) {
+		
+		var cDate = new Date(cdList[i].innerText);
+		var diff = moment(cDate).diff(moment());
+		var	diffDay		= Math.floor(diff / (60 * 60 * 1000 * 24) * 1)
+		var	diffHour	= Math.floor((diff % (60 * 60 * 1000 * 24)) / (60 *60 * 1000) * 1)
+		var	diffMin		= Math.floor(((diff % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) / (60 * 1000) * 1)
+		var remainTime 	= "";
+		if(diffDay !=0) 	remainTime += diffDay+"일 ";
+		if(diffHour !=0) 	remainTime += diffHour +"시간 ";
+		remainTime += diffMin +"분 ";
+		if(Math.sign(diff)<0) remainTime +="지남";
+		else remainTime +="남음";
+	
+		cdList[i].innerText = remainTime;
+	}
+});
+</script>

@@ -26,6 +26,7 @@ public class CustomeAuthenticationProvider implements AuthenticationProvider{
 																										// 이이디비번으으로만든다.(로그인한
 																												// 유저아이디비번정보를담는다)
 		System.out.println(authToken);
+		
 
 		User userInfo = service.loadUserByUsername(authToken.getName()); // UserDetailsService에서
 																		// 유저정보를 불러온다.

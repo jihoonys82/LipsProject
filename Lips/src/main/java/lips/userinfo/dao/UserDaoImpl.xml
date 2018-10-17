@@ -4,25 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="lips.userinfo.dao.UserDao">
  
- 	<select id="selUserByIdPw" parameterType="lips.userinfo.dto.User" resultType="lips.userinfo.dto.User">
- 		SELECT * from userinfo WHERE userid=#{userId } AND pw=#{pw }
- 	</select>
  	<select id="selUserById" parameterType="String" resultType="lips.userinfo.dto.User">
  		SELECT * from userinfo where userid=#{value }
  	</select>
- 	<select id="selIdBySId" parameterType="String" resultType="lips.userinfo.dto.User">
- 		SELECT userid from user_autologin WHERE sessionId=#{value }
- 	</select>	
- 	<select id="selLoginCntByUId" parameterType="String" resultType="int">
- 		SELECT count(*) from user_autologin where userId=#{value }
- 	</select>
- 	<select id="selLoginCntBySId" parameterType="String" resultType="int">
- 		SELECT count(*) from user_autologin where sessionId=#{value }
- 	</select>
- 	<insert id="inUserLoginServer" parameterType="HashMap">
- 		INSERT INTO user_autologin (USERID,SESSIONID,LASTREQUEST,LASTACTIVITY,CONNECTEDIP) VALUES (#{user.userId},#{sessionId},sysdate , null , null )
- 	</insert>
- 	<update id="upUserLoginServer" parameterType="HashMap">
- 		UPDATE user_autologin SET SESSIONID=#{sessionId}, LASTREQUEST= sysdate WHERE USERID=#{user.userId }
- 	</update>
+
  </mapper>

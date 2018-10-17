@@ -2,11 +2,12 @@ package lips.main.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import lips.userinfo.dto.GetUserByToken;
+import lips.userinfo.dto.UserByToken;
 import lips.userinfo.dto.User;
 
 @Controller
@@ -27,10 +28,9 @@ public class MainController {
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main() {
 		logger.info("main 활성화");
-		User user = new GetUserByToken();
 		
-		logger.warn(user.getNick()+"님 환영합니다");
-		
+		User user = new UserByToken().getInstance();
+		logger.info("로그인사용자" + user.getNick());
 		return "main/main";
 	}
 	

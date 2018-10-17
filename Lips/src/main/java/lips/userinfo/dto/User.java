@@ -85,6 +85,12 @@ public class User implements UserDetails{
 		return authorities;
 	}
 	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", email=" + email + ", pw=" + pw + ", createDate=" + createDate + ", nick="
+				+ nick + ", blocked=" + blocked + ", userLevel=" + userLevel + ", phone=" + phone + ", birth=" + birth
+				+ "]";
+	}
+	@Override
 	public String getPassword() {
 		return pw;
 	}
@@ -110,6 +116,4 @@ public class User implements UserDetails{
 	}
 	
 
-
-	
 }

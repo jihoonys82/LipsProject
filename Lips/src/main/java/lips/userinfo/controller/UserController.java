@@ -26,4 +26,7 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public void login() {}
 	
+	@RequestMapping(value="/join", method=RequestMethod.GET)
+	public void join() {}
+	
 }

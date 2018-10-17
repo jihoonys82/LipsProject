@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import lips.issue.dao.IssueDao;
+import lips.issue.dto.IssueDto;
 import lips.userinfo.dto.User;
 
 @Service
@@ -18,13 +19,22 @@ public class IssueService {
 	
 	@Autowired IssueDao issueDao;
 	
-	public ModelAndView setIssueMain(HttpSession session) {
+	public ModelAndView setIssueMain(User user) {
 		
-		User user = (User)session.getAttribute("user");
 //		logger.info(user.toString());
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("issueCloseDeadline", issueDao.selIssueByDealine(user));
-		mav.addObject("issueMostFollowed", issueDao.selIssueByFollower(user));
+		
+		IssueDto issueDeadline = issueDao.selIssueByDealine(user);
+		IssueDto issueMostFollowed = issueDao.selIssueByFollower(user);
+		
+		mav.addObject("issueCloseDeadline", issueDeadline);
+		mav.addObject("watcherCloseDeadline", issueDao.selIssueWatcherCount(issueDeadline));
+		mav.addObject("commentCloseDeadline", issueDao.selIssueCommentCount(issueDeadline));
+		
+		mav.addObject("issueMostFollowed", issueMostFollowed);
+		mav.addObject("watcherMostFollowed", issueDao.selIssueWatcherCount(issueMostFollowed));
+		mav.addObject("commentMostFollowed", issueDao.selIssueWatcherCount(issueMostFollowed));
+		
 		mav.addObject("issueAssigned", issueDao.selIssueByAssignee(user));
 		mav.addObject("issueFollowing", issueDao.selIssueByFollowing(user));
 		

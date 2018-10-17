@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import lips.issue.service.IssueService;
+import lips.userinfo.dto.User;
+import lips.userinfo.dto.UserByToken;
 
 @Controller
 @RequestMapping(value="/issue")
@@ -17,9 +19,11 @@ public class IssueController {
 	@Autowired IssueService issueService;
 	
 	@RequestMapping(value="/main", method=RequestMethod.GET)
-	public ModelAndView issueMain(HttpSession session) {
+	public ModelAndView issueMain() {
 		
-		ModelAndView mav = issueService.setIssueMain(session);
+		User user = new UserByToken().getInstance();
+		
+		ModelAndView mav = issueService.setIssueMain(user);
 		
 		return mav;
 	}

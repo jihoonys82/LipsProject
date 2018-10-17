@@ -11,12 +11,10 @@
     <pre><code><%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %></pre></code>
 
     2. EL로 값을 가져올 경우
-    <pre><code>${sessionScope.user.userId}</pre></code>
-    =>
-    <pre><code> &ltsec:authentication property="principal.userId"/&gt </pre></code>
+    <pre><code>${sessionScope.user.userId}  =>  &ltsec:authentication property="principal.userId"/&gt </pre></code>
 
     3. 사용자의 권한을 확인할 경우
-    <pre><code>${sessionScope.user.userLevel eq 2} =>  &ltsec:authorize access="hasAuthority('USER')"&gt</pre></code>
+    <pre><code>${sessionScope.user.userLevel eq 2}  =>  &ltsec:authorize access="hasAuthority('USER')"&gt</pre></code>
       - 세션 유저객체의 레벨을 확인함        =>      토큰이 접근 권한을 가지고 있는지 확인
 
       * 예외

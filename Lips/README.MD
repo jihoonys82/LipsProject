@@ -17,11 +17,13 @@
     <pre><code>${sessionScope.user.userLevel eq 2}  =>  &ltsec:authorize access="hasAuthority('USER')"&gt</pre></code>
       - 세션 유저객체의 레벨을 확인함        =>      토큰이 접근 권한을 가지고 있는지 확인
 
-      * 예외
+      <h3> 예외</h3>
     <pre><code>${sessionScope.login eq true}</pre></code>
-    sessionScope.login 값은 SpringSecurity에서 지원한다.
-    따라서 이전에 사용하던 형식 그대로 유지가능
-    (어디서 충돌이 생길지 모르니 sec 태그로 변경 추천)
+    <h4>
+    sessionScope.login 값은 SpringSecurity에서 지원한다.<br>
+    따라서 이전에 사용하던 형식 그대로 사용가능하다.
+    (하지만 어디서 충돌이 생길지 모르니 sec 태그로 변경 추천)<br>
+    </h4>
 
     4. 사용자 권한 확인 메소드
       - hasRole('권한') , hasAuthority('권한')

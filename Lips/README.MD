@@ -13,7 +13,7 @@
     2. EL로 값을 가져올 경우
     <pre><code>${sessionScope.user.userId}</pre></code>
     =>
-    <pre><code><sec:authentication property="principal.userId"/></pre></code>
+    <pre><code>\<sec:authentication property="principal.userId"/\></pre></code>
 
     3. 사용자의 권한을 확인할 경우
     <pre><code>${sessionScope.user.userLevel eq 2} =>  <sec:authorize access="hasAuthority('USER')"></pre></code>

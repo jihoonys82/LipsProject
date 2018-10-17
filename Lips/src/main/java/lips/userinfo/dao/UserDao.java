@@ -10,5 +10,7 @@ public interface UserDao {
 	 * 쿠키값으로 찾은 아이디로 조회하여 유저객체를 반환한다.
 	 */
 	public User selUserById(String userId);
+	
+	public void inUser(User user);
 
 }

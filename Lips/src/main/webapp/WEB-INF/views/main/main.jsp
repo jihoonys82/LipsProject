@@ -9,5 +9,7 @@
 </h1>
 	<sec:authorize access="hasAuthority('USER')">
 		<sec:authentication property="principal.userId"/> 님 환영합니다.
+<%-- 	 =${sessionScope.user.userId } --%>
+		<sec:authentication property="principal.nick" />
 	</sec:authorize>
 <P>  The time on the server is ${serverTime}. </P>

@@ -17,6 +17,8 @@ public class User implements UserDetails{
 	private String nick;
 	private int blocked;
 	private int userLevel;
+	private String phone;
+	private Date birth;
 	
 	public String getUserId() {
 		return userId;
@@ -72,14 +74,13 @@ public class User implements UserDetails{
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
-	private String phone;
-	private Date birth;
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("USER"));
-		if (userId != null && userId.equals("admin")) {
-			authorities.add(new SimpleGrantedAuthority("USER_MANAGER"));
+		if (userId != null && userLevel  > 1) {
+			authorities.add(new SimpleGrantedAuthority("ADMIN"));
 		}
 		return authorities;
 	}

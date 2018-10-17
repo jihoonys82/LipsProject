@@ -9,7 +9,7 @@
 <!-- 			<security:intercept-url pattern="/login" access="permitAll" /> -->
 			<security:intercept-url pattern="/project/**" access="hasAuthority('USER')" />
 			<security:intercept-url pattern="/issue/**" access="hasAuthority('USER')" />
-<!-- 			<security:intercept-url pattern="/admin/**" access="hasAuthority('ADMIN)" /> -->
+			<security:intercept-url pattern="/admin/**" access="hasAuthority('ADMIN')" />
 			<security:intercept-url pattern="/**" access="permitAll" />
 			<security:form-login
 				login-page="/user/login" login-processing-url="/login"
@@ -36,10 +36,8 @@
 		</security:authentication-provider>
 		
 		<security:authentication-provider>
-			<security:user-service >
-				<security:user name="admin" password="1234" authorities="USER,ADMIN"/>
-			</security:user-service>
-			<security:jdbc-user-service data-source-ref="dataSourceSpied"/>
+			<security:jdbc-user-service data-source-ref="dataSourceSpied" id="jdbcUserService"/>
+			<security:password-encoder ref="passwordEncoder"/>
 		</security:authentication-provider>
 		
 	</security:authentication-manager>	

@@ -22,6 +22,7 @@
 			<a class="btn">Search</a>
 		</div>
 		<sec:authorize access="hasAuthority('USER')">
+<%-- 		<c:if test="#{sessionScope.user.userId } "> --%>
 			<a class="btn" href="<c:url value='/logout' />">logout</a>
 		</sec:authorize>
 		<sec:authorize access="!hasAuthority('USER')">

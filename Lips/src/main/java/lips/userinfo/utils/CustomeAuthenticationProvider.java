@@ -23,10 +23,9 @@ public class CustomeAuthenticationProvider implements AuthenticationProvider{
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) authentication; // 유저가 입력한
-																												// 정보를
-																												// 이이디비번으으로만든다.(로그인한
+																										// 이이디비번으으로만든다.(로그인한
 																												// 유저아이디비번정보를담는다)
-//		System.out.println(authToken);
+		System.out.println(authToken);
 
 		User userInfo = service.loadUserByUsername(authToken.getName()); // UserDetailsService에서
 																		// 유저정보를 불러온다.
@@ -40,7 +39,7 @@ public class CustomeAuthenticationProvider implements AuthenticationProvider{
 
 		List<GrantedAuthority> authorities = (List<GrantedAuthority>) userInfo.getAuthorities();
 
-		return new UsernamePasswordAuthenticationToken(userInfo, null, authorities);
+		return new UsernamePasswordAuthenticationToken(userInfo, null, authorities);//null은 크리덴셜을 제거하기 위함이다.
 	}
 
 	private boolean matchPassword(String password, Object credentials) {

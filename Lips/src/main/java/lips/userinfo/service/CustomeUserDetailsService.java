@@ -11,11 +11,13 @@ import lips.userinfo.dto.User;
 @Service
 public class CustomeUserDetailsService implements UserDetailsService {
 	@Autowired UserDao dao;
-	
+
+
 	@Override
 	public User loadUserByUsername(String username) throws UsernameNotFoundException {
 		User userinfo = null;
 		userinfo = dao.selUserById(username);
 		return userinfo;
 	}
+	
 }

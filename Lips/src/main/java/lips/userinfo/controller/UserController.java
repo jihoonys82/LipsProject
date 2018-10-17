@@ -28,45 +28,49 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public void login() {}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public ModelAndView loginProc(User user, String useCookie, HttpSession session, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-		logger.info(useCookie);
-		User loginUser = userService.login(user);
-		if(loginUser != null) {
-			logger.info(loginUser.toString());
-			loginUser.setPw(null);
-			session.setAttribute("user", loginUser);
-			session.setAttribute("login", true);
-			if(useCookie != null) {
-				Cookie loginCookie = new Cookie("loginCookie", session.getId());
-				userService.addLoginServer(user, session.getId());
-				loginCookie.setMaxAge(60*60*24*7);
-				response.addCookie(loginCookie);
-			}
-			userService.addLoginServer(loginUser, session.getId());
-			mav.setViewName("redirect:/main");
-		}else{
-			mav.setViewName("user/login");
-		}
-		return mav;
-	}
 	
 	
-	@RequestMapping(value="logout")
-	public String logout(HttpSession session, HttpServletResponse response) {
-		session.invalidate();
-		Cookie cookie = new Cookie("loginCookie","");
-		cookie.setMaxAge(0);
-		response.addCookie(cookie);
-		return "redirect:/main";
-	}
-	@RequestMapping(value="logoutauto")
-	public String logoutAuto(HttpSession session,HttpServletResponse response) {	
-		Cookie cookie = new Cookie("loginCookie","");
-		cookie.setMaxAge(0);
-		response.addCookie(cookie);
-		session.invalidate();
-		return "user/logoutauto";
-	}
+	
+	
+//	@RequestMapping(value="/login", method=RequestMethod.POST)
+//	public ModelAndView loginProc(User user, String useCookie, HttpSession session, HttpServletResponse response) {
+//		ModelAndView mav = new ModelAndView();
+//		logger.info(useCookie);
+//		User loginUser = userService.login(user);
+//		if(loginUser != null) {
+//			logger.info(loginUser.toString());
+//			loginUser.setPw(null);
+//			session.setAttribute("user", loginUser);
+//			session.setAttribute("login", true);
+//			if(useCookie != null) {
+//				Cookie loginCookie = new Cookie("loginCookie", session.getId());
+//				userService.addLoginServer(user, session.getId());
+//				loginCookie.setMaxAge(60*60*24*7);
+//				response.addCookie(loginCookie);
+//			}
+//			userService.addLoginServer(loginUser, session.getId());
+//			mav.setViewName("redirect:/main");
+//		}else{
+//			mav.setViewName("user/login");
+//		}
+//		return mav;
+//	}
+//	
+//	
+//	@RequestMapping(value="logout")
+//	public String logout(HttpSession session, HttpServletResponse response) {
+//		session.invalidate();
+//		Cookie cookie = new Cookie("loginCookie","");
+//		cookie.setMaxAge(0);
+//		response.addCookie(cookie);
+//		return "redirect:/main";
+//	}
+//	@RequestMapping(value="logoutauto")
+//	public String logoutAuto(HttpSession session,HttpServletResponse response) {	
+//		Cookie cookie = new Cookie("loginCookie","");
+//		cookie.setMaxAge(0);
+//		response.addCookie(cookie);
+//		session.invalidate();
+//		return "user/logoutauto";
+//	}
 }

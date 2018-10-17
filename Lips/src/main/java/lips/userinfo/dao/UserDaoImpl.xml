@@ -7,8 +7,8 @@
  	<select id="selUserByIdPw" parameterType="lips.userinfo.dto.User" resultType="lips.userinfo.dto.User">
  		SELECT * from userinfo WHERE userid=#{userId } AND pw=#{pw }
  	</select>
- 	<select id="selUserById" parameterType="lips.userinfo.dto.User" resultType="lips.userinfo.dto.User">
- 		SELECT * from userinfo where userid=#{userId }
+ 	<select id="selUserById" parameterType="String" resultType="lips.userinfo.dto.User">
+ 		SELECT * from userinfo where userid=#{value }
  	</select>
  	<select id="selIdBySId" parameterType="String" resultType="lips.userinfo.dto.User">
  		SELECT userid from user_autologin WHERE sessionId=#{value }

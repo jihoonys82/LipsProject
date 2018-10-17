@@ -22,6 +22,7 @@
 			</bean>
 		</property>
 	</bean>
+
 	
 	<!-- MyBatis 수행 객체 (SqlSession) -->
 	<bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

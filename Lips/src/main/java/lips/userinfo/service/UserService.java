@@ -5,10 +5,10 @@ import lips.userinfo.dto.User;
 public interface UserService {
 
 	public User login(User user);
-	public User loginAuto(String sessionId);
+//	public User loginAuto(String sessionId);
 	public void join(User user);
 	public User update(User user);
-	public void addLoginServer(User user, String sessionId);
+//	public void addLoginServer(User user, String sessionId);
 	public int checkLoginServer(String sessionId);
 
 }

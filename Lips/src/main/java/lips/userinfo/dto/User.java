@@ -1,8 +1,15 @@
 package lips.userinfo.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
-public class User {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+public class User implements UserDetails{
 	private String userId;
 	private String email;
 	private String pw;
@@ -10,16 +17,6 @@ public class User {
 	private String nick;
 	private int blocked;
 	private int userLevel;
-	private String phone;
-	private Date birth;
-	
-	
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", email=" + email + ", pw=" + pw + ", createDate=" + createDate + ", nick="
-				+ nick + ", blocked=" + blocked + ", userLevel=" + userLevel + ", phone=" + phone + ", birth=" + birth
-				+ "]";
-	}
 	
 	public String getUserId() {
 		return userId;
@@ -75,6 +72,43 @@ public class User {
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
+	private String phone;
+	private Date birth;
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority("USER"));
+		if (userId != null && userId.equals("admin")) {
+			authorities.add(new SimpleGrantedAuthority("USER_MANAGER"));
+		}
+		return authorities;
+	}
+	@Override
+	public String getPassword() {
+		return pw;
+	}
+	@Override
+	public String getUsername() {
+		return userId;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+	
+
 
 	
 }

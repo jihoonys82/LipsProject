@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/resources/css/login.css?ver=2"  />
 
 <div class="loginBox">
-	<form action="/user/login" method="POST" id="loginform">
+	<form action="/login" method="POST" id="loginform">
 		<div class="formItem">
 			<input class="input large" type="text" id="userId" name="userId" />
 		</div>
@@ -21,13 +21,5 @@
 			<a class="btn large" href="/user/join" >Join</a> 
 		</div>
 	</form>
-	
-	<script type="text/javascript">
-	$( document ).ready(function() {
-	    $('#userId').val('test');
-	    $('#pw').val('1234');
-	    $('#loginform').submit();
-	});
-	</script>
 	
 </div>

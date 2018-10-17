@@ -17,7 +17,7 @@ public interface UserDao {
 	 * @return User
 	 * 쿠키값으로 찾은 아이디로 조회하여 유저객체를 반환한다.
 	 */
-	public User selUserById(User user);
+	public User selUserById(String userId);
 	/**
 	 * @param sessionId_cookie
 	 * @return User

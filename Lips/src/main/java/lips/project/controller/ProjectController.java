@@ -43,11 +43,9 @@ public class ProjectController {
 		
 		System.out.println("--------------------------");
 	
+	
 		List<ProjectDto> list = service.selPro(loginUser);
-//		Iterator<ProjectDto> itr =  list.iterator();
-//		 while (itr.hasNext()) { 
-//		      System.out.println("테스트"+itr.next().getProjectId()); }		      
-		
+
 		
 		
 	
@@ -66,7 +64,7 @@ public class ProjectController {
 
 	// 프로젝트 생성처리
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String projectCreateProc(ProjectDto dto) {
+	public void projectCreateProc(ProjectDto dto) {
 		// 내가 던져준 애 . 받은 객체 . 그 중에 토큰 정보 . 내가지정한 값
 		Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User loginUser = null;
@@ -76,15 +74,12 @@ public class ProjectController {
 		} else {
 			logger.info(user.toString());
 		}
-		// loginUser.getNick();
+		
 
-		int create = service.inPro(dto, loginUser);
+		 service.inPro(dto, loginUser);
 
-		if (create >= 0) {
-			return "redirect:/project/main?create=success";
-		} else {
-			return "redirect:/project/main?create=fail";
-		}
+		
+			
 
 	}
 

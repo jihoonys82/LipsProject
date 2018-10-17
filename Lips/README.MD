@@ -68,7 +68,7 @@
       
       <h2>유저객체 변경사항 10-17 17:00 commit 이후 적용</h2>
       <pre><code>
-      	User user = new GetUserByToken();
+      	User user = new UserByToken().getInstance();
       </code></pre>
       
       객체 생성하여 사용가능

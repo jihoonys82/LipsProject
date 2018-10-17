@@ -1,71 +1,92 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="/resources/css/admin.css" />
+<!-- <!DOCTYPE html> -->
+<!-- <html> -->
+<!-- <head> -->
+<!-- <meta charset="UTF-8"> -->
+<!-- <title>Insert title here</title> -->
 
-<!-- ### Stylesheet link here ### -->
-<!-- Basic style components -->
-<link rel="stylesheet" href="/resources/jui/dist/ui.min.css" />
-<link rel="stylesheet" href="/resources/jui/dist/ui-dark.min.css" />
-<link rel="stylesheet" href="/resources/jui/dist/grid.min.css" />
-<link rel="stylesheet" href="/resources/jui/dist/grid-dark.min.css" />
+<%-- <%@ include file="/WEB-INF/views/admin/navbar.jsp" %> --%>
 
-<!-- project Default StyleSheet -->
-<link rel="stylesheet" href="/resources/css/lips.css?ver=4"  />
+<!-- </head> -->
+<!-- <body class="jui"> -->
 
-<!-- ### Script Load here ### -->
-<!-- Required script files -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="/resources/jui/dist/core.min.js"></script>
-<script src="/resources/jui/dist/ui.min.js"></script>
-<script src="/resources/jui/dist/grid.min.js"></script>
+<%-- <%@ include file="/WEB-INF/views/admin/navbar.jsp" %> --%>
 
-<script src="/resources/jui/dist/core.min.js"></script>
-<script src="/resources/jui/dist/chart.min.js"></script>
-
-</head>
-<body class="jui">
-
-	<div class="navbar flat" style="overflow: hidden;">
-	<div class="inline right">
-		<span>admin 님 어서오세요</span>
-	</div>
-	</div>
-	
-<nav class="col col-2">
+<!-- <div class="col col-10"> -->
 	<div class="panel">
 		<div class="body">
-			<a href=""><span class="nav-label">대시보드</span></a>		
+			<div class="infomationWith col col-12">공지사항</div>
 		</div>
-		<div class="body">	      
-			<a href="#"><span class="nav-label">공지사항</span></a>
-		</div>
-		<div class="body">
-	    	<a href="project/chart"><span class="nav-label">프로젝트</span></a>
-		</div>
-		<div class="body">
-		     <a href="#"><span class="nav-label">사용자</span></a>
-		</div>
-		<div class="body">
-		    <a href="#"><span class="nav-label">서비스</span></a>
-		</div>
-		<div class="body" style="min-height:30em;"></div>
-	</div>
-</nav>
-
-<div class="col col-10">
-	<div class="panel">
-		<div class="body">
 		
-		
+		<div class="body forSize-first">
+			<div class="view-form-row">
+				<label class="view-form-label">현재 등록 중인 한줄 공지 <span class="icon icon-more"/></label>
+				<div style="padding: 1em;">
+					<input type="text" name="notice" id="notice" class="input view-form-input" readonly="readonly">
+					<a class="btn mini focus">삭제</a>
+				</div>
+				<div style="padding: 1em;">
+					<input type="text" name="notice" id="notice" class="input view-form-input">
+					<a class="btn mini focus">등록</a>
+				</div>
+			</div>
 		</div>
+		
+		<div class="body forSize-second">
+			<div class="view-form-row">
+				<label class="view-form-label">타임라인 공지사항</label>
+			</div>
+			
+			<table class="table classic stripe">
+				<thead>
+					<tr>
+						<th>No.</th><th>제목</th><th>타임라인</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>A</td><td>B</td>
+						<td>
+							<input type="checkbox">
+						</td>
+					</tr>
+					<tr>
+						<td>A</td><td>B</td>
+						<td>
+							<input type="checkbox">
+						</td>
+					</tr>
+					<tr>
+						<td>A</td><td>B</td>
+						<td>
+							<input type="checkbox">
+						</td>
+					</tr>
+					<tr>
+						<td>A</td><td>B</td>
+						<td>
+							<input type="checkbox">
+						</td>
+					</tr>
+					<tr>
+						<td>A</td><td>B</td>
+						<td>
+							<input type="checkbox">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<div class="noticeBtn">
+				<a class="btn normal focus">공지 등록</a>
+			</div>
+				
+		</div>
+		
 	</div>
-</div>
+<!-- </div> -->
 
 
-</body>
-</html>
+<!-- </body> -->
+<!-- </html> -->

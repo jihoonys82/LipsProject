@@ -57,6 +57,16 @@ body {
 
 /* 바디 css */
 
+/* 메인 */
+
+#sizing-first {
+	font-size : 0.99em;
+}
+
+#sizing-second {
+	font-size : 0.98em;
+}
+
 .main-content {
   margin-top		: 60px;
   margin-left		: 200px;
@@ -184,7 +194,7 @@ body {
 
 /* project_view */
 .viewProBox {
-	height: 44.3em;
+	height: 44em;
 }
 .viewProBtn{ 
     text-align: right;
@@ -205,3 +215,31 @@ body {
 .forPaging{
 	margin : 8em;
 }
+
+/* notice */
+.forSize-first {
+	min-height: 17em;
+}
+
+.forSize-second {
+	min-height: 24.8em;
+}
+
+.table.classic>thead th:first-child, .table.classic>tbody>tr>td:first-child {
+	width: 40px;
+	text-align: center;
+}
+
+.table.classic>thead th:last-child, .table.classic>tbody>tr>td:last-child {
+	width: 70px;
+	text-align: center;
+}
+
+
+.noticeBtn {
+	text-align: right;
+    position: relative;
+    margin: 2em;
+}	
+
+

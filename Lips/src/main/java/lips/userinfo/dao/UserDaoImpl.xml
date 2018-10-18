@@ -5,7 +5,10 @@
  <mapper namespace="lips.userinfo.dao.UserDao">
  
  	<select id="selUserById" parameterType="String" resultType="lips.userinfo.dto.User">
- 		SELECT * from userinfo where userid=#{value }
+ 		SELECT * from userinfo where userid = #{value }
+ 	</select>
+ 	<select id="selUserByEmail" parameterType="String" resultType="lips.userinfo.dto.User">
+ 		SELECT * from userinfo where email = #{value }
  	</select>
  	<insert id="inUser" parameterType="lips.userinfo.dto.User">
  		INSERT INTO userinfo VALUES(#{userId }, #{email},#{pw }, sysdate, #{nick }, 0, 1, #{phone }, #{birth } )

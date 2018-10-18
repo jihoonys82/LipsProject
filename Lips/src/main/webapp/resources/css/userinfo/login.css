@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .loginBox{
-	padding-top		:100px;
+	padding-top		: 150px;
 	margin			: 0 auto;
 	display			: block;
 	align-content	: center;
@@ -12,10 +12,10 @@
 	display			: inline-block;
 	text-align		: center;
 }
-.formItem input[type="text"] {
+.formItem input[type="text"],.formItem input[type="password"] {
 	width			: 300px;
 }
-.formItem input[type="submit"],a {
+.formItem input[type="submit"], .formItem a[href="/user/join"] {
 	width			: 120px;
     text-align		: center !important;
 }

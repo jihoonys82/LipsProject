@@ -15,8 +15,13 @@ public class CustomeUserDetailsService implements UserDetailsService {
 
 	@Override
 	public User loadUserByUsername(String username) throws UsernameNotFoundException {
-		User userinfo = null;
-		userinfo = dao.selUserById(username);
+		User userinfo;
+		
+		if(!username.contains("@")) {
+			userinfo = dao.selUserById(username);
+		}else {
+			userinfo = dao.selUserByEmail(username);
+		}
 		return userinfo;
 	}
 	

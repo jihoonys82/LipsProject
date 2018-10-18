@@ -5,12 +5,21 @@ import lips.userinfo.dto.User;
 public interface UserDao {
 
 	/**
-	 * @param selCookie_login
+	 * 아이디로 유저 확인
+	 * @param userId
 	 * @return User
-	 * 쿠키값으로 찾은 아이디로 조회하여 유저객체를 반환한다.
 	 */
 	public User selUserById(String userId);
-	
+	/**
+	 * 이메일로 유저 확인
+	 * @param email
+	 * @return User
+	 */
+	public User selUserByEmail(String email);
+	/**
+	 * 회원가입
+	 * @param user
+	 */
 	public void inUser(User user);
 
 }

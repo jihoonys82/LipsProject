@@ -8,8 +8,6 @@
 	메인페이지에요
 </h1>
 	<sec:authorize access="hasAuthority('USER')">
-		<sec:authentication property="principal.userId"/> 님 환영합니다.
-<%-- 	 =${sessionScope.user.userId } --%>
-		<sec:authentication property="principal.nick" />
+		<sec:authentication property="principal.nick"/> 님 환영합니다.		
 	</sec:authorize>
 <P>  The time on the server is ${serverTime}. </P>

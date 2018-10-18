@@ -22,6 +22,7 @@
 			var dct = document.getElementById('termsBox').scrollTop;
 			if ((dh == (dct + dch))) {
 				agreeRead=true;
+				$("#agreeBtn").removeClass('disabled');
 			}
 		});
 		$("#agreeBtn").click(function() {
@@ -47,7 +48,7 @@
 </script>
 
 <div class="agreeBox">
-	이용약관 및 개인정보 수집 및 이용에 &nbsp<button class="btn" id="agreeBtn" style="text-align:center;">동의하지 않습니다.</button>
+	이용약관 및 개인정보 수집 및 이용에 &nbsp<button class="btn disabled" id="agreeBtn" style="text-align:center;">동의하지 않습니다.</button>
 </div>
 <div class="joinBox">
 	<h1>회원 가입</h1><br><br>
@@ -67,8 +68,8 @@
 		</div>
 
 		<div class="formItem">
-			<label for="inputEmail">이메일 (EMAIL)</label> <input class="input large"
-				type="text" id="inputEmail" name="email" />
+			<label for="inputEmail">이메일 (EMAIL)</label><button style="width:200px; text-align : center;">인증</button> <input class="input large"
+				type="text" id="inputEmail" name="email" style="width:300px"/>
 		</div>
 
 		<div class="formItem">
@@ -83,7 +84,7 @@
 
 		<div class="formItem">
 			<label for="inputBirth">생년월일 (BIRTH)</label> <input class="input large"
-				type="date" id="inputBirth" name="birth" />
+				type="date" id="inputBirth" name="birth" style="width:300px;"/>
 		</div>
 
 		<div class="formItem">

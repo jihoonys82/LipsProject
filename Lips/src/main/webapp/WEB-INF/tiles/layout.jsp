@@ -10,7 +10,7 @@
 <!-- Basic style components -->
 <link rel="stylesheet" href="/resources/jui/dist/ui.min.css" />
 <link rel="stylesheet" href="/resources/jui/dist/ui-dark.min.css" />
-<link rel="stylesheet" href="/resources/jui/dist/grid.min.css" />
+<link rel="stylesheet" href="/resources/jui/dist/grid.min.css" /> 
 <link rel="stylesheet" href="/resources/jui/dist/grid-dark.min.css" />
 
 <!-- project Default StyleSheet -->

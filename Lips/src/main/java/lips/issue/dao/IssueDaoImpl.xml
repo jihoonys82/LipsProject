@@ -49,5 +49,10 @@
  		SELECT COUNT(*) FROM issue_comment 
  		WHERE issueId=#{issueId}
  	</select>
- 	
+ 	<select id="selCatByProjId" parameterType="lips.project.dto.ProjectDto" resultType="lips.issue.dto.CategoryAssetDto">
+ 		SELECT C.categoryAssetId, C.assetName, C.assetCode, C.assetDescription
+		FROM category_asset C, issue_category I
+		WHERE C.categoryAssetId = I.categoryAssetId AND projectId=#{projectId}
+		ORDER BY I.categoryOrder ASC
+ 	</select>
  </mapper>  

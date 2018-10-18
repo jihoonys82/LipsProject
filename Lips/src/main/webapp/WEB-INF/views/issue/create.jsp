@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 /* common */
 .issueHeading {
@@ -55,9 +56,9 @@
 				<div class="issue-form-row">
 					<label for="issueTitle" class="issue-form-label">카테고리</label>
 					<select name="issueTitle" id="issueTitle" class="input issue-form-input">
-						<option value="1">이슈</option>
-						<option value="2">버그</option>
-						<option value="3">테스팅</option>
+						<c:forEach items="${category }" var="cat">
+							<option value="${cat.categoryAssetId }">[${cat.assetCode }]${cat.assetName } - ${cat.assetDescription }</option>
+						</c:forEach>
 					</select>
 				</div>
 				<div class="issue-form-row">

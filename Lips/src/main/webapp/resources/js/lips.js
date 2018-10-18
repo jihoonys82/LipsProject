@@ -38,7 +38,10 @@ $(document).ready(function() {
 			if(diffDay !=0) 	remainTime += diffDay+"일 ";
 			if(diffHour !=0) 	remainTime += diffHour +"시간 ";
 			remainTime += diffMin +"분 ";
-			if(Math.sign(diff)<0) remainTime +="지남";
+			if(Math.sign(diff)<0) {
+				remainTime +="지남";
+				cdList[i].style.color= "#FF0000";
+			}
 			else remainTime +="남음";
 		
 			cdList[i].innerText = remainTime;

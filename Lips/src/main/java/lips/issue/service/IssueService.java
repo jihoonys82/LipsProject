@@ -1,7 +1,5 @@
 package lips.issue.service;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import lips.issue.dao.IssueDao;
 import lips.issue.dto.IssueDto;
+import lips.project.dao.ProjectDao;
+import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
+import lips.userinfo.dto.UserByToken;
 
 @Service
 public class IssueService {
@@ -18,6 +19,7 @@ public class IssueService {
 	private static final Logger logger = LoggerFactory.getLogger(IssueService.class);
 	
 	@Autowired IssueDao issueDao;
+	@Autowired ProjectDao projectDao;
 	
 	public ModelAndView setIssueMain(User user) {
 		
@@ -39,6 +41,21 @@ public class IssueService {
 		mav.addObject("issueFollowing", issueDao.selIssueByFollowing(user));
 		
 		mav.setViewName("issue/main");
+		
+		return mav;
+	}
+
+	public ModelAndView setIssueCreate(ProjectDto projectDto) {
+		ModelAndView mav = new ModelAndView();
+		User user = new UserByToken().getInstance();
+		
+		if(projectDto.getProjectId()>0) {			
+			mav.addObject("category", issueDao.selCatByProjId(projectDto));
+		} else {
+			mav.addObject("projList", projectDao.selPro(user));
+		}
+		
+		mav.setViewName("issue/create");
 		
 		return mav;
 	}

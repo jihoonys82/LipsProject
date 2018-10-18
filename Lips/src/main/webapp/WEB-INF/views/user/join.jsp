@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <div class="joinBox">
@@ -26,13 +27,13 @@
 		</div>
 		
 		<div class="formItem">
-			<label for="inputPhone"></label>
+			<label for="inputPhone">연락처</label>
 			<input class="input large" type="text" id="inputPhone" name="phone" />
 		</div>
 		
 		<div class="formItem">
-			<label for="inputBirth"></label>
-			<input class="input large" type="text" id="inputBirth" name="birth" />
+			<label for="inputBirth">생년월일</label>
+			<input class="input large" type="date" id="inputBirth" name="birth"/>
 		</div>
 		
 		<div class="formItem">

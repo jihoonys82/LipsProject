@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ public class User implements UserDetails{
 	private int blocked;
 	private int userLevel;
 	private String phone;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birth;
 	
 	public String getUserId() {

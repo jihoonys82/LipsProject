@@ -20,4 +20,7 @@ public class CustomeUserDetailsService implements UserDetailsService {
 		return userinfo;
 	}
 	
+	public void join(User user) {
+		dao.inUser(user);
+	}
 }

@@ -24,14 +24,20 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public int inPro(ProjectDto dto,User user) {
 		
+		
+		//프로젝트테이블 인서트
 		dao.inPro(dto);
-		System.out.println("projectId : "+dto.getProjectId());
+//		System.out.println("projectId : "+dto.getProjectId());
 		
 		Map map = new HashMap();
 		map.put("projectId", dto.getProjectId());
 		map.put("user", user);
 		
+		//프로젝트 참여멤버 테이블 인서트
 		dao.inProMember(map);
+		
+		//프로젝트 카테고리 테이블 인서트
+		dao.inProct(dto);
 		return 0;
 		
 	}

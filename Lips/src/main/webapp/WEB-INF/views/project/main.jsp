@@ -24,7 +24,7 @@
 		<c:forEach items="${userProjectInfo}" var="projectinfo">
 			<div class="col col-4">
 
-				<a href="/dashboard/dashview">
+				<a href="/dashboard/dashview?projectId=${projectinfo.projectId}">
 					<div class="ProjectBox">
 						<div style="background-color:green">${projectinfo.projectName}</div>
 						<div style="background-color:yellow">${projectinfo.status}</div>

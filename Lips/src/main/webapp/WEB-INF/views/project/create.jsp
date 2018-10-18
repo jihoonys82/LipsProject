@@ -134,7 +134,7 @@
 					, success : function(data) {
 						console.log("프로젝트 생성");
 						
-						$("#modalsr").html("<div>프로젝트 생성에 실패하였습니다. 잠시 후 다시 시도해주세요.</div> ")	
+						$("#modalsr").html("<div>ㅈㄷㄱㄷ.</div> ")	
 						modal_1.show();
 					
 // 						modal_1.hide();

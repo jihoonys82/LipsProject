@@ -44,8 +44,8 @@
  	</insert>
  	
  	<!-- 프로젝트 카테코리 인서트 ( 프로젝트 인서트와 동시에 실행) -->
- 	<insert id="inProCategroy" parameterType="hashmap">
-		ㄴㅇㄹ
+ 	<insert id="inProct" parameterType="lips.project.dto.ProjectDto">
+		INSERT INTO issue_category VALUES(${projectId}, 1, 1)
  	
  	</insert>
  	

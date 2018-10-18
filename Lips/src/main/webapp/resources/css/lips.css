@@ -125,6 +125,7 @@ body {
 
 /* Project */
 .ProjectBoxing {
+
 	background-color: #6e6f737d;
 	margin: 0.65em;
 	margin-left: 0.05em;
@@ -132,17 +133,77 @@ body {
 }
 
 .ProjectBox {
-	background-color: blue;
+    background-color: #9c75ec;
+    background-image: -moz-linear-gradient(top,#9c75ec 0,#885ED5 100%);
+    background-image: linear-gradient(top,#9c75ec 0,#885ED5 100%);
+    background-image: -webkit-linear-gradient(top,#4b3d69 0,#885ED5 100%);
+   
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px inset;
+    border-width: 3px;
+    border-style: solid;
+    border-color: rgb(64, 64, 64);
+    border-image: initial;
+ 	border-radius: 15px;
 	margin: 2.5em;
 	height: 15em;
 }
 
+
+.boxbox {
+ 
+	margin: 2.5em;
+	height: 15em;
+}
+
+.crb {
+	font-size: 50px;
+	top: 0.5em; 
+	position: relative;     
+	margin-bottom: 10px;"
+}
+
 .CreateProjectBox {
-	background-color: red;
-	margin: 1em;
-	height: 40%;
-	top: 1em;
-	position: relative;
+	margin : 0.7em;
+    color: #fff;
+/*     border: 1px solid #9663f4; */
+    background-color: #9c75ec;
+    background-image: -moz-linear-gradient(top,#9c75ec 0,#885ED5 100%);
+    background-image: linear-gradient(top,#9c75ec 0,#885ED5 100%);
+    background-image: -webkit-linear-gradient(top,#4b3d69 0,#885ED5 100%);
+    background-image: -o-linear-gradient(top,#9c75ec 0,#885ED5 100%);
+    background-image: -ms-linear-gradient(top,#9c75ec 0,#885ED5 100%);
+	padding: 0 15px;
+    height: 47.5%;
+    text-align: center;
+ 
+    top:50%
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+
+.CreateProjectBox2 {
+	margin : 0.7em;
+    color: #fff;
+/*     border: 1px solid #9663f4; */
+    background-color: #ddd2f4;
+    background-image: -moz-linear-gradient(top,#9c75ec 0,#885ED5 100%);
+    background-image: linear-gradient(top,#9c75ec 0,#885ED5 100%);
+    background-image: -webkit-linear-gradient(top,#e2233e 0,#d66b92ba 100%);
+    background-image: -o-linear-gradient(top,#9c75ec 0,#885ED5 100%);
+    background-image: -ms-linear-gradient(top,#9c75ec 0,#885ED5 100%);
+	padding: 0 15px;
+    height: 47.5%;
+    text-align: center;
+ 
+    top:50%
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    font-weight: bold;
+}
 }
 
 .ProjectNav {

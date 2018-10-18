@@ -35,6 +35,9 @@ public class ProjectServiceImpl implements ProjectService {
 		return 0;
 		
 	}
+	
+
+
 
 	@Override
 	public int upPro(ProjectDto dto) {
@@ -46,6 +49,12 @@ public class ProjectServiceImpl implements ProjectService {
 	public int delPro(ProjectDto dto) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List selProMember(ProjectDto dto) {
+		
+		return dao.selProMember(dto);
 	}
 
 	

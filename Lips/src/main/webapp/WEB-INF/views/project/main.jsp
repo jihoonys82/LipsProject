@@ -9,13 +9,14 @@
 
 		<!--  프로젝트 생성/참가 - 고정 -->
 		<div class="col col-4">
-			<div class="ProjectBox">
-				<div class="CreateProjectBox" name="CreateProject"
-					id="CreateProject">프로젝트 생성</div>
-				<div class="CreateProjectBox" name="JoinProject" id="JoinProject">프로젝트
-					참가</div>
+			<div class="boxbox">
+				<div class="CreateProjectBox" name="CreateProject"id="CreateProject">
+					<i class="icon-more crb"></i><p>Create</p></div>
+				<div class="CreateProjectBox" name="JoinProject" id="JoinProject">
+					<i class="icon-export crb"></i><p>Join</p></div>
+					</div>
 			</div>
-		</div>
+
 
 
 

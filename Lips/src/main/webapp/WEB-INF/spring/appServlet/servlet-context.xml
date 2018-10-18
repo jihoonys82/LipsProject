@@ -62,6 +62,8 @@
 	
 	<beans:bean id="download" class="lips.view.DownloadView" />
 	
+	<beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView" />
+	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxInMemorySize" value="1048576" />
 		<beans:property name="maxUploadSize" value="10485760" />

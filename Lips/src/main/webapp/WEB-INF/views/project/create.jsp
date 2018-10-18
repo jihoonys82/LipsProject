@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <div class="row">
 	<div class="h3 issueHeading">프로젝트 생성</div>
@@ -48,11 +49,9 @@
 				<div class="issue-form-row">
 					<label for="projectCreater" class="issue-form-label">프로젝트
 						생성자</label> <input type="text" name="projectCreater" id="projectCreater"
-						class="input issue-form-input" value=
-						<sec:authorize access="hasAuthority('USER')">
+						class="input issue-form-input"
+						value=<sec:authorize access="hasAuthority('USER')">
 		<sec:authentication property="principal.userId"/></sec:authorize>
-						
-						
 						readonly />
 				</div>
 
@@ -63,24 +62,29 @@
 		</div>
 	</div>
 	<div class="foot alignCenter">
-<!-- 		<button class="btn" onclick="modal_1.show()"><i class="icon-play"></i> Create</button> -->
-		<button class="btn" id="createProject"><i class="icon-play"></i> Create</button>
+		<!-- 		<button class="btn" onclick="modal_1.show()"><i class="icon-play"></i> Create</button> -->
+		<button class="btn" id="createProject">
+			<i class="icon-play"></i> Create
+		</button>
 		<button type="button" class="btn">Cancel</button>
 
 	</div>
-	
+
 	<!--모달  -->
 	<div id="modal_1" class="msgbox" style="display: none;">
-		<div class="head">Title</div>
+		<div class="head">프로젝트 생성</div>
+	
 		<div class="body">
-			Contents...<br />
-
+		<div id="modalsr">콘텐츠<br /></div>
+			
+ 
 			<div style="text-align: center; margin-top: 45px;">
-				<a class="btn focus small">Save</a> <a class="btn small">Close</a>
+				<a class="btn focus small" href="/main">확인</a> 
 			</div>
 		</div>
 	</div>
 	<!-- 모달 끝 -->
+
 
 	<!--  ajax-->
 	<script type="text/javascript">
@@ -101,22 +105,22 @@
 				if(!projectName) {
 					alert("프로젝트 명을 입력하세요");
 					isvalid=false;
-				}
-				
-				if(!projectKey) {
+					return;
+					
+				} else if(!projectKey){
 					alert("프로젝트 키를 입력하세요");
 					isvalid=false;
-				}
-				
-				if(!closeDate) {
-					alert("예상 종료일을 입력하세요");
+					return;	
+				} else if(!closeDate){
+					alert("종료 예정일을 입력하세요.");
 					isvalid=false;
-				}
-				
-				if(!projectDesc) {
-					alert("프로젝트 설명을 입력하세요");
+					return;	
+				} else if(!projectDesc){
+					alert("프로젝트에 대한 설명을 입력하세요");
 					isvalid=false;
-				}
+					return;	
+				} 
+				
 				//04. 에이잭스
 				if(isValid) {
 				$.ajax({
@@ -126,22 +130,25 @@
 						
 					}
 					, data : {"projectName":projectName, "projectKey":projectKey, "closeDate":closeDate, "projectDesc":projectDesc, "projectOpen":projectOpen, "projectCreater":projectCreater }
-// 					, dataType: ""
+// 					, dataType: "text"
 					, success : function(data) {
-						console.log(data);
-// 						$('#MODAL').append('')
+						console.log("프로젝트 생성");
+						
+						$("#modalsr").html("<div>프로젝트 생성에 실패하였습니다. 잠시 후 다시 시도해주세요.</div> ")	
+						modal_1.show();
+					
+// 						modal_1.hide();
 					}
 					, error : function() {
-						alert("error");
+						$("#modalsr").html("<div>프로젝트 생성에 실패하였습니다. 잠시 후 다시 시도해주세요.</div>")
+						modal_1.show();
+						
 					}
 				})
 				}
 			});
 		});
-	</script>
-
-	<!--모달  -->
-	<script>
+		
 		jui.ready([ "ui.modal" ], function(modal) {
 			$("#modal_1").appendTo("body");
 
@@ -150,6 +157,7 @@
 			});
 		});
 	</script>
+
 
 
 

@@ -10,6 +10,12 @@
 	WHERE pf.PROJECTID = pm.PROJECTID AND USERID=#{userId}
  	</select>
  	
+ 	<!-- 프로젝트 멤버 조회 -->
+ 	<select id="selProMember" parameterType="lips.project.dto.ProjectDto" resultType="lips.userinfo.dto.User">
+ 		SELECT ui.userId,ui.email,ui.createdate,ui.nick,ui.blocked,ui.userlevel,ui.phone,ui.birth FROM project_member pm, userinfo ui
+ 		WHERE pm.userId = ui.userId
+ 		AND pm.projectId=#{projectId}
+ 	</select>
  	
  	<!-- 프로젝트 인서트 -->
  	<insert id="inPro" parameterType="lips.project.dto.ProjectDto">
@@ -36,4 +42,12 @@
  		(${projectId},#{user.userId} )
  	
  	</insert>
+ 	
+ 	<!-- 프로젝트 카테코리 인서트 ( 프로젝트 인서트와 동시에 실행) -->
+ 	<insert id="inProCategroy" parameterType="hashmap">
+		ㄴㅇㄹ
+ 	
+ 	</insert>
+ 	
+ 	
  </mapper>

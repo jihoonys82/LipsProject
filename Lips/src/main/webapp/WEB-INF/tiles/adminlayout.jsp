@@ -20,9 +20,9 @@
 <!-- Required script files -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="/resources/jui/dist/core.min.js"></script>
-<script src="/resources/jui/dist/ui.min.js"></script>
 <script src="/resources/jui/dist/grid.min.js"></script>
 <script src="/resources/jui/dist/chart.js"></script>
+<script src="/resources/jui/dist/ui.min.js"></script>
 
 
 </head>

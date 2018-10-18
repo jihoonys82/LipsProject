@@ -1,51 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- <!DOCTYPE html> -->
-<!-- <html> -->
-<!-- <head> -->
-<!-- <meta charset="UTF-8"> -->
-<!-- <title>Insert title here</title> -->
 
-<%-- <%@ include file="/WEB-INF/views/admin/cdn.jsp" %> --%>
-
-<!-- </head> -->
-<!-- <body class="jui"> -->
-
-<!-- <div class="navbar flat" style="overflow: hidden;"> -->
-<!-- 	<div class="inline right"> -->
-<!-- 		<span>admin 님 어서오세요</span> -->
-<!-- 	</div> -->
-<!-- </div> -->
-
-<!-- <nav class="col col-2"> -->
-<!-- 	<div class="panel"> -->
-<!-- 		<div class="body"> -->
-<!-- 			<a href=""><span class="nav-label">대시보드</span></a>		 -->
-<!-- 		</div> -->
-<!-- 		<div class="body">	       -->
-<!-- 			<a href="#"><span class="nav-label">공지사항</span></a> -->
-<!-- 		</div> -->
-<!-- 		<div class="body"> -->
-<!-- 	    	<a href="project/chart"><span class="nav-label">프로젝트</span></a> -->
-<!-- 		</div> -->
-<!-- 		<div class="body"> -->
-<!-- 		     <a href="#"><span class="nav-label">사용자</span></a> -->
-<!-- 		</div> -->
-<!-- 		<div class="body"> -->
-<!-- 		    <a href="#"><span class="nav-label">서비스</span></a> -->
-<!-- 		</div> -->
-<!-- 		<div class="body" style="min-height:30em;"></div> -->
-<!-- 	</div> -->
-<!-- </nav> -->
-
-<!-- <div class="col col-10"> -->
 	<div class="panel">
 		<div class="body">
 			   	<div class="infomationWith col col-9">사용자</div>
 			   	  	<div class=infomation col col-3"> 
    						<ul id="tab_1" class="tab top"> 
-    						 <li><a href="#chart">차트</a></li> 
-  		       				<li><a href="#text">텍스트</a></li> 
+    						 <li><a href="/admin/user/chart">차트</a></li> 
+  		       				<li><a href="/admin/user/text">텍스트</a></li> 
  						</ul>
    					</div> 
 		</div>
@@ -126,50 +88,74 @@
 		</div>	<!-- body 끝 -->
 		
 		<div class="body">
-			<div class="row">
-				
+			<div class="forSizing-uTable">
+
 			<table class="table classic stripe">
-			<thead>
-				<tr>
-					<th>회원 No.</th><th>갱신 일자</th><th>상태</th><th>진행 상황</th><th>프로젝트 리더</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>회원 No.</td><td>갱신 일자</td><td>상태</td><td>프로젝트 진행 여부</td><td>사용자 이름</td>
-				</tr>
-				<tr>
-					<td>회원 No.</td><td>갱신 일자</td><td>상태</td><td>프로젝트 진행 여부</td><td>사용자 이름</td>
-				</tr>
-				<tr>
-					<td>회원 No.</td><td>갱신 일자</td><td>상태</td><td>프로젝트 진행 여부</td><td>사용자 이름</td>
-				</tr>
-			</tbody>
-		</table>
-			
-			</div>	
-		</div>
-		
-		<div class="body">
-			<div class="row">
-				<div class="paging alignCenter" style="width: 1200px;">
-					<a href="#" class="prev">Previous</a>
+				<thead>
+					<tr>
+						<th>회원 No.</th>
+						<th>갱신 일자</th>
+						<th>상태</th>
+						<th>진행 상황</th>
+						<th>프로젝트 리더</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>회원 No.</td>
+						<td>갱신 일자</td>
+						<td>상태</td>
+						<td>프로젝트 진행 여부</td>
+						<td>사용자 이름</td>
+					</tr>
+					<tr>
+						<td>회원 No.</td>
+						<td>갱신 일자</td>
+						<td>상태</td>
+						<td>프로젝트 진행 여부</td>
+						<td>사용자 이름</td>
+					</tr>
+					<tr>
+						<td>회원 No.</td>
+						<td>갱신 일자</td>
+						<td>상태</td>
+						<td>프로젝트 진행 여부</td>
+						<td>사용자 이름</td>
+					</tr>
+					<tr>
+						<td>회원 No.</td>
+						<td>갱신 일자</td>
+						<td>상태</td>
+						<td>프로젝트 진행 여부</td>
+						<td>사용자 이름</td>
+					</tr>
+					<tr>
+						<td>회원 No.</td>
+						<td>갱신 일자</td>
+						<td>상태</td>
+						<td>프로젝트 진행 여부</td>
+						<td>사용자 이름</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="forSizing-uPaging">
+				<div style="display: block; text-align: center;">
+					<div class="paging" style="width: 350px;">
+						<a href="#" class="prev" style="display: block;">Previous</a>
 						<div class="list">
-							<a href="#">1</a>
-							<a href="#" class="active">2</a>
-							<a href="#">3</a>
-							<a href="#">4</a>
-							<a href="#">5</a>
+							<a href="#">1</a> <a href="#" class="active">2</a> <a href="#">3</a>
+							<a href="#">4</a> <a href="#">5</a>
 						</div>
-				<a href="#" class="next">Next</a>
-				</div>	
+						<a href="#" class="next">Next</a>
+					</div>
+				</div>
 			</div>
+
 		</div>
+	</div>
 		
-		
-		
-	</div>	
-<!-- </div>	 -->
+</div>	
 
 
 

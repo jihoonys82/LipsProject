@@ -70,7 +70,7 @@ chart("#result", {
 	</div>
 
 	<!-- 바디- 차트 -->
-	<div class="body">
+	<div class="body forSizing-mainChart">
 		<div class="row">
 			<div class="test col col-12">
 				<div class="chartBox col col-5" id="result"></div>

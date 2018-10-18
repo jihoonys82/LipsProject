@@ -7,5 +7,19 @@
  	<insert id="inNotice">
  	
  	</insert>
+ 	
+ 	<select id="selUserInfo" parameterType="lips.userinfo.dto.User" resultType="lips.userinfo.dto.User">
+ 		SELECT 
+ 			USERID,
+ 			EMAIL,
+ 			PW,
+ 			CREATEDATE,
+ 			NICK,
+ 			BLOCKED,
+ 			USERLEVEL,
+ 			PHONE,
+ 			BIRTH
+ 		FROM USERINFO
+ 	</select>
 
  </mapper>  

@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- <!DOCTYPE html> -->
-<!-- <html> -->
-<!-- <head> -->
-<!-- <meta charset="UTF-8"> -->
-<!-- <title>Insert title here</title> -->
 
-<%-- <%@ include file="/WEB-INF/views/admin/cdn.jsp" %> --%>
-
-<!-- </head> -->
-<!-- <body class="jui"> -->
-<%-- <%@ include file="/WEB-INF/views/admin/navbar.jsp" %> --%>
-
-<!-- <div class="col col-10"> -->
 	<div class="panel">
 		<div class="body">
 			<div class="viewProBox">

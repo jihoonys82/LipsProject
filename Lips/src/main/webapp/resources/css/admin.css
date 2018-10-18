@@ -57,7 +57,11 @@ body {
 
 /* 바디 css */
 
-/* 메인 */
+		/* 메인 */
+		
+.forSizing-mainChart {
+	min-height : 36em;	
+}	
 
 #sizing-first {
 	font-size : 0.99em;
@@ -165,7 +169,7 @@ body {
 	color: black;
 }
 
-/* user_view */
+		/* user_view */
 
 .view-form-row {
 	width: 100%;
@@ -192,9 +196,10 @@ body {
 }
 
 
-/* project_view */
+		/* project_view */
 .viewProBox {
 	height: 44em;
+	overflow: hidden;
 }
 .viewProBtn{ 
     text-align: right;
@@ -226,12 +231,12 @@ body {
 }
 
 .table.classic>thead th:first-child, .table.classic>tbody>tr>td:first-child {
-	width: 40px;
+	width: 80px;
 	text-align: center;
 }
 
 .table.classic>thead th:last-child, .table.classic>tbody>tr>td:last-child {
-	width: 70px;
+	width: 100px;
 	text-align: center;
 }
 
@@ -243,3 +248,64 @@ body {
 }	
 
 
+		/* user_text */
+
+.forSizing-uTable {
+	min-height: 23em;
+}
+
+.forSizing-uPaging {
+	margin : 5em;
+}
+
+/* project_text */
+
+.forSizing-pPaging {
+	margin : 4.9em;
+}
+
+		/* 셀렉트 박스 */
+
+.forDisplay-body-first {
+	display : contents;
+}
+
+.forDisplay-body-second {
+	display : block;
+	padding : 20px;
+}		
+		
+
+.forSizing-input {
+	width : 200px;
+	margin-left : 1em;
+	color : black;
+}
+
+.forSizing-btn-first{
+/* 	margin-left: 1em; */
+	width : 179px;
+}
+
+.forSizing-btn-second {
+	margin-left : 1em;
+}
+
+.forSizing-li {
+	 list-style: none;
+	 display: list-item;
+	 margin-left: 50px;
+}
+
+.combo {
+	margin-left : 10em;
+}
+
+/* project_chart */
+.forSizing-chart {
+	min-height: 27em;
+}
+
+.color-date {
+	color : black;
+}

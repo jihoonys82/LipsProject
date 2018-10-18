@@ -1,25 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- <!DOCTYPE html> -->
-<!-- <html> -->
-<!-- <head> -->
-<!-- <meta charset="UTF-8"> -->
-<!-- <title>Insert title here</title> -->
 
-<%-- <%@ include file="/WEB-INF/views/admin/cdn.jsp" %> --%>
-
-<!-- </head> -->
-<!-- <body class="jui"> -->
-<%-- <%@ include file="/WEB-INF/views/admin/navbar.jsp" %> --%>
-
-<!-- <div class="col col-10"> -->
 	<div class="panel">
 		<div class="body">
 			   	<div class="infomationWith col col-9">프로젝트</div>
 			   	  	<div class=infomation col col-3"> 
    						<ul id="tab_1" class="tab top"> 
-    						 <li><a href="#chart">차트</a></li> 
-  		       				<li><a href="#text">텍스트</a></li> 
+    						 <li><a href="/admin/project/chart">차트</a></li> 
+  		       				<li><a href="/admin/project/text">텍스트</a></li> 
  						</ul>
    					</div> 
 		</div>
@@ -100,7 +88,7 @@
 		</div>	<!-- body 끝 -->
 		
 		<div class="body">
-			<div class="row">
+			<div class="forSizing-uTable">
 				
 			<table class="table classic stripe">
 			<thead>
@@ -118,32 +106,33 @@
 				<tr>
 					<td>프로젝트 No.</td><td>진행 일자</td><td>프로젝트 유형</td><td>진행 상황</td><td>프로젝트 리더</td>
 				</tr>
+				<tr>
+					<td>프로젝트 No.</td><td>진행 일자</td><td>프로젝트 유형</td><td>진행 상황</td><td>프로젝트 리더</td>
+				</tr>
 			</tbody>
 		</table>
-			
-			</div>	
-		</div>
-		
-		<div class="body">
-			<div class="row">
-				<div class="paging alignCenter" style="width: 1200px;">
-					<a href="#" class="prev">Previous</a>
+
+			<div class="forSizing-pPaging">
+				<div style="display: block; text-align: center;">
+					<div class="paging" style="width: 350px;">
+						<a href="#" class="prev" style="display: block;">Previous</a>
 						<div class="list">
-							<a href="#">1</a>
-							<a href="#" class="active">2</a>
-							<a href="#">3</a>
-							<a href="#">4</a>
-							<a href="#">5</a>
+							<a href="#">1</a> <a href="#" class="active">2</a> <a href="#">3</a>
+							<a href="#">4</a> <a href="#">5</a>
 						</div>
-				<a href="#" class="next">Next</a>
-				</div>	
+						<a href="#" class="next">Next</a>
+					</div>
+				</div>
 			</div>
-		</div>
+
+		</div>	
+	</div>
 		
 		
 		
-	</div>	
-<!-- </div>	 -->
+		
+</div>	
+
 					
 </body>
 </html>

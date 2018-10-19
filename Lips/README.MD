@@ -72,3 +72,13 @@
       </code></pre>
       
       객체 생성하여 사용가능
+      
+## 접속자수 확인하기
+
+	<pre><code>
+	@Autowired UserTracker userTracker;
+//	...
+
+	userTracker.getAllUserTrack();
+	
+	</pre></code>

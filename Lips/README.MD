@@ -75,10 +75,8 @@
       
 ## 접속자수 확인하기
 
-	<pre><code>
 	@Autowired UserTracker userTracker;
 	
 	userTracker.getAllUserTrack();
 	
-	</code></pre>
 

@@ -48,7 +48,7 @@ public class ProjectController {
 
 		
 		
-	
+		
 		mav.addObject("userProjectInfo", list);
 		mav.setViewName("project/main");
 		return mav;

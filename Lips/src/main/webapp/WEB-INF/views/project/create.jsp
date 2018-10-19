@@ -10,7 +10,7 @@
 			<strong>프로젝트 정보를 입력하세요</strong>
 		</div>
 		<div class="body">
-			<form method="post">
+			<form name="insertform" method="post">
 				<div class="issue-form-row">
 					<label for="projectName" class="issue-form-label">프로젝트 명</label> <input
 						type="text" name="projectName" id="projectName"
@@ -30,7 +30,7 @@
 				<div class="issue-form-row">
 					<label for="projectDesc" class="issue-form-label">프로젝트 설명</label>
 					<textarea name="projectDesc" id="projectDesc"
-						class="input issue-form-input"></textarea>
+						class="input issue-form-input" onkeyup="len_chk()"></textarea>
 				</div>
 
 				<div class="issue-form-row">
@@ -88,8 +88,22 @@
 
 	<!--  ajax-->
 	<script type="text/javascript">
+	function len_chk(){  
+		  var frm = document.insertform.projectDesc; 
+		     
+		  if(frm.value.length > 150){  
+		       alert("글자수는  150자로 제한됩니다.!");  
+		       frm.value = frm.value.substring(0,150);  
+		       frm.focus();  
+		  } 
+		 
+		} 
+	
 		$(document).ready(function() {
 
+
+			//글자수 제한 체크 
+			
 			
 
 			$("#createProject").click(function() {

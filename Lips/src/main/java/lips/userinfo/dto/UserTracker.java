@@ -8,22 +8,22 @@ import org.springframework.security.core.GrantedAuthority;
 public class UserTracker {
 	
 	private int allUserTrack = 0;
-	private int hasUserTrack = 0;
-	private int hasAdminTrack = 0;
+	private int userTrack = 0;
+	private int adminTrack = 0;
 	
 	@Override
 	public String toString() {
-		return "UserTrack [총 접속자 수=" + allUserTrack + ", 유저권한 접속자 수" + hasUserTrack + ", 관리자권한 접속자 수="
-				+ hasAdminTrack + "]";
+		return "UserTrack [총 접속자 수=" + allUserTrack + ", 유저권한 접속자 수" + userTrack + ", 관리자권한 접속자 수="
+				+ adminTrack + "]";
 	}
 	public int getAllUserTrack() {
 		return allUserTrack;
 	}
-	public int getHasUserTrack() {
-		return hasUserTrack;
+	public int getUserTrack() {
+		return userTrack;
 	}
-	public int getHasAdminTrack() {
-		return hasAdminTrack;
+	public int getAdminTrack() {
+		return adminTrack;
 	}
 	public void setUserTrack(List<? extends GrantedAuthority> list,boolean login) {
 		Iterator itr = list.iterator();
@@ -49,17 +49,17 @@ public class UserTracker {
 	}
 	private void loginUser() {
 		allUserTrack++;
-		hasUserTrack++;
+		userTrack++;
 	}
 	private void logoutUser() {
 		allUserTrack--;
-		hasUserTrack--;
+		userTrack--;
 	}
 	private void loginAdmin() {
-		hasAdminTrack++;
+		adminTrack++;
 	}
 	private void logoutAdmin() {
-		hasAdminTrack--;
+		adminTrack--;
 	}
 	
 	

@@ -55,4 +55,13 @@
 		WHERE C.categoryAssetId = I.categoryAssetId AND projectId=#{projectId}
 		ORDER BY I.categoryOrder ASC
  	</select>
+ 	
+ 	<select id="selUserByName" parameterType="map" resultType="lips.userinfo.dto.User">
+ 		SELECT ui.userId, ui.email, ui.createdate, ui.nick, ui.blocked, ui.userlevel, ui.phone, ui.birth 
+ 		FROM project_member pm, userinfo ui
+		WHERE pm.userId = ui.userId
+			AND pm.projectId=#{projectId}
+			AND pm.userID LIKE '%'||#{name}||'%'
+ 	</select>
+ 	
  </mapper>  

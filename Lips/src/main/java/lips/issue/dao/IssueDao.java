@@ -1,9 +1,9 @@
 package lips.issue.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import lips.issue.dto.CategoryAssetDto;
-import lips.issue.dto.IssueCategoryDto;
 import lips.issue.dto.IssueDto;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
@@ -58,6 +58,13 @@ public interface IssueDao {
 	 * @return
 	 */
 	public List<CategoryAssetDto> selCatByProjId(ProjectDto projectDto);
+	
+	/**
+	 * Search Users by Name(partial)
+	 * @param map (name, projectId)
+	 * @return
+	 */
+	public List<User> selUserByName(Map<String, String> map);
 	
 	
 }

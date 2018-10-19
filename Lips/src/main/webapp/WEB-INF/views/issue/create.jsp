@@ -1,6 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+jui.ready([ "ui.autocomplete" ], function(autocomplete) {
+	assign = autocomplete("#assign", {
+        target: "#assignee"
+        , words: ["2글자 이상 입력하세요."]
+    });
+	
+	$("#assignee").keyup(function() {
+		var name = document.getElementById("assignee").value;
+		if(name.length>0) {
+			$.ajax({
+				type:"post"
+				, url: "/issue/getMembers"
+				, data: { "name" : name ,"projectId" : ${param.projectId} }
+				, dataType: "json"
+				, success: function(data){
+					console.log(data);
+					assign.update(data.name);
+				}
+				, error : function(e){
+					console.log("----error----");
+					console.log(e.responseText);
+				}
+			});
+		}
+	});
+	
+	
+});
+</script>
 <style>
 /* common */
 .issueHeading {
@@ -50,8 +80,16 @@
 			<form action="/issue/create" method="post" enctype="multipart/form-data">
 				<div class="h4 mb-1">기본항목</div>
 				<div class="issue-form-row">
+					<label for="projectId" class="issue-form-label">프로젝트</label>
+					<select name="projectId" id="projectId" class="input issue-form-input">
+						<c:forEach items="${projList }" var="proj">
+							<option value="${proj.projectId}">[${proj.projectKey }]${proj.projectName } - ${proj.projectDesc }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="issue-form-row">
 					<label for="issueTitle" class="issue-form-label">제목</label>
-					<input type="text" name="issueTitle" id="issueTitle" class=" input issue-form-input" />
+					<input type="text" name="issueTitle" id="issueTitle" class="input issue-form-input" />
 				</div>
 				<div class="issue-form-row">
 					<label for="issueTitle" class="issue-form-label">카테고리</label>
@@ -65,9 +103,18 @@
 					<label for="issueEndDate" class="issue-form-label">종료(예정)일</label>
 					<input type="date" name="issueEndDate" id="issueEndDate" class=" input issue-form-input" />
 				</div>
-				<div class="issue-form-row">
-					<label for="issueAssignee" class="issue-form-label">담당자</label>
-					<input type="text" name="issueAssignee" id="issueAssignee" class="input issue-form-input" />
+				<div id="assign" class="issue-form-row">
+					<label for="assignee" class="issue-form-label">담당자</label>
+					<input type="text" name="assignee" id="assignee" class="input issue-form-input" />
+					<script data-jui="#assign" data-tpl="words" type="text/template">
+    					<div class="dropdown">
+       		 				<ul>
+            					<! for(var i = 0; i < words.length; i++) { !>
+           						<li><!= words[i] !></li>
+           						<! } !>
+        					</ul>
+   						</div>
+					</script>
 				</div>
 				<div class="issue-form-row">
 					<label for="issueTitle" class="issue-form-label">이슈 단계</label>
@@ -97,3 +144,4 @@
 		</div>
 	</div>
 </div>
+

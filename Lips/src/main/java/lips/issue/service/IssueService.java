@@ -1,5 +1,9 @@
 package lips.issue.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import lips.issue.dao.IssueDao;
 import lips.issue.dto.IssueDto;
 import lips.project.dao.ProjectDao;
 import lips.project.dto.ProjectDto;
+import lips.userinfo.dao.UserDao;
 import lips.userinfo.dto.User;
 import lips.userinfo.dto.UserByToken;
 
@@ -20,6 +25,7 @@ public class IssueService {
 	
 	@Autowired IssueDao issueDao;
 	@Autowired ProjectDao projectDao;
+	@Autowired UserDao userDao;
 	
 	public ModelAndView setIssueMain(User user) {
 		
@@ -48,16 +54,32 @@ public class IssueService {
 	public ModelAndView setIssueCreate(ProjectDto projectDto) {
 		ModelAndView mav = new ModelAndView();
 		User user = new UserByToken().getInstance();
-		
+		logger.info(projectDto.toString());
 		if(projectDto.getProjectId()>0) {			
 			mav.addObject("category", issueDao.selCatByProjId(projectDto));
-		} else {
-			mav.addObject("projList", projectDao.selPro(user));
-		}
+		} 
+		mav.addObject("projList", projectDao.selPro(user));
 		
 		mav.setViewName("issue/create");
 		
 		return mav;
+	}
+
+	public ModelAndView setIssueCreate() {
+		ModelAndView mav = new ModelAndView();
+		User user = new UserByToken().getInstance();
+		mav.addObject("projList", projectDao.selPro(user));
+		mav.setViewName("issue/create");
+		return mav;
+	}
+
+	public ArrayList<User> getMemberList(String name, ProjectDto projectDto) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("name", name);
+		map.put("projectId", ((Integer)projectDto.getProjectId()).toString());
+		ArrayList<User> users = (ArrayList<User>)issueDao.selUserByName(map);
+		
+		return users;
 	}
 	
 }

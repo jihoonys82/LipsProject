@@ -17,25 +17,30 @@ public interface DashBoardDao {
 	/**
 	 * DashBoardID로 검색하고 Dashboard_user_asset 과 Dashboard_asset 테이블을 assetId 로 조인하여 모든 항목을 출력한다
 	 * @param DashBoardAssetDto(DashBoardId)
-	 * @return Join List
+	 * @return List<DashBoardAssetDto>
 	 */
 	public List<DashBoardAssetDto> selJoinAssetDto(DashBoardDto dto);
 	
 	/**
-	 * Dashboard_user_asset 을 DashBoardDto 로 검색하여 position x 를 출력한다
+	 * Dashboard_user_asset 을 DashBoardDto 로 검색하여 position x Max를 출력한다
 	 * @param DashBoardAssetDto(DashBoardId)
-	 * @return selectMaxXList
+	 * @return String
 	 */
-	public String selAssetMaxXDto(DashBoardDto dto);
+	public Integer selAssetMaxXDto(DashBoardDto dto);
 	
 	/**
-	 * Dashboard_user_asset 을 DashBoardDto 로 검색하여 position y 를 출력한다
-	 * @param DashBoardAssetDto(DashBoardId)
-	 * @return selectMaxYList
+	 * Dashboard_user_asset 을DashBoardId 와 LineNo 로 검색하여 position y 를 출력한다
+	 * @param Map<String, Integer> dataMap
+	 * @return List<Integer>
 	 */
-	public String selAssetMaxYDto(DashBoardDto dto);
+	public List<Integer> selassetLineDashBoardId(Map<String, Integer> dataMap);
 	
-	public Integer selassetLineMaxYprojectId(Map<String, Integer> dataMap);
+	/**
+	 * Dashboard_user_asset 을DashBoardId 와 LineNo 로 검색하여 position y의 Max 를 출력한다
+	 * @param dataMap
+	 * @return List<Integer>
+	 */
+	public Integer selassetLineMaxDashBoardId(Map<String, Integer> dataMap);
 
 	
 }

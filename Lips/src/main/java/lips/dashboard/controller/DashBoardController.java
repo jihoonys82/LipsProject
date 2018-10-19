@@ -19,6 +19,7 @@ import lips.dashboard.dto.DashBoardDto;
 import lips.dashboard.service.DashBoardService;
 import lips.userinfo.dto.User;
 import lips.userinfo.dto.UserByToken;
+import net.sf.json.JSONObject;
 
 
 @Controller
@@ -34,25 +35,33 @@ public class DashBoardController {
 		
 		ModelAndView mav = new ModelAndView();
 		List<DashBoardAssetDto> assetList = new ArrayList<DashBoardAssetDto>();
-		Map<String, String> maxLocation = new HashMap<String, String>();
-		Map<Integer, Integer> lineLocation = new HashMap<Integer, Integer>();
+		int maxXLocation ;
+//		Map<Integer, Integer> lineMaxLocation = new HashMap<Integer, Integer>();
+//		Map<Integer, List<Integer>> lineLocation = new HashMap<Integer, List<Integer>>();
+		JSONObject lineMax = new JSONObject();
+		JSONObject lineLoc = new JSONObject();
 		
 		//test 데이터
-		projectId = 1;
+		
 		//========
 		
 		DashBoardDto boarddto = dbsvc.checkPreset(projectId);
 		assetList = dbsvc.presetData(boarddto);
-		maxLocation = dbsvc.maxLocation(boarddto);
-//		lineLocation = dbsvc.lineLocation(projectId, maxLocation);
+		maxXLocation = dbsvc.maxLocation(boarddto);
+		lineMax = dbsvc.lineMaxLocation(boarddto, maxXLocation);
+		lineLoc = dbsvc.lineLocation(boarddto, maxXLocation);
 		
 		logger.info("Boarddto : " + boarddto);
 		logger.info("AssetData : " + assetList);
-		logger.info("MaxLocation : " + maxLocation); 
+		logger.info("MaxLocation : " + maxXLocation); 
+		logger.info("lineMaxLocation : " + lineMax); 
+		logger.info("lineLocation : " + lineLoc );
 		
 		mav.addObject("boarddto",boarddto);
 		mav.addObject("assetData", assetList);
-		mav.addObject("maxLocation",maxLocation);
+		mav.addObject("maxX",maxXLocation);
+		mav.addObject("lineMax", lineMax);
+		mav.addObject("lineLoc", lineLoc);
 		
 		mav.setViewName("dashboard/dashview");
 		

@@ -19,11 +19,18 @@
 		ORDER BY positionx 
 	</select>
 	
-	<select id="selAssetMaxXDto" parameterType="lips.dashboard.dto.DashBoardDto" resultType="String">
+	<select id="selAssetMaxXDto" parameterType="lips.dashboard.dto.DashBoardDto" resultType="Integer">
 		SELECT MAX (positionX) FROM Dashboard_user_asset WHERE DashboardId =#{dashboardId}
 	</select>
 	
-	<select id="selAssetMaxYDto" parameterType="lips.dashboard.dto.DashBoardDto" resultType="String">
-		SELECT MAX (positionY) FROM Dashboard_user_asset WHERE DashboardId =#{dashboardId}
+	<select id="selassetLineDashBoardId" parameterType="Map" resultType="Integer">
+		SELECT positionY FROM Dashboard_user_asset
+		WHERE DashboardId = #{dashBoardId} And positionX = #{lineNo}
 	</select>
+	
+	<select id="selassetLineMaxDashBoardId" parameterType="Map" resultType="Integer">
+		SELECT MAX(positionY) FROM Dashboard_user_asset
+		WHERE DashboardId = #{dashBoardId} And positionX = #{lineNo}
+	</select>
+	
 </mapper>

@@ -5,14 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
 
-import jdk.nashorn.api.tree.LineMap;
 import lips.dashboard.dao.DashBoardDao;
 import lips.dashboard.dto.DashBoardAssetDto;
 import lips.dashboard.dto.DashBoardDto;
 import lips.userinfo.dto.User;
 import lips.userinfo.dto.UserByToken;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
 
 
 
@@ -46,25 +48,48 @@ public class DashBoardServiceImpl implements DashBoardService{
 	}
 
 	@Override
-	public Map<String, String> maxLocation(DashBoardDto dto) {
-		Map<String,String> maxLocation = new HashMap<String, String>();
-		maxLocation.put("Xlocation", dao.selAssetMaxXDto(dto));
-		maxLocation.put("Ylocation", dao.selAssetMaxYDto(dto));
+	public Integer maxLocation(DashBoardDto dto) {
 		
-		return maxLocation;
+		
+		return dao.selAssetMaxXDto(dto);
 	}
 
 	@Override
-	public Map<Integer, Integer> lineLocation(int projectId , Map<String, String> maxLocation) {
+	public JSONObject lineLocation(DashBoardDto dto , int maxX) {
+		Map<String, Integer> dataMap = new HashMap<String, Integer>();
+		Map<Integer,List<Integer>> lineMap = new HashMap<Integer, List<Integer>>();
+		JSONObject jsonOb = new JSONObject();
+		
+		dataMap.put("dashBoardId", dto.getDashboardId());
+		for(int i = 1; i < maxX+1; i++) {
+			dataMap.put("lineNo", i);
+//			System.out.println("dataMap : " +dataMap);
+			
+			lineMap.put(i, dao.selassetLineDashBoardId(dataMap) ) ;
+		}
+//		System.out.println("lineMap : " + lineMap);
+		jsonOb.putAll(lineMap);
+		
+		return jsonOb;
+	}
+
+	@Override
+	public JSONObject lineMaxLocation(DashBoardDto dto, int MaxX) {
 		Map<String, Integer> dataMap = new HashMap<String, Integer>();
 		Map<Integer,Integer> lineMap = new HashMap<Integer, Integer>();
-		int lineno = Integer.parseInt(maxLocation.get("Xlocation")) ;
+		JSONObject jsonOb = new JSONObject();
 		
-		dataMap.put("projectId", projectId);
-		for(int i = 1 ; i < lineno+1; i++) {
+		dataMap.put("dashBoardId", dto.getDashboardId());
+		for(int i = 1; i < MaxX+1; i++) {
 			dataMap.put("lineNo", i);
-			lineMap.put(i, dao.selassetLineMaxYprojectId(dataMap)) ;
-		}		
-		return lineMap;
+//			System.out.println("dataMap : " +dataMap);
+			
+			lineMap.put(i, dao.selassetLineMaxDashBoardId(dataMap) ) ;
+		}
+//		System.out.println("lineMap : " + lineMap);
+		
+		jsonOb.putAll(lineMap);
+		
+		return jsonOb;
 	}
 }

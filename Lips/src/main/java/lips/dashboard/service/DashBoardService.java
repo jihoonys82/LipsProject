@@ -5,6 +5,7 @@ import java.util.Map;
 
 import lips.dashboard.dto.DashBoardAssetDto;
 import lips.dashboard.dto.DashBoardDto;
+import net.sf.json.JSONObject;
 
 public interface DashBoardService {
 
@@ -12,8 +13,14 @@ public interface DashBoardService {
 	
 	public List<DashBoardAssetDto> presetData(DashBoardDto dto);
 	
-	public Map<String,String> maxLocation(DashBoardDto dto);
+	public Integer maxLocation(DashBoardDto dto);
 	
-	public Map<Integer, Integer> lineLocation(int projectId, Map<String, String> maxLocation);
+//	public Map<Integer, List<Integer>> lineLocation(DashBoardDto dto, int MaxX);
+	
+	public JSONObject lineLocation(DashBoardDto dto, int MaxX);
+	
+//	public Map<Integer, Integer> lineMaxLocation(DashBoardDto dto, int MaxX);
+	
+	public JSONObject lineMaxLocation(DashBoardDto dto, int MaxX);
 	
 }

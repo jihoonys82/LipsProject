@@ -13,20 +13,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import lips.userinfo.dto.User;
+import lips.userinfo.dto.UserTracker;
 import lips.userinfo.service.CustomeUserDetailsService;
 
 @Component
 public class CustomeAuthenticationProvider implements AuthenticationProvider{
 	
 	@Autowired CustomeUserDetailsService service;
+	@Autowired UserTracker userTracker;
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) authentication; // 유저가 입력한
 																										// 이이디비번으으로만든다.(로그인한
-																												// 유저아이디비번정보를담는다)
-		System.out.println(authToken);
-		
+																												// 유저아이디비번정보를담는다)	
 
 		User userInfo = service.loadUserByUsername(authToken.getName()); // UserDetailsService에서
 																		// 유저정보를 불러온다.
@@ -39,7 +39,7 @@ public class CustomeAuthenticationProvider implements AuthenticationProvider{
 		}
 
 		List<GrantedAuthority> authorities = (List<GrantedAuthority>) userInfo.getAuthorities();
-
+		userTracker.setUserTrack(authorities, true); //로그인트래커 추가
 		return new UsernamePasswordAuthenticationToken(userInfo, null, authorities);//null은 크리덴셜을 제거하기 위함이다.
 	}
 

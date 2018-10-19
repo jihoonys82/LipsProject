@@ -4,6 +4,9 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<!-- Encoding setting for Korean -->
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
 	<filter>
 	       <filter-name>encodingFilter</filter-name>
 	       <filter-class>

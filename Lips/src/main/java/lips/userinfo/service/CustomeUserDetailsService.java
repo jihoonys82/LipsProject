@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import lips.userinfo.dao.UserDao;
 import lips.userinfo.dto.User;
+import lips.userinfo.dto.UserTracker;
 
 @Service
 public class CustomeUserDetailsService implements UserDetailsService {
 	@Autowired UserDao dao;
-
 
 	@Override
 	public User loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -32,13 +32,13 @@
 			}
 			if(agreeTogle){
 				agreeTogle = false;
-				$("#agreeBtn").addClass("focus").html("동의합니다.");
+				$("#agreeBtn").addClass("focus");
 				$(".joinBox").show(400);
 				$("#termsBox").hide(400);
 				$("#termsTitle").hide();
 			}else{
 				agreeTogle = true;
-				$("#agreeBtn").removeClass("focus").html("동의하지 않습니다.");
+				$("#agreeBtn").removeClass("focus");
 				$(".joinBox").hide(400);
 				$("#termsBox").show(400);
 				$("#termsTitle").show();
@@ -48,7 +48,7 @@
 </script>
 
 <div class="agreeBox">
-	이용약관 및 개인정보 수집 및 이용에 &nbsp<button class="btn disabled" id="agreeBtn" style="text-align:center;">동의하지 않습니다.</button>
+	이용약관, 개인정보 수집 및 이용에 &nbsp<button class="btn disabled" id="agreeBtn" style="text-align:center;">동의합니다.</button>
 </div>
 <div class="joinBox">
 	<h1>회원 가입</h1><br><br>
@@ -68,8 +68,9 @@
 		</div>
 
 		<div class="formItem">
-			<label for="inputEmail">이메일 (EMAIL)</label><button style="width:200px; text-align : center;">인증</button> <input class="input large"
-				type="text" id="inputEmail" name="email" style="width:300px"/>
+			<label for="inputEmail">이메일 (EMAIL)</label>
+			<input type="button" class="btn focus" style="width:18%; text-align : center; margin : 10px;" value="인증" />
+			<input class="input large"type="email" id="inputEmail" name="email" style="width:39%"/>
 		</div>
 
 		<div class="formItem">
@@ -84,12 +85,16 @@
 
 		<div class="formItem">
 			<label for="inputBirth">생년월일 (BIRTH)</label> <input class="input large"
-				type="date" id="inputBirth" name="birth" style="width:300px;"/>
+				type="date" id="inputBirth" name="birth" style="width:48%;"/>
 		</div>
-
 		<div class="formItem">
-			<input class="btn large focus" type="submit" value="Submit" />
+			<button class="btn large focus" >Submit</button>
 		</div>
 	</form>
 
 </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<script>
+
+
+</script>
+

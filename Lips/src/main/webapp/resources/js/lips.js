@@ -47,6 +47,5 @@ $(document).ready(function() {
 			cdList[i].innerText = remainTime;
 		}
 	};
-	
-		
 });
+

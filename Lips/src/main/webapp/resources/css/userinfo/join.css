@@ -35,9 +35,9 @@
 	float			: right;
 }
 .formItem input[type="text"],.formItem input[type="password"] {
-	width			: 500px;
+	width			: 60%;
 }
-.formItem input[type="submit"] {
+.formItem Button {
 	width			: 100%;
     text-align		: center !important;
 }

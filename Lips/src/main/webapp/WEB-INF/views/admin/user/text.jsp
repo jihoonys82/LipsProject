@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 	<div class="panel">
 		<div class="body">
@@ -101,41 +103,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>회원 No.</td>
-						<td>갱신 일자</td>
-						<td>상태</td>
-						<td>프로젝트 진행 여부</td>
-						<td>사용자 이름</td>
-					</tr>
-					<tr>
-						<td>회원 No.</td>
-						<td>갱신 일자</td>
-						<td>상태</td>
-						<td>프로젝트 진행 여부</td>
-						<td>사용자 이름</td>
-					</tr>
-					<tr>
-						<td>회원 No.</td>
-						<td>갱신 일자</td>
-						<td>상태</td>
-						<td>프로젝트 진행 여부</td>
-						<td>사용자 이름</td>
-					</tr>
-					<tr>
-						<td>회원 No.</td>
-						<td>갱신 일자</td>
-						<td>상태</td>
-						<td>프로젝트 진행 여부</td>
-						<td>사용자 이름</td>
-					</tr>
-					<tr>
-						<td>회원 No.</td>
-						<td>갱신 일자</td>
-						<td>상태</td>
-						<td>프로젝트 진행 여부</td>
-						<td>사용자 이름</td>
-					</tr>
+					<c:forEach items="${uList }" var="uList">
+						<tr class="text-center">
+							<td>${uList.userId }</td>
+							<td>${uList.nick }</td>
+							<td>${uList.email }</td>
+							<td>${uList.phone }</td>
+							<td>${uList.birth }</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 
@@ -158,6 +134,20 @@
 </div>	
 
 
+<!--   <script type="text/javascript"> -->
+<!-- //   	$(document).ready(function(){ -->
+<!-- //   		$("#btnWrite").click(function(){ -->
+<!-- //   			location.href="/board/write" -->
+<!-- //   		}); -->
+  		
+<!-- //   		$("table").on("click", "tr", function() { -->
+<!-- //   			var boardNo = $(this).children("td").eq(0).text(); -->
+  			
+<!-- //   			$(location).attr("href","/board/view?boardNo="+boardNo); -->
+<!-- //   		}); -->
+  		
+<!-- //   	}); -->
+<!--   </script> -->
 
 </body>
 </html>

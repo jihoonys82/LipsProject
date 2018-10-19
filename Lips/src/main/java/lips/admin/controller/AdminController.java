@@ -1,13 +1,24 @@
 package lips.admin.controller;
- import org.slf4j.Logger;
+ import java.util.List;
+
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import lips.admin.service.AdminService;
+import lips.admin.util.Paging;
+import lips.userinfo.dto.User;
  @Controller
 public class AdminController {
    
    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+   
+   @Autowired AdminService adminService;
    
    @RequestMapping(value="/admin/main", method=RequestMethod.GET)
    public String main() {
@@ -38,11 +49,21 @@ public class AdminController {
    @RequestMapping(value="/admin/user/chart", method=RequestMethod.GET)
    public void userChart() {
 	   logger.info("유저 차트 페이지");
+	   
    }
    
    @RequestMapping(value="/admin/user/text", method=RequestMethod.GET)
-   public void userText() {
+   public void userText(Model model, @RequestParam(defaultValue="0", required=false)int curPage) {
 	   logger.info("유저 텍스트 페이지");
+	  
+	   
+	   int totalPage = adminService.selUTotalCount();
+	   Paging paging = new Paging(totalPage,curPage);
+	   
+	   List<User> uList = adminService.getUserList(paging);
+	   
+	   model.addAttribute("paging",paging);
+	   model.addAttribute("uList",uList);
    }
    
    @RequestMapping(value="/admin/user/view", method=RequestMethod.GET)

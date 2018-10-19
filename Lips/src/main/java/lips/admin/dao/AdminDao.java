@@ -3,6 +3,7 @@ package lips.admin.dao;
 import java.util.List;
 
 import lips.admin.dto.NoticeDto;
+import lips.admin.util.Paging;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
 
@@ -34,7 +35,7 @@ public interface AdminDao {
 	 * @param user
 	 * @return List<User>
 	 */
-	public List<User> selUserInfo(User user);
+	public List<User> selUserInfo(Paging paging);
 	
 	/**
 	 *   프로젝트 리스트 정보 불러오기
@@ -84,6 +85,12 @@ public interface AdminDao {
 	 * @return int
 	 */
 	public int selPCntByStatus(ProjectDto project);
+	
+	/**
+	 * 	사용자 total count 
+	 * @return int
+	 */
+	public int selUTotalCnt();
 	
 	
 }

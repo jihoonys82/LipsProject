@@ -45,7 +45,7 @@
 					<div class="infoBox col col-3">
 						<div class="boxWrapper">
 							<div class="numBox">
-								200
+								${cntList[0] }
 							</div>
 						<div>
 								총 사용자
@@ -56,7 +56,7 @@
 					<div class="infoBox col col-3">
 						<div class="boxWrapper">
 							<div class="numBox">
-								20
+								${cntList[1] }
 							</div>
 						<div>
 								신규 사용자
@@ -67,7 +67,7 @@
 					<div class="infoBox col col-3">
 						<div class="boxWrapper">
 							<div class="numBox">
-								12
+								${cntList[2] }
 							</div>
 						<div>
 								탈퇴한 사용자
@@ -78,7 +78,7 @@
 					<div class="infoBox col col-3">
 						<div class="boxWrapper">
 							<div class="numBox">
-								35
+								${cntList[3] }
 							</div>
 						<div>
 								프로젝트 생성자
@@ -134,20 +134,17 @@
 </div>	
 
 
-<!--   <script type="text/javascript"> -->
-<!-- //   	$(document).ready(function(){ -->
-<!-- //   		$("#btnWrite").click(function(){ -->
-<!-- //   			location.href="/board/write" -->
-<!-- //   		}); -->
+<script type="text/javascript">
+ 	$(document).ready(function(){ 
   		
-<!-- //   		$("table").on("click", "tr", function() { -->
-<!-- //   			var boardNo = $(this).children("td").eq(0).text(); -->
+  		$("table").on("click", "tr", function() { 
+ 			var userId = $(this).children("td").eq(0).text(); 
   			
-<!-- //   			$(location).attr("href","/board/view?boardNo="+boardNo); -->
-<!-- //   		}); -->
+ 			$(location).attr("href","/admin/user/view?userId="+userId); 
+   		}); 
   		
-<!-- //   	}); -->
-<!--   </script> -->
+   	});
+</script>
 
 </body>
 </html>

@@ -1,56 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- <!DOCTYPE html> -->
-<!-- <html> -->
-<!-- <head> -->
-<!-- <meta charset="UTF-8"> -->
-<!-- <title>Insert title here</title> -->
 
-<%-- <%@ include file="/WEB-INF/views/admin/cdn.jsp" %> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
-<!-- </head> -->
-<!-- <body class="jui"> -->
-
-<!-- <div class="navbar flat" style="overflow: hidden;"> -->
-<!-- 	<div class="inline right"> -->
-<!-- 		<span>admin 님 어서오세요</span> -->
-<!-- 	</div> -->
-<!-- </div> -->
-	
-<!-- <nav class="col col-2"> -->
-
-<!-- 	<div class="panel"> -->
-<!-- 		<div class="body"> -->
-<!-- 			<a href=""><span class="nav-label">대시보드</span></a>		 -->
-<!-- 		</div> -->
-<!-- 		<div class="body">	       -->
-<!-- 			<a href="#"><span class="nav-label">공지사항</span></a> -->
-<!-- 		</div> -->
-<!-- 		<div class="body"> -->
-<!-- 	    	<a href="project/chart"><span class="nav-label">프로젝트</span></a> -->
-<!-- 		</div> -->
-<!-- 		<div class="body"> -->
-<!-- 		     <a href="#"><span class="nav-label">사용자</span></a> -->
-<!-- 		</div> -->
-<!-- 		<div class="body"> -->
-<!-- 		    <a href="#"><span class="nav-label">서비스</span></a> -->
-<!-- 		</div> -->
-<!-- 		<div class="body" style="min-height:30em;"></div> -->
-<!-- 	</div> -->
-	
-<!-- </nav> -->
-	
-<!-- <div class="col col-10"> -->
 	<div class="panel">
 		<div class="body">
 			<div class="viewUserBox">
 				<div class="view-form-row">
-					<label for="nick" class="view-form-label">이름</label>
-					<input type="text" name="nick" id="nick" class="input view-form-input" readonly="readonly"/> 
+					<label for="nick" class="view-form-label">아이디</label>
+					<input type="text" name="id" id="id" class="input view-form-input" readonly="readonly" value="${userInfo.userId }"/> 
 				</div>
 				<div class="view-form-row">
 					<label for="joinDate" class="view-form-label">가입일</label>
-					<input type="text" name="joinDate" id="joinDate" class="input view-form-input" readonly="readonly"/> 
+					<input type="text" name="joinDate" id="joinDate" class="input view-form-input" readonly="readonly" 
+						value="<fmt:formatDate value="${userInfo.createDate}" pattern="yyyy-MM-dd" />"/> 
 				</div>
 				<div class="view-form-row">
 					<label for="activeProject" class="view-form-label">참여 중인 프로젝트</label>
@@ -58,19 +22,29 @@
 				</div>
 				<div class="view-form-row">
 					<label for="status" class="view-form-label">회원상태</label>
-					<input type="text" name="status" id="status" class="input view-form-input" readonly="readonly"/> 
+						<c:if test="${userInfo.blocked eq 0 && userInfo.userLevel eq 1 }">						
+							<input type="text" name="status" id="status" class="input view-form-input" readonly="readonly" value="가입"/>										
+						</c:if>
+						<c:if test="${userInfo.blocked eq 0 && userInfo.userLevel eq 0}">
+							<input type="text" name="status" id="status" class="input view-form-input" readonly="readonly" value="탈퇴"/>
+						</c:if>
+						<c:if test="${userInfo.blocked eq 1 && userInfo.userLevel eq 0}">
+							<input type="text" name="status" id="status" class="input view-form-input" readonly="readonly" value="강제탈퇴"/>
+						</c:if>
 				</div>
+
 				<div class="view-form-row">
 					<label for="birth" class="view-form-label">생년월일</label>
-					<input type="text" name="birth" id="birth" class="input view-form-input" readonly="readonly"/> 
+					<input type="text" name="birth" id="birth" class="input view-form-input" readonly="readonly"
+						value="<fmt:formatDate value="${userInfo.birth}" pattern="yyyy-MM-dd" />" />
 				</div>
 				<div class="view-form-row">
 					<label for="phone" class="view-form-label">연락처</label>
-					<input type="text" name="phone" id="phone" class="input view-form-input" readonly="readonly"/> 
+					<input type="text" name="phone" id="phone" class="input view-form-input" readonly="readonly" value="${userInfo.phone }"/> 
 				</div>
 				<div class="view-form-row">
 					<label for="email" class="view-form-label">이메일</label>
-					<input type="text" name="email" id="email" class="input view-form-input" readonly="readonly"/> 
+					<input type="text" name="email" id="email" class="input view-form-input" readonly="readonly" value="${userInfo.email }"/> 
 				</div>
 	
 				<div class="viewUserBtn">
@@ -82,8 +56,6 @@
 		</div>
 	</div>
 		
-<!-- </div> -->
-
 		
 </body>
 </html>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
 
 	<div class="panel">
 		<div class="body">
@@ -17,7 +19,7 @@
      				<div class="whiteBox col col-1"> 
    						2018-10-12 
    					</div> 
-<!-- '-' 넣기 --> 
+ 
   					<div class="whiteBox col col-1"> 
    						2018-10-24
    					</div> 
@@ -25,15 +27,7 @@
    					<a class="btn mini focus">오늘</a>
   					<a class="btn mini focus">일주일</a>
   					<a class="btn mini focus">한 달</a>
-  					
-<!--   				 	<div class="dropdown" style="margin-left: -15px;"> -->
-<!--             	       	  <ul style="width: 120px;"> -->
-<!-- 			                <li value="1">Dropdown 1</li> -->
-<!-- 			                <li value="2">Dropdown 2</li> -->
-<!-- 			                <li value="3">Dropdown 3</li> -->
-<!-- 			                <li value="4">Dropdown 4</li> -->
-<!-- 			            </ul> -->
-<!--   			      </div> -->
+
   					
 		</div>
 		
@@ -97,18 +91,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>프로젝트 No.</td><td>진행 일자</td><td>프로젝트 유형</td><td>진행 상황</td><td>프로젝트 리더</td>
-				</tr>
-				<tr>
-					<td>프로젝트 No.</td><td>진행 일자</td><td>프로젝트 유형</td><td>진행 상황</td><td>프로젝트 리더</td>
-				</tr>
-				<tr>
-					<td>프로젝트 No.</td><td>진행 일자</td><td>프로젝트 유형</td><td>진행 상황</td><td>프로젝트 리더</td>
-				</tr>
-				<tr>
-					<td>프로젝트 No.</td><td>진행 일자</td><td>프로젝트 유형</td><td>진행 상황</td><td>프로젝트 리더</td>
-				</tr>
+				<c:forEach items="${pList }" var="pList">
+					<tr class="text-center">
+						<td>${pList.projectId }</td>
+						<td>${pList.projectName }</td>
+						<td>${pList.status }</td>
+						<td>${pList.projectLeader }</td>
+						<td>${pList.projectCreater }</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 

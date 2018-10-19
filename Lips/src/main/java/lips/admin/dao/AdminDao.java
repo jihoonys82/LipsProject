@@ -42,7 +42,7 @@ public interface AdminDao {
 	 * @param project
 	 * @return List<ProjectDto>
 	 */
-	public List<ProjectDto> selproInfo(ProjectDto project);
+	public List<ProjectDto> selProInfo(Paging paging);
 	
 	/**
 	 * 	 유저아이디로 유저 정보 불러오기 
@@ -86,11 +86,43 @@ public interface AdminDao {
 	 */
 	public int selPCntByStatus(ProjectDto project);
 	
+	// ---------------------------------------------
+	
 	/**
 	 * 	사용자 total count 
 	 * @return int
 	 */
 	public int selUTotalCnt();
 	
+	/**
+	 *   신규 사용자 count
+	 * @return int
+	 */
+	public int selNewUCnt();
+	
+	/**
+	 *   탈퇴한 사용자
+	 *   	(blocked: 0, userLevel: 0)
+	 * 			cf) 강퇴 사용자 (blocked: 1, userLevel: 0)
+	 * @return int
+	 */
+	public int selClosedUCnt();
+	
+	/**
+	 *   프로젝트 생성자
+	 * @return int 
+	 */
+	public int selPCreaterCnt();
+	
+	
+	// ---------------------------
+	
+	/**
+	 * 	 프로젝트 total count
+	 * @return int
+	 */
+	public int selPTotalCnt();
+	
+
 	
 }

@@ -25,13 +25,13 @@ public interface AdminService {
 	
 	public List<User> getUserList(Paging paging);
 	
-	public List<ProjectDto> getproList(ProjectDto project);
+	public List<ProjectDto> getProList(Paging paging);
 	
 	public User getUserInfo(User user);
 	
 	public ProjectDto getProInfo(ProjectDto project);
 
-	public List<Integer> getNumofUser();
+	public List<Integer> getNumOfUser();
 		//	public int getNumOfTotalUser(User user);	
 		//	public int getNumOfNewUser(User user);
 		//	public int getNumOfClosedAccount(User user);
@@ -43,7 +43,9 @@ public interface AdminService {
 		//	public int getNumOfCompletedProject(ProjectDto project);
 		//	public int getNumOfStoppedProject(ProjectDto project);
 	
-	public int selUTotalCount();
+	public int getUTotalCount();
+	
+	public int getPTotalCount();
 
 
 }

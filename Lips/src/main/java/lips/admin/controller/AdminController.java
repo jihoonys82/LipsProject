@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lips.admin.service.AdminService;
 import lips.admin.util.Paging;
+import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
  @Controller
 public class AdminController {
@@ -40,41 +41,54 @@ public class AdminController {
    }
    
    @RequestMapping(value="/admin/project/text", method=RequestMethod.GET)
-   public String proText() {
-	   logger.info("프로젝트 텍스트 페이지");
-	   
-	   return "admin/project/text";
+   public void proText(Model model, @RequestParam(defaultValue="0", required=false)int curPage) {
+	  logger.info("프로젝트 텍스트 페이지");
+	  
+	  int totalPage = adminService.getPTotalCount();
+	  Paging paging = new Paging(totalPage, curPage);
+	  
+	  List<ProjectDto> pList = adminService.getProList(paging);
+	  
+	  model.addAttribute("paging",paging);
+	  model.addAttribute("pList",pList);
+	  
    }
    
    @RequestMapping(value="/admin/user/chart", method=RequestMethod.GET)
    public void userChart() {
-	   logger.info("유저 차트 페이지");
-	   
+	   logger.info("유저 차트 페이지");	   
    }
    
    @RequestMapping(value="/admin/user/text", method=RequestMethod.GET)
    public void userText(Model model, @RequestParam(defaultValue="0", required=false)int curPage) {
 	   logger.info("유저 텍스트 페이지");
-	  
 	   
-	   int totalPage = adminService.selUTotalCount();
+	   int totalPage = adminService.getUTotalCount();
 	   Paging paging = new Paging(totalPage,curPage);
 	   
 	   List<User> uList = adminService.getUserList(paging);
+	   List<Integer> cntList = adminService.getNumOfUser();
 	   
 	   model.addAttribute("paging",paging);
 	   model.addAttribute("uList",uList);
+	   model.addAttribute("cntList",cntList);
    }
    
    @RequestMapping(value="/admin/user/view", method=RequestMethod.GET)
-   public void userDetailView(String userId) {
-	   logger.info("유저 상세 페이지");
+   public void userDetailView(Model model, User user) {
+		logger.info("유저 상세 페이지");
+		
+		User userinfo = adminService.getUserInfo(user);
+		model.addAttribute("userInfo", userinfo);	   
    }
    
-   // int projectId 추가 
    @RequestMapping(value="/admin/project/view", method=RequestMethod.GET)
-   public void proDetailView() {
+   public void proDetailView(Model model, ProjectDto project) {
 	   logger.info("프로젝트 상세 페이지");
+	   
+//	   ProjectDto projectinfo = adminService.getProInfo(project);
+//	   model.addAttribute("proInfo",projectinfo);
+	   
    }
    
 }

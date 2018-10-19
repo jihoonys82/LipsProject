@@ -1,10 +1,10 @@
 package lips.admin.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import lips.admin.dao.AdminDao;
 import lips.admin.dto.NoticeDto;
@@ -55,30 +55,22 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public List<User> getUserList(Paging paging) {
-	
-//		int totalPage = selCount();	
-//		Paging paging = new Paging(totalPage, curPage);
-//
-//		model.addAttribute("paging",paging);
-	
 		return adminDao.selUserInfo(paging);
 	}
 
 	@Override
-	public List<ProjectDto> getproList(ProjectDto project) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ProjectDto> getProList(Paging paging) {
+		return adminDao.selProInfo(paging);
 	}
 
 	@Override
 	public User getUserInfo(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		return adminDao.selUserByUid(user);
 	}
 
 	@Override
 	public ProjectDto getProInfo(ProjectDto project) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -88,10 +80,17 @@ public class AdminServiceImpl implements AdminService{
 		return 0;
 	}
 
+
 	@Override
-	public List<Integer> getNumofUser() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Integer> getNumOfUser() {
+		List<Integer> list = new ArrayList<Integer>();
+		
+		list.add(0, adminDao.selUTotalCnt());
+		list.add(1, adminDao.selNewUCnt());
+		list.add(2, adminDao.selClosedUCnt());
+		list.add(3, adminDao.selPCreaterCnt());
+		
+		return list;
 	}
 
 	@Override
@@ -101,10 +100,14 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public int selUTotalCount() {
+	public int getUTotalCount() {
 		return adminDao.selUTotalCnt();
 	}
-	
+
+	@Override
+	public int getPTotalCount() {
+		return adminDao.selPTotalCnt();
+	}
 	
 
 }

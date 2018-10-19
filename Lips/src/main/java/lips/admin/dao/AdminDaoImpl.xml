@@ -4,17 +4,46 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
  <mapper namespace="lips.admin.dao.AdminDao">
+
+ 	<select id="selUserInfo" resultType="lips.userinfo.dto.User" parameterType="lips.admin.util.Paging">
+	 	SELECT * FROM
+	 		(SELECT rownum rnum, U.* FROM
+	 			(SELECT * FROM USERINFO ORDER BY USERID DESC) U ORDER BY rnum)
+	 		WHERE rnum 
+	 		BETWEEN #{startNo} AND #{endNo} 
+ 	</select>
+  
  	<select id="selUTotalCnt" resultType="int">
  		SELECT COUNT(*) FROM USERINFO
  	</select>
  	
- 	<select id="selUserInfo" resultType="lips.userinfo.dto.User" parameterType="lips.admin.util.Paging">
+	<select id="selNewUCnt" resultType="int">
+		SELECT COUNT(*) FROM USERINFO WHERE CREATEDATE > SYSDATE-30
+	</select> 	
+ 
+	<select id="selClosedUCnt" resultType="int">
+		SELECT COUNT(*) FROM USERINFO WHERE BLOCKED=0 AND USERLEVEL=0
+	</select> 
+ 	
+	<select id="selPCreaterCnt" resultType="int">
+		SELECT COUNT(PROJECTCREATER) FROM PROJECTINFO
+	</select>
+	
+	<select id="selUserByUid" resultType="lips.userinfo.dto.User" parameterType="lips.userinfo.dto.User">
+		SELECT * FROM USERINFO WHERE USERID= #{userId}
+	</select>
+	
+	<select id="selPTotalCnt" resultType="int">
+ 		SELECT COUNT(*) FROM PROJECTINFO
+ 	</select>
+ 	
+ 	 <select id="selProInfo" resultType="lips.project.dto.ProjectDto" parameterType="lips.admin.util.Paging">
 	 	SELECT * FROM
-	 		(SELECT rownum rnum, B.* FROM
-	 			(SELECT * FROM USERINFO ORDER BY USERID DESC) B ORDER BY rnum)
+	 		(SELECT rownum rnum, P.* FROM
+	 			(SELECT * FROM PROJECTINFO ORDER BY PROJECTID DESC) P ORDER BY rnum)
 	 		WHERE rnum 
 	 		BETWEEN #{startNo} AND #{endNo} 
  	</select>
- 	
-
+	
+	
  </mapper>  

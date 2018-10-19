@@ -77,8 +77,8 @@
 
 	<pre><code>
 	@Autowired UserTracker userTracker;
-//	...
-
+	
 	userTracker.getAllUserTrack();
 	
 	</pre></code>
+

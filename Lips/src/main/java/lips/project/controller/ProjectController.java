@@ -1,7 +1,11 @@
 package lips.project.controller;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import lips.project.dto.ProjectDto;
@@ -22,6 +27,7 @@ public class ProjectController {
 
 	@Autowired
 	ProjectService service;
+	String invitecode; 
 	private static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
 	// 프로젝트 기본 페이지
@@ -64,7 +70,10 @@ public class ProjectController {
 
 	// 프로젝트 생성처리
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public void projectCreateProc(ProjectDto dto) {
+	public @ResponseBody Map<String,String> projectCreateProc(ProjectDto dto) {
+	
+	
+		
 		// 내가 던져준 애 . 받은 객체 . 그 중에 토큰 정보 . 내가지정한 값
 		Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User loginUser = null;
@@ -75,11 +84,15 @@ public class ProjectController {
 			logger.info(user.toString());
 		}
 		
-
-		 service.inPro(dto, loginUser);
+		invitecode= service.inPro(dto, loginUser);
+		
+		HashMap<String,String> map = new HashMap<>();
+	
+		map.put("invitecode", invitecode);
+		
+		return map;
 		 
-//		 
-//		 String uniqueID = UUID.randomUUID().toString();
+	 
 
 
 		

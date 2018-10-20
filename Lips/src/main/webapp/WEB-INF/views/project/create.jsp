@@ -63,31 +63,34 @@
 	</div>
 	<div class="foot alignCenter">
 		<!-- 		<button class="btn" onclick="modal_1.show()"><i class="icon-play"></i> Create</button> -->
-		<button class="btn" id="createProject">
-			<i class="icon-play"></i> Create
+		<button class="btn focus" id="createProject">
+			<i class="icon-play "></i> Create
 		</button>
 		<button type="button" class="btn">Cancel</button>
 
 	</div>
 
 	<!--모달  -->
-	<div id="modal_1" class="msgbox" style="display: none;">
+	<div id="modal_1" class="msgbox" style="display: none; width: 30em">
 		<div class="head">프로젝트 생성</div>
 	
-		<div class="body">
-		<div id="modalsr">콘텐츠<br /></div>
+		<div class="body" style="text-align:center;">
+		<div id="modalsr" style="text-align:center; margin : 1em auto"><p>프로젝트 생성에 성공하였습니다.</p><p>프로젝트 참가 코드 </p></div>
 			
- 
+ 				<button id="invitecopy"class="btn focus" style="float: right; bottom: 3.3em; right: 0.5em;"> Copy </button>
 			<div style="text-align: center; margin-top: 45px;">
-				<a class="btn focus small" href="/main">확인</a> 
+				<a class="btn focus small" href="/project/main">확인</a> 
 			</div>
 		</div>
 	</div>
+	
 	<!-- 모달 끝 -->
 
 
 	<!--  ajax-->
 	<script type="text/javascript">
+	
+	
 	function len_chk(){  
 		  var frm = document.insertform.projectDesc; 
 		     
@@ -100,12 +103,9 @@
 		} 
 	
 		$(document).ready(function() {
-
-
-			//글자수 제한 체크 
-			
-			
-
+		
+		
+			//글자수 제한 체크	
 			$("#createProject").click(function() {
 
 				var projectName = $("#projectName").val();
@@ -135,6 +135,9 @@
 					return;	
 				} 
 				
+				
+				
+				
 				//04. 에이잭스
 				if(isValid) {
 				$.ajax({
@@ -144,11 +147,21 @@
 						
 					}
 					, data : {"projectName":projectName, "projectKey":projectKey, "closeDate":closeDate, "projectDesc":projectDesc, "projectOpen":projectOpen, "projectCreater":projectCreater }
-// 					, dataType: "text"
+					, dataType: "json"
 					, success : function(data) {
-						console.log("프로젝트 생성");
+						console.log("프로젝트 생성"+data.invitecode);
+						var $invitediv = $("<input/>", {id : "invitediv", type : "text", class : "input", value: data.invitecode, readonly : ""});
+// 				
+// 					  	$("#invitediv").val(data.invitecode)
+// 						$("#invitediv").css({
+// 							"text-align" : "center",
+// 							"height" : "1.5em!important",
+// 							"font-size" : "1.2em!important"
+
 						
-						$("#modalsr").html("<div>ㅈㄷㄱㄷ.</div> ")	
+							
+// 						});  //안먹음 왜 안먹는지모름..
+						$("#modalsr").append($invitediv);
 						modal_1.show();
 					
 // 						modal_1.hide();
@@ -160,6 +173,14 @@
 					}
 				})
 				}
+				
+				$("#invitecopy").click(function(){
+					$("#invitediv").select(); document.execCommand('copy'); 
+						alert("초대코드가 복사되었습니다");	
+				});
+
+				
+				
 			});
 		});
 		

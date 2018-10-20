@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> --%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 /* Project */
 .ProjectBoxing {
@@ -11,23 +11,6 @@
 	margin-left: 0.05em;
 	height: auto;
 }
-
-/* .ProjectBox { */
-/*     background-color: #363638; */
-/*     background-image: -moz-linear-gradient(top,#9c75ec 0,#885ED5 100%); */
-/*     background-image: linear-gradient(top,#9c75ec 0,#885ED5 100%); */
-/*     background-image: -webkit-linear-gradient(top,#363638 0,#2d2d2d 100%); */
-   
-/*     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px inset; */
-/*     border-width: 3px; */
-/*     border-style: solid; */
-/*     border-color: rgb(64, 64, 64); */
-/*     border-image: initial; */
-/*  	border-radius: 15px; */
-/* 	margin: 2.5em; */
-/* 	height: 15em; */
-/* } */
-
 
 .boxbox {
  
@@ -43,7 +26,7 @@
 }
 
 .CreateProjectBox {
-	margin : 0.7em;
+	margin : 0.9em;
     color: #fff;
 /*     border: 1px solid #9663f4; */
     background-color: #9c75ec;
@@ -53,7 +36,7 @@
     background-image: -o-linear-gradient(top,#9c75ec 0,#885ED5 100%);
     background-image: -ms-linear-gradient(top,#9c75ec 0,#885ED5 100%);
 	padding: 0 15px;
-    height: 47.5%;
+    height: 50%;
     text-align: center;
  
     top:50%
@@ -65,7 +48,7 @@
 
 
 .CreateProjectBox2 {
-	margin : 0.7em;
+	margin : 0.9em;
     color: #fff;
 /*     border: 1px solid #9663f4; */
     background-color: #ddd2f4;
@@ -75,7 +58,7 @@
     background-image: -o-linear-gradient(top,#9c75ec 0,#885ED5 100%);
     background-image: -ms-linear-gradient(top,#9c75ec 0,#885ED5 100%);
 	padding: 0 15px;
-    height: 47.5%;
+    height: 50%;
     text-align: center;
  
     top:50%
@@ -129,10 +112,9 @@ color : white;
 font-size:2em;
 }
 
-.table tr+td  {
-	font-size : 1.3em;
+
 	
-}
+
 /* Project */
 </style>
 <div>
@@ -221,6 +203,14 @@ font-size:2em;
 								</c:when>
 								</c:choose>
 					</td>		
+		 		</tr>
+		 		<tr>
+		 			<td>프로젝트 생성일</td>
+		 			<td><span class="countDate"><fmt:formatDate value="${projectinfo.createDate}" pattern="yyyy/MM/dd"/></span></td>
+		 		</tr>
+		 		<tr>
+		 			<td>프로젝트 예상 종료일</td>
+		 			<td><span class="countDate"><fmt:formatDate value="${projectinfo.closeDate}" pattern="yyyy/MM/dd"/></span></td>
 		 		</tr>
 		 		<tr>
 					<td>프로젝트 설명</td>

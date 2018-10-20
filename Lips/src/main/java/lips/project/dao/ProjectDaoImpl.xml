@@ -39,15 +39,30 @@
 
  		INSERT INTO project_member 
  		(projectId,userId) VALUES
- 		(${projectId},#{user.userId} )
+ 		(#{projectId},#{user.userId} )
  	
  	</insert>
  	
  	<!-- 프로젝트 카테코리 인서트 ( 프로젝트 인서트와 동시에 실행) -->
  	<insert id="inProct" parameterType="lips.project.dto.ProjectDto">
-		INSERT INTO issue_category VALUES(${projectId}, 1, 1)
+		INSERT INTO issue_category VALUES(#{projectId}, 1, 1)
  	
  	</insert>
  	
+ 	<!-- 프로젝트 초대코드 인서트( 프로젝트 인서트와 동시에 실행)  -->
+ 	<insert id="inProic" parameterType="hashmap">
+
+ 		INSERT INTO Project_invitation 
+ 		(projectId, expirydate, invitecode) VALUES
+ 		(#{projectId} ,sysdate ,#{invitecode} )
+ 	
+ 	
+<!--  		셀렉트키//   파라미터가 해쉬맵땐 어떻게 받아오지?? -->
+ 	<!-- 파라미터타입(hashmap)의 변수(projectId)에 리절트타입(String)로 값을 반환   -->
+<!--  	  <selectKey keyProperty="invitecode" resultType="String" order="AFTER"> -->
+<!--  	  SELECT INVITECODE FROM Project_invitation WHERE projectId=#{projectId}  -->
+<!--        </selectKey> -->
+ 	
+ 	</insert>
  	
  </mapper>

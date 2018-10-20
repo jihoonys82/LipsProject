@@ -21,6 +21,9 @@ public interface ProjectDao {
 	// 프로젝트 카레고리 인서트(프로젝트 인서트와 함께 실행됨)
 	public void inProct(ProjectDto dto);
 	
+	// 프로젝트 인바이트코드 인서트(프로젝트 인서트와 함께 실행)
+	public void inProic(Map map);
+	
 	
 	// 프로젝트에 소속된 유저 조회
 	public List selProMember(ProjectDto dto);

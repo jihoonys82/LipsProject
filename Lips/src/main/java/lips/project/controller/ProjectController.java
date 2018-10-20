@@ -92,13 +92,32 @@ public class ProjectController {
 		
 		return map;
 		 
-	 
-
-
-		
-			
 
 	}
+	//프로젝트 참가	
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public void projectjoin() {
+
+		}
+	
+	//프로젝트 참가 처리
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public void projectjoinProc(ProjectDto dto) {
+		
+		// 내가 던져준 애 . 받은 객체 . 그 중에 토큰 정보 . 내가지정한 값
+				Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				User loginUser = null;
+				// 토큰에서 받아온 유저랑 비교한다(데이터타입을) dto유저랑
+				if (user instanceof User) {
+					loginUser = (User) user;
+				} else {
+					logger.info(user.toString());
+				}
+				
+				
+				service.joinPro(dto,loginUser);
+	
+		}
 
 	// 프로젝트 수정 페이지
 	@RequestMapping(value = "/update", method = RequestMethod.GET)

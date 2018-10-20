@@ -13,4 +13,5 @@ public interface ProjectService {
 	public String inPro(ProjectDto dto,User user); 
 	public int upPro(ProjectDto dto);
 	public int delPro(ProjectDto dto);
+	public int joinPro(ProjectDto dto,User user);
 }

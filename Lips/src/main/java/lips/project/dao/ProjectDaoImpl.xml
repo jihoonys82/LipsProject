@@ -3,8 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="lips.project.dao.ProjectDao">
+ 
+ 
+ 	<!--프로젝트 조회 (초대 코드를 바탕으로)  -->
  	
- 	<!-- 프로젝트 조회 -->
+ 	<select id="selProbyinvite" parameterType="lips.project.dto.ProjectDto" resultType="lips.project.dto.ProjectDto">
+ 	SELECT* FROM project_member pm, project_invitation pi
+	WHERE pm.PROJECTID = pi.PROJECTID AND INVITECODE=#{invitecode}
+ 	</select>
+ 	
+ 	
+ 	
+ 	<!-- 프로젝트 조회(유저정보를 바탕으로) -->
  	<select id="selPro" parameterType="lips.userinfo.dto.User" resultType="lips.project.dto.ProjectDto">
  		SELECT * FROM projectinfo pf, project_member pm
 	WHERE pf.PROJECTID = pm.PROJECTID AND USERID=#{userId}
@@ -64,5 +74,11 @@
 <!--        </selectKey> -->
  	
  	</insert>
+ 	
+ 	
+ 	
+ 	
+
+ 	
  	
  </mapper>

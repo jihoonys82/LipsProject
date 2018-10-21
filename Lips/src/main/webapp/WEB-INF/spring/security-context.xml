@@ -25,6 +25,7 @@
 				logout-success-url="/user/login"/>
 			<security:remember-me key="uniqueAndSecret"
 				remember-me-parameter="remember-me"
+				token-validity-seconds="2419200"
 				user-service-ref="customeUserDetailsService"/>
 			<security:csrf disabled="true" />
 		</security:http>

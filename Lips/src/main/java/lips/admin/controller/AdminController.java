@@ -79,7 +79,9 @@ public class AdminController {
 		logger.info("유저 상세 페이지");
 		
 		User userinfo = adminService.getUserInfo(user);
-		model.addAttribute("userInfo", userinfo);	   
+//		List proinfo =projectService.selPro(user);
+		model.addAttribute("userInfo", userinfo);
+//		model.addAttribute("projectInfo",proinfo);
    }
    
    @RequestMapping(value="/admin/project/view", method=RequestMethod.GET)

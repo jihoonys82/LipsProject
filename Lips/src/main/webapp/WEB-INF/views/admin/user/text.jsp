@@ -14,30 +14,34 @@
    					</div> 
 		</div>
 		
-		<div class="body">
-			<div class="blackBox col col-1">기간</div>
-     				<div class="whiteBox col col-1"> 
-   						2018-10-12 
-   					</div> 
-<!-- '-' 넣기 --> 
-  					<div class="whiteBox col col-1"> 
-   						2018-10-24
-   					</div> 
-   					
-   					<a class="btn mini focus">오늘</a>
-  					<a class="btn mini focus">일주일</a>
-  					<a class="btn mini focus">한 달</a>
-  					
-<!--   				 	<div class="dropdown" style="margin-left: -15px;"> -->
-<!--             	       	  <ul style="width: 120px;"> -->
-<!-- 			                <li value="1">Dropdown 1</li> -->
-<!-- 			                <li value="2">Dropdown 2</li> -->
-<!-- 			                <li value="3">Dropdown 3</li> -->
-<!-- 			                <li value="4">Dropdown 4</li> -->
-<!-- 			            </ul> -->
-<!--   			      </div> -->
-  					
-		</div>
+	<div class="body forDisplay-body-first">
+			<div class="forDisplay-body-second">
+				<div class="blackBox col col-1">기간</div>
+					<input type="date" class="col col-2 color-date input"/>
+					<input type="date" class="col col-2 color-date input"/>
+					
+				<a class="btn mini focus margin-a">오늘</a> <a class="btn mini focus">일주일</a> <a
+					class="btn mini focus">한 달</a>
+
+				<div id="combo_1" class="combo">
+					
+					<a class="btn small forSizing-btn-first">Select...</a>
+					<a class="btn small toggle"><i class="icon-arrow2"></i></a>
+					<ul>
+						<li value="1">유저 아이디</li>
+						<li value="2">유저 닉네임</li>
+						<li value="3">강등된 유저</li>
+					</ul>
+				
+				</div>
+			
+				<input type="text" class="forSizing-input input"/>
+		
+				<button class="btn small focus forSizing-btn-second"
+					onclick="alert(combo_1.getText())">검색</button>
+			</div>
+		
+	</div>
 		
 		<div class="body">
 			<div class="row">
@@ -144,6 +148,19 @@
    		}); 
   		
    	});
+ 	
+	jui.ready([ "ui.combo" ], function(combo) {
+		combo_1 = combo("#combo_1",
+				{
+					index : 2,
+					event : {
+						change : function(data) {
+							alert("text(" + data.text + "), value("
+									+ data.value + ")");
+						}
+					}
+				});
+	});
 </script>
 
 </body>

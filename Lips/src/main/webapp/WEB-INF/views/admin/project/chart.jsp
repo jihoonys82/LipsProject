@@ -15,11 +15,10 @@
 	<div class="body forDisplay-body-first">
 			<div class="forDisplay-body-second">
 				<div class="blackBox col col-1">기간</div>
-					<input type="date" class="col col-1 color-date"/>
-				
-					<input type="date" class="col col-1 color-date"/>
+					<input type="date" class="col col-2 color-date input"/>			
+					<input type="date" class="col col-2 color-date input"/>
 
-				<a class="btn mini focus">오늘</a> <a class="btn mini focus">일주일</a> <a
+				<a class="btn mini focus margin-a">오늘</a> <a class="btn mini focus">일주일</a> <a
 					class="btn mini focus">한 달</a>
 
 				<div id="combo_1" class="combo">
@@ -34,7 +33,7 @@
 				
 				</div>
 			
-				<input type="text" class="forSizing-input" />
+				<input type="text" class="forSizing-input input" />
 		
 				<button class="btn small focus forSizing-btn-second"
 					onclick="alert(combo_1.getText())">검색</button>

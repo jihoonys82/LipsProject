@@ -19,6 +19,12 @@
 				<div class="view-form-row">
 					<label for="activeProject" class="view-form-label">참여 중인 프로젝트</label>
 					<input type="text" name="activeProject" id="activeProject" class="input view-form-input" readonly="readonly"/> 
+<%-- 						<c:if test="${projectInfo.projectName ne null}"> --%>
+<!-- 							<ul> -->
+<%-- 								<li>${projectInfo.projectName }</li> --%>
+<!-- 							</ul> -->
+<%-- 						</c:if> --%>
+					
 				</div>
 				<div class="view-form-row">
 					<label for="status" class="view-form-label">회원상태</label>
@@ -49,12 +55,58 @@
 	
 				<div class="viewUserBtn">
 					<a class="btn normal focus">프로젝트 공지</a>
-					<a class="btn normal focus">정지 해제</a>
-					<a class="btn normal focus">탈퇴 처리</a>
+					<a class="btn normal focus" onclick="modal_1.show()">정지 해제</a>
+					<a class="btn normal focus" onclick="modal_2.show()">탈퇴 처리</a>
 				</div>
 			</div>
 		</div>
 	</div>
+
+<div id="modal_1" class="msgbox" style="display: none;">
+	<div class="head">Title</div>
+	<div class="body">
+		정지 해제<br />
+
+		<div style="text-align: center; margin-top: 45px;">
+			<a class="btn focus small">Save</a> <a class="btn small">Close</a>
+		</div>
+	</div>
+</div>
+
+<div id="modal_2" class="msgbox" style="display: none;">
+	<div class="head">Title</div>
+	<div class="body">
+		탈퇴 처리<br />
+
+		<div style="text-align: center; margin-top: 45px;">
+			<a class="btn focus small">Save</a> <a class="btn small">Close</a>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+	jui.ready([ "ui.modal" ], function(modal) {
+		$("#modal_1").appendTo("body");
+
+		modal_1 = modal("#modal_1", {
+			color : "black"
+		});
+		
+	});
+	
+	jui.ready([ "ui.modal" ], function(modal) {
+		$("#modal_2").appendTo("body");
+
+		modal_1 = modal("#modal_2", {
+			color : "black"
+		});
+		
+	});
+	
+	
+</script>		
 		
 		
 </body>

@@ -14,8 +14,8 @@
 			<input class="input large" type="password" id="pw" name="pw" placeholder="************"/>
 		</div>
 		<div class="formItem">
-			<label for="remember_me">Remember Me</label>
-			<input class="input large" type="checkbox" id="remember_me" name="_spring_security_remember_me" value="true"/>
+			<label for="remember-me">Remember Me</label>
+			<input class="input large" type="checkbox" id="remember-me" name="remember-me" value="true"/>
 		</div>
 		<div class="formItem">
 			<input class="btn large focus" type="submit" value="login"/>

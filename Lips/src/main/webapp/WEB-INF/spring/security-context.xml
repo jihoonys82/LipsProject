@@ -21,7 +21,11 @@
 				authentication-failure-url="/user/login?param=true" />
 			<security:logout logout-url="/logout"
 				invalidate-session="true"
+				delete-cookies="JSESSIONID,remember-me"
 				logout-success-url="/user/login"/>
+			<security:remember-me key="uniqueAndSecret"
+				remember-me-parameter="remember-me"
+				user-service-ref="customeUserDetailsService"/>
 			<security:csrf disabled="true" />
 		</security:http>
 		

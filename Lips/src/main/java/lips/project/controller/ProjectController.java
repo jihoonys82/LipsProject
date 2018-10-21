@@ -86,7 +86,7 @@ public class ProjectController {
 		
 		invitecode= service.inPro(dto, loginUser);
 		
-		HashMap<String,String> map = new HashMap<>();
+		HashMap<String,String> map = new HashMap<String, String>();
 	
 		map.put("invitecode", invitecode);
 		

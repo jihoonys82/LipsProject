@@ -20,7 +20,6 @@ public class MainController {
 	//인트로
 	@RequestMapping(value = "/intro", method = RequestMethod.GET)
 	public String intro() {
-		logger.info("intro 활성화");
 		return "intro";
 	}
 	
@@ -28,8 +27,6 @@ public class MainController {
 	//메인페이지 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main() {
-		User user = new UserByToken().getInstance();
-		logger.info(user.getNick()+ "   로그인" );
 		return "main/main";
 	}
 

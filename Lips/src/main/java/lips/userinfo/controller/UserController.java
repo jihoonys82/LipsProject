@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import lips.userinfo.dto.User;
 import lips.userinfo.dto.UserTracker;
@@ -42,6 +44,23 @@ public class UserController {
 		service.join(user);
 		return "redirect:login";
 	}
+	@RequestMapping(value="/join/checkid", method = RequestMethod.POST)
+	public ModelAndView joinIdCheck(User user) {
+		ModelAndView mav = new ModelAndView();
+		boolean check = service.checkId(user); // true : 가입가능
+		mav.addObject("check", check);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	@RequestMapping(value="/join/mailSend", method = RequestMethod.POST)
+	public ModelAndView sendMail(User user,HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		String uid = service.sendMail(user,request);
+		mav.addObject("code",uid);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout() {
 		Collection<? extends GrantedAuthority> list = SecurityContextHolder.getContext().getAuthentication().getAuthorities();

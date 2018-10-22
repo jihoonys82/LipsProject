@@ -10,6 +10,9 @@
  	<select id="selUserByEmail" parameterType="String" resultType="lips.userinfo.dto.User">
  		SELECT * from userinfo where email = #{value }
  	</select>
+	<select id="selCntUserId" parameterType="lips.userinfo.dto.User" resultType="int">
+		SELECT count(*) from userinfo where userId= #{userId }
+	</select>
  	<insert id="inUser" parameterType="lips.userinfo.dto.User">
  		INSERT INTO userinfo VALUES(#{userId }, #{email},#{pw }, sysdate, #{nick }, 0, 1, #{phone }, #{birth } )
  	</insert>

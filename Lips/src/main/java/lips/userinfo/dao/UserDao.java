@@ -3,7 +3,7 @@ package lips.userinfo.dao;
 import lips.userinfo.dto.User;
 
 public interface UserDao {
-
+	
 	/**
 	 * 아이디로 유저 확인
 	 * @param userId
@@ -21,5 +21,10 @@ public interface UserDao {
 	 * @param user
 	 */
 	public void inUser(User user);
-
+	/**
+	 * 아이디 중복확인
+	 * @param user
+	 * @return int
+	 */
+	public int selCntUserId(User user);
 }

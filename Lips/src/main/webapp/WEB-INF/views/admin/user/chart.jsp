@@ -47,7 +47,7 @@
 					<div class="infoBox col col-3">
 						<div class="boxWrapper">
 							<div class="numBox">
-								200
+								${cntList[0] }
 							</div>
 						<div>
 								총 사용자
@@ -58,7 +58,7 @@
 					<div class="infoBox col col-3">
 						<div class="boxWrapper">
 							<div class="numBox">
-								20
+								${cntList[1] }
 							</div>
 						<div>
 								신규 사용자
@@ -69,7 +69,7 @@
 					<div class="infoBox col col-3">
 						<div class="boxWrapper">
 							<div class="numBox">
-								12
+								${cntList[2] }
 							</div>
 						<div>
 								탈퇴한 사용자
@@ -80,7 +80,7 @@
 					<div class="infoBox col col-3">
 						<div class="boxWrapper">
 							<div class="numBox">
-								52
+								${allUserCnt }
 							</div>
 						<div>
 								접속 중인 사용자

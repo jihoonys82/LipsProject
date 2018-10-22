@@ -24,15 +24,13 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<User> closeAccount(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public void closeAccount(User user) {
+		adminDao.upUserAccClose(user);;
 	}
 
 	@Override
-	public List<User> reopenAccount(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public void reopenAccount(User user) {
+		adminDao.upUserAccReopen(user);
 	}
 
 	@Override
@@ -54,8 +52,24 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<User> getUserList(Paging paging) {
-		return adminDao.selUserInfo(paging);
+	public List<List<? extends Object>> getUserList(Paging paging) {
+		List<List<? extends Object>> list = new ArrayList<>();
+		List<User> userList = adminDao.selUserInfo(paging);
+		List<Boolean> userIsLeaderList = new ArrayList<Boolean>();
+		java.util.Iterator<User> itr = userList.iterator();
+		while(itr.hasNext()) {
+			if(adminDao.selIsLeader(itr.next())!=0) {
+				//리더임
+				userIsLeaderList.add(true);
+			}else {
+				//리더아님
+				userIsLeaderList.add(false);
+			}
+		}
+		list.add(userList);
+		list.add(userIsLeaderList);
+		
+		return list;
 	}
 
 	@Override
@@ -107,6 +121,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int getPTotalCount() {
 		return adminDao.selPTotalCnt();
+	}
+
+	@Override
+	public ProjectDto getProByUid(User user) {
+		return adminDao.selProByUid(user);
 	}
 	
 

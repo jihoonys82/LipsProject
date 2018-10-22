@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+   
 
 	<div class="panel">
 		<div class="body">
@@ -15,15 +17,20 @@
 		</div>
 		
 	<div class="body forDisplay-body-first">
-			<div class="forDisplay-body-second">
-				<div class="blackBox col col-1">기간</div>
-					<input type="date" class="col col-2 color-date input"/>
-					<input type="date" class="col col-2 color-date input"/>
-					
-				<a class="btn mini focus margin-a">오늘</a> <a class="btn mini focus">일주일</a> <a
-					class="btn mini focus">한 달</a>
+			<div class="forDisplay-body-second row">
+				<div class="blackBox col col-1">
+					기간
+				</div>
+				<input type="date" class="col col-2 color-date input"/>
+				<input type="date" class="col col-2 color-date input"/>
+				
+				<div class="col col-2">
+					<a class="btn mini focus margin-a">오늘</a> 
+					<a class="btn mini focus">일주일</a> 
+					<a class="btn mini focus">한 달</a>				
+				</div>	
 
-				<div id="combo_1" class="combo">
+				<div id="combo_1" class="combo col col-2">
 					
 					<a class="btn small forSizing-btn-first">Select...</a>
 					<a class="btn small toggle"><i class="icon-arrow2"></i></a>
@@ -34,13 +41,13 @@
 					</ul>
 				
 				</div>
+				<div class="col col-2">
+					<input type="text" class="forSizing-input input"/>
 			
-				<input type="text" class="forSizing-input input"/>
-		
-				<button class="btn small focus forSizing-btn-second"
-					onclick="alert(combo_1.getText())">검색</button>
+					<button class="btn small focus"
+						onclick="alert(combo_1.getText())">검색</button>
+				</div>
 			</div>
-		
 	</div>
 		
 		<div class="body">
@@ -99,21 +106,35 @@
 			<table class="table classic stripe">
 				<thead>
 					<tr>
-						<th>회원 No.</th>
-						<th>갱신 일자</th>
+						<th>ID</th>
+						<th>닉네임</th>
+						<th>가입일</th>
 						<th>상태</th>
-						<th>진행 상황</th>
 						<th>프로젝트 리더</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${uList }" var="uList">
+					<c:forEach items="${uList }" var="uList" varStatus="i" >
 						<tr class="text-center">
 							<td>${uList.userId }</td>
 							<td>${uList.nick }</td>
-							<td>${uList.email }</td>
-							<td>${uList.phone }</td>
-							<td>${uList.birth }</td>
+							<td><fmt:formatDate value="${uList.createDate}" pattern="yyyy-MM-dd" /></td>
+							<c:if test="${uList.blocked eq 0 && uList.userLevel eq 1 }">						
+								<td>가입</td>
+							</c:if>
+							<c:if test="${uList.blocked eq 0 && uList.userLevel eq 0}">
+								<td>탈퇴</td>
+							</c:if>
+							<c:if test="${uList.blocked eq 1 && uList.userLevel eq 0}">
+								<td>강제 탈퇴</td>
+							</c:if>
+							<c:if test="${uLeaderList[i.index] eq true}">
+								<td><i class="icon-checkbox"></i></td>
+							</c:if>
+							<c:if test="${uLeaderList[i.index] eq false}">
+								<td><i class="icon-checkbox2"></i></td>
+							</c:if>
+							
 						</tr>
 					</c:forEach>
 				</tbody>

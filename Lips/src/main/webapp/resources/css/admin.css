@@ -190,7 +190,7 @@ body {
 	height: 48.2em;
 }
 .viewUserBtn{ 
-    bottom: -20em;
+    bottom: -30%;
     text-align: center;
     position: relative;
 }
@@ -277,18 +277,14 @@ body {
 		
 
 .forSizing-input {
-	width : 200px;
-	margin-left : 1em;
+	width : 70%;
+/* 	margin-left : 1em; */
 	color : black;
 }
 
 .forSizing-btn-first{
 /* 	margin-left: 1em; */
 	width : 179px;
-}
-
-.forSizing-btn-second {
-	margin-left : 1em;
 }
 
 .forSizing-li {
@@ -311,5 +307,5 @@ body {
 }
 
 .margin-a {
-	margin-left : 1em;
+	margin-left : 5%;
 }

@@ -13,9 +13,9 @@ public interface AdminService {
 	
 	public void notice(NoticeDto notice);
 	
-	public List<User> closeAccount(User user);
+	public void closeAccount(User user);
 	
-	public List<User> reopenAccount(User user);
+	public void reopenAccount(User user);
 
 	public List<ProjectDto> stopProject(ProjectDto project);
 	
@@ -23,7 +23,7 @@ public interface AdminService {
 	
 	public List<ProjectDto> restartProject(ProjectDto project);
 	
-	public List<User> getUserList(Paging paging);
+	public List getUserList(Paging paging);
 	
 	public List<ProjectDto> getProList(Paging paging);
 	
@@ -46,6 +46,8 @@ public interface AdminService {
 	public int getUTotalCount();
 	
 	public int getPTotalCount();
+	
+	public ProjectDto getProByUid(User user);
 
 	
 }

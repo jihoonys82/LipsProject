@@ -10,7 +10,11 @@
 	 		(SELECT rownum rnum, U.* FROM
 	 			(SELECT * FROM USERINFO ORDER BY USERID DESC) U ORDER BY rnum)
 	 		WHERE rnum 
-	 		BETWEEN #{startNo} AND #{endNo} 
+	 		BETWEEN #{startNo} AND #{endNo}
+ 	</select>
+ 	<select id="selIsLeader" resultType="int" parameterType="lips.userinfo.dto.User">
+ 		SELECT count(*) FROM userinfo ui, projectinfo pi
+		WHERE pi.projectLeader = ui.userid AND userid = #{userId}
  	</select>
   
  	<select id="selUTotalCnt" resultType="int">
@@ -45,5 +49,18 @@
 	 		BETWEEN #{startNo} AND #{endNo} 
  	</select>
 	
+	<select id="selProByUid" parameterType="lips.userinfo.dto.User" resultType="lips.project.dto.ProjectDto">
+		SELECT pi.projectName
+			FROM project_member pm, projectinfo pi
+		WHERE pm.projectId = pi.projectId AND userId= #{userId}
+	</select>
+	
+	<update id="upUserAccClose" parameterType="lips.userinfo.dto.User">
+		UPDATE USERINFO SET USERLEVEL = 0, BLOCKED = 1 WHERE USERID=#{userId}
+	</update>
+	
+	<update id="upUserAccReopen" parameterType="lips.userinfo.dto.User">
+		UPDATE USERINFO SET USERLEVEL = 1, BLOCKED = 0 WHERE USERID=#{userId}		
+	</update>
 	
  </mapper>  

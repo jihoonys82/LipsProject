@@ -16,16 +16,7 @@
 					<input type="text" name="joinDate" id="joinDate" class="input view-form-input" readonly="readonly" 
 						value="<fmt:formatDate value="${userInfo.createDate}" pattern="yyyy-MM-dd" />"/> 
 				</div>
-				<div class="view-form-row">
-					<label for="activeProject" class="view-form-label">참여 중인 프로젝트</label>
-					<input type="text" name="activeProject" id="activeProject" class="input view-form-input" readonly="readonly"/> 
-<%-- 						<c:if test="${projectInfo.projectName ne null}"> --%>
-<!-- 							<ul> -->
-<%-- 								<li>${projectInfo.projectName }</li> --%>
-<!-- 							</ul> -->
-<%-- 						</c:if> --%>
-					
-				</div>
+
 				<div class="view-form-row">
 					<label for="status" class="view-form-label">회원상태</label>
 						<c:if test="${userInfo.blocked eq 0 && userInfo.userLevel eq 1 }">						
@@ -52,41 +43,100 @@
 					<label for="email" class="view-form-label">이메일</label>
 					<input type="text" name="email" id="email" class="input view-form-input" readonly="readonly" value="${userInfo.email }"/> 
 				</div>
+				
+				<div class="view-form-row">
+					<label for="activeProject" class="view-form-label">참여 중인 프로젝트</label>
+						<c:if test="${projectInfo[0].projectName ne null}">
+							<c:forEach items="${projectInfo }" var="pInfo">
+									<div>
+										<ul>
+											<li>
+												<input type="text" name="activeProject" id="activeProject" class="input mini view-form-input" readonly="readonly" 
+													value="${pInfo.projectName }"/> 
+											</li>
+										</ul>
+									</div>
+							</c:forEach>
+								
+						</c:if>
+						<c:if test="${projectInfo[0].projectName eq null}">
+								<input type="text" name="activeProject" id="activeProject" class="input view-form-input" readonly="readonly" value="참여 프로젝트 없음"/> 
+						</c:if>
+					
+				</div>
 	
 				<div class="viewUserBtn">
 					<a class="btn normal focus">프로젝트 공지</a>
-					<a class="btn normal focus" onclick="modal_1.show()">정지 해제</a>
-					<a class="btn normal focus" onclick="modal_2.show()">탈퇴 처리</a>
+					<a class="btn normal focus" id="btnReopen" onclick="modal_1.show()">정지 해제</a>
+					<a class="btn normal focus" id="btnClose" onclick="modal_2.show()">탈퇴 처리</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
 <div id="modal_1" class="msgbox" style="display: none;">
-	<div class="head">Title</div>
+	<div class="head">정지 해제</div>
 	<div class="body">
-		정지 해제<br />
-
-		<div style="text-align: center; margin-top: 45px;">
+		<div id="modalReopen" style="text-align: center; margin-top: 45px;">
 			<a class="btn focus small">Save</a> <a class="btn small">Close</a>
 		</div>
 	</div>
 </div>
 
-<div id="modal_2" class="msgbox" style="display: none;">
-	<div class="head">Title</div>
+<div id="modal_2" class="msgbox" style="display: none; width: 20em;">
+	<div class="head">탈퇴 처리</div>
 	<div class="body">
-		탈퇴 처리<br />
-
-		<div style="text-align: center; margin-top: 45px;">
-			<a class="btn focus small">Save</a> <a class="btn small">Close</a>
+		<div id="modalClose" style="text-align: center; margin-top: 45px;">
+		</div>
+		<div style="text-align: center;">
+			<a class="btn focus small">확인</a> <a class="btn small">취소</a>
 		</div>
 	</div>
 </div>
 
 
+<script type="text/javascript">
 
-<script>
+	$(document).ready(function(){
+		$("#btnReopen").click(function() {
+			$.ajax({
+				type: "post"
+				, url: "/admin/user/view"
+				, dataType: "json"
+				, data: {"userId": "${userInfo.userId}", "param": true }
+				, success: function(data) {
+					$("#modalReopen").append(data.userId+"<p>님의 강등을 취소하시겠습니까?</p>")
+					
+				}, error: function() {
+					alert("error");
+				}
+			})
+			
+		});		
+	});
+	
+	$(document).ready(function(){
+		$("#btnClose").click(function() {
+			$.ajax({
+				type: "post"
+				, url: "/admin/user/view"
+				, dataType: "json"
+				, data: {"userId": "${userInfo.userId}", "param":false }
+				, success: function(data) {
+					$("#modalClose").append(data.userId+"<p>님을 탈퇴시키시겠습니까?</p>")
+					
+				}, error: function() {
+					alert("error");
+				}
+			})
+			
+		});		
+	});
+
+
+
+
+
 	jui.ready([ "ui.modal" ], function(modal) {
 		$("#modal_1").appendTo("body");
 
@@ -99,7 +149,7 @@
 	jui.ready([ "ui.modal" ], function(modal) {
 		$("#modal_2").appendTo("body");
 
-		modal_1 = modal("#modal_2", {
+		modal_2 = modal("#modal_2", {
 			color : "black"
 		});
 		

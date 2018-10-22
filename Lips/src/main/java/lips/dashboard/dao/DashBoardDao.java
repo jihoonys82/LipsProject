@@ -24,23 +24,20 @@ public interface DashBoardDao {
 	/**
 	 * Dashboard_user_asset 을 DashBoardDto 로 검색하여 position x Max를 출력한다
 	 * @param DashBoardAssetDto(DashBoardId)
-	 * @return String
+	 * @return Integer
 	 */
 	public Integer selAssetMaxXDto(DashBoardDto dto);
-	
 	/**
-	 * Dashboard_user_asset 을DashBoardId 와 LineNo 로 검색하여 position y 를 출력한다
-	 * @param Map<String, Integer> dataMap
-	 * @return List<Integer>
+	 * Dashboard_user_asset 을 DashBoardDto 로 검색하여 position y Max를 출력한다
+	 * @param DashBoardAssetDto(DashBoardId)
+	 * @return Integer
 	 */
-	public List<Integer> selassetLineDashBoardId(Map<String, Integer> dataMap);
+	public Integer selAssetMaxYDto(DashBoardDto dto);
 	
-	/**
-	 * Dashboard_user_asset 을DashBoardId 와 LineNo 로 검색하여 position y의 Max 를 출력한다
-	 * @param dataMap
-	 * @return List<Integer>
-	 */
-	public Integer selassetLineMaxDashBoardId(Map<String, Integer> dataMap);
-
+	public List<String> selViewNamebyDBdto(DashBoardDto dto );
+	
+	public List<Integer> selYLocation(Map<String, Integer> map);
+	
+	public Integer selYmaxLocation(Map<String, Integer> map);
 	
 }

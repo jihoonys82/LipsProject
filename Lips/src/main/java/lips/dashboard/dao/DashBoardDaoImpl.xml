@@ -23,14 +23,32 @@
 		SELECT MAX (positionX) FROM Dashboard_user_asset WHERE DashboardId =#{dashboardId}
 	</select>
 	
-	<select id="selassetLineDashBoardId" parameterType="Map" resultType="Integer">
-		SELECT positionY FROM Dashboard_user_asset
-		WHERE DashboardId = #{dashBoardId} And positionX = #{lineNo}
+	<select id="selAssetMaxYDto" parameterType="lips.dashboard.dto.DashBoardDto" resultType="Integer">
+		SELECT MAX (positionY) FROM Dashboard_user_asset WHERE DashboardId =#{dashboardId}
 	</select>
 	
-	<select id="selassetLineMaxDashBoardId" parameterType="Map" resultType="Integer">
-		SELECT MAX(positionY) FROM Dashboard_user_asset
-		WHERE DashboardId = #{dashBoardId} And positionX = #{lineNo}
+	<select id="selViewNamebyDBdto" parameterType="lips.dashboard.dto.DashBoardDto" 
+	resultType="String">
+		SELECT A.assetview FROM 
+		Dashboard_user_asset D,Dashboard_asset A 
+		WHERE D.assetId=A.assetId AND DashboardId = #{dashboardId}
+		ORDER BY positionx
+	</select>
+	
+	<select id="selYLocation" parameterType="map" 
+	resultType="Integer">
+		SELECT positiony FROM 
+		Dashboard_user_asset
+		WHERE DashboardId = #{dashBoardId} AND positionX = #{xLocation}
+		ORDER BY positiony
+	</select>
+	
+	<select id="selYmaxLocation" parameterType="map" 
+	resultType="Integer">
+		SELECT Max(positiony) FROM 
+		Dashboard_user_asset
+		WHERE DashboardId = #{dashBoardId} AND positionX = #{xLocation}
+		ORDER BY positiony
 	</select>
 	
 </mapper>

@@ -1,11 +1,9 @@
 package lips.dashboard.service;
 
 import java.util.List;
-import java.util.Map;
 
 import lips.dashboard.dto.DashBoardAssetDto;
 import lips.dashboard.dto.DashBoardDto;
-import net.sf.json.JSONObject;
 
 public interface DashBoardService {
 
@@ -13,14 +11,16 @@ public interface DashBoardService {
 	
 	public List<DashBoardAssetDto> presetData(DashBoardDto dto);
 	
-	public Integer maxLocation(DashBoardDto dto);
+	public Integer maxXLocation(DashBoardDto dto);
 	
-//	public Map<Integer, List<Integer>> lineLocation(DashBoardDto dto, int MaxX);
+	public Integer maxYLocation(DashBoardDto dto);
 	
-	public JSONObject lineLocation(DashBoardDto dto, int MaxX);
+	public List<String> viewnames(DashBoardDto dto);
 	
-//	public Map<Integer, Integer> lineMaxLocation(DashBoardDto dto, int MaxX);
+	public List<List<Integer>> YLocation(DashBoardDto dto , int MaxX);
 	
-	public JSONObject lineMaxLocation(DashBoardDto dto, int MaxX);
+	public List<Integer> YmaxLocation(DashBoardDto dto , int MaxX);
+
+
 	
 }

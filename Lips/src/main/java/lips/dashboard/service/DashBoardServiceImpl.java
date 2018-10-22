@@ -1,5 +1,6 @@
 package lips.dashboard.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,6 @@ public class DashBoardServiceImpl implements DashBoardService{
 		dto = dao.seldashboardDashDto(dto);
 		//		
 //		if (checkdto == null) {
-////			dashmap의 키값unjoindashBoard 에 dashBoard 미등록시 보여줄 커스터 마이징 툴팁이미지 경로 넣어야함
 //			
 //			return checkdto;
 //		}
@@ -48,48 +48,60 @@ public class DashBoardServiceImpl implements DashBoardService{
 	}
 
 	@Override
-	public Integer maxLocation(DashBoardDto dto) {
-		
+	public Integer maxXLocation(DashBoardDto dto) {
 		
 		return dao.selAssetMaxXDto(dto);
 	}
-
+	
 	@Override
-	public JSONObject lineLocation(DashBoardDto dto , int maxX) {
-		Map<String, Integer> dataMap = new HashMap<String, Integer>();
-		Map<Integer,List<Integer>> lineMap = new HashMap<Integer, List<Integer>>();
-		JSONObject jsonOb = new JSONObject();
+	public Integer maxYLocation(DashBoardDto dto) {
 		
-		dataMap.put("dashBoardId", dto.getDashboardId());
-		for(int i = 1; i < maxX+1; i++) {
-			dataMap.put("lineNo", i);
-//			System.out.println("dataMap : " +dataMap);
-			
-			lineMap.put(i, dao.selassetLineDashBoardId(dataMap) ) ;
-		}
-//		System.out.println("lineMap : " + lineMap);
-		jsonOb.putAll(lineMap);
-		
-		return jsonOb;
+		return dao.selAssetMaxYDto(dto);
 	}
 
 	@Override
-	public JSONObject lineMaxLocation(DashBoardDto dto, int MaxX) {
-		Map<String, Integer> dataMap = new HashMap<String, Integer>();
-		Map<Integer,Integer> lineMap = new HashMap<Integer, Integer>();
-		JSONObject jsonOb = new JSONObject();
-		
-		dataMap.put("dashBoardId", dto.getDashboardId());
-		for(int i = 1; i < MaxX+1; i++) {
-			dataMap.put("lineNo", i);
-//			System.out.println("dataMap : " +dataMap);
-			
-			lineMap.put(i, dao.selassetLineMaxDashBoardId(dataMap) ) ;
-		}
-//		System.out.println("lineMap : " + lineMap);
-		
-		jsonOb.putAll(lineMap);
-		
-		return jsonOb;
+	public List<String> viewnames(DashBoardDto dto) {
+	
+		return dao.selViewNamebyDBdto(dto);
 	}
+
+	@Override
+	public List<List<Integer>> YLocation(DashBoardDto dto, int MaxX) {
+		int dashBoardId = dto.getDashboardId();
+		Map<String,Integer> datamap = new HashMap<String, Integer>();
+		datamap.put("dashBoardId", dashBoardId);
+		
+		List<List<Integer>> list = new ArrayList<List<Integer>>();
+		
+		for(int i = 1 ; i <= MaxX ; i++) {
+			datamap.put("xLocation", i);
+			list.add(dao.selYLocation(datamap));
+	
+		}
+		
+		
+		return list;
+	}
+
+	@Override
+	public List<Integer> YmaxLocation(DashBoardDto dto, int MaxX) {
+		int dashBoardId = dto.getDashboardId();
+		Map<String,Integer> datamap = new HashMap<String, Integer>();
+		datamap.put("dashBoardId", dashBoardId);
+		
+		List<Integer> list = new ArrayList<Integer>();
+		
+		for(int i = 1 ; i <= MaxX ; i++) {
+			datamap.put("xLocation", i);
+			list.add(dao.selYmaxLocation(datamap));
+	
+		}
+		
+		
+		return list;
+	}
+	
+	
+
+
 }

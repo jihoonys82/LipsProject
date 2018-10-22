@@ -17,8 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import lips.dashboard.dto.DashBoardAssetDto;
 import lips.dashboard.dto.DashBoardDto;
 import lips.dashboard.service.DashBoardService;
-import lips.userinfo.dto.User;
-import lips.userinfo.dto.UserByToken;
 import net.sf.json.JSONObject;
 
 
@@ -36,10 +34,12 @@ public class DashBoardController {
 		ModelAndView mav = new ModelAndView();
 		List<DashBoardAssetDto> assetList = new ArrayList<DashBoardAssetDto>();
 		int maxXLocation ;
-//		Map<Integer, Integer> lineMaxLocation = new HashMap<Integer, Integer>();
-//		Map<Integer, List<Integer>> lineLocation = new HashMap<Integer, List<Integer>>();
-		JSONObject lineMax = new JSONObject();
-		JSONObject lineLoc = new JSONObject();
+		int maxYLocation ;
+		List<String> viewName = new ArrayList<String>();
+		
+		List<List<Integer>> YLocation = new ArrayList<List<Integer>>();
+		List<Integer> YMaxLocation = new ArrayList<Integer>();
+
 		
 		//test 데이터
 		
@@ -47,21 +47,29 @@ public class DashBoardController {
 		
 		DashBoardDto boarddto = dbsvc.checkPreset(projectId);
 		assetList = dbsvc.presetData(boarddto);
-		maxXLocation = dbsvc.maxLocation(boarddto);
-		lineMax = dbsvc.lineMaxLocation(boarddto, maxXLocation);
-		lineLoc = dbsvc.lineLocation(boarddto, maxXLocation);
+		maxXLocation = dbsvc.maxXLocation(boarddto);
+		maxYLocation = dbsvc.maxYLocation(boarddto);
+		viewName = dbsvc.viewnames(boarddto);
+		YLocation = dbsvc.YLocation(boarddto, maxXLocation);
+		YMaxLocation = dbsvc.YmaxLocation(boarddto, maxXLocation);
 		
+
 		logger.info("Boarddto : " + boarddto);
 		logger.info("AssetData : " + assetList);
-		logger.info("MaxLocation : " + maxXLocation); 
-		logger.info("lineMaxLocation : " + lineMax); 
-		logger.info("lineLocation : " + lineLoc );
+		logger.info("MaxXLocation : " + maxXLocation); 
+		logger.info("maxYLocation : " + maxYLocation);
+		logger.info("viewNames : " + viewName);
+		logger.info("YLocation : " + YLocation);
+		logger.info("YMaxLocation : " + YMaxLocation);
+		
+
 		
 		mav.addObject("boarddto",boarddto);
 		mav.addObject("assetData", assetList);
 		mav.addObject("maxX",maxXLocation);
-		mav.addObject("lineMax", lineMax);
-		mav.addObject("lineLoc", lineLoc);
+		mav.addObject("maxY",maxYLocation);
+		mav.addObject("viewName", viewName);
+		mav.addObject("YLocation", YLocation);
 		
 		mav.setViewName("dashboard/dashview");
 		

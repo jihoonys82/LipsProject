@@ -3,7 +3,7 @@ var completePw = false;
 var completeNick = false;
 var completePhone = false;
 var completeBirth = false;
-var completeEmailOverlap = false;
+var completeEmailOverlap  = false;
 var completeEmailAuth = false;
 
 function checkId(idDom) {

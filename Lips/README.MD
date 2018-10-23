@@ -79,4 +79,17 @@
 	
 	userTracker.getAllUserTrack();
 	
+## MailSender
+	New MailSender(User user,HttpServletRequest request,String title,String body)
+	
+lips.utils import 하여 사용 가능
 
+ex)
+
+		UUID uid = UUID.randomUUID();
+		String code = uid.toString().split("-")[0];
+		String subject = "Lips 회원가입 메일 인증";
+		String body = "안녕하세요 Lips 입니다. \r\n" +
+					"이메일 인증란에 " + code + " 를 입력해 주세요.";
+		new MailSender(user,request,subject,body);		
+		return code;

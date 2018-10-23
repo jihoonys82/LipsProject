@@ -86,6 +86,14 @@ public class IssueController {
 		return map;
 	}
 	
+	@RequestMapping(value="/getCategory", method=RequestMethod.POST)
+	public ModelAndView getCategory(String projectId) {
+		ProjectDto projectDto = new ProjectDto();
+		projectDto.setProjectId(Integer.parseInt(projectId));
+		
+		return issueService.getCategory(projectDto);
+	}
+	
 	/**
 	 * Issue Create process
 	 */

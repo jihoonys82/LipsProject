@@ -64,4 +64,15 @@
 			AND pm.userID LIKE '%'||#{name}||'%'
  	</select>
  	
+ 	<select id="selIssueStagePreset" resultType="lips.issue.dto.IssueStagePresetDto">
+ 		SELECT issuePresetId, presetName, userId 
+ 		FROM issue_stage_preset
+ 	</select>
+ 	
+ 	<select id="selStageAssetByPresetId" parameterType="lips.issue.dto.IssueStagePresetDto" resultType="lips.issue.dto.StageAssetDto">
+ 		SELECT A.stageassetId, A.stageName, A.assetDescription
+	    FROM issue_stage_preset_asset P, stage_asset A 
+	    WHERE P.stageassetId = A.stageassetId
+	    ORDER BY P.assetOrder ASC
+ 	</select>
  </mapper>  

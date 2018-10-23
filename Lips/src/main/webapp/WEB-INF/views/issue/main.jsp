@@ -153,9 +153,10 @@ $(document).ready(function() {
 		
 		var cDate = new Date(cdList[i].innerText);
 		var diff = moment(cDate).diff(moment());
-		var	diffDay		= Math.floor(diff / (60 * 60 * 1000 * 24) * 1)
-		var	diffHour	= Math.floor((diff % (60 * 60 * 1000 * 24)) / (60 *60 * 1000) * 1)
-		var	diffMin		= Math.floor(((diff % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) / (60 * 1000) * 1)
+		var absDiff = Math.abs(diff);
+		var	diffDay		= Math.floor(absDiff / (60 * 60 * 1000 * 24) * 1)
+		var	diffHour	= Math.floor((absDiff % (60 * 60 * 1000 * 24)) / (60 *60 * 1000) * 1)
+		var	diffMin		= Math.floor(((absDiff % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) / (60 * 1000) * 1)
 		var remainTime 	= "";
 		if(diffDay !=0) 	remainTime += diffDay+"일 ";
 		if(diffHour !=0) 	remainTime += diffHour +"시간 ";

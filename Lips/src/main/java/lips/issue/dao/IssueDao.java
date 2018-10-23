@@ -5,6 +5,8 @@ import java.util.Map;
 
 import lips.issue.dto.CategoryAssetDto;
 import lips.issue.dto.IssueDto;
+import lips.issue.dto.IssueStagePresetDto;
+import lips.issue.dto.StageAssetDto;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
 
@@ -66,5 +68,17 @@ public interface IssueDao {
 	 */
 	public List<User> selUserByName(Map<String, String> map);
 	
+	/**
+	 * get All Issue stage presets.
+	 * @return
+	 */
+	public List<IssueStagePresetDto> selIssueStagePreset();
+
+	/**
+	 * get Stage asset from issuePresetId 
+	 * @param ispDto
+	 * @return
+	 */
+	public StageAssetDto selStageAssetByPresetId(IssueStagePresetDto ispDto);
 	
 }

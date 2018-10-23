@@ -1,6 +1,6 @@
 package lips.issue.dto;
 
-public class IssueStagePreset {
+public class IssueStagePresetDto {
 	private int issuePresetId;
 	private String presetName;
 	private String userId;

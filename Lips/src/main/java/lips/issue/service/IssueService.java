@@ -3,6 +3,7 @@ package lips.issue.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import lips.issue.dao.IssueDao;
+import lips.issue.dto.CategoryAssetDto;
 import lips.issue.dto.IssueDto;
+import lips.issue.dto.IssueStagePresetDto;
+import lips.issue.dto.StageAssetDto;
 import lips.project.dao.ProjectDao;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dao.UserDao;
@@ -57,9 +61,21 @@ public class IssueService {
 		logger.info(projectDto.toString());
 		if(projectDto.getProjectId()>0) {			
 			mav.addObject("category", issueDao.selCatByProjId(projectDto));
-		} 
-		mav.addObject("projList", projectDao.selPro(user));
+		}
 		
+		// 1.Issue_stage_preset 리스트 가져오기
+		List<IssueStagePresetDto> ispDtos =  issueDao.selIssueStagePreset();
+		
+		// 2.Stage Asset을 각 issueStagePreset 별로 가져오기
+		List<StageAssetDto> saDtos= new ArrayList<StageAssetDto>();
+		Map<Integer, List<StageAssetDto>> stages = new HashMap<Integer, List<StageAssetDto>>();
+		for(IssueStagePresetDto ispDto : ispDtos) {
+			saDtos.add(issueDao.selStageAssetByPresetId(ispDto));
+			stages.put(ispDto.getIssuePresetId(), saDtos);
+		}
+		
+		mav.addObject("projList", projectDao.selPro(user));
+		mav.addObject("stages",stages);
 		mav.setViewName("issue/create");
 		
 		return mav;
@@ -68,8 +84,22 @@ public class IssueService {
 	public ModelAndView setIssueCreate() {
 		ModelAndView mav = new ModelAndView();
 		User user = new UserByToken().getInstance();
+		
+		// 1.Issue_stage_preset 리스트 가져오기
+		List<IssueStagePresetDto> ispDtos =  issueDao.selIssueStagePreset();
+		
+		// 2.Stage Asset을 각 issueStagePreset 별로 가져오기
+		List<StageAssetDto> saDtos= new ArrayList<StageAssetDto>();
+		Map<Integer, List<StageAssetDto>> stages = new HashMap<Integer, List<StageAssetDto>>();
+		for(IssueStagePresetDto ispDto : ispDtos) {
+			saDtos.add(issueDao.selStageAssetByPresetId(ispDto));
+			stages.put(ispDto.getIssuePresetId(), saDtos);
+		}
+		
 		mav.addObject("projList", projectDao.selPro(user));
+		mav.addObject("stages",stages);
 		mav.setViewName("issue/create");
+		
 		return mav;
 	}
 
@@ -82,4 +112,13 @@ public class IssueService {
 		return users;
 	}
 	
+	public ModelAndView getCategory(ProjectDto projectDto) {
+		ModelAndView mav = new ModelAndView();
+		
+		List<CategoryAssetDto> cat = issueDao.selCatByProjId(projectDto);
+		mav.setViewName("jsonView");
+		mav.addObject("category", cat);
+		
+		return mav;
+	}
 }

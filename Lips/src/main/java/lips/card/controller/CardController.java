@@ -41,6 +41,21 @@ public class CardController {
 		
 		return mav;
 	}
+	@RequestMapping(value = "/assetList", method = RequestMethod.GET)
+	public ModelAndView AssetList() {
+		ModelAndView mav = new ModelAndView();
+		
+		List<CardDto> selCard = new ArrayList<CardDto>();
+		selCard = csvc.AllCardList();
+		logger.info(selCard.toString());
+		
+		mav.addObject("selCard", selCard);
+		
+		mav.setViewName("card/assetList");
+		
+		
+		return mav;
+	}
 
 	@RequestMapping(value = "/card1", method = RequestMethod.GET)
 	public ModelAndView card1(

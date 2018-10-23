@@ -8,5 +8,7 @@ public interface CardService {
 	public List<CardDto> YLocationList(CardDto dto);
 	
 	public String CardValue(CardDto dto);
+	
+	public List<CardDto> AllCardList();
 
 }

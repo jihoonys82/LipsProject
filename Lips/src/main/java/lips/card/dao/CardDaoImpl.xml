@@ -16,5 +16,11 @@
 	FROM Dashboard_user_asset
 	WHERE DashboardId=#{dashboardId} AND positionx=#{positionX} AND positiony=#{positionY}
 </select>
+
+<select id="selAllCardList" resultType="lips.card.dto.CardDto">
+	SELECT *
+	FROM Dashboard_asset
+	ORDER BY assetid
+</select>
 	
 </mapper>

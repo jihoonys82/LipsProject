@@ -24,4 +24,10 @@ public class CardServiceImpl implements CardService {
 		return dao.selCardValueDto(dto);
 	}
 
+	@Override
+	public List<CardDto> AllCardList() {
+	
+		return dao.selAllCardList();
+	}
+
 }

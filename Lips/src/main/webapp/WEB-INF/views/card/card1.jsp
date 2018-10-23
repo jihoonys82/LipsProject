@@ -7,7 +7,7 @@
         <div class="title"></div>
         <div class="next"><i class="icon-chevron-right"></i></div>
     </div>
-    <table class="body" style="width: 95%; margin: 3px;">
+    <table class="body" style="width: 95%;  margin: 3px;">
         <tr>
             <th>SUN</th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th>
         </tr>

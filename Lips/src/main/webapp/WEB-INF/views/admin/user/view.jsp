@@ -67,8 +67,8 @@
 	
 				<div class="viewUserBtn">
 					<a class="btn normal focus">프로젝트 공지</a>
-					<a class="btn normal focus" id="btnReopen" onclick="modal_1.show()">정지 해제</a>
-					<a class="btn normal focus" id="btnClose" onclick="modal_2.show()">탈퇴 처리</a>
+					<a class="btn normal focus" onclick="modal_1.show()">정지 해제</a>
+					<a class="btn normal focus" onclick="modal_2.show()">탈퇴 처리</a>
 				</div>
 			</div>
 		</div>
@@ -78,7 +78,8 @@
 	<div class="head">정지 해제</div>
 	<div class="body">
 		<div id="modalReopen" style="text-align: center; margin-top: 45px;">
-			<a class="btn focus small">Save</a> <a class="btn small">Close</a>
+			<p>${userInfo.userId } 님의 강등을 취소하시겠습니까?</p>
+			<a class="btn focus small" id="btnReopen">확인</a> <a class="btn small" id="btnCancel_1">취소</a>
 		</div>
 	</div>
 </div>
@@ -87,9 +88,10 @@
 	<div class="head">탈퇴 처리</div>
 	<div class="body">
 		<div id="modalClose" style="text-align: center; margin-top: 45px;">
+			<p>${userInfo.userId } 님을 강등시키시겠습니까?</p>
 		</div>
 		<div style="text-align: center;">
-			<a class="btn focus small">확인</a> <a class="btn small">취소</a>
+			<a class="btn focus small" id="btnClose">확인</a> <a class="btn small" id="btnCancel_2">취소</a>
 		</div>
 	</div>
 </div>
@@ -98,32 +100,68 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
+		
+		$("#btnCancel_1").click(function() {
+			$("#modal_1").hide();
+			// TODO 검은색 배경 지우는 법 찾기  
+		});
+	
+		$("#btnCancel_2").click(function() {
+			$("#modal_2").hide();
+			// TODO 검은색 배경 지우는 법 찾기  
+		});		
+		
+		
 		$("#btnReopen").click(function() {
 			$.ajax({
 				type: "post"
 				, url: "/admin/user/view"
 				, dataType: "json"
-				, data: {"userId": "${userInfo.userId}", "param": true }
+				, data: {"userId": "${userInfo.userId}", "param": "true" }
 				, success: function(data) {
-					$("#modalReopen").append(data.userId+"<p>님의 강등을 취소하시겠습니까?</p>")
+// 					var infos = new Array();
+					
+// 					infos[0] = data.blocked;
+// 					infos[1] = data.level; 
+			
+				    $("#btnReopen").click(function(){
+				    	
+// 				    	$("#status").attr("readonly",false);
+						
+				    	$("#stauts").removeAttr("readonly");
+				    	$("#status").empty();
+				        $("#status").val("가입");
+				        
+				        
+				    });
+					
 					
 				}, error: function() {
 					alert("error");
 				}
 			})
 			
-		});		
-	});
-	
-	$(document).ready(function(){
+		});	
+		
 		$("#btnClose").click(function() {
 			$.ajax({
 				type: "post"
 				, url: "/admin/user/view"
 				, dataType: "json"
-				, data: {"userId": "${userInfo.userId}", "param":false }
+				, data: {"userId": "${userInfo.userId}", "param":"false" }
 				, success: function(data) {
-					$("#modalClose").append(data.userId+"<p>님을 탈퇴시키시겠습니까?</p>")
+	
+					$("#btnClose").click(function(){
+				    	
+// 				    	$("#status").attr("readonly",false);
+						
+				    	$("#stauts").removeAttr("readonly");
+				    	$("#status").empty();
+				        $("#status").val("강제탈퇴");
+				        
+				        
+				    });
+					
 					
 				}, error: function() {
 					alert("error");
@@ -131,11 +169,9 @@
 			})
 			
 		});		
+		
 	});
-
-
-
-
+	
 
 	jui.ready([ "ui.modal" ], function(modal) {
 		$("#modal_1").appendTo("body");

@@ -12,16 +12,24 @@
 		</div>
 	</div>
 
-	<div class="body forDisplay-body-first">
-			<div class="forDisplay-body-second">
-				<div class="blackBox col col-1">기간</div>
-					<input type="date" class="col col-2 color-date input"/>			
-					<input type="date" class="col col-2 color-date input"/>
+	<div class="body forDisplay-body-first" >
+			<div class="forDisplay-body-second row">
+				<div class="blackBox col col-1">
+					기간
+				</div>
 
-				<a class="btn mini focus margin-a">오늘</a> <a class="btn mini focus">일주일</a> <a
-					class="btn mini focus">한 달</a>
+				<input type="date" class="col col-2 color-date input"/>
+				<input type="date" class="col col-2 color-date input"/>
+				
+				<div class="col col-2" style="vertical-align: baseline;" >
+					<a class="btn mini focus" style="display: table;">
+						오늘
+					</a> 
+					<a class="btn mini focus" style="display: table;">일주일</a> 
+					<a class="btn mini focus" style="display: table;">한 달</a>				
+				</div>	
 
-				<div id="combo_1" class="combo">
+				<div id="combo_1" class="combo col col-2">
 					
 					<a class="btn small forSizing-btn-first">Select...</a>
 					<a class="btn small toggle"><i class="icon-arrow2"></i></a>
@@ -32,14 +40,15 @@
 					</ul>
 				
 				</div>
+				<div class="col col-2">
+					<input type="text" class="forSizing-input input"/>
 			
-				<input type="text" class="forSizing-input input" />
-		
-				<button class="btn small focus forSizing-btn-second"
-					onclick="alert(combo_1.getText())">검색</button>
+					<button class="btn small focus"
+						onclick="alert(combo_1.getText())">검색</button>
+				</div>
 			</div>
-		
 	</div>
+	
 
 	<div class="body">
 		<div class="row">
@@ -61,14 +70,15 @@
 				<div class="infoBox col col-3">
 					<div class="boxWrapper">
 						<div class="numBox">12</div>
-						<div>완료된 프로젝트</div>
+						<div>진행  프로젝트</div>
 					</div>
+					
 				</div>
 
 				<div class="infoBox col col-3">
 					<div class="boxWrapper">
 						<div class="numBox">2</div>
-						<div>중단된 프로젝트</div>
+						<div>완료된 프로젝트</div>
 					</div>
 				</div>
 			</div>

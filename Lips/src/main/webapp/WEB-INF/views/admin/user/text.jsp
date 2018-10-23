@@ -16,11 +16,12 @@
    					</div> 
 		</div>
 		
-	<div class="body forDisplay-body-first">
-			<div class="forDisplay-body-second row">
+	<div class="body forDisplay-body-first" >
+			<div class="forDisplay-body-second row" style="vertical-align: baseline;" >
 				<div class="blackBox col col-1">
 					기간
 				</div>
+
 				<input type="date" class="col col-2 color-date input"/>
 				<input type="date" class="col col-2 color-date input"/>
 				

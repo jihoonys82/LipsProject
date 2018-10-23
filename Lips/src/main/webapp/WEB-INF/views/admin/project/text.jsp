@@ -14,16 +14,24 @@
    					</div> 
 		</div>
 		
-	<div class="body forDisplay-body-first">
-			<div class="forDisplay-body-second">
-				<div class="blackBox col col-1">기간</div>
-					<input type="date" class="col col-2 color-date input"/>			
-					<input type="date" class="col col-2 color-date input"/>
+	<div class="body forDisplay-body-first" >
+			<div class="forDisplay-body-second row">
+				<div class="blackBox col col-1">
+					기간
+				</div>
 
-				<a class="btn mini focus margin-a">오늘</a> <a class="btn mini focus">일주일</a> <a
-					class="btn mini focus">한 달</a>
+				<input type="date" class="col col-2 color-date input"/>
+				<input type="date" class="col col-2 color-date input"/>
+				
+				<div class="col col-2" style="vertical-align: baseline;" >
+					<a class="btn mini focus">
+						오늘
+					</a> 
+					<a class="btn mini focus">일주일</a> 
+					<a class="btn mini focus">한 달</a>				
+				</div>	
 
-				<div id="combo_1" class="combo">
+				<div id="combo_1" class="combo col col-2">
 					
 					<a class="btn small forSizing-btn-first">Select...</a>
 					<a class="btn small toggle"><i class="icon-arrow2"></i></a>
@@ -34,13 +42,13 @@
 					</ul>
 				
 				</div>
+				<div class="col col-2">
+					<input type="text" class="forSizing-input input"/>
 			
-				<input type="text" class="forSizing-input input" />
-		
-				<button class="btn small focus forSizing-btn-second"
-					onclick="alert(combo_1.getText())">검색</button>
+					<button class="btn small focus"
+						onclick="alert(combo_1.getText())">검색</button>
+				</div>
 			</div>
-		
 	</div>
 		
 		<div class="body">
@@ -49,7 +57,7 @@
 					<div class="infoBox col col-3">
 						<div class="boxWrapper">
 							<div class="numBox">
-								45
+								${cntList[0] }
 							</div>
 						<div>
 								총 프로젝트
@@ -60,7 +68,7 @@
 					<div class="infoBox col col-3">
 						<div class="boxWrapper">
 							<div class="numBox">
-								3
+								${cntList[1] }
 							</div>
 						<div>
 								신규 프로젝트
@@ -71,10 +79,10 @@
 					<div class="infoBox col col-3">
 						<div class="boxWrapper">
 							<div class="numBox">
-								12
+								${cntList[2] }
 							</div>
 						<div>
-								완료된 프로젝트
+								진행 프로젝트
 						</div>
 						</div>
 					</div>
@@ -82,10 +90,10 @@
 					<div class="infoBox col col-3">
 						<div class="boxWrapper">
 							<div class="numBox">
-								2
+								${cntList[3] }
 							</div>
 						<div>
-								중단된 프로젝트
+								완료된 프로젝트
 						</div>
 						</div>
 					</div>	
@@ -99,7 +107,7 @@
 			<table class="table classic stripe">
 			<thead>
 				<tr>
-					<th>프로젝트 No.</th><th>진행 일자</th><th>프로젝트 유형</th><th>진행 상황</th><th>프로젝트 리더</th>
+					<th>프로젝트 No.</th><th>프로젝트 이름</th><th>진행 상황</th><th>공개 여부</th><th>프로젝트 리더</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -107,9 +115,28 @@
 					<tr class="text-center">
 						<td>${pList.projectId }</td>
 						<td>${pList.projectName }</td>
-						<td>${pList.status }</td>
+						<c:choose>
+							<c:when test="${pList.status eq 'OPEN'}">
+								<td>진행 중</td>
+							</c:when>
+							<c:when test="${pList.status eq 'PENDING'}">
+								<td>중단</td>
+							</c:when>
+							<c:when test="${pList.status eq 'CLOSE'}">
+								<td>완료</td>
+							</c:when>
+							<c:otherwise>
+								<td>알 수 없음</td>
+							</c:otherwise>
+						</c:choose>
+
+						<c:if test="${pList.projectOpen eq 1}">
+								<td>공개</td>
+						</c:if>
+						<c:if test="${pList.projectOpen eq 0}">
+								<td>비공개</td>
+						</c:if>
 						<td>${pList.projectLeader }</td>
-						<td>${pList.projectCreater }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -134,7 +161,20 @@
 		
 		
 		
-</div>	
+</div>
+
+<script type="text/javascript">
+ 	$(document).ready(function(){ 
+  		
+  		$("table").on("click", "tr", function() { 
+ 			var projectId = $(this).children("td").eq(0).text(); 
+  			
+ 			$(location).attr("href","/admin/project/view?projectId="+projectId); 
+   		}); 
+  		
+   	});
+
+</script>	
 
 					
 </body>

@@ -40,10 +40,9 @@ public class AdminController {
    }
   
    @RequestMapping(value="/admin/project/chart", method=RequestMethod.GET)
-   public String proChart() {
+   public void proChart(Model model) {
 	   logger.info("프로젝트 차트 페이지");
 	   
-	   return "admin/project/chart";
    }
    
    @RequestMapping(value="/admin/project/text", method=RequestMethod.GET)
@@ -53,10 +52,12 @@ public class AdminController {
 	  int totalPage = adminService.getPTotalCount();
 	  Paging paging = new Paging(totalPage, curPage);
 	  
-	  List<ProjectDto> pList = adminService.getProList(paging);
-	  
+	  List<ProjectDto> pList = adminService.getProList(paging); 
+	  List<Integer> cntList = adminService.getNumOfPro();
+	   
 	  model.addAttribute("paging",paging);
 	  model.addAttribute("pList",pList);
+	  model.addAttribute("cntList", cntList);
 	  
    }
    
@@ -96,27 +97,29 @@ public class AdminController {
 		logger.info("유저 상세 페이지");
 		
 		User userinfo = adminService.getUserInfo(user);
-//		ProjectDto proinfo = adminService.getProByUid(user);
 		List proinfo = projectService.selPro(user);
+		
 		model.addAttribute("userInfo", userinfo);
 		model.addAttribute("projectInfo",proinfo);
    }
    
    @RequestMapping(value="/admin/user/view", method=RequestMethod.POST)
-   public ModelAndView userClose(Model model, User user, boolean param) {
-		logger.info("유저 상세 페이지_계정삭제");
+   public ModelAndView userClose(Model model, User user, String param) {
+		logger.info("유저 상세 페이지_강등 & 강등 취소");
 		ModelAndView mav = new ModelAndView();
 		
-		if(param == true) {
-			adminService.closeAccount(user);
-			
-		} else if(param == false) {
+		if(param.equals("true")) {
 			adminService.reopenAccount(user);
+			
+		} else if(param.equals("false")) {
+			adminService.closeAccount(user);
 		}
 		
-		String id = user.getUserId();
-
-		mav.addObject("userId", id);
+		int blocked = user.getBlocked();
+		int level = user.getUserLevel();
+		
+		mav.addObject("blocked", blocked);
+		mav.addObject("level",level);
 		mav.setViewName("jsonView");
 		return mav;
    }
@@ -124,6 +127,10 @@ public class AdminController {
    @RequestMapping(value="/admin/project/view", method=RequestMethod.GET)
    public void proDetailView(Model model, ProjectDto project) {
 	   logger.info("프로젝트 상세 페이지");
+	   
+	   ProjectDto proInfo = adminService.getProInfo(project);
+	   
+	   model.addAttribute("proInfo", proInfo);
 	   
 //	   ProjectDto projectinfo = adminService.getProInfo(project);
 //	   model.addAttribute("proInfo",projectinfo);

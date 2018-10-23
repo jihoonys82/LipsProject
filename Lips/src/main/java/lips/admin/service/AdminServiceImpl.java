@@ -84,8 +84,7 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public ProjectDto getProInfo(ProjectDto project) {
-		
-		return null;
+		return adminDao.selProByPid(project);
 	}
 
 	@Override
@@ -109,8 +108,14 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public List<Integer> getNumOfPro() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Integer> list = new ArrayList<Integer>();
+		
+		list.add(0, adminDao.selPTotalCnt());
+		list.add(1, adminDao.selNewPCnt());
+		list.add(2, adminDao.selOpenPCnt());
+		list.add(3, adminDao.selClosePCnt());
+		
+		return list;
 	}
 
 	@Override
@@ -125,9 +130,9 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public ProjectDto getProByUid(User user) {
-		return adminDao.selProByUid(user);
-	}
-	
+		// TODO Auto-generated method stub
+		return null;
+	}	
 
 }
 	

@@ -12,16 +12,22 @@
 		</div>
 	</div>
 		
-	<div class="body forDisplay-body-first">
-			<div class="forDisplay-body-second">
-				<div class="blackBox col col-1">기간</div>
-					<input type="date" class="col col-2 color-date input"/>
-					<input type="date" class="col col-2 color-date input"/>
-					
-				<a class="btn mini focus margin-a">오늘</a> <a class="btn mini focus">일주일</a> <a
-					class="btn mini focus">한 달</a>
+	<div class="body forDisplay-body-first" >
+			<div class="forDisplay-body-second row" style="vertical-align: baseline;" >
+				<div class="blackBox col col-1">
+					기간
+				</div>
 
-				<div id="combo_1" class="combo">
+				<input type="date" class="col col-2 color-date input"/>
+				<input type="date" class="col col-2 color-date input"/>
+				
+				<div class="col col-2">
+					<a class="btn mini focus margin-a">오늘</a> 
+					<a class="btn mini focus">일주일</a> 
+					<a class="btn mini focus">한 달</a>				
+				</div>	
+
+				<div id="combo_1" class="combo col col-2">
 					
 					<a class="btn small forSizing-btn-first">Select...</a>
 					<a class="btn small toggle"><i class="icon-arrow2"></i></a>
@@ -32,13 +38,13 @@
 					</ul>
 				
 				</div>
+				<div class="col col-2">
+					<input type="text" class="forSizing-input input"/>
 			
-				<input type="text" class="forSizing-input input"/>
-		
-				<button class="btn small focus forSizing-btn-second"
-					onclick="alert(combo_1.getText())">검색</button>
+					<button class="btn small focus"
+						onclick="alert(combo_1.getText())">검색</button>
+				</div>
 			</div>
-		
 	</div>
 		
 		<div class="body">

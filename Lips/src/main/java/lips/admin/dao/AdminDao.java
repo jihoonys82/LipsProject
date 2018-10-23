@@ -17,12 +17,16 @@ public interface AdminDao {
 	public void inNotice(NoticeDto notice);
 	
 	/**
-	 *   유저의 block 여부 설정 
+	 *   유저의 block 여부 설정 - 강등 
 	 * @param user
 	 * @return 
 	 */
 	public void upUserAccClose(User user);
 	
+	/**
+	 * 	유저의 block 여부 설정 - 강등 취소
+	 * @param user
+	 */
 	public void upUserAccReopen(User user);
 	
 	/**
@@ -39,8 +43,13 @@ public interface AdminDao {
 	 */
 	public List<User> selUserInfo(Paging paging);
 	
-	
+	/**
+	 * 	 유저가 리더인지 확인
+	 * @param user
+	 * @return
+	 */
 	public int selIsLeader(User user);
+
 	/**
 	 *   프로젝트 리스트 정보 불러오기
 	 * @param project
@@ -127,7 +136,25 @@ public interface AdminDao {
 	 */
 	public int selPTotalCnt();
 	
-	public ProjectDto selProByUid(User user);
+	/**
+	 * 	 새로운 프로젝트 count
+	 * @return int
+	 */
+	public int selNewPCnt();
+	
+	/**
+	 * 	 완료된 프로젝트 count
+	 * @return int
+	 */
+	public int selClosePCnt();
+	
+	/**
+	 * 	진행 중인 프로젝트 count
+	 * @return int
+	 */
+	public int selOpenPCnt();
+	
+//	public ProjectDto selProByUid(User user);
 
 	
 }

@@ -12,6 +12,7 @@
 	 		WHERE rnum 
 	 		BETWEEN #{startNo} AND #{endNo}
  	</select>
+ 	
  	<select id="selIsLeader" resultType="int" parameterType="lips.userinfo.dto.User">
  		SELECT count(*) FROM userinfo ui, projectinfo pi
 		WHERE pi.projectLeader = ui.userid AND userid = #{userId}
@@ -35,6 +36,10 @@
 	
 	<select id="selUserByUid" resultType="lips.userinfo.dto.User" parameterType="lips.userinfo.dto.User">
 		SELECT * FROM USERINFO WHERE USERID= #{userId}
+	</select>
+	
+	<select id="selProByPid" resultType="lips.project.dto.ProjectDto" parameterType="lips.project.dto.ProjectDto">
+		SELECT * FROM PROJECTINFO WHERE PROJECTID= #{projectId}
 	</select>
 	
 	<select id="selPTotalCnt" resultType="int">
@@ -62,5 +67,17 @@
 	<update id="upUserAccReopen" parameterType="lips.userinfo.dto.User">
 		UPDATE USERINFO SET USERLEVEL = 1, BLOCKED = 0 WHERE USERID=#{userId}		
 	</update>
+	
+	<select id="selNewPCnt" resultType="int">
+		SELECT COUNT(*) FROM PROJECTINFO WHERE CREATEDATE > SYSDATE-30
+	</select>
+	
+	<select id="selClosePCnt" resultType="int">
+		SELECT COUNT(*) FROM PROJECTINFO WHERE STATUS = 'CLOSE'
+	</select>
+	
+	<select id="selOpenPCnt" resultType="int">
+		SELECT COUNT(*) FROM PROJECTINFO WHERE STATUS = 'OPEN'	
+	</select>
 	
  </mapper>  

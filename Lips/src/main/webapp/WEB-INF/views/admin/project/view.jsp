@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+    
 
 	<div class="panel">
 		<div class="body">
@@ -12,7 +16,8 @@
 						<div class="infomation">프로젝트 정보</div>
 							<div class="view-form-row">
 							<label for="proName" class="view-form-label">프로젝트 명</label>
-							<input type="text" name="proName" id="proName" class="input view-form-input" readonly="readonly"/>
+							<input type="text" name="proName" id="proName" class="input view-form-input" readonly="readonly"
+								value="${proInfo.projectName }"/>
 							</div>
 							
 							<div class="view-form-row">
@@ -21,15 +26,33 @@
 							</div>
 									
 							<div class="view-form-row">
-							<label for="proType" class="view-form-label">프로젝트 유형</label>
-							<input type="text" name="proType" id="proType" class="input view-form-input" readonly="readonly"/> 
-							</div>				
-						
-							<div class="view-form-row">
 							<label for="proProgress" class="view-form-label">진행 상황</label>
-							<input type="text" name="proProgress" id="proProgress" class="input view-form-input" readonly="readonly"/> 
+								<c:if test="${proInfo.status eq 'OPEN'}">
+									<input type="text" name="proProgress" id="proProgress" class="input view-form-input" readonly="readonly"
+										value="진행중"/> 
+								</c:if>
+								<c:if test="${proInfo.status eq 'PENDING'}">
+									<input type="text" name="proProgress" id="proProgress" class="input view-form-input" readonly="readonly"
+										value="중단"/> 
+								</c:if>
+								<c:if test="${proInfo.status eq 'CLOSE'}">
+									<input type="text" name="proProgress" id="proProgress" class="input view-form-input" readonly="readonly"
+										value="진행중"/> 
+								</c:if>
 							</div>
-							
+
+							<div class="view-form-row">
+							<label for="proType" class="view-form-label">프로젝트 공개 여부</label>
+								<c:if test="${pList.projectOpen eq 1}">
+									<input type="text" name="proType" id="proType" class="input view-form-input" readonly="readonly"
+										value="공개"/> 
+								</c:if>
+								<c:if test="${pList.projectOpen eq 0}">
+									<input type="text" name="proType" id="proType" class="input view-form-input" readonly="readonly"
+										value="비공개"/> 								
+								</c:if>
+							</div>				
+													
 							<div class="view-form-row">
 							<label for="proIssue" class="view-form-label">등록된 이슈</label>
 							<input type="text" name="proIssue" id="proIssue" class="input view-form-input" readonly="readonly"/> 
@@ -37,7 +60,8 @@
 							
 							<div class="view-form-row">
 							<label for="proOpenDate" class="view-form-label">프로젝트 개설일</label>
-							<input type="text" name="proOpenDate" id="proOpenDate" class="input view-form-input" readonly="readonly"/> 
+							<input type="text" name="proOpenDate" id="proOpenDate" class="input view-form-input" readonly="readonly"
+								value="<fmt:formatDate value="${proInfo.createDate }" pattern="yyyy-MM-dd" />"/> 
 							</div>
 							
 							<div class="view-form-row">

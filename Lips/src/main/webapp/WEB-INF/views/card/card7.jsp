@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<div name="card1" style="color: orange;">card7</div>
+<div style="height: 300px; background: gray;padding: 3px;">
+${cardvalue }
+</div>

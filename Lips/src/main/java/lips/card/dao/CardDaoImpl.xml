@@ -2,6 +2,19 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="lips.card.dao.CardDao">
- 
- </mapper>
+<mapper namespace="lips.card.dao.CardDao">
+
+<select id="selJoinYLocation" parameterType="lips.card.dto.CardDto" resultType="lips.card.dto.CardDto">
+	SELECT U.positiony ,A.assetview, U.dashboardId , U.positionX
+	FROM Dashboard_user_asset U , Dashboard_asset A 
+	WHERE U.assetId=A.assetId AND U.DashboardId=#{dashboardId} AND U.positionx=#{positionX}
+	ORDER BY U.positiony
+</select>
+
+<select id="selCardValueDto" parameterType="lips.card.dto.CardDto" resultType="String">
+	SELECT assetvalue 
+	FROM Dashboard_user_asset
+	WHERE DashboardId=#{dashboardId} AND positionx=#{positionX} AND positiony=#{positionY}
+</select>
+	
+</mapper>

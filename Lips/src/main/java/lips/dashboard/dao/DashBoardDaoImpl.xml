@@ -9,46 +9,9 @@
 		resultType="lips.dashboard.dto.DashBoardDto">
 		SELECT*FROM dashboard WHERE userId=#{userId} AND projectId=#{projectId}
 	</select>
-	<select id="selJoinAssetDto"
-		parameterType="lips.dashboard.dto.DashBoardDto" resultType="lips.dashboard.dto.DashBoardAssetDto">
-		SELECT
-		D.dashboardid,D.assetid,D.positionx,D.positiony,D.assetvalue,A.assetname,A.assetdescription,A.assetview
-		FROM
-		Dashboard_user_asset D,Dashboard_asset A
-		WHERE D.assetId=A.assetId AND DashboardId=#{dashboardId}
-		ORDER BY positionx 
-	</select>
 	
 	<select id="selAssetMaxXDto" parameterType="lips.dashboard.dto.DashBoardDto" resultType="Integer">
 		SELECT MAX (positionX) FROM Dashboard_user_asset WHERE DashboardId =#{dashboardId}
-	</select>
-	
-	<select id="selAssetMaxYDto" parameterType="lips.dashboard.dto.DashBoardDto" resultType="Integer">
-		SELECT MAX (positionY) FROM Dashboard_user_asset WHERE DashboardId =#{dashboardId}
-	</select>
-	
-	<select id="selViewNamebyDBdto" parameterType="lips.dashboard.dto.DashBoardDto" 
-	resultType="String">
-		SELECT A.assetview FROM 
-		Dashboard_user_asset D,Dashboard_asset A 
-		WHERE D.assetId=A.assetId AND DashboardId = #{dashboardId}
-		ORDER BY positionx
-	</select>
-	
-	<select id="selYLocation" parameterType="map" 
-	resultType="Integer">
-		SELECT positiony FROM 
-		Dashboard_user_asset
-		WHERE DashboardId = #{dashBoardId} AND positionX = #{xLocation}
-		ORDER BY positiony
-	</select>
-	
-	<select id="selYmaxLocation" parameterType="map" 
-	resultType="Integer">
-		SELECT Max(positiony) FROM 
-		Dashboard_user_asset
-		WHERE DashboardId = #{dashBoardId} AND positionX = #{xLocation}
-		ORDER BY positiony
 	</select>
 	
 </mapper>

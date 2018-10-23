@@ -11,7 +11,7 @@
 	</definition>
 	
 	
-<!-- 예외추가_Card_유석호 -->
+<!-- Card_유석호 -->
 	
 	<definition name="cardbase" template="/WEB-INF/tiles/cardlayout.jsp">
 		<put-attribute name="body" value="" />

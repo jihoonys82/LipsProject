@@ -6,9 +6,9 @@
 <script>
 $(document).ready(function() {
 	$("#inputId").poshytip({
-		content: '중복된 아이디 입니다.',
-			className: 'tip-darkgray',
-			bgImageFrameSize: 11,
+		content: '이미 사용중인 아이디 입니다.',
+		className: 'tip-darkgray',
+		bgImageFrameSize: 11,
 		showOn: 'none',
 		alignTo: 'target',
 		alignX: 'inner-left',
@@ -47,6 +47,17 @@ $(document).ready(function() {
 		});
 	$("#inputPhone").poshytip({
 		content: '\'-\'를 제외한 숫자만 입력해 주세요.',
+		className: 'tip-darkgray',
+		bgImageFrameSize: 11,
+		showOn: 'none',
+		alignTo: 'target',
+		alignX: 'inner-left',
+		offsetX: 0,
+		offsetY: 5
+		});
+
+	$('#inputEmail').poshytip({
+		content: '이미 가입된 이메일 입니다.',
 		className: 'tip-darkgray',
 		bgImageFrameSize: 11,
 		showOn: 'none',

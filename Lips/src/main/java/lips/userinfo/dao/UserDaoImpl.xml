@@ -13,8 +13,14 @@
 	<select id="selCntUserId" parameterType="lips.userinfo.dto.User" resultType="int">
 		SELECT count(*) from userinfo where userId= #{userId }
 	</select>
+	<select id="selCntUserEmail" parameterType="lips.userinfo.dto.User" resultType="int">
+		SELECT count(*) from userinfo where email= #{email }
+	</select>
  	<insert id="inUser" parameterType="lips.userinfo.dto.User">
  		INSERT INTO userinfo VALUES(#{userId }, #{email},#{pw }, sysdate, #{nick }, 0, 1, #{phone }, #{birth } )
  	</insert>
+ 	<update id="upUserData" parameterType="lips.userinfo.dto.User">
+ 		UPDATE userinfo SET pw=#{pw }, nick=#{nick }, phone=#{phone}, birth=#{birth }, email=#{email } where userid = #{userId } and email = #{email }
+ 	</update>
 
  </mapper>

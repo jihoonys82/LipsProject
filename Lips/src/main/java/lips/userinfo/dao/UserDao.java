@@ -27,4 +27,15 @@ public interface UserDao {
 	 * @return int
 	 */
 	public int selCntUserId(User user);
+	/**
+	 * 이메일 중복확인
+	 * @param user
+	 * @return int
+	 */
+	public int selCntUserEmail(User user);
+	/**
+	 * 유저 정보 변경
+	 * @param user
+	 */
+	public void upUserData(User user);
 }

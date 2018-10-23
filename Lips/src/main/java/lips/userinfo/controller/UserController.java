@@ -52,6 +52,14 @@ public class UserController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
+	@RequestMapping(value="/join/mailOverlap", method=RequestMethod.POST)
+	public ModelAndView mailOverlap(User user) {
+		ModelAndView mav = new ModelAndView();
+		boolean check = service.checkEmail(user);
+		mav.addObject("check",check);
+		mav.setViewName("jsonView");
+		return mav;
+	}
 	@RequestMapping(value="/join/mailSend", method = RequestMethod.POST)
 	public ModelAndView sendMail(User user,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
@@ -60,6 +68,24 @@ public class UserController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
+	@RequestMapping(value="/search", method = RequestMethod.GET)
+	public void search() {}	
+	
+	@RequestMapping(value="/search/id",method=RequestMethod.POST)
+	public ModelAndView searchId(User user,HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.searchId(user,request));
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	@RequestMapping(value="/search/pw",method=RequestMethod.POST)
+	public ModelAndView searchPw(User user,HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.searchPw(user, request));
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout() {

@@ -49,7 +49,7 @@
 		})
 	});
 	function checkInputForm(){
-		if(!completeId||!completePw||!completeNick||!completePhone||!completeBirth||!completeEmailAuth){
+		if(!completeId||!completePw||!completeNick||!completePhone||!completeBirth||!completeEmailAuth||!completeEmailOverlap){
 			alert('입력값을 확인해 주세요');
 			return;
 		}
@@ -83,7 +83,7 @@
 		<div class="formItem">
 			<label for="inputEmail">이메일 (EMAIL)</label>
 			<input type="button" id="emailAuthBtn" class="btn focus" style="width:18%; text-align : center; margin : 10px;" value="인증" onclick="ValidEmail($('#inputEmail').val());"/>
-			<input class="input large"type="email" id="inputEmail" name="email" style="width:39%"/>
+			<input class="input large"type="email" id="inputEmail" name="email" style="width:39%" onfocusout="validEmailOverlap(this.value)"/>
 		</div>
 		<div class="formItem"  style="margin:0px;" > 
 			<input type="text" id="emailAuth" class="input large" placeholder="인증번호를 입력해 주세요." onfocusout="validEmailAuth(this.value)" style=" width:40%">

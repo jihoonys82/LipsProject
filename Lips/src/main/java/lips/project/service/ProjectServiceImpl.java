@@ -1,7 +1,7 @@
 package lips.project.service;
 
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import lips.project.dao.ProjectDao;
 import lips.project.dto.ProjectDto;
+import lips.project.dto.ProjectinvitecodeDto;
 import lips.userinfo.dto.User;
 
 @Service
@@ -81,47 +82,68 @@ String invitecode;
 
 	@Override
 	public int joinPro(ProjectDto dto, User user) {
-		
 		List list = dao.selProbyinvite(dto);
-
-		
 		//인바이트 코드로  프로젝트 검색 있는지 없는지 확인
 		if(list.isEmpty()){
 			// 빈 리스트이면(초대코드가 잘못된)
+//			System.out.println("존재하지 않는 초대코드 입니다"+list.toString());
 			return 1;
-		} else if(!list.isEmpty()) {
-			//비어있찌 않으면
+		} else 
+			if(!list.isEmpty())
+			{
+//			System.out.println("존재하는 코드입니다"+list.toString());
 			//이미 가입하였는지 확인
-			//
-			// 초대코드가 있고 24시간이 만료하지 않았는지 확인
-			//
-			return 2;
+			Map map = new HashMap();
+			map.put("invitecode", dto.getInvitecode());
+			map.put("userid", user.getUserId());
+			ProjectinvitecodeDto checkDto = new ProjectinvitecodeDto();
+			checkDto = dao.invitecheck(map);
+//			System.out.println("체크시작한다");
+			if(checkDto!=null) {
+				
+//				System.out.println("가입한 상태");
+				return 2;
+			} else if(checkDto==null) {
+//				System.out.println("가입하지 않은 상태");
+				//24시간 검증
+				ProjectinvitecodeDto check24Dto = dao.inviteTimecheck(dto);
+//				System.out.println("24시간 검증");
+				
+				
+				long expDate = check24Dto.getExpiryDate().getTime();
+				long curDate = new Date().getTime();
+//				System.out.println(curDate);
+//				System.out.println(expDate);
+				
+				if(expDate<curDate) {
+//					System.out.println("24시간이 지남");
+					return 3;
+				} else if (expDate>curDate) {
+					
+					
+					Map map3 = new HashMap();
+					map3.put("projectId", check24Dto.getProjectId());
+					map3.put("user", user);
+					
+					dao.inProMember(map3);
+					
+					
+					
+					return 4;
+				}
 				
 			}
-			
-			
-		
-		return 3;
-		
+
 				
+			}
+		return 0;
 			
+
 			
 	}
 
 		
-		
-//		Map map = new HashMap();
-//		map.put("projectId", dto.getProjectId());
-//		map.put("user", user);
-		
-		//프로젝트 참여멤버 테이블 인서트
-//		dao.inProMember(map);
-		
-		//성공하면 1
-		//실패하면 2
-		//이미 가입했으면 3
-		
-		
+
 
 
 	

@@ -162,12 +162,16 @@
 							
 // 						});  //안먹음 왜 안먹는지모름..
 						$("#modalsr").append($invitediv);
+// 						$("#modalsr").modal({keyboard: false,backdrop: 'static'})
 						modal_1.show();
+
+					
 					
 // 						modal_1.hide();
 					}
 					, error : function() {
 						$("#modalsr").html("<div>프로젝트 생성에 실패하였습니다. 잠시 후 다시 시도해주세요.</div>")
+					
 						modal_1.show();
 						
 					}
@@ -189,6 +193,9 @@
 
 			modal_1 = modal("#modal_1", {
 				color : "black"
+			
+
+				
 			});
 		});
 	</script>

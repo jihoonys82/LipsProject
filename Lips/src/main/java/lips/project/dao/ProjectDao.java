@@ -1,13 +1,19 @@
 package lips.project.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import lips.project.dto.ProjectDto;
+import lips.project.dto.ProjectinvitecodeDto;
 import lips.userinfo.dto.User;
 
 public interface ProjectDao {
+	
+	//초대코드를 이용하여  project_invitation테이블의을 조회,  expirydate 을 가져옴
+	public ProjectinvitecodeDto inviteTimecheck(ProjectDto dto);
+	
+	//초대코드를 이용해 조인할 때 유저객체를 바탕으로 가입했는지 확인 가입했으면 1 가입하지 않았으면 0 리턴
+	public ProjectinvitecodeDto invitecheck(Map map);
 	
 	//초대코드를 바탕으로 프로젝트 리스트 출력
 	public List selProbyinvite(ProjectDto dto);

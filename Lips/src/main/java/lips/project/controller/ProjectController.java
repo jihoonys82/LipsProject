@@ -1,7 +1,8 @@
 package lips.project.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +87,7 @@ public class ProjectController {
 		
 		invitecode= service.inPro(dto, loginUser);
 		
-		HashMap<String,String> map = new HashMap<String, String>();
+		HashMap<String,String> map = new HashMap<>();
 	
 		map.put("invitecode", invitecode);
 		
@@ -102,8 +103,10 @@ public class ProjectController {
 	
 	//프로젝트 참가 처리
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public void projectjoinProc(ProjectDto dto) {
+	public void projectjoinProc(String invitecode,HttpServletResponse resp) {
 		
+		   resp.setContentType("application/json; charset=utf-8");
+		   PrintWriter out;
 		// 내가 던져준 애 . 받은 객체 . 그 중에 토큰 정보 . 내가지정한 값
 				Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				User loginUser = null;
@@ -114,8 +117,19 @@ public class ProjectController {
 					logger.info(user.toString());
 				}
 				
+				ProjectDto dto = new ProjectDto();
+				dto.setInvitecode(invitecode);
 				
-				service.joinPro(dto,loginUser);
+				int result = service.joinPro(dto,loginUser);
+				
+				 try {
+					out = resp.getWriter();
+					out.append("{\"result\":"+result+"}");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 	
 		}
 

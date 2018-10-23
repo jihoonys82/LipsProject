@@ -4,9 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="lips.project.dao.ProjectDao">
  
- 
  	<!--프로젝트 조회 (초대 코드를 바탕으로)  -->
- 	
  	<select id="selProbyinvite" parameterType="lips.project.dto.ProjectDto" resultType="lips.project.dto.ProjectDto">
  	SELECT* FROM project_member pm, project_invitation pi
 	WHERE pm.PROJECTID = pi.PROJECTID AND INVITECODE=#{invitecode}
@@ -44,7 +42,7 @@
  	</insert>
  	
  	
- 	<!-- 프로젝트 멤버 인서트 ( 프로젝트 인서트와 동시에 실행) -->
+ 	<!-- 프로젝트 멤버 인서트 ( 프로젝트 인서트와 동시에 실행 or 초대코드 입력시 실행) -->
  	<insert id="inProMember" parameterType="hashmap">
 
  		INSERT INTO project_member 
@@ -63,8 +61,8 @@
  	<insert id="inProic" parameterType="hashmap">
 
  		INSERT INTO Project_invitation 
- 		(projectId, expirydate, invitecode) VALUES
- 		(#{projectId} ,sysdate ,#{invitecode} )
+ 		(projectId, invitecode) VALUES
+ 		(#{projectId},#{invitecode} )
  	
  	
 <!--  		셀렉트키//   파라미터가 해쉬맵땐 어떻게 받아오지?? -->
@@ -76,6 +74,18 @@
  	</insert>
  	
  	
+ 	<!-- 유저아이디를 바탕으로  인비테이션 테이블 조회-->
+ 	<select  id="invitecheck" parameterType="hashmap" resultType="lips.project.dto.ProjectinvitecodeDto">
+ 		SELECT * FROM project_member pm, project_invitation pi
+	WHERE pm.projectid=pi.projectid AND userid=#{userid} AND INVITECODE=#{invitecode}
+ 
+ 	</select>
+ 	
+ 	<!--  초대코드를 바탕으로 인비테이션 테이블 조회-->
+ 	<select  id="inviteTimecheck" parameterType="lips.project.dto.ProjectDto" resultType="lips.project.dto.ProjectinvitecodeDto">
+ 		SELECT * FROM project_invitation
+	WHERE INVITECODE=#{invitecode}
+ 	</select>
  	
  	
 

@@ -84,7 +84,7 @@ function isValidBirth(input) {
 var emailAuthCode = null;// 이메일 인증코드
 
 function ValidEmail(input) {
-	if (!completeEmailOverlab)return;
+	if (!completeEmailOverlap)return;
 	$('#emailAuthBtn').poshytip('show');
 	$.ajax({
 		url : "/user/join/mailSend",

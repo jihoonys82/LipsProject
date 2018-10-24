@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import lips.project.dto.ProjectDto;
 import lips.project.service.ProjectService;
 import lips.userinfo.dto.User;
+import lips.userinfo.dto.UserByToken;
 
 @Controller
 @RequestMapping(value = "/project")
@@ -135,8 +136,20 @@ public class ProjectController {
 
 	// 프로젝트 수정 페이지
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public void projectUpdate(ProjectDto dto) {
-
+	public ModelAndView projectUpdate(ProjectDto dto,ModelAndView mav) {
+	User user = new UserByToken().getInstance();
+	service.updatepage(String.valueOf(dto.getProjectId()));
+	ProjectDto projectinfo = service.updatepage(String.valueOf(dto.getProjectId()));
+	mav.addObject("projectinfo",projectinfo);
+	mav.addObject("userinfo",user);
+	mav.setViewName("project/update");
+	
+	//20181024 여기까지함 업데이트페이지에 유저정보와 프로젝트 정보를 전달
+	System.out.println(user.toString());
+	System.out.println(projectinfo.toString());
+	
+	
+	return mav;
 	}
 
 	// 프로젝트 수정 페이지 프로세스

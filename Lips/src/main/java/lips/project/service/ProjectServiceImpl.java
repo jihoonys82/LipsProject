@@ -142,6 +142,13 @@ String invitecode;
 			
 	}
 
+	@Override
+	public ProjectDto updatepage(String ProjectId) {
+		
+
+		return 	dao.selProbyProId(ProjectId);
+	}
+
 		
 
 

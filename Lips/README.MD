@@ -8,7 +8,7 @@
 ### .jsp
   + jsp 에서 유저정보 호출하기
     1. jsp 상단에 taglib을 추가한다.
-    <pre><code><%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %></pre></code>
+    <pre><code><%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %></code></pre>
 
     2. EL로 값을 가져올 경우
     <pre><code>${sessionScope.user.userId}  =>  &ltsec:authentication property="principal.userId"/&gt </code></pre>
@@ -26,7 +26,7 @@
     var usernick = '${usernick }';
     </code></pre>
       <h3> 예외</h3>
-    <pre><code>${sessionScope.login eq true}</pre></code>
+    <pre><code>${sessionScope.login eq true}</code></pre>
     <h4>
     sessionScope.login 값은 SpringSecurity에서 지원한다.<br>
     따라서 이전에 사용하던 형식 그대로 사용가능하다.
@@ -62,7 +62,7 @@
     <pre><code>
     Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		String userNick;
+	String userNick;
 
     if(user instanceof User) {
 			userNick = ((User)user).getNick();
@@ -70,7 +70,7 @@
 			userNick = user.toString();
 		}
 		logger.info(userNick+"님 환영합니다");
-    </pre></code>
+    </code></pre>
     - SecurityContextHolder가 받은 요청의 Authentication객체의 값을 받는다.
       전달받은 값이 User와 같은 타입의 객체일 경우 (User) 로 캐스팅 하여 사용한다.
       
@@ -94,10 +94,27 @@ lips.utils import 하여 사용 가능
 
 ex)
 
-		UUID uid = UUID.randomUUID();
-		String code = uid.toString().split("-")[0];
-		String subject = "Lips 회원가입 메일 인증";
-		String body = "안녕하세요 Lips 입니다. \r\n" +
-					"이메일 인증란에 " + code + " 를 입력해 주세요.";
-		new MailSender(user,request,subject,body);		
-		return code;
+	UUID uid = UUID.randomUUID();
+	String code = uid.toString().split("-")[0];
+	String subject = "Lips 회원가입 메일 인증";
+	String body = "안녕하세요 Lips 입니다. \r\n" +
+				"이메일 인증란에 " + code + " 를 입력해 주세요.";
+	new MailSender(user,request,subject,body);		
+	return code;
+
+## notify(title,options) : javascript
+1. 사용법
+	<pre>
+	var notifyTitle="Lips 알림 서비스";
+	var options = {
+		body	: usernick+"님 환영합니다. \r\n현재 알림기능을 사용 중 입니다."
+	}
+	notify(notifyTitle,options);
+	</code></pre>
+2. parameter
+
+	2-1. title : String
+	
+	2-2. option : JSON Object
+	
+	https://developer.mozilla.org/ko/docs/Web/API/notification

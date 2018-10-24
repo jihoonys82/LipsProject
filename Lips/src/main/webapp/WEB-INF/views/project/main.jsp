@@ -155,11 +155,18 @@ font-size:2em;
 							<c:set var="open" value="OPEN"/>
 							<c:set var="pending" value="PENDING"/>
 							<c:set var="close" value="CLOSE"/>
+							<c:set var="id" value="${user.userId }" />
+							<c:choose>
+								<c:when test="${projectinfo.projectLeader eq id}"> 
+								<a href="/project/update?projectId=${projectinfo.projectId}"><i class="icon-gear ab" style="    margin: 1em;
+    margin-right: 0.5em;"></i></a>
+								</c:when>
+							</c:choose>
 							
 							<c:choose>
 							
 								<c:when test="${projectinfo.status eq open}">
-									<span class="label mini success ab">${projectinfo.status}</span>
+									<span class="label mini success ab">${projectinfo.status }</span>
 								</c:when>
 								<c:when test="${projectinfo.status eq pending}">
 									<span class="label mini info ab">${projectinfo.status}</span>
@@ -167,8 +174,9 @@ font-size:2em;
 								<c:when test="${projectinfo.status eq close}">
 									<span class="label mini danger ab">${projectinfo.status}</span>
 								</c:when>
-							</c:choose>
+							</c:choose>  
 							
+						
 							<!-- 프로젝트 관리버튼 추가 -->
 
 

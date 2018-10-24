@@ -18,6 +18,9 @@ public interface ProjectDao {
 	//초대코드를 바탕으로 프로젝트 리스트 출력
 	public List selProbyinvite(ProjectDto dto);
 
+	//프로젝트 아이디 를 바탕으로 프로젝트 정보 가져오기
+	public ProjectDto selProbyProId(String projectId);
+	
 	 //유저객체를 바탕으로 해당 유저가 소속된 프로젝트 리스트를 가져옴 
 	public List selPro(User user);
 	

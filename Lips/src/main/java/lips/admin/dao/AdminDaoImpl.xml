@@ -80,4 +80,25 @@
 		SELECT COUNT(*) FROM PROJECTINFO WHERE STATUS = 'OPEN'	
 	</select>
 	
+	<select id="selUCntOnP" resultType="int" parameterType="lips.project.dto.ProjectDto">
+		SELECT COUNT(pm.userId) FROM project_member pm, projectinfo pi WHERE pm.projectId = pi.projectId AND pi.projectId = #{projectId}
+	</select>
+	
+	<select id="selUOnP" parameterType="lips.project.dto.ProjectDto" resultType="lips.project.dto.ProjectDto">
+		SELECT pm.userId FROM project_member pm, projectinfo pi WHERE pm.projectId = pi.projectId AND pi.projectId = #{projectId}
+	</select>
+
+	<select id="selIssCntOnP" resultType="int" parameterType="lips.project.dto.ProjectDto">
+		SELECT COUNT(iss.issueId) FROM issue iss, projectinfo pi WHERE iss.issueId = pi.projectId AND pi.projectId = #{projectId}
+	</select>
+
+	<select id="selElapsedTime" resultType="java.util.HashMap" parameterType="lips.project.dto.ProjectDto">
+		SELECT TRUNC(MONTHS_BETWEEN (SYSDATE, createDate)/12) "년",
+			TRUNC(MONTHS_BETWEEN (SYSDATE, createDate) -
+			TRUNC(MONTHS_BETWEEN(SYSDATE, createDate)/12)*12) "개월",
+			TRUNC((MONTHS_BETWEEN (SYSDATE, createDate) -
+			TRUNC(MONTHS_BETWEEN(SYSDATE, createDate))) * 30.5) "일"
+		FROM PROJECTINFO WHERE PROJECTID = #{projectId}
+	</select>
+	
  </mapper>  

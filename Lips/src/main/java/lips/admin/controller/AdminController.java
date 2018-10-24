@@ -129,9 +129,18 @@ public class AdminController {
 	   logger.info("프로젝트 상세 페이지");
 	   
 	   ProjectDto proInfo = adminService.getProInfo(project);
+	   List<ProjectDto> uPInfo = adminService.getUOnP(project);
+	   
+	   List<Integer> pList = adminService.getNumOfPInfo(project);
+	   HashMap<String, String> pTime = adminService.getElapsedTime(project);
+	   
+	   
 	   
 	   model.addAttribute("proInfo", proInfo);
-	   
+	   model.addAttribute("uPInfo",uPInfo);
+	   model.addAttribute("pList",pList);
+	   model.addAttribute("pTime",pTime);
+
 //	   ProjectDto projectinfo = adminService.getProInfo(project);
 //	   model.addAttribute("proInfo",projectinfo);
 	   

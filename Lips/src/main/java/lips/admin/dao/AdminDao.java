@@ -1,5 +1,6 @@
 package lips.admin.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import lips.admin.dto.NoticeDto;
@@ -155,6 +156,23 @@ public interface AdminDao {
 	public int selOpenPCnt();
 	
 //	public ProjectDto selProByUid(User user);
+	
+	/**
+	 * 	프로젝트에 속해있는 유저 count
+	 * @param project
+	 * @return
+	 */
+	public int selUCntOnP(ProjectDto project);
 
+	/**
+	 * 	프로젝트에 생성된 이슈 count 
+	 * @param project
+	 * @return
+	 */
+	public int selIssCntOnP(ProjectDto project);
+	
+	public List<ProjectDto> selUOnP(ProjectDto project);
+	
+	public HashMap<String,String> selElapsedTime(ProjectDto project);
 	
 }

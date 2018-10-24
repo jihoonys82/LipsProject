@@ -309,3 +309,7 @@ body {
 .margin-a {
 	margin-left : 5%;
 }
+
+.float-left {
+	float : left;
+}

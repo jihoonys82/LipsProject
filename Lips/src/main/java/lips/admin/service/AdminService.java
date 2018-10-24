@@ -1,8 +1,7 @@
 package lips.admin.service;
 
+import java.util.HashMap;
 import java.util.List;
-
-import org.springframework.ui.Model;
 
 import lips.admin.dto.NoticeDto;
 import lips.admin.util.Paging;
@@ -43,11 +42,16 @@ public interface AdminService {
 		//	public int getNumOfCompletedProject(ProjectDto project);
 		//	public int getNumOfStoppedProject(ProjectDto project);
 	
+	public List<Integer> getNumOfPInfo(ProjectDto project);
+	
 	public int getUTotalCount();
 	
 	public int getPTotalCount();
 	
-	public ProjectDto getProByUid(User user);
+	public List<ProjectDto> getUOnP(ProjectDto project);
 
+	public ProjectDto getProByUid(User user);
+	
+	public HashMap<String,String> getElapsedTime(ProjectDto project);
 	
 }

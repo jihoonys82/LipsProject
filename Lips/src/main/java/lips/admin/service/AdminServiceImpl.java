@@ -1,6 +1,7 @@
 package lips.admin.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,6 +133,26 @@ public class AdminServiceImpl implements AdminService{
 	public ProjectDto getProByUid(User user) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Integer> getNumOfPInfo(ProjectDto project) {
+		List<Integer> list = new ArrayList<Integer>();
+		
+		list.add(0, adminDao.selUCntOnP(project));
+		list.add(1, adminDao.selIssCntOnP(project));
+		
+		return list;
+	}
+
+	@Override
+	public List<ProjectDto> getUOnP(ProjectDto project) {
+		return adminDao.selUOnP(project);
+	}
+
+	@Override
+	public HashMap<String,String> getElapsedTime(ProjectDto project) {
+		return adminDao.selElapsedTime(project);
 	}	
 
 }

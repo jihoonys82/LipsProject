@@ -22,7 +22,8 @@
 							
 							<div class="view-form-row">
 							<label for="proNum" class="view-form-label">참여인원</label>
-							<input type="text" name="proNum" id="proNum" class="input view-form-input" readonly="readonly"/> 
+							<input type="text" name="proNum" id="proNum" class="input view-form-input" readonly="readonly"
+								value="${pList[0] } 명" /> 
 							</div>
 									
 							<div class="view-form-row">
@@ -43,11 +44,11 @@
 
 							<div class="view-form-row">
 							<label for="proType" class="view-form-label">프로젝트 공개 여부</label>
-								<c:if test="${pList.projectOpen eq 1}">
+								<c:if test="${proInfo.projectOpen eq 1}">
 									<input type="text" name="proType" id="proType" class="input view-form-input" readonly="readonly"
 										value="공개"/> 
 								</c:if>
-								<c:if test="${pList.projectOpen eq 0}">
+								<c:if test="${proInfo.projectOpen eq 0}">
 									<input type="text" name="proType" id="proType" class="input view-form-input" readonly="readonly"
 										value="비공개"/> 								
 								</c:if>
@@ -55,7 +56,8 @@
 													
 							<div class="view-form-row">
 							<label for="proIssue" class="view-form-label">등록된 이슈</label>
-							<input type="text" name="proIssue" id="proIssue" class="input view-form-input" readonly="readonly"/> 
+							<input type="text" name="proIssue" id="proIssue" class="input view-form-input" readonly="readonly"
+								value="${pList[1] } 개"/> 
 							</div>
 							
 							<div class="view-form-row">
@@ -66,40 +68,40 @@
 							
 							<div class="view-form-row">
 							<label for="proProDate" class="view-form-label">프로젝트 진행일</label>
-							<input type="text" name="proProDate" id="proProDate" class="input view-form-input" readonly="readonly"/> 
+							<input type="text" name="proProDate" id="proProDate" class="input view-form-input" readonly="readonly"
+								value="${pTime }"/> 
 							</div>
 					</div>		
 									
 					<div class="viewTwinBox col col-5">
-						<div class="infomation">참여인원 정보</div>	
+						<div class="infomation">참여인원 정보</div>
+					
 							<div class="view-form-row">
 								<label for="userLeader" class="view-form-label">프로젝트 리더</label>
-								<input type="text" name="userLeader" id="userLeader" class="input view-form-input" readonly="readonly"/> 
+								<input type="text" name="userLeader" id="userLeader" class="input view-form-input" readonly="readonly"
+									value="${proInfo.projectLeader }"/> 
 							</div>
-							
+														
 							<div class="view-form-row">
-								<label for="userMember1" class="view-form-label">프로젝트 멤버</label>
-								<input type="text" name="userMember" id="userMember1" class="input view-form-input" readonly="readonly"/> 
-							</div>
-							
-							<div class="view-form-row">
-								<label for="userMember2" class="view-form-label">프로젝트 멤버</label>
-								<input type="text" name="userMember" id="userMember2" class="input view-form-input" readonly="readonly"/> 
-							</div>
-							
-							<div class="view-form-row">
-								<label for="userMember3" class="view-form-label">프로젝트 멤버</label>
-								<input type="text" name="userMember" id="userMember3" class="input view-form-input" readonly="readonly"/> 
-							</div>
-							
-							<div class="view-form-row">
-								<label for="userMember4" class="view-form-label">프로젝트 멤버</label>
-								<input type="text" name="userMember" id="userMember4" class="input view-form-input" readonly="readonly"/> 
-							</div>
-							
-							<div class="view-form-row">
-								<label for="userMember5" class="view-form-label">프로젝트 멤버</label>
-								<input type="text" name="userMember" id="userMember5" class="input view-form-input" readonly="readonly"/> 
+								<label for="userMember" class="view-form-label">프로젝트 멤버</label>
+									<c:if test="${uPInfo[0].userId ne null}">
+											<c:forEach items="${uPInfo}" var="uPInfo">
+												<div>
+													<ul>
+													<li>
+														<input type="text" name="userMember" id="userMember" class="input view-form-input" readonly="readonly"
+															value="${uPInfo.userId }"/>
+													</li>
+													</ul>
+												</div>
+											</c:forEach> 								
+									</c:if>
+									<c:if test="${uPInfo[0].userId eq null}">
+										<div>
+											<input type="text" name="userMember" id="userMember" class="input view-form-input" readonly="readonly"
+												value="참여멤버 없음"/>
+										</div> 																
+									</c:if>
 							</div>
 							
 						<div class="forPaging">
@@ -126,10 +128,15 @@
 		</div>	<!-- body_end -->
 		
 		<div class="body">
+			<div class=float-left>
+				<i class="icon-return1"></i>
+<!-- 				<a class="btn normal focus">뒤로 가기</a> -->
+			</div>
+		
 			<div class="viewProBtn">
-				<a class="btn normal focus">프로젝트 공지</a>
+				<a class="btn normal focus">사용자에게 공지</a>
 				<a class="btn normal focus">프로젝트 재개</a>
-				<a class="btn normal focus">프로젝트 종료</a>				
+				<a class="btn normal focus">프로젝트 종료</a>		
 			</div>
 		</div>
 		

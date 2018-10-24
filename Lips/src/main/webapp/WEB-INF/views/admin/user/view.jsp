@@ -56,18 +56,19 @@
 											</li>
 										</ul>
 									</div>
-							</c:forEach>
-								
+							</c:forEach>		
 						</c:if>
 						<c:if test="${projectInfo[0].projectName eq null}">
 								<input type="text" name="activeProject" id="activeProject" class="input view-form-input" readonly="readonly" value="참여 프로젝트 없음"/> 
 						</c:if>
 					
 				</div>
+				
 	
 				<div class="viewUserBtn">
+					<a class="btn normal focus" style="float: right;">뒤로 가기</a>
 					<a class="btn normal focus">프로젝트 공지</a>
-					<a class="btn normal focus" onclick="modal_1.show()">정지 해제</a>
+					<a class="btn normal focus" onclick="win_1.show()">정지 해제</a>
 					<a class="btn normal focus" onclick="modal_2.show()">탈퇴 처리</a>
 				</div>
 			</div>
@@ -82,6 +83,23 @@
 			<a class="btn focus small" id="btnReopen">확인</a> <a class="btn small" id="btnCancel_1">취소</a>
 		</div>
 	</div>
+</div>
+
+<div id="win_1" class="window">
+    <div class="head">
+        <div class="left">HOME</div>
+        <div class="right">
+            <a href="#" class="close"><i class="icon-exit"></i></a>
+        </div>
+    </div>
+    <div class="body">
+        <div id="modalReopen" style="text-align: center; margin-top: 45px;">
+			<p>${userInfo.userId } 님의 강등을 취소하시겠습니까?</p>
+		</div>
+    </div>
+    <div class="foot" align="center">
+        <a href="#" class="btn focus" id="btnReopen">확인</a> <a class="btn" id="btnCancel_1">취소</a>
+    </div>
 </div>
 
 <div id="modal_2" class="msgbox" style="display: none; width: 20em;">
@@ -102,8 +120,8 @@
 	$(document).ready(function(){
 		
 		$("#btnCancel_1").click(function() {
-			$("#modal_1").hide();
-			// TODO 검은색 배경 지우는 법 찾기  
+			$("#win_1").hide();
+			// TODO 닫기 버튼 / ajax  
 		});
 	
 		$("#btnCancel_2").click(function() {
@@ -172,15 +190,6 @@
 		
 	});
 	
-
-	jui.ready([ "ui.modal" ], function(modal) {
-		$("#modal_1").appendTo("body");
-
-		modal_1 = modal("#modal_1", {
-			color : "black"
-		});
-		
-	});
 	
 	jui.ready([ "ui.modal" ], function(modal) {
 		$("#modal_2").appendTo("body");
@@ -189,6 +198,14 @@
 			color : "black"
 		});
 		
+	});
+	
+	jui.ready([ "ui.window" ], function(win) {
+	    win_1 = win("#win_1", {
+	        width: 300,
+	        height: 300,
+	        modal: true
+	    });
 	});
 	
 	

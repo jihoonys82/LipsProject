@@ -36,8 +36,6 @@ jui.ready([ "ui.autocomplete" ], function(autocomplete) {
 	});
 });
 
-
-
 $(document).ready(function() { 
 	
 	// set Category for change projectId
@@ -70,7 +68,8 @@ $(document).ready(function() {
 	// assign to me buton action 
 	$("#assignToMe").click(function(){
 		$("#assignee").val('<sec:authentication property="principal.userId"/>');
-	});		
+	});
+	
 });
 
 // Modal setup
@@ -81,6 +80,45 @@ jui.ready([ "ui.modal" ], function(modal) {
         color: "white"
     });
 });
+
+//Stage List Accordion
+jui.ready([ "ui.accordion" ], function(accordion) {
+    stage_accordion = accordion("#stage_accordion", {
+        event: {
+            open: function(index, e) {
+                $(this.root).find("i").attr("class", "icon-arrow1");
+                $(e.target).find("i").attr("class", "icon-arrow3");
+                var issuePresetId = $(e.target).attr('id');
+                $.ajax({
+        			type:"post"
+        			, url: "/issue/getStageAssets"
+        			// TODO: 수정해야함
+        			, data: { "issuePresetId" : issuePresetId }
+        			, dataType: "json"
+        			, beforeSend: function () {
+        				$("#stage_accordion div.content").empty();
+        			}
+        			, success: function(data){	
+        				var $content ="";
+        				for(var i=0;i<data.stageAssets.length;i++) {
+        					$content += "<span class='label success'>"+ data.stageAssets[i].stageName + "</span>";
+        					if(i<data.stageAssets.length-1) {
+        						$content += "<span class='icon icon-arrow4' style='vertical-align:middle;'></span>"
+        					}
+        				}
+        				$("#stage_accordion div.content").html($content);
+        			}
+        			, error : function(e){
+        				console.log("----error----");
+        				console.log(e.responseText);
+        			}
+        		});
+            }
+        }
+    	, index: 0
+    });
+});
+
 </script>
 <style>
 /* common */
@@ -159,7 +197,7 @@ jui.ready([ "ui.modal" ], function(modal) {
 				</div>
 				<div class="issue-form-row">
 					<label for="issueCategory" class="issue-form-label">카테고리</label>
-					<select name="issueTitle" id="issueCategory" class="input issue-form-input">
+					<select name="issueCategory" id="issueCategory" class="input issue-form-input">
 						<c:forEach items="${category }" var="cat">
 							<option value="${cat.categoryAssetId }">[${cat.assetCode }] ${cat.assetName }</option>
 						</c:forEach>
@@ -220,20 +258,38 @@ jui.ready([ "ui.modal" ], function(modal) {
 	<div class="body">
 		<div class="col col-1"></div>
 		<div class="col col-10">
-			<div class="panel">
-				<div class="head">
-					기본 Process
-				</div>
-				<div class="body">
-					<span class="label success">시작</span>
-					<span class="icon icon-arrow4" style="vertical-align:middle;"></span>
-					<span class="label success">종료</span>
-				</div>
+			<div id="stage_accordion" class="accordion">
+				<c:set var="startNo" value="1"/>
+				<c:set var="endNo" value="99"/>
+				<c:forEach items="${issueStagePreset}" var="preset">
+					<c:if test="${preset.issuePresetId eq startNo}">
+						<div id="${preset.issuePresetId }" class="title active">
+							${preset.presetName } 
+							<button type="button" class="btn focus mini" onclick="selectPreset(${preset.issuePresetId});">이 프리셋 선택</button>
+							<i class="icon-arrow3"></i>
+						</div>
+						<div class="content">
+							<c:forEach items="${defaultAssets }" var="asset">
+								<span class="label success">${asset.stageName }</span>
+								<c:if test="${asset.stageAssetId ne endNo }">
+									<span class="icon icon-arrow4" style="vertical-align:middle;"></span>							
+								</c:if> 
+							</c:forEach>
+						</div>
+					</c:if>
+					<c:if test="${preset.issuePresetId ne startNo}">
+						<div id="${preset.issuePresetId }" class="title">
+							${preset.presetName } 
+							<button type="button" class="btn focus mini" onclick="selectPreset(${preset.issuePresetId});">이 프리셋 선택</button>
+							<i class="icon-arrow1"></i>
+						</div>
+					</c:if>
+				</c:forEach>	
 			</div>
 		</div>
 
 		<div style="text-align: center; margin-top: 45px;">
-			<button type="button" id="selectStage" class="btn focus">Use selected stage preset</button>
+<!-- 			<button type="button" id="selectStage" class="btn focus">Use selected stage preset</button> -->
 			<button type="button" id="cancelStage" class="btn ">Close</button>
 		</div>
 	</div>

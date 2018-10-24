@@ -79,6 +79,6 @@ public interface IssueDao {
 	 * @param ispDto
 	 * @return
 	 */
-	public StageAssetDto selStageAssetByPresetId(IssueStagePresetDto ispDto);
+	public List<StageAssetDto> selStageAssetByPresetId(IssueStagePresetDto ispDto);
 	
 }

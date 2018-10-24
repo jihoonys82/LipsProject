@@ -3,7 +3,6 @@ package lips.issue.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,16 +65,13 @@ public class IssueService {
 		// 1.Issue_stage_preset 리스트 가져오기
 		List<IssueStagePresetDto> ispDtos =  issueDao.selIssueStagePreset();
 		
-		// 2.Stage Asset을 각 issueStagePreset 별로 가져오기
-		List<StageAssetDto> saDtos= new ArrayList<StageAssetDto>();
-		Map<Integer, List<StageAssetDto>> stages = new HashMap<Integer, List<StageAssetDto>>();
-		for(IssueStagePresetDto ispDto : ispDtos) {
-			saDtos.add(issueDao.selStageAssetByPresetId(ispDto));
-			stages.put(ispDto.getIssuePresetId(), saDtos);
-		}
+		// 2.리스트의 첫번째 (default) preset 가져오기
+		IssueStagePresetDto defaultISP = ispDtos.get(0);
+		List<StageAssetDto> defaultAssets = issueDao.selStageAssetByPresetId(defaultISP);
 		
 		mav.addObject("projList", projectDao.selPro(user));
-		mav.addObject("stages",stages);
+		mav.addObject("issueStagePreset", ispDtos);
+		mav.addObject("defaultAssets", defaultAssets);
 		mav.setViewName("issue/create");
 		
 		return mav;
@@ -88,16 +84,13 @@ public class IssueService {
 		// 1.Issue_stage_preset 리스트 가져오기
 		List<IssueStagePresetDto> ispDtos =  issueDao.selIssueStagePreset();
 		
-		// 2.Stage Asset을 각 issueStagePreset 별로 가져오기
-		List<StageAssetDto> saDtos= new ArrayList<StageAssetDto>();
-		Map<Integer, List<StageAssetDto>> stages = new HashMap<Integer, List<StageAssetDto>>();
-		for(IssueStagePresetDto ispDto : ispDtos) {
-			saDtos.add(issueDao.selStageAssetByPresetId(ispDto));
-			stages.put(ispDto.getIssuePresetId(), saDtos);
-		}
+		// 2.리스트의 첫번째 (default) preset 가져오기
+		IssueStagePresetDto defaultISP = ispDtos.get(0);
+		List<StageAssetDto> defaultAssets = issueDao.selStageAssetByPresetId(defaultISP);
 		
 		mav.addObject("projList", projectDao.selPro(user));
-		mav.addObject("stages",stages);
+		mav.addObject("issueStagePreset", ispDtos);
+		mav.addObject("defaultAssets", defaultAssets);
 		mav.setViewName("issue/create");
 		
 		return mav;
@@ -121,4 +114,10 @@ public class IssueService {
 		
 		return mav;
 	}
+	
+	public List<StageAssetDto> getStageAssets(IssueStagePresetDto ispDto){
+		
+		return issueDao.selStageAssetByPresetId(ispDto);
+	}
+	
 }

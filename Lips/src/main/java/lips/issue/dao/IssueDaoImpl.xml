@@ -73,6 +73,7 @@
  		SELECT A.stageassetId, A.stageName, A.assetDescription
 	    FROM issue_stage_preset_asset P, stage_asset A 
 	    WHERE P.stageassetId = A.stageassetId
+	    	AND P.issuePresetId = #{issuePresetId}
 	    ORDER BY P.assetOrder ASC
  	</select>
  </mapper>  

@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import lips.issue.dto.IssueStagePresetDto;
+import lips.issue.dto.StageAssetDto;
 import lips.issue.service.IssueService;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
@@ -86,6 +86,11 @@ public class IssueController {
 		return map;
 	}
 	
+	/**
+	 * get Category List via Ajax 
+	 * @param projectId
+	 * @return
+	 */
 	@RequestMapping(value="/getCategory", method=RequestMethod.POST)
 	public ModelAndView getCategory(String projectId) {
 		ProjectDto projectDto = new ProjectDto();
@@ -93,6 +98,21 @@ public class IssueController {
 		
 		return issueService.getCategory(projectDto);
 	}
+	
+	/**
+	 * get Stage Asset via Ajax
+	 * @param ispDto
+	 * @return  
+	 */
+	@RequestMapping(value="/getStageAssets", method=RequestMethod.POST)
+	public @ResponseBody Map<String, List<StageAssetDto>> getStageAssets(IssueStagePresetDto ispDto) {
+		List<StageAssetDto> stageAssets = issueService.getStageAssets(ispDto);
+		Map<String, List<StageAssetDto>> map = new HashMap<>();
+		map.put("stageAssets", stageAssets);
+		
+		return map;
+	}
+	
 	
 	/**
 	 * Issue Create process

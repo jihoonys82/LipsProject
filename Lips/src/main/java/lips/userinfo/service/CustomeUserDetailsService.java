@@ -48,6 +48,9 @@ public class CustomeUserDetailsService implements UserDetailsService {
 			return false;
 		}
 	}
+	public void updateInfo(User user) {
+		dao.upUserData(user);
+	}
 	public boolean searchId(User user,HttpServletRequest request) {
 		User searchUser = null;
 		if((searchUser = dao.selUserByEmail(user.getEmail())) != null){

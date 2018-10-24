@@ -12,7 +12,7 @@
 		<ul class="nav">
 			<li><a href="/project/main">프로젝트</a></li>
 			<li><a href="/issue/main">이슈</a></li>
-			<li><a href="#">마이페이지</a></li>
+			<li><a href="/user/mypage">마이페이지</a></li>
 			<li><a href="#">가이드</a></li>
 		</ul>
 	</div>
@@ -26,6 +26,9 @@
 		</sec:authorize>
 		<sec:authorize access="!hasAuthority('USER')">
 				<a class="btn" href="<c:url value='/user/login' />">login</a>
+		</sec:authorize>
+		<sec:authorize access="hasAuthority('ADMIN')">
+				<a class="btn" href="<c:url value='/admin/main' />">admin</a>
 		</sec:authorize>
 	</div>
 	

@@ -85,8 +85,13 @@ public class UserController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
-	
-	
+	@RequestMapping(value="/mypage",method=RequestMethod.GET)
+	public void mypage() {}
+	@RequestMapping(value="/mypage/update",method=RequestMethod.POST)
+	public String updateInfo(User user) {
+		service.updateInfo(user);
+		return "redirect:/logout";
+	}
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout() {
 		Collection<? extends GrantedAuthority> list = SecurityContextHolder.getContext().getAuthentication().getAuthorities();

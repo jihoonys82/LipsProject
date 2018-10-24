@@ -7,6 +7,16 @@ var completeEmailOverlap = false;
 var completeEmailAuth = false;
 
 function checkId(idDom) {
+	let regx = /^(?=.*[a-zA-Z0-9]).{4,20}$/;
+	if(!regx.test(idDom.value)){
+		$("#inputId").poshytip("update","아이디는 4글자 이상 20글자 미만의 영어/숫자만 사용 가능합니다.");
+		$("#inputId").css("border-color", "red");
+		$("#inputId").poshytip("show");
+		setTimeout(function() {
+			$('#inputId').poshytip("hide");
+		}, 3000);
+		return;
+	}
 	$.ajax({
 		url : "/user/join/checkid",
 		type : "POST",
@@ -16,6 +26,7 @@ function checkId(idDom) {
 		success : function(responseData) {
 			var result = responseData.check;
 			if (!result) {
+				$("#inputId").poshytip("update","이미 사용중인 아이디 입니다.");
 				$("#inputId").css("border-color", "red");
 				$("#inputId").poshytip("show");
 				completeId = false;

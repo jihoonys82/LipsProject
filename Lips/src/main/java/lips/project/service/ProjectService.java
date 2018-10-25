@@ -1,6 +1,7 @@
 package lips.project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
@@ -15,5 +16,5 @@ public interface ProjectService {
 	public int upPro(ProjectDto dto);
 	public int delPro(ProjectDto dto);
 	public int joinPro(ProjectDto dto,User user);
-	public ProjectDto updatepage(String ProjectId);
+	public Map updatepage(ProjectDto dto,User user);
 }

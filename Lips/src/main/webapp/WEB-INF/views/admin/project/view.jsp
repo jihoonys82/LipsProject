@@ -68,9 +68,7 @@
 							
 							<div class="view-form-row">
 								<label for="proProDate" class="view-form-label">프로젝트 진행일</label>
-									<span id="proProDate"><fmt:formatDate value="${proInfo.createDate}" pattern="yyyy/MM/dd HH:mm:ss" /></span>
-<!-- 								<input type="text" name="proProDate" id="proProDate" class="input view-form-input" readonly="readonly"  -->
-<%-- 									value="<fmt:formatDate value="${proInfo.createDate}" pattern="yyyy/MM/dd HH:mm:ss" />" />  --%>
+								<input type="text" name="proProDate" id="proProDate" class="input view-form-input" readonly="readonly" />
 							</div>
 					</div>		
 									
@@ -148,8 +146,8 @@
 <script>
 $(document).ready(function() {
 
-	var cd = document.getElementById("proProDate");
-		var cDate = new Date(cd.innerText);
+	var cd = document.getElementById("proOpenDate");
+		var cDate = new Date(cd.value	);
 		var diff = moment(cDate).diff(moment());
 		var absDiff = Math.abs(diff);
 		var	diffDay		= Math.floor(absDiff / (60 * 60 * 1000 * 24) * 1)
@@ -163,9 +161,12 @@ $(document).ready(function() {
 			remainTime +="경과"; 
 		}
 		else remainTime +="남음";
-		cd.innerText = remainTime;
+		document.getElementById("proProDate").value = remainTime;
 	
 });
+
+
+
 </script>
 
 	

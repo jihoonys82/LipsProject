@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<sec:authentication property="principal.userId" var="userId"/>
 <script>
 //assignee autocomplete
 jui.ready([ "ui.autocomplete" ], function(autocomplete) {
@@ -37,7 +38,6 @@ jui.ready([ "ui.autocomplete" ], function(autocomplete) {
 });
 
 $(document).ready(function() { 
-	
 	// set Category for change projectId
 	$("#projectId").change(function() {
 		var projectId = $("#projectId").val();
@@ -47,10 +47,10 @@ $(document).ready(function() {
 			, data: { "projectId" : projectId }
 			, dataType: "json"
 			, success: function(data){
-				console.log(data);
-				$("#issueCategory").empty();
+				//console.log(data);
+				$("#categoryId").empty();
 				for(var i=0;i<data.category.length;i++) {
-					$("#issueCategory").append("<option value='" 
+					$("#categoryId").append("<option value='" 
 						+ data.category[i].categoryAssetId +"'>" 
 						+ "[" + data.category[i].assetCode +"] " 
 						+ data.category[i].assetName 
@@ -67,9 +67,48 @@ $(document).ready(function() {
 	
 	// assign to me buton action 
 	$("#assignToMe").click(function(){
-		$("#assignee").val('<sec:authentication property="principal.userId"/>');
+		$("#assignee").val('${userId}');
 	});
+
+	//selectPreset setting
+	$("div.title button").on('click', function(){
+		var issuePresetId = $(this).attr('id');
+		$("#stagePresetId").val(issuePresetId);
+		$.ajax({
+			type:"post"
+			, url: "/issue/getStageAssets"
+			, data: { "issuePresetId" : issuePresetId }
+			, dataType: "json"
+			, beforeSend: function () {
+				$("#selectedStage").empty();
+			}
+			, success: function(data){	
+				var $content ="";
+				for(var i=0;i<data.stageAssets.length;i++) {
+					$content += "<span class='label mini success'>"+ data.stageAssets[i].stageName + "</span>";
+					if(i<data.stageAssets.length-1) {
+						$content += "<span class='icon icon-arrow4' style='vertical-align:middle;'></span>"
+					}
+				}
+				$("#selectedStage").html($content);
+				setStageModal.hide();
+			}
+			, error : function(e){
+				console.log("----error----");
+				console.log(e.responseText);
+			}
+		}); // end of ajax
+	}); //end of selectPreset setting
 	
+	// submit button ckick
+	$("#issueFormSubmit").on("click", function() {
+		// 1. file upload via ajax. TODO!!
+		
+		// 2. custom field data to json. TODO!!  
+		
+		// 3. form submit
+		$("form[action='/issue/create']").submit();
+	});
 });
 
 // Modal setup
@@ -77,8 +116,14 @@ jui.ready([ "ui.modal" ], function(modal) {
 	$("#setStageModal").appendTo("body");
 
     setStageModal = modal("#setStageModal", {
-        color: "white"
+        color: "gray"
     });
+    
+    //close button event
+    $("#cancelStage").click(function(){
+		setStageModal.hide();
+	});
+    
 });
 
 //Stage List Accordion
@@ -88,11 +133,10 @@ jui.ready([ "ui.accordion" ], function(accordion) {
             open: function(index, e) {
                 $(this.root).find("i").attr("class", "icon-arrow1");
                 $(e.target).find("i").attr("class", "icon-arrow3");
-                var issuePresetId = $(e.target).attr('id');
+                var issuePresetId = $(e.target).children("button").attr('id');
                 $.ajax({
         			type:"post"
         			, url: "/issue/getStageAssets"
-        			// TODO: 수정해야함
         			, data: { "issuePresetId" : issuePresetId }
         			, dataType: "json"
         			, beforeSend: function () {
@@ -112,12 +156,12 @@ jui.ready([ "ui.accordion" ], function(accordion) {
         				console.log("----error----");
         				console.log(e.responseText);
         			}
-        		});
-            }
-        }
+        		}); // end of ajax
+            }// end of open:function
+        } // end of event
     	, index: 0
-    });
-});
+    });// end of accordion
+});//end of jui.ready for accordion
 
 </script>
 <style>
@@ -127,19 +171,16 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 	padding: 	10px;
 	border-bottom: 1px solid #999;
 }
-
 .alignCenter {
 	display: 		block; 
 	text-align: 	center;
 }
-
 .mt-1 {
 	margin-top : 	1em;
 }
 .mb-1 {
 	margin-bottom:	1em;
 }
-
 /* issue form */
 .issue-form-row {
 	width: 		100%;
@@ -156,12 +197,10 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 .issue-form-row button {
 	width: 100px;
 }
-
 #setStageModal {
 	width: 80%;
 	height: 50em;
 }
-
 </style>
 
 <div class="row">
@@ -196,16 +235,16 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 					<input type="text" name="issueTitle" id="issueTitle" class="input issue-form-input" />
 				</div>
 				<div class="issue-form-row">
-					<label for="issueCategory" class="issue-form-label">카테고리</label>
-					<select name="issueCategory" id="issueCategory" class="input issue-form-input">
+					<label for="categoryId" class="issue-form-label">카테고리</label>
+					<select name="categoryId" id="categoryId" class="input issue-form-input">
 						<c:forEach items="${category }" var="cat">
 							<option value="${cat.categoryAssetId }">[${cat.assetCode }] ${cat.assetName }</option>
 						</c:forEach>
 					</select>
 				</div>
 				<div class="issue-form-row">
-					<label for="issueEndDate" class="issue-form-label">종료(예정)일</label>
-					<input type="date" name="issueEndDate" id="issueEndDate" class=" input issue-form-input" />
+					<label for="expectedEndDate" class="issue-form-label">종료(예정)일</label>
+					<input type="date" name="expectedEndDate" id="expectedEndDate" class=" input issue-form-input" />
 				</div>
 				<div id="assign" class="issue-form-row">
 					<label for="assignee" class="issue-form-label">담당자</label>
@@ -222,8 +261,9 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 					</script>
 				</div>
 				<div class="issue-form-row">
-					<label for="issueTitle" class="issue-form-label">이슈 단계</label>
-					<input type="text" name="issueTitle" id="issueTitle" class=" input issue-form-input" />
+					<label for="stagePresetId" class="issue-form-label">이슈 단계</label>
+					<input type="hidden" name="stagePresetId" id="stagePresetId" class=" input issue-form-input" />
+					<div id="selectedStage" class="input issue-form-input" style="min-height:2.5em;"></div>
 					<button type="button" class="btn" onclick="setStageModal.show();">단계 설정</button>
 				</div>
 				<div class="issue-form-row">
@@ -231,17 +271,20 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 					<textarea name="issueContent" id="issueContent" class="input issue-form-input" rows="10"></textarea>
 				</div>
 				<div class="issue-form-row">
-					<label for="issueFile" class="issue-form-label">파일 업로드</label>
-					추가예정
-
-				</div>
-				<div class="hr mt-1 mb-1"></div>
-				<div class="h4 mt-1 mb-1">추가항목</div>
-				<div class="issue-form-row">
-					<label for="issueCustom1" class="issue-form-label">커스텀1</label>
-					추가예정
+					<input type="hidden" name="customValues" id="customValues" class="input issue-form-input" value="" />
 				</div>
 			</form>
+			<div class="issue-form-row">
+				<label for="issueFile" class="issue-form-label">파일 업로드</label>
+				추가예정
+
+			</div>
+			<div class="hr mt-1 mb-1"></div>
+			<div class="h4 mt-1 mb-1">추가항목</div>
+			<div class="issue-form-row">
+				<label for="issueCustom1" class="issue-form-label">커스텀1</label>
+				추가예정
+			</div>
 		</div>
 		<div class="foot alignCenter">
 			<button type="button" id="issueFormSubmit" class="btn focus">Submit</button>
@@ -256,41 +299,47 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 		이슈 단계 설정하기
 	</div>
 	<div class="body">
-		<div class="col col-1"></div>
-		<div class="col col-10">
-			<div id="stage_accordion" class="accordion">
-				<c:set var="startNo" value="1"/>
-				<c:set var="endNo" value="99"/>
-				<c:forEach items="${issueStagePreset}" var="preset">
-					<c:if test="${preset.issuePresetId eq startNo}">
-						<div id="${preset.issuePresetId }" class="title active">
-							${preset.presetName } 
-							<button type="button" class="btn focus mini" onclick="selectPreset(${preset.issuePresetId});">이 프리셋 선택</button>
-							<i class="icon-arrow3"></i>
-						</div>
-						<div class="content">
-							<c:forEach items="${defaultAssets }" var="asset">
-								<span class="label success">${asset.stageName }</span>
-								<c:if test="${asset.stageAssetId ne endNo }">
-									<span class="icon icon-arrow4" style="vertical-align:middle;"></span>							
-								</c:if> 
-							</c:forEach>
-						</div>
-					</c:if>
-					<c:if test="${preset.issuePresetId ne startNo}">
-						<div id="${preset.issuePresetId }" class="title">
-							${preset.presetName } 
-							<button type="button" class="btn focus mini" onclick="selectPreset(${preset.issuePresetId});">이 프리셋 선택</button>
-							<i class="icon-arrow1"></i>
-						</div>
-					</c:if>
-				</c:forEach>	
+		<div class="row">
+			<div class="newStage" style="margin: 10px;float:right;">
+				<span>이슈단계를 추가/수정하면 작성 내용이 사라집니다!</span>
+				<button type="button" class="btn warning">이슈단계 추가/수정</button>			
 			</div>
 		</div>
-
-		<div style="text-align: center; margin-top: 45px;">
-<!-- 			<button type="button" id="selectStage" class="btn focus">Use selected stage preset</button> -->
-			<button type="button" id="cancelStage" class="btn ">Close</button>
+		<div class="row mt-1">
+			<div class="col col-1"></div> <!-- column spacing -->
+			<div class="col col-10">
+				<div id="stage_accordion" class="accordion">
+					<c:set var="startNo" value="1"/>
+					<c:set var="endNo" value="99"/>
+					<c:forEach items="${issueStagePreset}" var="preset">
+						<c:if test="${preset.issuePresetId eq startNo}">
+							<div class="title active">
+								<button type="button" class="btn focus mini" id="${preset.issuePresetId }">선택</button>
+								${preset.presetName } 
+								<i class="icon-arrow3"></i>
+							</div>
+							<div class="content">
+								<c:forEach items="${defaultAssets }" var="asset">
+									<span class="label success">${asset.stageName }</span>
+									<c:if test="${asset.stageAssetId ne endNo }">
+										<span class="icon icon-arrow4" style="vertical-align:middle;"></span>							
+									</c:if> 
+								</c:forEach>
+							</div>
+						</c:if>
+						<c:if test="${preset.issuePresetId ne startNo}">
+							<div class="title">
+								<button type="button" class="btn focus mini" id="${preset.issuePresetId }">선택</button>
+								${preset.presetName } 
+								<i class="icon-arrow1"></i>
+							</div>
+						</c:if>
+					</c:forEach>	
+				</div><!-- end of stage_accordion -->
+			</div><!-- end of col-10 -->
+		</div><!-- end of row -->
+		<div style="text-align: center; margin-top: 30px;">
+			<button type="button" id="cancelStage" class="btn">Close</button>
 		</div>
 	</div>
 </div>

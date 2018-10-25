@@ -2,6 +2,8 @@ package lips.issue.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class IssueDto {
 	private int issueId;
 	private int projectId;
@@ -9,10 +11,15 @@ public class IssueDto {
 	private int categoryId;
 	private String createUser;
 	private String assignee;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date createDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date modifyDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date startDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date expectedEndDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date actualEndDate;
 	private String issueContent;
 	private String customValues;

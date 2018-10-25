@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import lips.issue.dto.IssueDto;
 import lips.issue.dto.IssueStagePresetDto;
 import lips.issue.dto.StageAssetDto;
 import lips.issue.service.IssueService;
@@ -118,8 +119,12 @@ public class IssueController {
 	 * Issue Create process
 	 */
 	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public void issueCreateProc() {
+	public String issueCreateProc(IssueDto issueDto) {
 		
+		issueService.setNewIssue(issueDto);
+		
+		
+		return "redirect:/issue/main";
 	}
 	
 	@RequestMapping(value="/detail", method=RequestMethod.GET)

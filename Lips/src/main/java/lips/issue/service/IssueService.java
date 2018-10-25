@@ -120,4 +120,10 @@ public class IssueService {
 		return issueDao.selStageAssetByPresetId(ispDto);
 	}
 	
+	public void setNewIssue(IssueDto issueDto) {
+		User user = new UserByToken().getInstance();
+		issueDto.setCreateUser(user.getUserId());
+		logger.info(issueDto.toString());
+		issueDao.inIssue(issueDto);
+	}
 }

@@ -76,4 +76,12 @@
 	    	AND P.issuePresetId = #{issuePresetId}
 	    ORDER BY P.assetOrder ASC
  	</select>
+ 	
+ 	<insert id="inIssue" parameterType='lips.issue.dto.IssueDto'>
+ 		INSERT INTO issue
+		    (issueId, projectId, issueTitle, categoryId, createUser, assignee, expectedEndDate, issueContent, customValues, stagePresetId)
+		VALUES 
+		    (ISSUE_SEQ.nextval, #{projectId}, #{issueTitle}, #{categoryId}, #{createUser}, #{assignee}, #{expectedEndDate}, #{issueContent}, #{customValues}, #{stagePresetId})
+ 	</insert>
+ 	
  </mapper>  

@@ -81,4 +81,11 @@ public interface IssueDao {
 	 */
 	public List<StageAssetDto> selStageAssetByPresetId(IssueStagePresetDto ispDto);
 	
+	
+	/**
+	 * Insert new Issue
+	 * @param issueDto
+	 */
+	public void inIssue(IssueDto issueDto);
+	
 }

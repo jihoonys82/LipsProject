@@ -75,19 +75,19 @@
 		</div>
 	</div>
 
-<div id="modal_1" class="msgbox" style="display: none;">
-	<div class="head">정지 해제</div>
-	<div class="body">
-		<div id="modalReopen" style="text-align: center; margin-top: 45px;">
-			<p>${userInfo.userId } 님의 강등을 취소하시겠습니까?</p>
-			<a class="btn focus small" id="btnReopen">확인</a> <a class="btn small" id="btnCancel_1">취소</a>
-		</div>
-	</div>
-</div>
+<!-- <div id="modal_1" class="msgbox" style="display: none;"> -->
+<!-- 	<div class="head">정지 해제</div> -->
+<!-- 	<div class="body"> -->
+<!-- 		<div id="modalReopen" style="text-align: center; margin-top: 45px;"> -->
+<%-- 			<p>${userInfo.userId } 님의 강등을 취소하시겠습니까?</p> --%>
+<!-- 			<a class="btn focus small" id="btnReopen">확인</a> <a class="btn small" id="btnCancel_1">취소</a> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </div> -->
 
 <div id="win_1" class="window">
     <div class="head">
-        <div class="left">HOME</div>
+        <div class="left">정지해제</div>
         <div class="right">
             <a href="#" class="close"><i class="icon-exit"></i></a>
         </div>

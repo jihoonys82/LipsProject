@@ -3,8 +3,8 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<script type="text/javascript" src="/resources/js/moment.min.js"></script>
     
-
 	<div class="panel">
 		<div class="body">
 			<div class="viewProBox">
@@ -67,9 +67,10 @@
 							</div>
 							
 							<div class="view-form-row">
-							<label for="proProDate" class="view-form-label">프로젝트 진행일</label>
-							<input type="text" name="proProDate" id="proProDate" class="input view-form-input" readonly="readonly"
-								value="${pTime }"/> 
+								<label for="proProDate" class="view-form-label">프로젝트 진행일</label>
+									<span id="proProDate"><fmt:formatDate value="${proInfo.createDate}" pattern="yyyy/MM/dd HH:mm:ss" /></span>
+<!-- 								<input type="text" name="proProDate" id="proProDate" class="input view-form-input" readonly="readonly"  -->
+<%-- 									value="<fmt:formatDate value="${proInfo.createDate}" pattern="yyyy/MM/dd HH:mm:ss" />" />  --%>
 							</div>
 					</div>		
 									
@@ -143,6 +144,29 @@
 		
 	</div>	<!-- panel_end -->	
 <!-- </div>	col col-10_end  -->
+
+<script>
+$(document).ready(function() {
+
+	var cd = document.getElementById("proProDate");
+		var cDate = new Date(cd.innerText);
+		var diff = moment(cDate).diff(moment());
+		var absDiff = Math.abs(diff);
+		var	diffDay		= Math.floor(absDiff / (60 * 60 * 1000 * 24) * 1)
+		var	diffHour	= Math.floor((absDiff % (60 * 60 * 1000 * 24)) / (60 *60 * 1000) * 1)
+		var	diffMin		= Math.floor(((absDiff % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) / (60 * 1000) * 1)
+		var remainTime 	= "";
+		if(diffDay !=0) 	remainTime += diffDay+"일 ";
+		if(diffHour !=0) 	remainTime += diffHour +"시간 ";
+		remainTime += diffMin +"분 ";
+		if(Math.sign(diff)<0) {
+			remainTime +="경과"; 
+		}
+		else remainTime +="남음";
+		cd.innerText = remainTime;
+	
+});
+</script>
 
 	
 </body>

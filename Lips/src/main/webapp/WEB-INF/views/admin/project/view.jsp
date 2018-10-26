@@ -67,10 +67,8 @@
 							</div>
 							
 							<div class="view-form-row">
-								<label for="proProDate" class="view-form-label">프로젝트 경과 시간</label>
-									<span id="proProDate"><fmt:formatDate value="${proInfo.createDate}" pattern="yyyy/MM/dd HH:mm:ss" /></span>
-<!-- 								<input type="text" name="proProDate" id="proProDate" class="input view-form-input" readonly="readonly"  -->
-<%-- 									value="<fmt:formatDate value="${proInfo.createDate}" pattern="yyyy/MM/dd HH:mm:ss" />" />  --%>
+								<label for="proProDate" class="view-form-label">프로젝트 진행일</label>
+								<input type="text" name="proProDate" id="proProDate" class="input view-form-input" readonly="readonly" />
 							</div>
 					</div>		
 									
@@ -82,17 +80,16 @@
 								<input type="text" name="userLeader" id="userLeader" class="input view-form-input" readonly="readonly"
 									value="${proInfo.projectLeader }"/> 
 							</div>
-
+														
 							<div class="view-form-row">
- 								<label for="userMember" class="view-form-label">프로젝트 멤버</label>
- 									<c:if test="${uPInfo[0].userId ne null}"> 
- 											<c:forEach items="${uPInfo}" var="uPInfo"> 
- 												<div> 
+								<label for="userMember" class="view-form-label">프로젝트 멤버</label>
+									<c:if test="${uPInfo[0].userId ne null}">
+											<c:forEach items="${uPInfo}" var="uPInfo">
+												<div>
 													<ul>
- 													<li>
-														<span id="userMember">${uPInfo.userId}</span>
-<!-- 														<input type="text" name="userMember" id="userMember" class="input view-form-input" readonly="readonly" -->
-<%-- 															value="${uPInfo.userId }"/> --%>
+													<li>
+														<input type="text" name="userMember" id="userMember" class="input view-form-input" readonly="readonly"
+															value="${uPInfo.userId }"/>
 													</li>
 													</ul>
 												</div>
@@ -102,8 +99,6 @@
 										<div>
 											<input type="text" name="userMember" id="userMember" class="input view-form-input" readonly="readonly"
 												value="참여멤버 없음"/>
-											<span id="userMember">참여멤버 없음</span>
-												
 										</div> 																
 									</c:if>
 							</div>
@@ -132,12 +127,15 @@
 		</div>	<!-- body_end -->
 		
 		<div class="body">
-
+			<div class=float-left>
+				<i class="icon-return1"></i>
+<!-- 				<a class="btn normal focus">뒤로 가기</a> -->
+			</div>
+		
 			<div class="viewProBtn">
 				<a class="btn normal focus">사용자에게 공지</a>
 				<a class="btn normal focus">프로젝트 재개</a>
-				<a class="btn normal focus">프로젝트 종료</a>
-				<a class="btn normal" onclick="goBack()">뒤로 가기</a>		
+				<a class="btn normal focus">프로젝트 종료</a>		
 			</div>
 		</div>
 		
@@ -146,16 +144,10 @@
 <!-- </div>	col col-10_end  -->
 
 <script>
-	
-	function goBack() {
-   		 window.history.back(-1);
-	}
-
-
 $(document).ready(function() {
 
-	var cd = document.getElementById("proProDate");
-		var cDate = new Date(cd.innerText);
+	var cd = document.getElementById("proOpenDate");
+		var cDate = new Date(cd.value	);
 		var diff = moment(cDate).diff(moment());
 		var absDiff = Math.abs(diff);
 		var	diffDay		= Math.floor(absDiff / (60 * 60 * 1000 * 24) * 1)
@@ -169,12 +161,14 @@ $(document).ready(function() {
 			remainTime +="경과"; 
 		}
 		else remainTime +="남음";
-		cd.innerText = remainTime;
-
+		document.getElementById("proProDate").value = remainTime;
 	
 });
 
+
+
 </script>
+
 	
 </body>
 </html>

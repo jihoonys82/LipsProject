@@ -56,5 +56,11 @@
 	<definition name="intro"
 		template="/WEB-INF/views/main/intro.jsp">
 	</definition>
+	
+	<definition name="user/access_denied"
+		template="/WEB-INF/views/user/access_denied.jsp">
+	</definition>
+	<definition name="error" template="/WEB-INF/views/error.jsp">
+	</definition>
 
 </tiles-definitions>

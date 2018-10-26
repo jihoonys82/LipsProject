@@ -1,5 +1,6 @@
 package lips.userinfo.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -98,5 +99,9 @@ public class UserController {
 		userTrack.setUserTrack((List)list, false);
 		return "redirect:/logout";
 	}
+	
+	@RequestMapping(value="/access_denied",method=RequestMethod.GET)
+	public void denied() {}
+	
 
 }

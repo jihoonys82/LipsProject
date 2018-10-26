@@ -80,7 +80,9 @@ public class User implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		authorities.add(new SimpleGrantedAuthority("USER"));
+		if(userId != null && userLevel > 0) {
+			authorities.add(new SimpleGrantedAuthority("USER"));
+		}
 		if (userId != null && userLevel  > 1) {
 			authorities.add(new SimpleGrantedAuthority("ADMIN"));
 		}

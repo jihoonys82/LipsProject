@@ -70,46 +70,25 @@
 				
 					<a class="btn normal" style="float: right;" onclick="goBack()">뒤로 가기</a>
 					<a class="btn normal focus">프로젝트 공지</a>
-					<a class="btn normal focus" onclick="win_1.show()">정지 해제</a>
-					<a class="btn normal focus" onclick="modal_2.show()">탈퇴 처리</a>
+					<a class="btn normal focus" onclick="modalReopenAcc.show()">정지 해제</a>
+					<a class="btn normal focus" onclick="modalCloseAcc.show()">탈퇴 처리</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
-<!-- <div id="modal_1" class="msgbox" style="display: none;"> -->
-<!-- 	<div class="head">정지 해제</div> -->
-<!-- 	<div class="body"> -->
-<!-- 		<div id="modalReopen" style="text-align: center; margin-top: 45px;"> -->
-<%-- 			<p>${userInfo.userId } 님의 강등을 취소하시겠습니까?</p> --%>
-<!-- 			<a class="btn focus small" id="btnReopen">확인</a> <a class="btn small" id="btnCancel_1">취소</a> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- </div> -->
-
-<div id="win_1" class="window">
-    <div class="head">
-        <div class="left">정지해제</div>
-        <div class="right">
-            <a href="#" class="close"><i class="icon-exit"></i></a>
-        </div>
-    </div>
-    <div class="body">
-        <div id="modalReopen" style="text-align: center;">
+<div id="modalReopenAcc" class="msgbox" style="display: none;">
+	<div class="head">정지 해제</div>
+	<div class="body" style="text-align: center; margin-bottom: 10%;">
 			<p>${userInfo.userId } 님의 강등을 취소하시겠습니까?</p>
-		</div>
-    </div>
-    <div class="foot" align="center">
-        <a href="#" class="btn focus close" id="btnReopen">확인</a> <a class="btn close" id="btnCancel_1">취소</a>
-    </div>
+			<a class="btn focus small" id="btnReopen">확인</a> <a class="btn small" id="btnCancel_1">취소</a>
+	</div>
 </div>
 
-<div id="modal_2" class="msgbox" style="display: none; width: 20em;">
+<div id="modalCloseAcc" class="msgbox" style="display: none; width: 20em;">
 	<div class="head">탈퇴 처리</div>
-	<div class="body" >
-		<div id="modalClose" style="text-align: center; margin-bottom: 10%;">
+	<div class="body" style="text-align: center; margin-bottom: 10%;">
 			<p>${userInfo.userId } 님을 강등시키시겠습니까?</p>
-		</div>
 		<div style="text-align: center;">
 			<a class="btn focus small close" id="btnClose">확인</a> <a class="btn small close" id="btnCancel_2">취소</a>
 		</div>
@@ -126,14 +105,12 @@
 	$(document).ready(function(){
 		
 		$("#btnCancel_1").click(function() {
-			$("#win_1").hide();
-			// TODO 검은색 배경 지우는 법 찾기
+			modalReopenAcc.hide();
 		});
-	
+		
 		$("#btnCancel_2").click(function() {
-			modal_2.hide();
-			// TODO 검은색 배경 지우는 법 찾기 
-		});		
+			modalCloseAcc.hide();
+		});	
 		
 		
 		$("#btnReopen").click(function() {
@@ -155,6 +132,8 @@
 //				    $("#btnReopen").click(function(){			    	
 // 				    	$("#status").attr("readonly",false);
 //				    });
+
+				        modalReopenAcc.hide();
 					
 					
 				}, error: function() {
@@ -178,10 +157,8 @@
 				    	$("#status").empty();
 				        $("#status").val("강제탈퇴");
 				        
-//					$("#btnClose").click(function(){
-// 				        $("#modal_2").modal().hide();			        
-//				    });
-					
+				        modalCloseAcc.hide();
+				       
 					
 				}, error: function() {
 					
@@ -195,23 +172,22 @@
 	
 	
 	jui.ready([ "ui.modal" ], function(modal) {
-		$("#modal_2").appendTo("body");
+		$("#modalCloseAcc").appendTo("body");
 
-		modal_2 = modal("#modal_2", {
+		modalCloseAcc = modal("#modalCloseAcc", {
 			color : "gray",
 			autoHide: false
-		});
+		});	
+		
+		$("#modalReopenAcc").appendTo("body");
+
+		modalReopenAcc = modal("#modalReopenAcc", {
+			color : "gray",
+			autoHide: false
+		});	
 		
 	});
-	
-	jui.ready([ "ui.window" ], function(win) {
-	    win_1 = win("#win_1", {
-	        width: 300,
-	        height: 300,
-	        modal: true
-	    });
-	});
-	
+
 	
 </script>		
 		

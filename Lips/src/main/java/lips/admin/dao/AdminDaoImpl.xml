@@ -68,6 +68,18 @@
 		UPDATE USERINFO SET USERLEVEL = 1, BLOCKED = 0 WHERE USERID=#{userId}		
 	</update>
 	
+	<update id="upProRestart" parameterType="lips.project.dto.ProjectDto">
+		UPDATE PROJECTINFO SET STATUS = 'OPEN' WHERE PROJECTID = #{projectId}
+	</update>
+	
+	<update id="upProStop" parameterType="lips.project.dto.ProjectDto">
+		UPDATE PROJECTINFO SET STATUS = 'PENDING' WHERE PROJECTID = #{projectId}
+	</update>
+	
+	<update id="upProFinish" parameterType="lips.project.dto.ProjectDto">
+		UPDATE PROJECTINFO SET STATUS = 'CLOSE' WHERE STATUS = 'PENDING' AND PROJECTID = #{projectId}	
+	</update>
+	
 	<select id="selNewPCnt" resultType="int">
 		SELECT COUNT(*) FROM PROJECTINFO WHERE CREATEDATE > SYSDATE-30
 	</select>

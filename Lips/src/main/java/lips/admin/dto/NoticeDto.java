@@ -8,9 +8,9 @@ public class NoticeDto {
 	private String noticeTitle;
 	private String noticeContent;
 	private Date createDate;
-	private int headline;
+	private int noticeCategory;
 	private int hit;
-	
+	private String userId;
 	public int getNoticeId() {
 		return noticeId;
 	}
@@ -35,11 +35,11 @@ public class NoticeDto {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	public int getHeadline() {
-		return headline;
+	public int getNoticeCategory() {
+		return noticeCategory;
 	}
-	public void setHeadline(int headline) {
-		this.headline = headline;
+	public void setNoticeCategory(int noticeCategory) {
+		this.noticeCategory = noticeCategory;
 	}
 	public int getHit() {
 		return hit;
@@ -47,11 +47,18 @@ public class NoticeDto {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	
 	@Override
 	public String toString() {
 		return "NoticeDto [noticeId=" + noticeId + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
-				+ ", createDate=" + createDate + ", headline=" + headline + ", hit=" + hit + "]";
+				+ ", createDate=" + createDate + ", noticeCategory=" + noticeCategory + ", hit=" + hit + ", userId="
+				+ userId + "]";
 	}
 	
 }

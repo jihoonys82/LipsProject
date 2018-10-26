@@ -139,8 +139,6 @@ public class AdminController {
 	   List<Integer> pList = adminService.getNumOfPInfo(project);
 	   HashMap<String, String> pTime = adminService.getElapsedTime(project);
 	   
-	   
-	   
 	   model.addAttribute("proInfo", proInfo);
 	   model.addAttribute("uPInfo",uPInfo);
 	   model.addAttribute("pList",pList);
@@ -149,6 +147,26 @@ public class AdminController {
 //	   ProjectDto projectinfo = adminService.getProInfo(project);
 //	   model.addAttribute("proInfo",projectinfo);
 	   
+   }
+   
+   @RequestMapping(value="/admin/project/view", method=RequestMethod.POST)
+   public ModelAndView projectClose(Model model, ProjectDto project, String param) {
+		logger.info("프로젝트 상세 페이지_정지 & 재개");
+		ModelAndView mav = new ModelAndView();
+		
+		if(param.equals("restart")) {
+			adminService.restartProject(project);
+		} else if(param.equals("stop")) {
+			adminService.stopProject(project);
+		} else if(param.equals("finish")) {
+			adminService.finishProject(project);
+		}
+		
+		String status = project.getStatus();
+		
+		mav.addObject("status",status);
+		mav.setViewName("jsonView");
+		return mav;
    }
    
 }

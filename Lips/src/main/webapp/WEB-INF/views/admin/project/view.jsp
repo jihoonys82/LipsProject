@@ -3,6 +3,16 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<style>
+.item input[type="text"]{
+	color		: black;
+}
+
+.item select,.item select option {
+	color : black;
+}
+
+</style>
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
     
 	<div class="panel">
@@ -134,25 +144,87 @@
 		<div class="body">
 
 			<div class="viewProBtn">
-				<a class="btn normal focus">사용자에게 공지</a>
-				<a class="btn normal focus">프로젝트 재개</a>
-				<a class="btn normal focus">프로젝트 종료</a>
-				<a class="btn normal" onclick="goBack()">뒤로 가기</a>		
+				<c:choose>
+					<c:when test="${proInfo.status eq 'OPEN'}">
+						<a class="btn normal focus">사용자에게 공지</a>
+						<a class="btn normal focus" onclick="modalStop.show();">프로젝트 정지</a>
+						<a class="btn normal" onclick="goBack()">뒤로 가기</a>					
+					</c:when>
+					<c:when test="${proInfo.status eq 'PENDING'}">
+						<a class="btn normal focus">사용자에게 공지</a>
+						<a class="btn normal focus" onclick="">프로젝트 재개</a>						
+						<a class="btn normal focus" onclick="">프로젝트 종료</a>
+						<a class="btn normal" onclick="goBack()">뒤로 가기</a>	
+					</c:when>
+					<c:when test="${proInfo.status eq 'CLOSE'}">
+						<a class="btn normal focus">사용자에게 공지</a>
+						<a class="btn normal focus" onclick="">프로젝트 재개</a>
+						<a class="btn normal" onclick="goBack()">뒤로 가기</a>	
+					</c:when>
+					<c:otherwise>
+						<td>알 수 없음</td>
+					</c:otherwise>
+				</c:choose>
+	
 			</div>
 		</div>
 		
 		
-	</div>	<!-- panel_end -->	
-<!-- </div>	col col-10_end  -->
+	</div>
+
+<div class="window" style="width: 500px; display: none;" id="modalStop">
+	<div class="head">
+		<div class="left">Property view inner window </div>
+		<div class="right">
+			<a href="javascript:alert('plus');"><i class="icon-plus"></i></a>
+			<a href="javascript:alert('search');"><i class="icon-search"></i></a>
+			<a href="#" class='close'><i class='icon-close'></i></a>
+		</div>
+	</div>
+	<div class="body has-property" style="height:300px;">
+		<div id="complex-settings-for-window" class="property"></div>
+	</div>
+	<div class="foot">
+		<a href="#" class="btn focus">확인</a>
+		<a href="#" class="btn" id="btnCancel_stop">취소</a>
+	</div>
+</div>
 
 <script>
+
+jui.ready([ "ui.property" ], function(PropertyView) {
+
+	window.complexSettings = new PropertyView('#complex-settings-for-window', {
+		items : [
+			{ type : 'group', title : '중지 사유', description : '중지 사유를 선택해주세요'},
+			{ type : 'select', title : 'Transition style', key : 'transition' , value : 'default', items : ['1. 서비스 안내', '2. 서비스 공지', '3. 기타'] },
+
+			{ type : 'group', title : '메시지', description : '사용자에게 보낼 메시지를 작성해주세요'},
+			{ type : 'text', title : 'Background Image', key : 'parallaxBackgroundImage' , value : '', description : 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg' },
+		],
+		event : {
+			change : function (item, newValue, oldValue) {
+				console.log('item : ', item);
+				console.log('all items', this.getValue());
+			}
+		}
+	});
+
+	window.modalStop = jui.create('ui.modal', "#modalStop");
+
+});
+
 	
-	function goBack() {
-   		 window.history.back(-1);
-	}
+function goBack() {
+   	window.history.back(-1);
+}
 
 
 $(document).ready(function() {
+	
+	$("#btnCancel_stop").click(function() {
+		modalStop.hide();
+	});
 
 	var cd = document.getElementById("proProDate");
 		var cDate = new Date(cd.innerText);

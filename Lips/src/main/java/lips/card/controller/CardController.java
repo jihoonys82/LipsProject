@@ -42,12 +42,17 @@ public class CardController {
 		return mav;
 	}
 	@RequestMapping(value = "/assetList", method = RequestMethod.GET)
-	public ModelAndView AssetList() {
+	public ModelAndView AssetList(
+			@RequestParam(required=false,defaultValue="0") int x,
+			@RequestParam(required=false,defaultValue="0") int y ) {
 		ModelAndView mav = new ModelAndView();
 		
 		List<CardDto> selCard = new ArrayList<CardDto>();
 		selCard = csvc.AllCardList();
 		logger.info(selCard.toString());
+		logger.info(x+","+y);
+		mav.addObject("sellocation", "x="+x+"&"+"y="+y);
+		
 		
 		mav.addObject("selCard", selCard);
 		
@@ -66,8 +71,11 @@ public class CardController {
 			
 			) {
 		ModelAndView mav = new ModelAndView();
+		if(dashboardId != 0) {
 		String CardValue = csvc.CardValue(dto);
-		mav.addObject("cardvalue", CardValue);
+			mav.addObject("cardvalue", CardValue);
+			
+		}
 		
 		mav.setViewName("card/card1");
 		

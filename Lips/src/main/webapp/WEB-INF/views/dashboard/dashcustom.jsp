@@ -43,25 +43,28 @@
 </div>
 <script>
 	
-
 	var $divbase = $("<div>").attr("id", "divbase").css("height", "100%");
 	var $tilesbody = $("div.col-10");
 	$tilesbody.removeClass("col-10").addClass("col-12");
 	$tilesbody.append($divbase);
-	var cardNo = 0;
-
+	
+	var locationOb= Object();
+	
+	var cardLocation = "1,1";
+	var xLocation = 1*1;
+	var xLocation = 1*1;
+	
+	
 	var maxXLocation = 1 * 1;
 	var maxYLocation = 1 * 1;
 	
-
 	$(document).ready(function combobox() {
 		
 		
-		$("div.activityLog").empty().load("/card/assetList");
+		$("div.activityLog").empty();
 		$("div.activityLog").hide();
 		layoutSetting(1,1);
 		
-
 		jui.ready([ "ui.combo" ], function(combo) {
 			comboLineX = combo("#comboLineX", {
 				index : 0,
@@ -74,33 +77,50 @@
 				}
 			});
 		});
-
 		jui.ready([ "ui.combo" ], function(combo) {
 			comboLineY = combo("#comboLineY", {
 				index : 0,
 				event : {
 					change : function(data) {
 						maxYLocation = data.value * 1;
-
 						$("#divbase").children("div").empty();
 						layoutSetting(maxXLocation, maxYLocation);
 					}
 				}
 			});
 		});
-
 		
-
 	});
-
+	
+	function clickCard(dom){
+		var location = dom.id;
+// 		console.log(location);
+		$tilesbody.removeClass("col-12").addClass("col-10");
+		$("div.activityLog").load("/card/assetList?"+location);
+		$("div.activityLog").show();
+	}
+	
 	function layoutSetting(maxXLocation, maxYLocation) {
-		for (var i = 0; i < maxXLocation ; i++) {
+		//x location for (maxXLocation 으로 돌림)
+		for (var i = 1; i < maxXLocation+1 ; i++) {
+			
+			xLocation = i;
 			
 			var $cardBase = $("<div>")
-				.css("height", "100%")
-				.css("width", "100%");
+			.attr("id","div"+i)
+			.css("height", "100%")
+			.css("width", 99 / maxXLocation + "%")
+			.css("float", "left");
 			
-			for (var j = 0; j < maxYLocation; j++) {
+			$("#divbase").append($cardBase);
+			
+			//y location for (maxYLocation 으로 돌림)
+			for (var j = 1; j < maxYLocation+1; j++) {
+				
+				yLocation = j;
+				locationOb.x = xLocation;
+				locationOb.y = yLocation;
+				
 				var $cardadd = $("<img>")
 				.attr("src", "/resources/img/card/dashAddCard.png")
 				.css("height", "100px")
@@ -108,32 +128,20 @@
 				
 				
 				var $carddiv = $("<div>")
+					.attr("id","x="+xLocation+"&y="+yLocation)
+					.attr("onclick","clickCard(this)")
 					.css("height", "100px")
 					.css("width", "100%")
-					.css("border", "1px solid white");
+					.css("border", "1px solid white")
+					.click(function(dom){});
 					
 				$carddiv.append($cardadd);
-				$carddiv.click(function(){
-					$tilesbody.removeClass("col-12").addClass("col-10");
-					$("div.activityLog").show();
-				});
-			$cardBase.append($carddiv);
-		}
-			
-
-			var $div = $("<div>")
-				.css("height", "100%")
-				.css("width", 99 / maxXLocation + "%")
-				.css("float", "left");
-				
-				$div.append($cardBase);
-				
-			$("#divbase").append($div);
+				$cardBase.append($carddiv);
+			}
+		
 		}
 		
 		
 	}
-
 	
-
 </script>

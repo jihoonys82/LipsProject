@@ -159,7 +159,7 @@ font-size:2em;
 							<c:choose>
 								<c:when test="${projectinfo.projectLeader eq id}"> 
 								<a href="/project/update?projectId=${projectinfo.projectId}"><i class="icon-gear ab" style="    margin: 1em;
-    margin-right: 0.5em;"></i></a>
+    margin-right: 0.1em;"></i></a>
 								</c:when>
 							</c:choose>
 							

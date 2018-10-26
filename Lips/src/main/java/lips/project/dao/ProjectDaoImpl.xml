@@ -3,6 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="lips.project.dao.ProjectDao">
+ 	<!-- 프로젝트 멤버테이블만 조회 (파라미터 - 프로젝트DTO(프로젝트아이디)  -->
+ 	<select id="selProOnlyMember" parameterType="lips.project.dto.ProjectDto" resultType="lips.project.dto.ProjectMemberDto"> 
+ 	SELECT * FROM project_member WHERE projectId=#{projectId}
+ 	</select>
+ 
+ 
  	<!-- 프로젝트 조회(프로젝트 아이디를 바탕으로) -->
  	<select id="selProbyProId" parameterType="String" resultType="lips.project.dto.ProjectDto">
  	SELECT * FROM projectinfo WHERE projectId=#{projectId}

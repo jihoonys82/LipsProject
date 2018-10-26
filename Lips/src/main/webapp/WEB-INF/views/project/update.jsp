@@ -6,6 +6,24 @@
 	uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
 <style>
+.scrolltbody {
+    display: block;
+    width: 400px;
+    border-collapse: collapse;
+}
+.scrolltbody th { border: 1px solid #000; background: pink; }
+.scrolltbody td { border: 1px solid #000; border-top: 0; }
+.scrolltbody tbody {
+    display: block;
+    height: 200px;
+    overflow: auto;
+}
+.scrolltbody th:nth-of-type(1), .scrolltbody td:nth-of-type(1) { width: 120px; }
+.scrolltbody th:nth-of-type(2), .scrolltbody td:nth-of-type(2) { width: 120px; }
+.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) { width: 120px; }
+.scrolltbody th:last-child { width: 100px; }
+.scrolltbody td:last-child { width: calc( 100px - 19px );  }
+
 
 /* project_view */
 .usertable {
@@ -33,7 +51,7 @@
 	/* 	margin-left: 3em; */
 	/* 	margin-right: 3em; */
 	height: 39.5em;
-		line-height: 3.5em;
+		line-height: 3em;
 }
 
 .forPaging {
@@ -94,6 +112,13 @@
 								</div>
 
 								<div class="view-form-row">
+									<label for="proName" class="view-form-label">프로젝트 Key</label> <input
+										type="text" name="proKey" id="proKey"
+										class="input view-form-input" readonly="readonly"
+										value="${updatePageinfo.projectinfo.projectKey }" />
+								</div>
+
+								<div class="view-form-row">
 									<label for="proNum" class="view-form-label">참여인원</label> <input
 										type="text" name="proNum" id="proNum"
 										class="input view-form-input" readonly="readonly"
@@ -151,7 +176,9 @@
 
 							<div class="viewTwinBox col col-5"
 								style="float: right; right: 3.5em;">
-								<div class="infomation">참여인원 정보</div>
+								<div class="btn">
+									<strong>Project Memeber</strong>
+								</div>
 
 								<div class="view-form-row">
 									<label for="userLeader" class="view-form-label">프로젝트 리더</label>
@@ -165,6 +192,53 @@
 									<div class="usertable">
 									</div>
 								</div>
+
+
+
+<table class='scrolltbody table classic'>
+	<thead>
+
+		<tr><th style="width:26.25%">#</th><th style="width:26.3%"> 아이디 </th><th style="width:26.5%"> 상태 </th><th> 관리</th></tr>
+	</thead>
+	<tbody>
+	<%! int i =0; %>
+	<c:forEach items="${updatePageinfo.projectUserinfo}" var="pminfo">
+	
+	<% i++; %>
+	<tr><td><%=i%></td><td>${pminfo.userId}</td><td>
+	<c:if test="${pminfo.userLevel eq '-1'}">프로젝트 탈퇴</c:if>
+	<c:if test="${pminfo.userLevel eq '0'}">이용 정지</c:if>
+	<c:if test="${pminfo.userLevel eq '1'}">참여중</c:if>
+	<c:if test="${pminfo.userLevel eq '2'}">프로젝트리더</c:if>
+	
+	</td><td style="text-align: center">
+	
+	<c:choose>
+   <c:when test="${pminfo.userLevel eq '0'}"> <button class="btn focus"> 정지 해제</button></c:when>
+   <c:when test="${pminfo.userLevel eq '1'}"> <button class="btn"> 이용 정지</button></c:when>
+ 
+ 	<!-- 20181026 여기까지함
+ 	 1.버튼 눌렀을때 에이잭스로 처리하는거 하기
+ 	 2. 프로젝트 메인화면.... 강퇴당한놈.. 조회 안되게...
+ 	 3. 프로젝트 참가... 강퇴당한놈... 참가 안되게...
+ 	 4. 프로젝트 참가... 참여하는거...  인서트달기....
+ 	
+ 	 -->
+
+<c:otherwise>
+	<button class="btn"> 메롱롱</button>
+</c:otherwise>
+</c:choose>
+	
+
+
+	
+	</td></tr>
+	
+	</c:forEach>
+	</tbody>
+</table>
+								
 
 
 							</div>
@@ -231,7 +305,7 @@
 						document.getElementById("proProDate").value = remainTime;
 
 					});
-	
+
 	
 </script>
 

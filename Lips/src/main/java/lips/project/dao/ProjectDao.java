@@ -4,10 +4,21 @@ import java.util.List;
 import java.util.Map;
 
 import lips.project.dto.ProjectDto;
+import lips.project.dto.ProjectMemberDto;
 import lips.project.dto.ProjectinvitecodeDto;
 import lips.userinfo.dto.User;
 
 public interface ProjectDao {
+	
+	
+	//프로젝트 아이디(ProjectDto)를 바탕으로 프로젝트에 참가하고 있는 멤버를 조회 
+	/**
+	 * 
+	 * @param ProjectDto
+	 * @return ProjectMemeberDto
+	 */
+	public List selProOnlyMember(ProjectDto dto);
+	
 	
 	//초대코드를 이용하여  project_invitation테이블의을 조회,  expirydate 을 가져옴
 	public ProjectinvitecodeDto inviteTimecheck(ProjectDto dto);

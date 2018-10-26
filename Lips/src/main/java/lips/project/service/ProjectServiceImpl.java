@@ -154,8 +154,9 @@ String invitecode;
 		map.put("usercount", adao.selUCntOnP(dto));
 		map.put("issuecount", adao.selIssCntOnP(dto));
 		map.put("userinfo", user);
-		map.put("projectUserinfo", adao.selUOnP(dto));
-		
+		map.put("projectUserinfo", dao.selProOnlyMember(dto));
+		System.out.println("테스트+++"+adao.selUOnP(dto).toString());
+	
 		return map;
 	}
 

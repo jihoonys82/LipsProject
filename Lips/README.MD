@@ -118,3 +118,11 @@ ex)
 	2-2. option : JSON Object
 	
 	https://developer.mozilla.org/ko/docs/Web/API/notification
+
+
+## notice category info
+
+   0. 타임라인 공지
+   1. 한 줄 공지
+   2. 사용자 공지
+   3. 정지사유 공지

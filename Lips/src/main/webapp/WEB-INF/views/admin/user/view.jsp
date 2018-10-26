@@ -51,22 +51,24 @@
 									<div>
 										<ul>
 											<li>
-												<input type="text" name="activeProject" id="activeProject" class="input mini view-form-input" readonly="readonly" 
-													value="${pInfo.projectName }"/> 
+												<span id="activeProject">${pInfo.projectName}</span>
+<!-- 												<input type="text" name="activeProject" id="activeProject" class="input mini view-form-input" readonly="readonly"  -->
+<%-- 													value="${pInfo.projectName }"/>  --%>
 											</li>
 										</ul>
 									</div>
 							</c:forEach>		
 						</c:if>
 						<c:if test="${projectInfo[0].projectName eq null}">
-								<input type="text" name="activeProject" id="activeProject" class="input view-form-input" readonly="readonly" value="참여 프로젝트 없음"/> 
+							<span id="activeProject">참여 프로젝트 없음</span> 
 						</c:if>
 					
 				</div>
 				
 	
 				<div class="viewUserBtn">
-					<a class="btn normal focus" style="float: right;">뒤로 가기</a>
+				
+					<a class="btn normal" style="float: right;" onclick="goBack()">뒤로 가기</a>
 					<a class="btn normal focus">프로젝트 공지</a>
 					<a class="btn normal focus" onclick="win_1.show()">정지 해제</a>
 					<a class="btn normal focus" onclick="modal_2.show()">탈퇴 처리</a>
@@ -93,23 +95,23 @@
         </div>
     </div>
     <div class="body">
-        <div id="modalReopen" style="text-align: center; margin-top: 45px;">
+        <div id="modalReopen" style="text-align: center;">
 			<p>${userInfo.userId } 님의 강등을 취소하시겠습니까?</p>
 		</div>
     </div>
     <div class="foot" align="center">
-        <a href="#" class="btn focus" id="btnReopen">확인</a> <a class="btn" id="btnCancel_1">취소</a>
+        <a href="#" class="btn focus close" id="btnReopen">확인</a> <a class="btn close" id="btnCancel_1">취소</a>
     </div>
 </div>
 
 <div id="modal_2" class="msgbox" style="display: none; width: 20em;">
 	<div class="head">탈퇴 처리</div>
-	<div class="body">
-		<div id="modalClose" style="text-align: center; margin-top: 45px;">
+	<div class="body" >
+		<div id="modalClose" style="text-align: center; margin-bottom: 10%;">
 			<p>${userInfo.userId } 님을 강등시키시겠습니까?</p>
 		</div>
 		<div style="text-align: center;">
-			<a class="btn focus small" id="btnClose">확인</a> <a class="btn small" id="btnCancel_2">취소</a>
+			<a class="btn focus small close" id="btnClose">확인</a> <a class="btn small close" id="btnCancel_2">취소</a>
 		</div>
 	</div>
 </div>
@@ -117,16 +119,20 @@
 
 <script type="text/javascript">
 
+	function goBack() {
+	    window.history.back(-1);
+	}
+
 	$(document).ready(function(){
 		
 		$("#btnCancel_1").click(function() {
 			$("#win_1").hide();
-			// TODO 닫기 버튼 / ajax  
+			// TODO 검은색 배경 지우는 법 찾기
 		});
 	
 		$("#btnCancel_2").click(function() {
-			$("#modal_2").hide();
-			// TODO 검은색 배경 지우는 법 찾기  
+			modal_2.hide();
+			// TODO 검은색 배경 지우는 법 찾기 
 		});		
 		
 		
@@ -142,16 +148,13 @@
 // 					infos[0] = data.blocked;
 // 					infos[1] = data.level; 
 			
-				    $("#btnReopen").click(function(){
-				    	
-// 				    	$("#status").attr("readonly",false);
-						
 				    	$("#stauts").removeAttr("readonly");
 				    	$("#status").empty();
 				        $("#status").val("가입");
 				        
-				        
-				    });
+//				    $("#btnReopen").click(function(){			    	
+// 				    	$("#status").attr("readonly",false);
+//				    });
 					
 					
 				}, error: function() {
@@ -168,8 +171,6 @@
 				, dataType: "json"
 				, data: {"userId": "${userInfo.userId}", "param":"false" }
 				, success: function(data) {
-	
-					$("#btnClose").click(function(){
 				    	
 // 				    	$("#status").attr("readonly",false);
 						
@@ -177,11 +178,13 @@
 				    	$("#status").empty();
 				        $("#status").val("강제탈퇴");
 				        
-				        
-				    });
+//					$("#btnClose").click(function(){
+// 				        $("#modal_2").modal().hide();			        
+//				    });
 					
 					
 				}, error: function() {
+					
 					alert("error");
 				}
 			})
@@ -195,7 +198,8 @@
 		$("#modal_2").appendTo("body");
 
 		modal_2 = modal("#modal_2", {
-			color : "black"
+			color : "gray",
+			autoHide: false
 		});
 		
 	});

@@ -171,8 +171,24 @@ public interface AdminDao {
 	 */
 	public int selIssCntOnP(ProjectDto project);
 	
+	/**
+	 * 	프로젝트에 참여한 유저 id 가져오기
+	 * @param project
+	 * @return List<ProjectDto>
+	 */
 	public List<ProjectDto> selUOnP(ProjectDto project);
 	
+	/**
+	 * 	프로젝트 경과 시간 
+	 * @param project
+	 * @return hashMap
+	 */
 	public HashMap<String,String> selElapsedTime(ProjectDto project);
+	
+	/**
+	 * 	 진행중인 프로젝트에 참여 중인 유저 count 
+	 * @return int
+	 */
+	public int selUCntOnOpenP();
 	
 }

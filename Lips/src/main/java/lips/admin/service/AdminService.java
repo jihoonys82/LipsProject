@@ -44,6 +44,8 @@ public interface AdminService {
 	
 	public List<Integer> getNumOfPInfo(ProjectDto project);
 	
+	public List<Integer> getNumOfDash();
+	
 	public int getUTotalCount();
 	
 	public int getPTotalCount();

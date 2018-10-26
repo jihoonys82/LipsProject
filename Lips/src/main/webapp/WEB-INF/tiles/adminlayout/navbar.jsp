@@ -1,28 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
  <div class="navbar flat" style="overflow: hidden;">
 	<div class="inline right">
-		<span>admin ´Ô ¾î¼­¿À¼¼¿ä</span>
+		<span>admin ë‹˜ ì–´ì„œì˜¤ì„¸ìš”</span>
+		<a class="btn">logout</a>	
 	</div>
 </div>
     
 <nav class="col col-2">
 	<div class="panel">
 		<div class="body">
-			<a href="/admin/main"><span class="nav-label">´ë½Ãº¸µå</span></a>		
+			<a href="/admin/main"><span class="nav-label">ëŒ€ì‹œë³´ë“œ</span></a>		
 		</div>
 		<div class="body">	      
-			<a href="/admin/notice"><span class="nav-label">°øÁö»çÇ×</span></a>
+			<a href="/admin/notice"><span class="nav-label">ê³µì§€ì‚¬í•­</span></a>
 		</div>
 		<div class="body">
-	    	<a href="/admin/project/chart"><span class="nav-label">ÇÁ·ÎÁ§Æ®</span></a>
+	    	<a href="/admin/project/chart"><span class="nav-label">í”„ë¡œì íŠ¸</span></a>
 		</div>
 		<div class="body">
-		     <a href="/admin/user/chart"><span class="nav-label">»ç¿ëÀÚ</span></a>
+		     <a href="/admin/user/chart"><span class="nav-label">ì‚¬ìš©ìž</span></a>
 		</div>
 		<div class="body">
-		    <a href="#"><span class="nav-label">¼­ºñ½º</span></a>
+		    <a href="#"><span class="nav-label">ì„œë¹„ìŠ¤</span></a>
 		</div>
 		<div class="body" style="min-height:30em;"></div>
 	</div>

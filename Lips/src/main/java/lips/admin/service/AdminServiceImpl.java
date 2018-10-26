@@ -153,6 +153,17 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public HashMap<String,String> getElapsedTime(ProjectDto project) {
 		return adminDao.selElapsedTime(project);
+	}
+
+	@Override
+	public List<Integer> getNumOfDash() {
+		
+		List<Integer> list = new ArrayList<Integer>();
+		
+		list.add(0, adminDao.selUCntOnOpenP());
+		list.add(1, adminDao.selOpenPCnt());
+		
+		return list;
 	}	
 
 }

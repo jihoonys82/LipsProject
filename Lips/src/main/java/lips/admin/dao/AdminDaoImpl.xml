@@ -101,4 +101,8 @@
 		FROM PROJECTINFO WHERE PROJECTID = #{projectId}
 	</select>
 	
+	<select id="selUCntOnOpenP" resultType="int">
+		SELECT COUNT(DISTINCT(pm.userId)) FROM project_member pm, projectinfo pi WHERE pm.projectId = pi.projectId AND pi.status = 'OPEN'
+	</select>
+	
  </mapper>  

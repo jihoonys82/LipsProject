@@ -28,10 +28,15 @@ public class AdminController {
    @Autowired UserTracker userTracker;
    
    @RequestMapping(value="/admin/main", method=RequestMethod.GET)
-   public String main() {
+   public void main(Model model) {
       logger.info("메인 페이지");
       
-      return "admin/main";
+	  int allUserCnt =  userTracker.getAllUserTrack();
+	  List<Integer> cntList = adminService.getNumOfDash();
+	   
+	  model.addAttribute("allUserCnt",allUserCnt);
+	  model.addAttribute("cntList",cntList);
+
    }
    
    @RequestMapping(value="/admin/notice", method=RequestMethod.GET)

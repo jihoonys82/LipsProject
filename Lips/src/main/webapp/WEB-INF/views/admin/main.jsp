@@ -49,19 +49,25 @@ chart("#result", {
 			<div class="col col-12">
 				<div class="infoBox col col-4">
 					<div class="boxWrapper">
-						<div class="numBox">1</div>
+						<div class="numBox">
+							${cntList[0] }
+						</div>
 						<div id="sizing-first">프로젝트 참여인원</div>
 					</div>
 				</div>
 				<div class="infoBox col col-4">
 					<div class="boxWrapper">
-						<div class="numBox">2</div>
+						<div class="numBox">
+							${cntList[1] }
+						</div>
 						<div id="sizing-second">진행중인 프로젝트</div>
 					</div>
 				</div>
 				<div class="infoBox col col-4">
 					<div class="boxWrapper">
-						<div class="numBox">5</div>
+						<div class="numBox">
+							${allUserCnt}
+						</div>
 						<div>접속중인 인원</div>
 					</div>
 				</div>

@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lips.admin.dao.AdminDao;
 import lips.project.dao.ProjectDao;
 import lips.project.dto.ProjectDto;
 import lips.project.dto.ProjectinvitecodeDto;
@@ -17,6 +18,8 @@ import lips.userinfo.dto.User;
 @Service
 public class ProjectServiceImpl implements ProjectService {
 @Autowired ProjectDao dao;
+@Autowired AdminDao adao;
+
 String invitecode;
 	@Override
 	public List selPro(User user) {
@@ -143,10 +146,17 @@ String invitecode;
 	}
 
 	@Override
-	public ProjectDto updatepage(String ProjectId) {
+	public Map updatepage(ProjectDto dto,User user) {
 		
-
-		return 	dao.selProbyProId(ProjectId);
+		Map map = new HashMap();
+		
+		map.put("projectinfo", dao.selProbyProId(String.valueOf(dto.getProjectId())));
+		map.put("usercount", adao.selUCntOnP(dto));
+		map.put("issuecount", adao.selIssCntOnP(dto));
+		map.put("userinfo", user);
+		map.put("projectUserinfo", adao.selUOnP(dto));
+		
+		return map;
 	}
 
 		

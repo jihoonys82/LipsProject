@@ -8,7 +8,7 @@
  	<select id="selUserInfo" resultType="lips.userinfo.dto.User" parameterType="lips.admin.util.Paging">
 	 	SELECT * FROM
 	 		(SELECT rownum rnum, U.* FROM
-	 			(SELECT * FROM USERINFO ORDER BY USERID DESC) U ORDER BY rnum)
+	 			(SELECT * FROM USERINFO ORDER BY USERID) U ORDER BY rnum)
 	 		WHERE rnum 
 	 		BETWEEN #{startNo} AND #{endNo}
  	</select>
@@ -116,5 +116,7 @@
 	<select id="selUCntOnOpenP" resultType="int">
 		SELECT COUNT(DISTINCT(pm.userId)) FROM project_member pm, projectinfo pi WHERE pm.projectId = pi.projectId AND pi.status = 'OPEN'
 	</select>
+	
+	
 	
  </mapper>  

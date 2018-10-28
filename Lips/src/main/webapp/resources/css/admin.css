@@ -313,3 +313,20 @@ body {
 .float-left {
 	float : left;
 }
+
+/* notice */
+.property-container {
+	width: 500px;
+	height: 500px;
+	position: relative;
+	overflow: auto;
+	border: 1px solid #ececec;
+}
+
+.property-container h1 {
+	color: #333;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-bottom: 0px;
+}
+

@@ -19,6 +19,7 @@ import lips.project.service.ProjectService;
 import lips.userinfo.dto.User;
 import lips.userinfo.dto.UserTracker;
  @Controller
+ @RequestMapping(value="/admin")
 public class AdminController {
    
    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
@@ -27,7 +28,7 @@ public class AdminController {
    @Autowired ProjectService projectService;
    @Autowired UserTracker userTracker;
    
-   @RequestMapping(value="/admin/main", method=RequestMethod.GET)
+   @RequestMapping(value="/main", method=RequestMethod.GET)
    public void main(Model model) {
       logger.info("메인 페이지");
       
@@ -39,18 +40,18 @@ public class AdminController {
 
    }
    
-   @RequestMapping(value="/admin/notice", method=RequestMethod.GET)
+   @RequestMapping(value="/notice", method=RequestMethod.GET)
    public void notice() {
 	   logger.info("공지 페이지");
    }
   
-   @RequestMapping(value="/admin/project/chart", method=RequestMethod.GET)
+   @RequestMapping(value="/project/chart", method=RequestMethod.GET)
    public void proChart(Model model) {
 	   logger.info("프로젝트 차트 페이지");
 	   
    }
    
-   @RequestMapping(value="/admin/project/text", method=RequestMethod.GET)
+   @RequestMapping(value="/project/text", method=RequestMethod.GET)
    public void proText(Model model, @RequestParam(defaultValue="0", required=false)int curPage) {
 	  logger.info("프로젝트 텍스트 페이지");
 	  
@@ -66,7 +67,7 @@ public class AdminController {
 	  
    }
    
-   @RequestMapping(value="/admin/user/chart", method=RequestMethod.GET)
+   @RequestMapping(value="/user/chart", method=RequestMethod.GET)
    public void userChart(Model model) {
 	   logger.info("유저 차트 페이지");
 	   
@@ -77,12 +78,15 @@ public class AdminController {
 	   model.addAttribute("cntList",cntList);
    }
    
-   @RequestMapping(value="/admin/user/text", method=RequestMethod.GET)
-   public void userText(Model model, @RequestParam(defaultValue="0", required=false)int curPage) {
+   @RequestMapping(value="/user/text", method=RequestMethod.GET)
+   public void userText(Model model, @RequestParam(defaultValue="0", required=false)String curPage) {
 	   logger.info("유저 텍스트 페이지");
 	   
+	  int curPageParse = Integer.parseInt(curPage);
+	  logger.info(curPage);
+	  System.out.println(curPageParse);
 	   int totalPage = adminService.getUTotalCount();
-	   Paging paging = new Paging(totalPage,curPage);
+	   Paging paging = new Paging(totalPage,curPageParse);
 	   
 	   List<? extends Object> uList = adminService.getUserList(paging);//0: userList 1: userIsLeaderList
 	   List<Integer> cntList = adminService.getNumOfUser();
@@ -97,7 +101,7 @@ public class AdminController {
 //	   model.addAttribute("pInfo",pInfo);
    }
    
-   @RequestMapping(value="/admin/user/view", method=RequestMethod.GET)
+   @RequestMapping(value="/user/view", method=RequestMethod.GET)
    public void userDetailView(Model model, User user) {
 		logger.info("유저 상세 페이지");
 		
@@ -108,7 +112,7 @@ public class AdminController {
 		model.addAttribute("projectInfo",proinfo);
    }
    
-   @RequestMapping(value="/admin/user/view", method=RequestMethod.POST)
+   @RequestMapping(value="/user/view", method=RequestMethod.POST)
    public ModelAndView userClose(Model model, User user, String param) {
 		logger.info("유저 상세 페이지_강등 & 강등 취소");
 		ModelAndView mav = new ModelAndView();
@@ -129,7 +133,7 @@ public class AdminController {
 		return mav;
    }
    
-   @RequestMapping(value="/admin/project/view", method=RequestMethod.GET)
+   @RequestMapping(value="/project/view", method=RequestMethod.GET)
    public void proDetailView(Model model, ProjectDto project) {
 	   logger.info("프로젝트 상세 페이지");
 	   
@@ -139,8 +143,6 @@ public class AdminController {
 	   List<Integer> pList = adminService.getNumOfPInfo(project);
 	   HashMap<String, String> pTime = adminService.getElapsedTime(project);
 	   
-	   
-	   
 	   model.addAttribute("proInfo", proInfo);
 	   model.addAttribute("uPInfo",uPInfo);
 	   model.addAttribute("pList",pList);
@@ -149,6 +151,28 @@ public class AdminController {
 //	   ProjectDto projectinfo = adminService.getProInfo(project);
 //	   model.addAttribute("proInfo",projectinfo);
 	   
+   }
+   
+   @RequestMapping(value="/project/view", method=RequestMethod.POST)
+   public ModelAndView projectClose(Model model, ProjectDto project, String param) {
+		logger.info("프로젝트 상세 페이지_정지 & 재개");
+		ModelAndView mav = new ModelAndView();
+		
+		if(param.equals("restart")) {
+			adminService.restartProject(project);
+		} else if(param.equals("stop")) {
+			adminService.stopProject(project);
+		} else if(param.equals("finish")) {
+			adminService.finishProject(project);
+		} else if(param.equals("notice")) {
+			
+		}
+		
+		String status = project.getStatus();
+		
+		mav.addObject("status",status);
+		mav.setViewName("jsonView");
+		return mav;
    }
    
 }

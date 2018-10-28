@@ -35,22 +35,19 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<ProjectDto> stopProject(ProjectDto project) {
-		// TODO Auto-generated method stub
-		return null;
+	public void stopProject(ProjectDto project) {
+		adminDao.upProStop(project);
 	}
 
 	@Override
-	public List<ProjectDto> deleteProject(ProjectDto project) {
-		// TODO Auto-generated method stub
-		return null;
+	public void restartProject(ProjectDto project) {
+		adminDao.upProRestart(project);
 	}
 
 	@Override
-	public List<ProjectDto> restartProject(ProjectDto project) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public void finishProject(ProjectDto project) {
+		adminDao.upProFinish(project);
+	}	
 
 	@Override
 	public List<List<? extends Object>> getUserList(Paging paging) {
@@ -164,7 +161,8 @@ public class AdminServiceImpl implements AdminService{
 		list.add(1, adminDao.selOpenPCnt());
 		
 		return list;
-	}	
+	}
+
 
 }
 	

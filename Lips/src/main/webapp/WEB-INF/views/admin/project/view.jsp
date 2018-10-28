@@ -3,6 +3,16 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<style>
+.item textarea{
+	color		: black;
+}
+
+.item select,.item select option {
+	color : black;
+}
+
+</style>
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
     
 	<div class="panel">
@@ -134,25 +144,140 @@
 		<div class="body">
 
 			<div class="viewProBtn">
-				<a class="btn normal focus">사용자에게 공지</a>
-				<a class="btn normal focus">프로젝트 재개</a>
-				<a class="btn normal focus">프로젝트 종료</a>
-				<a class="btn normal" onclick="goBack()">뒤로 가기</a>		
+				<c:choose>
+					<c:when test="${proInfo.status eq 'OPEN'}">
+						<a class="btn normal focus" onclick="modalNotice.show();">사용자에게 공지</a>
+						<a class="btn normal focus" onclick="modalStop.show();">프로젝트 정지</a>
+						<a class="btn normal" onclick="goBack()">뒤로 가기</a>					
+					</c:when>
+					<c:when test="${proInfo.status eq 'PENDING'}">
+						<a class="btn normal focus" onclick="modalNotice.show();">사용자에게 공지</a>
+						<a class="btn normal focus" onclick="">프로젝트 재개</a>						
+						<a class="btn normal focus" onclick="">프로젝트 종료</a>
+						<a class="btn normal" onclick="goBack()">뒤로 가기</a>	
+					</c:when>
+					<c:when test="${proInfo.status eq 'CLOSE'}">
+						<a class="btn normal focus" onclick="modalNotice.show();">사용자에게 공지</a>
+						<a class="btn normal focus" onclick="">프로젝트 재개</a>
+						<a class="btn normal" onclick="goBack()">뒤로 가기</a>	
+					</c:when>
+					<c:otherwise>
+						<td>알 수 없음</td>
+					</c:otherwise>
+				</c:choose>
+	
 			</div>
 		</div>
 		
 		
-	</div>	<!-- panel_end -->	
-<!-- </div>	col col-10_end  -->
+	</div>
+
+<div class="window" style="width: 500px; display: none;" id="modalStop">
+	<div class="head">
+		<div class="left">프로젝트 중지</div>
+		<div class="right">
+			<a href="#" class='close' id="iCancel_stop"><i class='icon-close'></i></a>
+		</div>
+	</div>
+	<div class="body has-property" style="height:300px;">
+		<div id="bodyStop" class="property"></div>
+	</div>
+	<div class="foot">
+		<a href="#" class="btn focus">확인</a>
+		<a href="#" class="btn" id="btnCancel_stop">취소</a>
+	</div>
+</div>
+
+<div class="window" style="width: 500px; display: none;" id="modalNotice">
+	<div class="head">
+		<div class="left">프로젝트 생성자에게 공지</div>
+		<div class="right">
+			<a href="#" class='close' id="iCancel_notice"><i class='icon-close'></i></a>
+		</div>
+	</div>
+	<div class="body has-property" style="height:300px;">
+		<div id="bodyNotice" class="property"></div>
+	</div>
+	<div class="foot">
+		<a href="#" class="btn focus">확인</a>
+		<a href="#" class="btn" id="btnCancel_notice">취소</a>
+	</div>
+</div>
+
+
 
 <script>
+
+jui.ready([ "ui.property" ], function(PropertyView) {
+
+	window.complexSettings = new PropertyView('#bodyStop', {
+		items : [
+			{ type : 'group', title : '중지 사유', description : '중지 사유를 선택해주세요'},
+			{ type : 'select', key : 'transition' , value : 'default', items : ['적절하지 못한 프로젝트(도박,음란,불법)','적절하지 못한  프로젝트 명', '기타'] },
+
+			{ type : 'group', title : '메시지', description : '사용자에게 보낼 메시지를 작성해주세요'},
+			{ type : 'textarea', key : 'parallaxBackgroundImage' , value : '', description : '' },
+		],
+		event : {
+			change : function (item, newValue, oldValue) {
+				console.log('item : ', item);
+				console.log('all items', this.getValue());
+			}
+		}
+	});
+
+	window.modalStop = jui.create('ui.modal', "#modalStop");
+
+});
+
+jui.ready([ "ui.property" ], function(PropertyView) {
+
+	window.complexSettings = new PropertyView('#bodyNotice', {
+		items : [
+			{ type : 'group', title : '공지사항', description : '공지 유형을 선택해주세요'},
+			{ type : 'select', key : 'transition' , value : 'default', items : ['서비스 안내','서비스 공지', '기타'] },
+
+			{ type : 'group', title : '메시지', description : '프로젝트 생성자에게 보낼 메시지를 작성해주세요'},
+			{ type : 'textarea', key : 'parallaxBackgroundImage' , value : '', description : '' },
+		],
+		event : {
+			change : function (item, newValue, oldValue) {
+				console.log('item : ', item);
+				console.log('all items', this.getValue());
+			}
+		}
+	});
+
+	window.modalNotice = jui.create('ui.modal', "#modalNotice");
+
+});
+
+
+
+
 	
-	function goBack() {
-   		 window.history.back(-1);
-	}
+function goBack() {
+   	window.history.back(-1);
+}
 
 
 $(document).ready(function() {
+	
+	$("#btnCancel_stop").click(function() {
+		modalStop.hide();
+	});
+	
+	$("#btnCancel_notice").click(function() {
+		modalNotice.hide();
+	});
+	
+	$("#iCancel_stop").click(function() {
+		modalStop.hide();
+	});
+	
+	$("#iCancel_notice").click(function() {
+		modalNotice.hide();
+	});
 
 	var cd = document.getElementById("proProDate");
 		var cDate = new Date(cd.innerText);

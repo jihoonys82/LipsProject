@@ -8,7 +8,7 @@
  	<select id="selUserInfo" resultType="lips.userinfo.dto.User" parameterType="lips.admin.util.Paging">
 	 	SELECT * FROM
 	 		(SELECT rownum rnum, U.* FROM
-	 			(SELECT * FROM USERINFO ORDER BY USERID DESC) U ORDER BY rnum)
+	 			(SELECT * FROM USERINFO ORDER BY USERID) U ORDER BY rnum)
 	 		WHERE rnum 
 	 		BETWEEN #{startNo} AND #{endNo}
  	</select>
@@ -68,6 +68,18 @@
 		UPDATE USERINFO SET USERLEVEL = 1, BLOCKED = 0 WHERE USERID=#{userId}		
 	</update>
 	
+	<update id="upProRestart" parameterType="lips.project.dto.ProjectDto">
+		UPDATE PROJECTINFO SET STATUS = 'OPEN' WHERE PROJECTID = #{projectId}
+	</update>
+	
+	<update id="upProStop" parameterType="lips.project.dto.ProjectDto">
+		UPDATE PROJECTINFO SET STATUS = 'PENDING' WHERE PROJECTID = #{projectId}
+	</update>
+	
+	<update id="upProFinish" parameterType="lips.project.dto.ProjectDto">
+		UPDATE PROJECTINFO SET STATUS = 'CLOSE' WHERE STATUS = 'PENDING' AND PROJECTID = #{projectId}	
+	</update>
+	
 	<select id="selNewPCnt" resultType="int">
 		SELECT COUNT(*) FROM PROJECTINFO WHERE CREATEDATE > SYSDATE-30
 	</select>
@@ -104,5 +116,7 @@
 	<select id="selUCntOnOpenP" resultType="int">
 		SELECT COUNT(DISTINCT(pm.userId)) FROM project_member pm, projectinfo pi WHERE pm.projectId = pi.projectId AND pi.status = 'OPEN'
 	</select>
+	
+	
 	
  </mapper>  

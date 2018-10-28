@@ -31,6 +31,24 @@ public interface AdminDao {
 	public void upUserAccReopen(User user);
 	
 	/**
+	 *  프로젝트 정지
+	 * @param project
+	 */
+	public void upProStop(ProjectDto project);
+	
+	/**
+	 * 	프로젝트 재개
+	 * @param project
+	 */
+	public void upProRestart(ProjectDto project);
+	
+	/**
+	 *  프로젝트 종료
+	 * @param project
+	 */
+	public void upProFinish(ProjectDto project);
+	
+	/**
 	 *   프로젝트의 closeDate, status 변경
 	 * @param project 
 	 * @return List<User>

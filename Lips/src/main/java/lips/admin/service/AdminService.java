@@ -16,11 +16,11 @@ public interface AdminService {
 	
 	public void reopenAccount(User user);
 
-	public List<ProjectDto> stopProject(ProjectDto project);
+	public void stopProject(ProjectDto project);
+		
+	public void restartProject(ProjectDto project);
 	
-	public List<ProjectDto> deleteProject(ProjectDto project);
-	
-	public List<ProjectDto> restartProject(ProjectDto project);
+	public void finishProject(ProjectDto project);
 	
 	public List getUserList(Paging paging);
 	

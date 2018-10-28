@@ -145,12 +145,19 @@
 			<div class="forSizing-pPaging">
 				<div style="display: block; text-align: center;">
 					<div class="paging" style="width: 350px;">
-						<a href="#" class="prev" style="display: block;">Previous</a>
+						<a href="/admin/project/text?curPage=${paging.curPage-1}" class="prev" style="display: block;">Previous</a>
 						<div class="list">
-							<a href="#">1</a> <a href="#" class="active">2</a> <a href="#">3</a>
-							<a href="#">4</a> <a href="#">5</a>
+							<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="page">
+								<c:if test="${paging.curPage eq page }">
+								<a href="/admin/project/text?curPage=${page }" class="active">${page }
+								</c:if>
+								<c:if test="${paging.curPage ne page }">
+								<a href="/admin/project/text?curPage=${page}">${page }
+								</c:if>
+								</a>
+							</c:forEach>
 						</div>
-						<a href="#" class="next">Next</a>
+						<a href="/admin/project/text?curPage=${paging.curPage+1 }" class="next">Next</a>
 					</div>
 				</div>
 			</div>

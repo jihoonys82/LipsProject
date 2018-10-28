@@ -106,7 +106,7 @@ public class AdminController {
 		logger.info("유저 상세 페이지");
 		
 		User userinfo = adminService.getUserInfo(user);
-		List proinfo = projectService.selPro(user);
+		List proinfo = projectService.ProjectMain(user);
 		
 		model.addAttribute("userInfo", userinfo);
 		model.addAttribute("projectInfo",proinfo);

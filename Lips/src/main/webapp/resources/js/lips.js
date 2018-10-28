@@ -1,21 +1,35 @@
 $(document).ready( function() {
 
-	/**
-	 * 메인페이지- 프로젝트 _모영호
-	 * 
-	 */
-
-	// 프로젝트 생성페이지로 이동
-	$("#CreateProject").click(function() {
-		location.href = "/project/create";
-	});
-
-	// 프로젝트 참가 페이지로 이동
-
-	$("#JoinProject").click(function() {
-		location.href = "/project/join";
-	});
-
+	var alarmManager = new function(){
+		var idle = true; // 중복실행 방지 플래그
+		var interval = 3000; // 알람 체크 주기 (10초로 변경 예정)
+		var finalDate ='';// 마지막 요청 시간
+		this.proc = function(){
+			if(!idle) return;
+			$.ajax({
+				url : "/alarm/proc",
+				type : "POST",
+				data : {
+					"userId" 	: '<sec:authentication property="principal.userId" />',
+					"date"		: finalDate,
+				},
+				success : function(responseData) {
+					
+				}
+			});
+			
+		}
+		this.showTimeLine = function(){//show timeLine
+			
+		}
+		this.showOneLineNotice = function(){//show oneLine
+			
+		}
+		this.showNotify = function(){//show windowNotify
+			
+		}
+	}
+	
 	/**
 	 * countDate Function 현재 시간에서 해당 시간까지 얼마나 남았는지 알려주는 함수 사용할
 	 * 날짜에 <span class=""> 를적용하고 class명을 파라미터로 넣으면 된다. 페이지에서 한번만
@@ -57,7 +71,12 @@ $(document).ready( function() {
 	};
 
 });
-
+/**
+ * 알람기능 사용하기
+ * @param title : 알람 제목 지정
+ * @param options : github 참조
+ * @returns void
+ */
 function notify(title, options) {
 	var defaultOption = {
 		icon : "/resources/img/logo_ntf.png"
@@ -80,6 +99,13 @@ function notify(title, options) {
 		});
 	}
 }
+
+
+
+
+
+
+//-----------------------------
 function jsonCount(obj) {
 	var count = 0;
 	for ( var prop in obj) {

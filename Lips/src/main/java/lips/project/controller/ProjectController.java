@@ -39,27 +39,27 @@ public class ProjectController {
 	public ModelAndView project(String create, ModelAndView mav) {
 		logger.info("project탭 활성화");
 		
-		// 내가 던져준 애 . 받은 객체 . 그 중에 토큰 정보 . 내가지정한 값
-		Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User loginUser = null;
-		// 토큰에서 받아온 유저랑 비교한다(데이터타입을) dto유저랑
-		if (user instanceof User) {
-			loginUser = (User) user;
-		} else {
-			logger.info(user.toString());
-		}
-		
+//		// 내가 던져준 애 . 받은 객체 . 그 중에 토큰 정보 . 내가지정한 값
+//		Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		User loginUser = null;
+//		// 토큰에서 받아온 유저랑 비교한다(데이터타입을) dto유저랑
+//		if (user instanceof User) {
+//			loginUser = (User) user;
+//		} else {
+//			logger.info(user.toString());
+//		}
+//		
 		////////////////////////
 		
-		System.out.println("--------------------------");
+		User user = new UserByToken().getInstance();
 	
 	
-		List<ProjectDto> list = service.selPro(loginUser);
+		List<ProjectDto> list = service.ProjectMain(user);
 
 		
 		
 		mav.addObject("userProjectInfo", list);
-		mav.addObject("user",loginUser);
+		mav.addObject("user",user);
 		mav.setViewName("project/main");
 		return mav;
 	}
@@ -76,19 +76,8 @@ public class ProjectController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public @ResponseBody Map<String,String> projectCreateProc(ProjectDto dto) {
 	
-	
-		
-		// 내가 던져준 애 . 받은 객체 . 그 중에 토큰 정보 . 내가지정한 값
-		Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User loginUser = null;
-		// 토큰에서 받아온 유저랑 비교한다(데이터타입을) dto유저랑
-		if (user instanceof User) {
-			loginUser = (User) user;
-		} else {
-			logger.info(user.toString());
-		}
-		
-		invitecode= service.inPro(dto, loginUser);
+		User user = new UserByToken().getInstance();
+		invitecode= service.inPro(dto, user);
 		
 		HashMap<String,String> map = new HashMap<>();
 	
@@ -110,20 +99,14 @@ public class ProjectController {
 		
 		   resp.setContentType("application/json; charset=utf-8");
 		   PrintWriter out;
-		// 내가 던져준 애 . 받은 객체 . 그 중에 토큰 정보 . 내가지정한 값
-				Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-				User loginUser = null;
-				// 토큰에서 받아온 유저랑 비교한다(데이터타입을) dto유저랑
-				if (user instanceof User) {
-					loginUser = (User) user;
-				} else {
-					logger.info(user.toString());
-				}
+	
+		   
+		   		User user = new UserByToken().getInstance();
 				
 				ProjectDto dto = new ProjectDto();
 				dto.setInvitecode(invitecode);
 				
-				int result = service.joinPro(dto,loginUser);
+				int result = service.joinPro(dto,user);
 				
 				 try {
 					out = resp.getWriter();

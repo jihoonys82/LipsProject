@@ -10,7 +10,7 @@ import lips.userinfo.dto.User;
 public interface ProjectService {
 
 	
-	public List selPro(User user);
+	public List ProjectMain(User user);
 	public List selProMember(ProjectDto dto);
 	public String inPro(ProjectDto dto,User user); 
 	public int upPro(ProjectDto dto);

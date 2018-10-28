@@ -203,7 +203,6 @@
 	<tbody>
 	<%! int i =0; %>
 	<c:forEach items="${updatePageinfo.projectUserinfo}" var="pminfo">
-	
 	<% i++; %>
 	<tr><td><%=i%></td><td>${pminfo.userId}</td><td>
 	<c:if test="${pminfo.userLevel eq '-1'}">프로젝트 탈퇴</c:if>
@@ -214,28 +213,33 @@
 	</td><td style="text-align: center">
 	
 	<c:choose>
-   <c:when test="${pminfo.userLevel eq '0'}"> <button class="btn focus"> 정지 해제</button></c:when>
-   <c:when test="${pminfo.userLevel eq '1'}"> <button class="btn"> 이용 정지</button></c:when>
+   <c:when test="${pminfo.userLevel eq '0'}"> 
+   <form  method="post">
+   <input type="text" value="${updatePageinfo.projectUserinfo.userId}">
+   </form>
+   
+   
+   <button id ="pardon=" class="btn focus"> 정지 해제</button></c:when>
+   <c:when test="${pminfo.userLevel eq '1'}"> <button id = "ban" class="btn"> 이용 정지</button></c:when>
  
- 	<!-- 20181026 여기까지함
- 	 1.버튼 눌렀을때 에이잭스로 처리하는거 하기
- 	 2. 프로젝트 메인화면.... 강퇴당한놈.. 조회 안되게...
- 	 3. 프로젝트 참가... 강퇴당한놈... 참가 안되게...
- 	 4. 프로젝트 참가... 참여하는거...  인서트달기....
- 	
- 	 -->
+ 
 
 <c:otherwise>
 	<button class="btn"> 메롱롱</button>
 </c:otherwise>
 </c:choose>
-	
+		<!-- 20181029
+ 	 1.버튼 -유저레벨 변경 에이잭스로 처리
+ 	
+ 	
+ 	 -->
 
 
 	
 	</td></tr>
 	
 	</c:forEach>
+
 	</tbody>
 </table>
 								

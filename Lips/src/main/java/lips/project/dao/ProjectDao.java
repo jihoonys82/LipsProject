@@ -10,6 +10,11 @@ import lips.userinfo.dto.User;
 
 public interface ProjectDao {
 	
+	/** 프로젝트 재가입용
+	 * @param map(ProjetId,UserId) 
+	 */
+	public void upPromember(Map map);
+	
 	
 	//프로젝트 아이디(ProjectDto)를 바탕으로 프로젝트에 참가하고 있는 멤버를 조회 
 	/**
@@ -33,6 +38,11 @@ public interface ProjectDao {
 	public ProjectDto selProbyProId(String projectId);
 	
 	 //유저객체를 바탕으로 해당 유저가 소속된 프로젝트 리스트를 가져옴 
+	/**
+	 * 
+	 * @param user
+	 * @return ProjectDto
+	 */
 	public List selPro(User user);
 	
 	// 프로젝트 인서트

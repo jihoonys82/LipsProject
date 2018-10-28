@@ -3,6 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="lips.project.dao.ProjectDao">
+ 	
+ 	
+ 	<!-- 프로젝트 멤버 업데이터(자발적으로 프로젝트 탈퇴한 이용자가 재가입) -->
+ 	<update id="upPromember" parameterType="hashmap">
+		UPDATE project_member SET userlevel = 1 where userid = #{user.userId} 
+		AND projectId=#{projectId} 
+ 	</update>
+ 	
+ 	
  	<!-- 프로젝트 멤버테이블만 조회 (파라미터 - 프로젝트DTO(프로젝트아이디)  -->
  	<select id="selProOnlyMember" parameterType="lips.project.dto.ProjectDto" resultType="lips.project.dto.ProjectMemberDto"> 
  	SELECT * FROM project_member WHERE projectId=#{projectId}
@@ -27,7 +36,7 @@
  	<!-- 프로젝트 조회(유저정보를 바탕으로) -->
  	<select id="selPro" parameterType="lips.userinfo.dto.User" resultType="lips.project.dto.ProjectDto">
  		SELECT * FROM projectinfo pf, project_member pm
-	WHERE pf.PROJECTID = pm.PROJECTID AND USERID=#{userId}
+	WHERE pf.PROJECTID = pm.PROJECTID AND USERID=#{userId} AND pm.USERLEVEL>=1
  	</select>
  	
  	<!-- 프로젝트 멤버 조회 -->

@@ -20,12 +20,13 @@ public class ProjectServiceImpl implements ProjectService {
 @Autowired ProjectDao dao;
 @Autowired AdminDao adao;
 
-String invitecode;
+	String invitecode;
 	@Override
-	public List selPro(User user) {
-		
+	public List ProjectMain(User user) {
+	
 		return dao.selPro(user);
 	}
+
 
 	@Override
 	public String inPro(ProjectDto dto,User user) {
@@ -104,7 +105,29 @@ String invitecode;
 //			System.out.println("체크시작한다");
 			if(checkDto!=null) {
 				
-//				System.out.println("가입한 상태");
+				
+			
+				System.out.println("가입한 상태");
+				System.out.println(checkDto.getUserId());
+				System.out.println(checkDto.getUserLevel());
+				
+				if(checkDto.getUserLevel()==0) {
+					System.out.println("강제퇴장당한 상태");
+					return 5;
+				} else if(checkDto.getUserLevel()==-1) {
+					System.out.println("자발적으로 나간상태");
+					
+					Map map5 = new HashMap();
+					map5.put("projectId", checkDto.getProjectId());
+					map5.put("user", user);
+					System.out.println(checkDto.getProjectId());
+					System.out.println(user.getUserId());
+					dao.upPromember(map5);
+					return 6;
+					
+				}
+				
+				
 				return 2;
 			} else if(checkDto==null) {
 //				System.out.println("가입하지 않은 상태");
@@ -159,6 +182,11 @@ String invitecode;
 	
 		return map;
 	}
+
+
+
+
+
 
 		
 

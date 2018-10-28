@@ -71,6 +71,12 @@ $(document).ready(function() {
 					alert("확인 되었습니다.")	
 					$(location).attr('href', '/project/main')
 // 					$(location).attr('href', '/project/main?projectId=' + ivCode )
+					} else if(data.result==5) {
+						alert("해당 프로젝트에 접근할 수 없습니다.")	
+					} else if (data.result==6) {
+						alert("다시 가입되었음.")	;
+					$(location).attr('href', '/project/main')
+						
 					}
 			}
 			, error : function() {console.log("조인 실패");}

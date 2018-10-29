@@ -1,4 +1,4 @@
-package lips.admin.util;
+package lips.utils;
 
 public class Paging {
 	private int curPage;	//현재 페이지 번호 (현재 선택한 페이지)

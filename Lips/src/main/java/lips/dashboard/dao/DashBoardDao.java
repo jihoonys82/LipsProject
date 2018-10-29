@@ -1,5 +1,8 @@
 package lips.dashboard.dao;
 
+import java.util.List;
+
+import lips.card.dto.CardDto;
 import lips.dashboard.dto.DashBoardDto;
 
 public interface DashBoardDao {
@@ -17,6 +20,10 @@ public interface DashBoardDao {
 	 * @return Integer
 	 */
 	public Integer selAssetMaxXDto(DashBoardDto dto);
-	
+	/**
+	 * Dashboard_asset 에서 모든 카드 리스트를 출력한다
+	 * @return List<CardDto>
+	 */
+	public List<CardDto> selAllCardList();
 	
 }

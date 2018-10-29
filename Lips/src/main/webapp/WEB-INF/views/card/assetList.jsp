@@ -65,8 +65,6 @@ body {
 
 <c:set value="${sellocation}" var="location"/>
 	
-
-
 	<c:forEach items="${selCard}" var="Card">
 	$("#${Card.assetName}")
 		.click( function(){

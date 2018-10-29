@@ -1,8 +1,11 @@
 package lips.dashboard.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lips.card.dto.CardDto;
 import lips.dashboard.dao.DashBoardDao;
 import lips.dashboard.dto.DashBoardDto;
 import lips.userinfo.dto.User;
@@ -37,6 +40,11 @@ public class DashBoardServiceImpl implements DashBoardService{
 		return dao.selAssetMaxXDto(dto);
 	}
 	
+	@Override
+	public List<CardDto> AllCardList() {
+	
+		return dao.selAllCardList();
+	}
 
 
 }

@@ -7,11 +7,18 @@
 	<select id="seldashboardDashDto"
 		parameterType="lips.dashboard.dto.DashBoardDto"
 		resultType="lips.dashboard.dto.DashBoardDto">
-		SELECT*FROM dashboard WHERE userId=#{userId} AND projectId=#{projectId}
-	</select>
-	
-	<select id="selAssetMaxXDto" parameterType="lips.dashboard.dto.DashBoardDto" resultType="Integer">
-		SELECT MAX (positionX) FROM Dashboard_user_asset WHERE DashboardId =#{dashboardId}
+		SELECT*FROM dashboard WHERE userId=#{userId} AND
+		projectId=#{projectId}
 	</select>
 
+	<select id="selAssetMaxXDto"
+		parameterType="lips.dashboard.dto.DashBoardDto" resultType="Integer">
+		SELECT MAX
+		(positionX) FROM Dashboard_user_asset WHERE DashboardId=#{dashboardId}
+	</select>
+	<select id="selAllCardList" resultType="lips.card.dto.CardDto">
+		SELECT *
+		FROM Dashboard_asset
+		ORDER BY assetid
+	</select>
 </mapper>

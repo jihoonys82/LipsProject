@@ -36,5 +36,7 @@ public class DashBoardServiceImpl implements DashBoardService{
 		
 		return dao.selAssetMaxXDto(dto);
 	}
+	
+
 
 }

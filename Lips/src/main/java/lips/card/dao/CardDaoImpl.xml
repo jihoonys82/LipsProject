@@ -22,5 +22,5 @@
 	FROM Dashboard_asset
 	ORDER BY assetid
 </select>
-	
+
 </mapper>

@@ -13,5 +13,5 @@
 	<select id="selAssetMaxXDto" parameterType="lips.dashboard.dto.DashBoardDto" resultType="Integer">
 		SELECT MAX (positionX) FROM Dashboard_user_asset WHERE DashboardId =#{dashboardId}
 	</select>
-	
+
 </mapper>

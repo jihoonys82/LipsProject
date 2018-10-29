@@ -28,17 +28,17 @@ public class DashBoardController {
 		int maxXLocation ;
 	
 		DashBoardDto boarddto = dbsvc.checkPreset(projectId);
-		maxXLocation = dbsvc.maxXLocation(boarddto);
-
-		logger.info("MaxXLocation : " + maxXLocation); 
-	
 		
-		mav.addObject("maxX",maxXLocation);
-		mav.addObject("dashBoardId",boarddto.getDashboardId());
-	
-
+		if(boarddto != null) {
+			maxXLocation = dbsvc.maxXLocation(boarddto);
+			mav.addObject("dashBoardId",boarddto.getDashboardId());
+		}else{
+			maxXLocation = 1 ;
+			mav.addObject("dashBoardId", 0);
+		}
+		
+		mav.addObject("maxX",  maxXLocation);
 		mav.setViewName("dashboard/dashview");
-		
 		return mav;
 	}
 	
@@ -50,6 +50,8 @@ public class DashBoardController {
 		mav.setViewName("dashboard/dashcustom");
 		return mav;
 	}
+	
+	
 	
 	@RequestMapping(value = "/dashBoardCustom", method = RequestMethod.POST)
 	public ModelAndView dashCustomSaveProc() {

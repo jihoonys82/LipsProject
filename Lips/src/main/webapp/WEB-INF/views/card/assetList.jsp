@@ -71,7 +71,6 @@ body {
 	$("#${Card.assetName}")
 		.click( function(){
 			console.log("${location}");
-// 			$("#${location}").empty();
 		}
 
 		);

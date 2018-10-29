@@ -8,4 +8,5 @@ public interface DashBoardService {
 	
 	public Integer maxXLocation(DashBoardDto dto);
 	
+
 }

@@ -22,42 +22,52 @@ public class CardController {
 	CardService csvc;
 	private static final Logger logger = LoggerFactory.getLogger(CardController.class);
 	
-	@RequestMapping(value = "/cardcontroller", method = RequestMethod.GET)
+	@RequestMapping(value = "/cardcontroll", method = RequestMethod.GET)
 	public ModelAndView cardController(
 			@RequestParam(required=false,defaultValue="0") int positionX ,
 			@RequestParam(required=false,defaultValue="0") int dashboardId,
 			CardDto dto
 			) {
 		ModelAndView mav = new ModelAndView();
-		
-		List<CardDto> selCard = new ArrayList<CardDto>();
-		selCard = csvc.YLocationList(dto);
-		logger.info(selCard.toString());
-		
-		mav.addObject("selCard", selCard);
-		
-		mav.setViewName("card/cardcontroller");
-		
-		
+		if(dashboardId!=0) {
+			List<CardDto> selCard = new ArrayList<CardDto>();
+			selCard = csvc.YLocationList(dto);
+			mav.addObject("selCard", selCard);
+			mav.setViewName("card/cardcontroll");
+			
+		}else {
+			mav.setViewName("card/nocustomcard");
+		}
 		return mav;
 	}
 	@RequestMapping(value = "/assetList", method = RequestMethod.GET)
 	public ModelAndView AssetList(
-			@RequestParam(required=false,defaultValue="0") int x,
-			@RequestParam(required=false,defaultValue="0") int y ) {
+			@RequestParam(required=false,defaultValue="0") int positionX,
+			@RequestParam(required=false,defaultValue="0") int positionY ) {
 		ModelAndView mav = new ModelAndView();
 		
 		List<CardDto> selCard = new ArrayList<CardDto>();
 		selCard = csvc.AllCardList();
 		logger.info(selCard.toString());
-		logger.info(x+","+y);
-		mav.addObject("sellocation", "x="+x+"&"+"y="+y);
+		logger.info(positionX+","+positionY);
+		mav.addObject("sellocation", "positionX="+positionX+"&"+"positionY="+positionY);
 		
 		
 		mav.addObject("selCard", selCard);
 		
 		mav.setViewName("card/assetList");
 		
+		
+		return mav;
+	}
+
+	@RequestMapping(value = "/customcard", method = RequestMethod.GET)
+	public ModelAndView customcard(
+			@RequestParam(required=false,defaultValue="0") int positionX,
+			@RequestParam(required=false,defaultValue="0") int positionY,
+			int assetId, CardDto dto) {
+		ModelAndView mav = new ModelAndView();
+		logger.info(dto.toString());
 		
 		return mav;
 	}

@@ -18,11 +18,12 @@ public interface CardDao {
 	 * @return String
 	 */
 	public String selCardValueDto(CardDto dto);
-	
 	/**
 	 * Dashboard_asset 에서 모든 카드 리스트를 출력한다
 	 * @return List<CardDto>
 	 */
 	public List<CardDto> selAllCardList();
+	
+	
 	
 }

@@ -18,7 +18,7 @@
 						<li value="2">2</li>
 						<li value="3">3</li>
 						<li value="4">4</li>
-						<li>
+						<li value="5">5</li>
 					</ul>
 				</div>
 
@@ -32,7 +32,8 @@
 						<li value="2">2</li>
 						<li value="3">3</li>
 						<li value="4">4</li>
-						<li>
+						<li value="5">5</li>
+						
 					</ul>
 				</div>
 			</div>
@@ -128,7 +129,7 @@
 				
 				
 				var $carddiv = $("<div>")
-					.attr("id","x="+xLocation+"&y="+yLocation)
+					.attr("id","positionX="+xLocation+"&positionY="+yLocation)
 					.attr("onclick","clickCard(this)")
 					.css("height", "100px")
 					.css("width", "100%")

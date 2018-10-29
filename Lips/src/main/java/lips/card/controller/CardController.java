@@ -48,6 +48,7 @@ public class CardController {
 		
 		List<CardDto> selCard = new ArrayList<CardDto>();
 		selCard = csvc.AllCardList();
+		
 		logger.info(selCard.toString());
 		logger.info(positionX+","+positionY);
 		mav.addObject("sellocation", "positionX="+positionX+"&"+"positionY="+positionY);

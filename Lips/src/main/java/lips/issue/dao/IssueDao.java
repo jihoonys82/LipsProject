@@ -88,4 +88,17 @@ public interface IssueDao {
 	 */
 	public void inIssue(IssueDto issueDto);
 	
+	/**
+	 * get Issue list in the project
+	 * @param projectDto
+	 * @return
+	 */
+	public List<IssueDto> selIssueByProject(ProjectDto projectDto);
+	
+	/**
+	 * get All stage asset 
+	 * @return
+	 */
+	public List<StageAssetDto> selStageAsset();
+	
 }

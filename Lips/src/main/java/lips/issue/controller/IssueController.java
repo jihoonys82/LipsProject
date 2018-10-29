@@ -120,16 +120,29 @@ public class IssueController {
 	 */
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public String issueCreateProc(IssueDto issueDto) {
-		
 		issueService.setNewIssue(issueDto);
-		
-		
 		return "redirect:/issue/main";
 	}
 	
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
 	public void issueDetail() {
 		
+	}
+	
+	/**
+	 * Issue list page
+	 * @param listType
+	 * @param projectDto
+	 * @param issueOwner
+	 */
+	@RequestMapping(value="/issueList", method=RequestMethod.GET)
+	public ModelAndView issueList(@RequestParam(required=false, defaultValue="AssignedIssue") String listType,
+			@RequestParam(required=false) ProjectDto projectDto,
+			@RequestParam(required=false) User issueOwner) {
+		
+		ModelAndView mav = issueService.getIssueList(listType, projectDto, issueOwner);
+		
+		return mav; 
 	}
 	
 }

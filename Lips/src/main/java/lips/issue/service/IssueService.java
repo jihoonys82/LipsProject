@@ -126,4 +126,51 @@ public class IssueService {
 		logger.info(issueDto.toString());
 		issueDao.inIssue(issueDto);
 	}
+	
+	public ModelAndView getIssueList(String listType, ProjectDto projectDto, User issueOwner) {
+		
+		List<IssueDto> issues = new ArrayList<>();
+		ModelAndView mav = new ModelAndView();
+		
+		// if issue Owner is not defined, set it as current user.
+		if(issueOwner == null) {
+			issueOwner = new UserByToken().getInstance();
+		}
+		
+		switch(listType) {
+		case "FollowingIssue": 
+			issues = issueDao.selIssueByFollowing(issueOwner);
+			break;
+		case "AssignedIssue":
+			issues = issueDao.selIssueByAssignee(issueOwner);
+			break;
+		case "ProjectIssue":
+			if(projectDto != null) {
+				issues = issueDao.selIssueByProject(projectDto);				
+			}
+			break;			
+		default :  // default - Assigned Issue for issue owner.
+			listType = "Default";
+			issues = issueDao.selIssueByAssignee(issueOwner);
+			break;
+		}
+		
+		if(!issues.isEmpty()) {
+			mav.addObject("listType", listType);
+			mav.addObject("issues", issues);
+			mav.addObject("stageAsset", issueDao.selStageAsset());
+			mav.setViewName("issue/issueList");
+		} else {
+			// there is no issue redirect to issue Error page.
+			List<String> list = new ArrayList<>();
+			list.add("에러가 발생했습니다. 다음 이유 때문에 발생했을 가능성이 있습니다. 관리자에게 문의하세요.");
+			list.add("project 정보가 정상적으로 요청되지 않았습니다.");
+			list.add("이슈가 한건도 없습니다. ");
+			mav.addObject("errorBody", list);
+			mav.addObject("errorTitle", "잘못된 요청입니다.");
+			mav.setViewName("error");
+		}
+		
+		return mav;
+	}
 }

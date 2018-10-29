@@ -84,4 +84,13 @@
 		    (ISSUE_SEQ.nextval, #{projectId}, #{issueTitle}, #{categoryId}, #{createUser}, #{assignee}, #{expectedEndDate}, #{issueContent}, #{customValues}, #{stagePresetId})
  	</insert>
  	
+ 	<select id="selIssueByProject" parameterType="lips.project.dto.ProjectDto" resultType="lips.issue.dto.IssueDto">
+ 		SELECT * FROM issue
+		WHERE projectId = #{projectId}
+		ORDER BY issueStage, expectedEndDate, createDate
+ 	</select>
+ 	
+ 	<select id="selStageAsset" resultType="lips.issue.dto.StageAssetDto">
+ 		SELECT * FROM stage_asset
+ 	</select>
  </mapper>  

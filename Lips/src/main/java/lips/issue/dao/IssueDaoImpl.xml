@@ -39,7 +39,7 @@
 		    SELECT issueId FROM issue_watcher WHERE userId=#{userId}
 		)
  	</select>
- 	
+
  	<select id="selIssueWatcherCount" parameterType="lips.issue.dto.IssueDto" resultType="int">
  		SELECT COUNT(*) FROM issue_watcher
  		WHERE issueId=#{issueId}
@@ -93,4 +93,55 @@
  	<select id="selStageAsset" resultType="lips.issue.dto.StageAssetDto">
  		SELECT * FROM stage_asset
  	</select>
+ 	
+ 	<select id="selTotalCountByIssueFollowing" parameterType="lips.userinfo.dto.User" resultType="int">
+ 		SELECT COUNT(*)
+		FROM issue 
+		WHERE issueId IN (
+		    SELECT issueId FROM issue_watcher WHERE userId=#{userId}
+		)
+ 	</select>
+ 	
+ 	<select id="selIssueByFollowingPaging" parameterType="map" resultType="lips.issue.dto.IssueDto">
+ 		SELECT * FROM (
+ 			SELECT *
+			FROM issue 
+			WHERE issueId IN (
+		    	SELECT issueId FROM issue_watcher WHERE userId=#{userId}
+			)
+			ORDER BY ROWNUM
+		) WHERE ROWNUM BETWEEN ${startNo} AND ${endNo}
+ 	</select>
+ 	
+ 	<select id="selTotalCountByAssignee" parameterType="lips.userinfo.dto.User" resultType="int">
+ 		SELECT COUNT(*) FROM issue
+		WHERE assignee = #{userId}
+ 	</select>
+ 	
+ 	<select id="selIssueByAssgineePaging" parameterType="map" resultType="lips.issue.dto.IssueDto">
+ 		SELECT I.* 
+ 		FROM (
+ 			SELECT * 
+            FROM issue
+            WHERE assignee = #{userId} 
+			ORDER BY issueStage, expectedEndDate, createDate
+		) I
+		WHERE ROWNUM BETWEEN ${startNo} and ${endNo}
+ 	</select>
+ 	
+ 	<select id="selTotalCountByProject" parameterType="lips.project.dto.ProjectDto" resultType="int">
+ 		SELECT COUNT(*) FROM issue
+		WHERE projectId = #{projectId}
+ 	</select>
+ 	
+ 	<select id="selIssueByProjectPaging" parameterType="map" resultType="lips.issue.dto.IssueDto">
+ 		SELECT * FROM (
+ 			SELECT * FROM issue
+			WHERE projectId = ${projectId}
+			ORDER BY issueStage, expectedEndDate, createDate
+		)
+		WHERE ROWNUM BETWEEN ${startNo} AND ${endNo}
+ 	</select>
+ 	
+ 	
  </mapper>  

@@ -3,6 +3,7 @@ package lips.issue.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import lips.project.dto.ProjectDto;
 import lips.userinfo.dao.UserDao;
 import lips.userinfo.dto.User;
 import lips.userinfo.dto.UserByToken;
+import lips.utils.Paging;
 
 @Service
 public class IssueService {
@@ -127,7 +129,7 @@ public class IssueService {
 		issueDao.inIssue(issueDto);
 	}
 	
-	public ModelAndView getIssueList(String listType, ProjectDto projectDto, User issueOwner) {
+	public ModelAndView getIssueList(String listType, String projectId, User issueOwner, int curPage) {
 		
 		List<IssueDto> issues = new ArrayList<>();
 		ModelAndView mav = new ModelAndView();
@@ -136,17 +138,39 @@ public class IssueService {
 		if(issueOwner == null) {
 			issueOwner = new UserByToken().getInstance();
 		}
-		
+		int totalCount = 0; 
+		Paging paging = new Paging(totalCount); 
 		switch(listType) {
 		case "FollowingIssue": 
-			issues = issueDao.selIssueByFollowing(issueOwner);
+			totalCount = issueDao.selTotalCountByIssueFollowing(issueOwner);
+			paging = new Paging(totalCount, curPage);
+			Map<String, String> fiMap = new HashMap<>();
+			fiMap.put("userId", issueOwner.getUserId());
+			fiMap.put("startNo", ((Integer)paging.getStartNo()).toString());
+			fiMap.put("endNo", ((Integer)paging.getEndNo()).toString());
+			issues = issueDao.selIssueByFollowingPaging(fiMap);
 			break;
 		case "AssignedIssue":
-			issues = issueDao.selIssueByAssignee(issueOwner);
+			totalCount = issueDao.selTotalCountByAssignee(issueOwner);
+			paging = new Paging(totalCount, curPage);
+			Map<String, String> aMap = new HashMap<>();
+			aMap.put("userId", issueOwner.getUserId());
+			aMap.put("startNo", ((Integer)paging.getStartNo()).toString());
+			aMap.put("endNo", ((Integer)paging.getEndNo()).toString());
+			issues = issueDao.selIssueByAssgineePaging(aMap);
 			break;
 		case "ProjectIssue":
-			if(projectDto != null) {
-				issues = issueDao.selIssueByProject(projectDto);				
+			if(projectId != null) {
+				ProjectDto projectDto = new ProjectDto();
+				projectDto.setProjectId(Integer.parseInt(projectId));
+				
+				totalCount = issueDao.selTotalCountByProject(projectDto);
+				paging = new Paging(totalCount, curPage);
+				Map<String, String> pMap = new HashMap<>();
+				pMap.put("projectId", ((Integer)projectDto.getProjectId()).toString());
+				pMap.put("startNo", ((Integer)paging.getStartNo()).toString());
+				pMap.put("endNo", ((Integer)paging.getEndNo()).toString());
+				issues = issueDao.selIssueByProjectPaging(pMap);				
 			}
 			break;			
 		default :  // default - Assigned Issue for issue owner.
@@ -159,6 +183,7 @@ public class IssueService {
 			mav.addObject("listType", listType);
 			mav.addObject("issues", issues);
 			mav.addObject("stageAsset", issueDao.selStageAsset());
+			mav.addObject("paging", paging);
 			mav.setViewName("issue/issueList");
 		} else {
 			// there is no issue redirect to issue Error page.

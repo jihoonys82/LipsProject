@@ -9,6 +9,7 @@ import lips.issue.dto.IssueStagePresetDto;
 import lips.issue.dto.StageAssetDto;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
+import lips.utils.Paging;
 
 public interface IssueDao {
 	
@@ -100,5 +101,47 @@ public interface IssueDao {
 	 * @return
 	 */
 	public List<StageAssetDto> selStageAsset();
+
+	/**
+	 * get Total count of Following issue
+	 * @param issueOwner
+	 * @return
+	 */
+	public int selTotalCountByIssueFollowing(User issueOwner);
+	
+	/**
+	 * get Following issue for paging
+	 * @param map
+	 * @return
+	 */
+	public List<IssueDto> selIssueByFollowingPaging(Map<String, String> map);
+
+	/**
+	 * get Total count of issue by Assignee
+	 * @param issueOwner
+	 * @return
+	 */
+	public int selTotalCountByAssignee(User issueOwner);
+
+	/**
+	 * get assigned Issue for paging 
+	 * @param aMap
+	 * @return
+	 */
+	public List<IssueDto> selIssueByAssgineePaging(Map<String, String> map);
+
+	/**
+	 * get Total count of issue by Project
+	 * @param projectDto
+	 * @return
+	 */
+	public int selTotalCountByProject(ProjectDto projectDto);
+	
+	/**
+	 * get Project Issue for paging
+	 * @param pMap
+	 * @return
+	 */
+	public List<IssueDto> selIssueByProjectPaging(Map<String, String> pMap);
 	
 }

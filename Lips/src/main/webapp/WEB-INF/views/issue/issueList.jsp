@@ -79,16 +79,9 @@
 		</div><!-- end of panel -->
 	</div><!-- end of row -->
 	<div class="row">
-		<div class="paging alignCenter issueListPaging" >
-			<a href="#" class="prev">Previous</a>
-			<div class="list">
-				<a href="#">1</a>
-				<a href="#" class="active">2</a>
-				<a href="#">3</a>
-				<a href="#">4</a>
-				<a href="#">5</a>
-			</div>
-			<a href="#" class="next">Next</a>
+		<div class="col col-3"></div>
+		<div class="col col-6">
+			<jsp:include page="/WEB-INF/views/issue/issuePaging.jsp" />
 		</div>
 	</div>
 </div>

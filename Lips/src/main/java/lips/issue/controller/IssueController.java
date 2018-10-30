@@ -137,10 +137,11 @@ public class IssueController {
 	 */
 	@RequestMapping(value="/issueList", method=RequestMethod.GET)
 	public ModelAndView issueList(@RequestParam(required=false, defaultValue="AssignedIssue") String listType,
-			@RequestParam(required=false) ProjectDto projectDto,
-			@RequestParam(required=false) User issueOwner) {
+			@RequestParam(required=false) String projectId,
+			@RequestParam(required=false) User issueOwner,
+			@RequestParam(required=false, defaultValue="0") int curPage) {
 		
-		ModelAndView mav = issueService.getIssueList(listType, projectDto, issueOwner);
+		ModelAndView mav = issueService.getIssueList(listType, projectId, issueOwner, curPage);
 		
 		return mav; 
 	}

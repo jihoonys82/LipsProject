@@ -2,9 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<div class="navbar header">
-	<div class="headerLogo">
+<div class="navbar header"  >
+	<div class="headerLogo" style="display:flex;">
 		<img src="/resources/img/logo.png" alt="logo" width="100" height="50" onclick="goMain()">
+		<div class="marquee">
+  			<div>
+    			<span id="oneLine1"></span>
+    			<span id="oneLine2"></span>
+  			</div>
+		</div>
 		<script>function goMain(){window.location.href= '/main';}</script>
 	</div><!-- end of headerLogo -->
 	<div class="inline">
@@ -34,9 +40,20 @@
 </div>
 <sec:authorize access="hasAuthority('USER')">
 <script>
+$(document).ready( function() {
+	$.ajax({
+		url : "/admin/notice/oneLine",
+		type : "POST",
+		success : function(responseData) {
+			$('#oneLine1').html(responseData.data);
+			$('#oneLine2').html(responseData.data);
+		}
+	});
+	
+});
 var alarmManager = new function(){
 	var idle = true; // 중복실행 방지 플래그
-	var interval = 5000; // 알람 체크 주기 (10초로 변경 예정)
+	var interval = 10000; // 알람 체크 주기 (10초로 변경 예정)
 
 	this.proc = function(){
 		if(!idle) return;

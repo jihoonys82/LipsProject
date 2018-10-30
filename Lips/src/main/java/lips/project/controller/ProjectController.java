@@ -136,7 +136,7 @@ public class ProjectController {
 	}
 
 	// 프로젝트 수정 페이지 프로세스
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/update/project", method = RequestMethod.POST)
 	public void projectUpdateProc(ProjectDto dto) {
 
 	}

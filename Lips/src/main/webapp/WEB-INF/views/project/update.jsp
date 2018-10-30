@@ -6,6 +6,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
 <style>
+
+.active {
+    background: #835acc;
+}
 .scrolltbody {
     display: block;
     width: 400px;
@@ -107,14 +111,14 @@
 								<div class="view-form-row">
 									<label for="proName" class="view-form-label">프로젝트 명</label> <input
 										type="text" name="proName" id="proName"
-										class="input view-form-input" readonly="readonly"
+										class="input view-form-input" 
 										value="${updatePageinfo.projectinfo.projectName }" />
 								</div>
 
 								<div class="view-form-row">
 									<label for="proName" class="view-form-label">프로젝트 Key</label> <input
 										type="text" name="proKey" id="proKey"
-										class="input view-form-input" readonly="readonly"
+										class="input view-form-input" 
 										value="${updatePageinfo.projectinfo.projectKey }" />
 								</div>
 
@@ -126,31 +130,47 @@
 								</div>
 
 								<div class="view-form-row">
-									<label for="proProgress" class="view-form-label">진행 상황</label>
-									<c:if test="${updatePageinfo.projectinfo.status eq 'OPEN'}">
-										<input type="text" name="proProgress" id="proProgress"
-											class="input view-form-input" readonly="readonly" value="진행중" />
-									</c:if>
-									<c:if test="${updatePageinfo.projectinfo.status eq 'PENDING'}">
-										<input type="text" name="proProgress" id="proProgress"
-											class="input view-form-input" readonly="readonly" value="중단" />
-									</c:if>
-									<c:if test="${updatePageinfo.projectinfo.status eq 'CLOSE'}">
-										<input type="text" name="proProgress" id="proProgress"
-											class="input view-form-input" readonly="readonly" value="진행중" />
-									</c:if>
+								
+									<label for="button_2" class="view-form-label">진행상황</label>
+									<div id="button_2" class="group">
+										<c:if test="${updatePageinfo.projectinfo.status eq 'PENDING'}">
+											<a class="btn small" value="false" id="open">진행 중</a>
+											<a class="btn small  focus" value="true" id="close">일시 정지</a>
+										 </c:if>
+										
+										<c:if test="${updatePageinfo.projectinfo.status eq 'OPEN'}">
+									
+										<a class="btn small" value="true" "id="close">일시 정지</a>
+										<a class="btn small focus" value="false" id="open">진행 중</a>
+										</c:if>
+										
+										
+											<c:if test="${updatePageinfo.projectinfo.status eq 'CLOSE'}">
+									
+										<a class="btn small" value="true" "id="close">종료</a>
+										</c:if>
+									</div>
+									
+								
+									
+					
 								</div>
 
 								<div class="view-form-row">
-									<label for="proType" class="view-form-label">프로젝트 공개 여부</label>
-									<c:if test="${updatePageinfo.projectinfo.projectOpen eq 1}">
-										<input type="text" name="proType" id="proType"
-											class="input view-form-input" readonly="readonly" value="공개" />
-									</c:if>
-									<c:if test="${updatePageinfo.projectinfo.projectOpen eq 0}">
-										<input type="text" name="proType" id="proType"
-											class="input view-form-input" readonly="readonly" value="비공개" />
-									</c:if>
+								<label for="button_1" class="view-form-label">프로젝트 공개 여부</label>
+									<div id="button_1" class="group">
+										<c:if test="${updatePageinfo.projectinfo.projectOpen eq 0}">
+											<a class="btn small" value="false" id="open">공개</a>
+											<a class="btn small  focus" value="true" id="close">비공개</a>
+										 </c:if>
+										
+										<c:if test="${updatePageinfo.projectinfo.projectOpen eq 1}">
+									
+										<a class="btn small" value="true" "id="close">비공개</a>
+										<a class="btn small focus" value="false" id="open">공개</a>
+										</c:if>
+									</div>
+
 								</div>
 
 								<div class="view-form-row">
@@ -172,6 +192,8 @@
 										진행일</label> <input type="text" name="proProDate" id="proProDate"
 										class="input view-form-input" readonly="readonly" />
 								</div>
+								
+									<button class="btn focus" id="projectUpdate" style="float: right; bottom: 35.6em;">변경사항 저장</button>
 							</div>
 
 							<div class="viewTwinBox col col-5"
@@ -232,8 +254,8 @@
 						<!-- 20181029 1.버튼 -유저레벨 변경 에이잭스로 처리  -->
 				</td>
 			</tr>
-			
 		</c:forEach>
+		
 
 	</tbody>
 </table>
@@ -259,9 +281,9 @@
 				</div>
 
 				<div class="viewProBtn">
-					<a class="btn normal focus">사용자에게 공지</a> <a
-						class="btn normal focus">프로젝트 재개</a> <a class="btn normal focus">프로젝트
-						종료</a>
+					<a class="btn normal focus">프로젝트 일시 정지</a>
+					<a class="btn normal focus">프로젝트 재개</a> 
+					<a class="btn normal focus">프로젝트 종료</a>
 				</div>
 			</div>
 
@@ -275,9 +297,40 @@
 </div>
 
 <script>
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
+		
+		$("#projectUpdate").click(function() {
+// 			var ivCode = $("#invitecode").val();
+		var projectId = '${param.projectId}';
+		
+		 
+			$.ajax({
+				type : "post"
+					, url : "/project/update/project"
+					, beforesend: function(){}
+					, data : {
+							"projectId": projectId
+							,"projectName": $("#proName").val()
+							,"projectKey" : $("#proKey").val()
+							,"status" : status
+							,"projectOpen" : projectOpen		
+							
+							//여기까지함 20181030  
+							//1.dto로 받아서 업데이트하기 처리
+							// 프로젝트 리더..변경하는거 ..하기 
+						
+					}
+					, dataType: "json"
+					, success : function(data) {
+						console.log("프로젝트 업데이트 성공");
+					
+					}
+					, error : function() {console.log("프로젝트 업데이트 실패");}
+				  })
+		});
+		
+		
+		
 
 						var cd = '<fmt:formatDate value="${updatePageinfo.projectinfo.createDate }" pattern="yyyy-MM-dd HH:mm:ss" />';
 						//var cDate = new Date(cd.value);
@@ -322,17 +375,11 @@
 					"projectId" : projectId}	
 			, dataType:"json"
 			, success : function(data) {
-				//alert("해당 유저를 ban 하였음");
+				alert("해당 유저를 ban 하였음");
 
-								//아이디에 추가하는방식 안돼
 				$("tr#"+dom.value + " td:nth-child(3)").html("이용 정지");
 				$("tr#"+dom.value + " td:nth-child(4)").html("<button class='btn focus' id='pardon' onclick='pardon(this)'>정지 해제</button>");
-				//console.log($("tr#"+dom.value + " td:nth-child(2)").text());
 				$("tr#"+dom.value + " td:nth-child(4) button").attr("value", $("tr#"+dom.value + " td:nth-child(2)").text());
-				
-									//아이디 값을 찾을 수 없어 넣을 수 없음
-									// 방법 1ajax에서 아이디도 같이 보낸다.
-				//$("#pardon").val("${pminfo.userId}");
 			}, error : function() {console.log("밴 실패");
 			}
 			
@@ -352,10 +399,9 @@
 					"projectId" : projectId}	
 			, dataType:"json"
 			, success : function(data) {
-				//alert("ban 해제");
+				alert("ban 해제");
 				$("tr#"+dom.value + " td:nth-child(3)").html("참여중");
 				$("tr#"+dom.value + " td:nth-child(4)").html("<button class='btn' id='ban' onclick='ban(this)'>이용 정지</button>")
-// 				console.log($("tr#"+dom.value + " td:nth-child(2)").text());
 				$("tr#"+dom.value + " td:nth-child(4) button").attr("value", $("tr#"+dom.value + " td:nth-child(2)").text());
 			}, error : function() {console.log("용서 실패");
 			}
@@ -364,7 +410,59 @@
 		});
 	
 	}
+	jui.ready([ "ui.button" ], function(button) {
+	    button_1 = button("#button_1", {
+	        type: "radio",
+	        index: ${updatePageinfo.projectinfo.projectOpen},
+	    
+	        event: {
+	            change: function(data) {
+// 	                alert("index(" + data.index + "), value(" + data.value + ")");
+	                var projectOpen = data.index;
+	                var btns = document.getElementById("button_1");
+	                
+	                var arr = btns.getElementsByTagName("a");
+	                for(var i=0;i<arr.length;i++){
+	                	if(data.index == i) {
+	                		arr[i].classList.add("focus");
+	                	} else {
+	                		arr[i].classList.remove("focus");
+	                	}
+	                }
+	                
+	                
 
+	                	
+	            }
+	        }
+	    });
+	    
+	    
+	    
+	    
+	    button_1 = button("#button_2", {
+	        type: "radio",
+	        index: ${updatePageinfo.projectinfo.projectOpen},
+	    
+	        event: {
+	            change: function(data) {
+	                alert("index(" + data.index + "), value(" + data.value + ")");
+	                var status = data.index;
+	                var btns = document.getElementById("button_2");
+	                
+	                var arr = btns.getElementsByTagName("a");
+	                for(var i=0;i<arr.length;i++){
+	                	if(data.index == i) {
+	                		arr[i].classList.add("focus");
+	                	} else {
+	                		arr[i].classList.remove("focus");
+	                	}
+	                }
+	
+	            }
+	        }
+	    });
+	});
 	
 </script>
 

@@ -18,6 +18,8 @@
 	</select>
  	<insert id="inUser" parameterType="lips.userinfo.dto.User">
  		INSERT INTO userinfo VALUES(#{userId }, #{email},#{pw }, sysdate, #{nick }, 0, 1, #{phone }, #{birth } )
+ 		union
+ 		INSERT INTO alarm values(#{userId}, sysdate)
  	</insert>
  	<update id="upUserData" parameterType="lips.userinfo.dto.User">
  		UPDATE userinfo SET pw=#{pw }, nick=#{nick }, phone=#{phone}, birth=#{birth }, email=#{email } where userid = #{userId } and email = #{email }

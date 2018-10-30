@@ -1,13 +1,15 @@
 package lips.alarm.dao;
 
-import java.util.Map;
+import java.util.Date;
+import java.util.List;
 
-import lips.userinfo.dto.User;
+import lips.alarm.dto.Alarm;
 
 public interface AlarmDao {
-	public Map<String,String> selNewAlarmUser(User user,String lastRequest);
-	public void inNewAlarm(String category);
+	public List<Alarm> selNewAlarm(Alarm alarm);
+	public void upLastReq(Alarm alarm);
+	public Date selLastReq(Alarm alarm);
 	//public void inNotice(NoticeDto notice);
 	//public Map<String,String> selAllAlarmUser(User user);
-	
+
 }

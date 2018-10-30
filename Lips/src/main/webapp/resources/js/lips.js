@@ -1,34 +1,5 @@
 $(document).ready( function() {
 
-	var alarmManager = new function(){
-		var idle = true; // 중복실행 방지 플래그
-		var interval = 3000; // 알람 체크 주기 (10초로 변경 예정)
-		var finalDate ='';// 마지막 요청 시간
-		this.proc = function(){
-			if(!idle) return;
-			$.ajax({
-				url : "/alarm/proc",
-				type : "POST",
-				data : {
-					"userId" 	: '<sec:authentication property="principal.userId" />',
-					"date"		: finalDate,
-				},
-				success : function(responseData) {
-					
-				}
-			});
-			
-		}
-		this.showTimeLine = function(){//show timeLine
-			
-		}
-		this.showOneLineNotice = function(){//show oneLine
-			
-		}
-		this.showNotify = function(){//show windowNotify
-			
-		}
-	}
 	
 	/**
 	 * countDate Function 현재 시간에서 해당 시간까지 얼마나 남았는지 알려주는 함수 사용할
@@ -77,7 +48,7 @@ $(document).ready( function() {
  * @param options : github 참조
  * @returns void
  */
-function notify(title, options) {
+function notify(title, options,callback) {
 	var defaultOption = {
 		icon : "/resources/img/logo_ntf.png"
 	}
@@ -91,10 +62,16 @@ function notify(title, options) {
 		alert("알람 기능을 수행할 수 없는 브라우저 입니다.");
 	} else if (Notification.permission === "granted") {
 		var notification = new Notification(title, defaultOption);
+		notification.onclick = function(event){
+			callback();
+		};
 	} else if (Notification.permission !== 'denied') {
 		Notification.requestPermission(function(permission) {
 			if (permission === "granted") {
 				var notification = new Notification(title, defaultOption);
+				notification.onclick = function(event){
+					callback();
+				};
 			}
 		});
 	}

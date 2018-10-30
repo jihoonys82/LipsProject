@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="lips.alarm.dao.AlarmDao">
+ 	<select id="selNewAlarm" parameterType="lips.alarm.dto.Alarm" resultType="lips.alarm.dto.Alarm">
+ 		select (select 'new' from dual) as content ,issueId, createDate as lastReq from issue where assignee = #{userId } and createDate > #{lastReq }
+ 		UNION
+ 		select (select 'update' from dual) as content,issueId, modifyDate as lastReq from issue where assignee = #{userId } and modifyDate > #{lastReq } 
+ 		UNION
+ 		SELECT (select 'comment' from dual), i.issueId, c.createDate as lastReq FROM issue_comment c, issue i WHERE i.issueId = c.issueId AND i.assignee =#{userId } AND c.createDate > #{lastReq } order by LastReq desc
+ 	</select>
+ 	<update id="upLastReq" parameterType="lips.alarm.dto.Alarm" >
+ 		update alarm set lastRequest = #{lastReq } where userId = #{userId } 
+ 	</update>
+ 	<select id="selLastReq" parameterType="lips.alarm.dto.Alarm" resultType="Date">
+ 		select lastRequest from alarm where userId=#{userId }
+ 	</select>
+ </mapper>

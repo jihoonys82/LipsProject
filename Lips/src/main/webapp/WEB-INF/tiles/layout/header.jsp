@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
 <div class="navbar header">
 	<div class="headerLogo">
 		<img src="/resources/img/logo.png" alt="logo" width="100" height="50" onclick="goMain()">
@@ -33,3 +32,56 @@
 	</div>
 	
 </div>
+<sec:authorize access="hasAuthority('USER')">
+<script>
+var alarmManager = new function(){
+	var idle = true; // 중복실행 방지 플래그
+	var interval = 5000; // 알람 체크 주기 (10초로 변경 예정)
+
+	this.proc = function(){
+		if(!idle) return;
+		idle = false;
+		$.ajax({
+			url : "/alarm/proc",
+			type : "POST",
+			data : {
+				"userId"		: '<sec:authentication property="principal.userId" />',
+			},
+			success : function(responseData) {
+				var res = responseData.data;
+				
+				for(var i =0; i<res.length;i++){
+					alarmManager.showNotify(res[i]);
+				}
+				idle=true;
+			}
+		});
+		
+	}
+	this.showTimeLine = function(){//show timeLine
+		
+	}
+	this.showOneLineNotice = function(){//show oneLine
+		
+	}
+	this.showNotify = function(data){//show windowNotify
+		var notifyTitle="Lips 알림 서비스";
+		var option = null;
+		if(data.content=="new"){
+			 options = {body	: "새롭게 할당된 이슈가 있습니다." }
+		}else if(data.content=="update"){
+			options = {body	: "진행중인 이슈에 대한 새로운 변경사항이 있습니다."}
+		}else if(data.content=="comment"){
+			options = {body	: "진행중인 이슈에 새로운 댓글이 달렸습니다."}
+		}else{
+			options = {body	: ""}
+		}
+		function callback(){
+			location.href='/issue/detail?issueId='+data.issueId;
+		}
+		 notify(notifyTitle,options,callback);
+	}
+	setInterval(this.proc,interval);
+}
+</script>
+</sec:authorize>

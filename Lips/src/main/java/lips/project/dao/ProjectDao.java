@@ -10,6 +10,22 @@ import lips.userinfo.dto.User;
 
 public interface ProjectDao {
 	
+	/** 프로젝트 멤버 레벨 변경(pardon= level = 1)
+	 * 
+	 * @param ProjectMemberDto
+	 * @return ProjectMemberDto
+	 */ 
+	public void upPromemberLevelUp(ProjectMemberDto dto); 
+	
+	
+	/** 프로젝트 멤버 레벨 변경(밴 = level = 0)
+	 * 
+	 * @param ProjectMemberDto
+	 * @return ProjectMemberDto
+	 */ 
+	public void upPromemberLevelDown(ProjectMemberDto dto); 
+	
+	
 	/** 프로젝트 재가입용
 	 * @param map(ProjetId,UserId) 
 	 */

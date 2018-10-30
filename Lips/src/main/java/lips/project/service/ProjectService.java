@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import lips.project.dto.ProjectDto;
+import lips.project.dto.ProjectMemberDto;
 import lips.userinfo.dto.User;
 
 
 public interface ProjectService {
 
-	
+	public ProjectMemberDto UpdateProjectMemberBan(ProjectMemberDto dto);
+	public ProjectMemberDto UpdateProjectMemberPardon(ProjectMemberDto dto);
 	public List ProjectMain(User user);
 	public List selProMember(ProjectDto dto);
 	public String inPro(ProjectDto dto,User user); 

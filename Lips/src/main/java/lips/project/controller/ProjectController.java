@@ -11,15 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import lips.admin.dao.AdminDao;
 import lips.project.dto.ProjectDto;
+import lips.project.dto.ProjectMemberDto;
 import lips.project.service.ProjectService;
 import lips.userinfo.dto.User;
 import lips.userinfo.dto.UserByToken;
@@ -140,6 +139,72 @@ public class ProjectController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public void projectUpdateProc(ProjectDto dto) {
 
+	}
+	
+	//프로젝트 수정 페이지 유저 프로세스(유저 레벨 변경 밴)
+	@RequestMapping(value="/update/member/ban", method =RequestMethod.POST)
+	public void projectUpdateProMemberBan(ProjectMemberDto dto, HttpServletResponse resp) {
+		
+		
+		System.out.println("하하하하");
+		System.out.println(dto.getUserId());
+		System.out.println(dto.getProjectId());
+		resp.setContentType("application/json; charset=utf-8");
+		 PrintWriter out;
+		dto = service.UpdateProjectMemberBan(dto);
+		
+		
+		System.out.println("촤하하하");
+		System.out.println(dto.getUserId());
+		System.out.println(dto.getProjectId());
+		
+		int result = dto.getUserLevel();
+		
+		try {
+			out = resp.getWriter();
+			out.append("{\"result\":"+result+"}");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+	}
+	
+	//프로젝트 수정 페이지 유저 프로세스(밴 해제)
+	@RequestMapping(value="/update/member/pardon", method =RequestMethod.POST)
+	public void projectUpdateProMemberPardon(ProjectMemberDto dto, HttpServletResponse resp) {
+		
+		
+		System.out.println("하하하하");
+		System.out.println(dto.getUserId());
+		System.out.println(dto.getProjectId());
+		resp.setContentType("application/json; charset=utf-8");
+		 PrintWriter out;
+		dto = service.UpdateProjectMemberPardon(dto);
+		
+		
+		System.out.println("촤하하하");
+		System.out.println(dto.getUserId());
+		System.out.println(dto.getProjectId());
+		
+		int result = dto.getUserLevel();
+		
+		try {
+			out = resp.getWriter();
+			out.append("{\"result\":"+result+"}");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
 	}
 
 	// 프로젝트 삭제 프로세스

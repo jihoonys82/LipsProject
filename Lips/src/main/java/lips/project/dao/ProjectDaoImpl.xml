@@ -6,10 +6,38 @@
  	
  	
  	<!-- 프로젝트 멤버 업데이터(자발적으로 프로젝트 탈퇴한 이용자가 재가입) -->
- 	<update id="upPromember" parameterType="hashmap">
-		UPDATE project_member SET userlevel = 1 where userid = #{user.userId} 
+ 	<update id="upPromember" parameterType="lips.project.dto.ProjectMemberDto">
+		UPDATE project_member SET userlevel = 1 where userid = #{userId} 
 		AND projectId=#{projectId} 
  	</update>
+ 	
+ 	
+ 		
+ 	<!-- 프로젝트 멤버 업데이트( 레벨 변경 강퇴해제)  -->
+ 	<update id="upPromemberLevelUp" parameterType="lips.project.dto.ProjectMemberDto">
+ 		UPDATE project_member SET userlevel = 1 WHERE userid = #{userId} 
+		AND projectId=#{projectId}
+		
+ 	  <selectKey keyProperty="userLevel" resultType="Integer" order="AFTER">
+ 	  SELECT userlevel FROM project_member where userid = #{userId} 
+		AND projectId=#{projectId}
+       </selectKey>
+ 	
+ 	</update>
+ 	
+ 	
+ 	
+ 	<!-- 프로젝트 멤버 업데이트( 레벨 변경 강퇴)  -->
+ 	<update id="upPromemberLevelDown" parameterType="lips.project.dto.ProjectMemberDto">
+ 		UPDATE project_member SET userlevel = 0 WHERE userid = #{userId} 
+		AND projectId=#{projectId}
+		
+ 	  <selectKey keyProperty="userLevel" resultType="Integer" order="AFTER">
+ 	  SELECT userlevel FROM project_member where userid = #{userId} 
+		AND projectId=#{projectId}
+       </selectKey>
+ 	</update>
+ 	
  	
  	
  	<!-- 프로젝트 멤버테이블만 조회 (파라미터 - 프로젝트DTO(프로젝트아이디)  -->
@@ -107,6 +135,8 @@
  		SELECT * FROM project_invitation
 	WHERE INVITECODE=#{invitecode}
  	</select>
+ 	
+ 
  	
  	
 

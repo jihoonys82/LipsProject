@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import lips.admin.dao.AdminDao;
 import lips.project.dao.ProjectDao;
 import lips.project.dto.ProjectDto;
+import lips.project.dto.ProjectMemberDto;
 import lips.project.dto.ProjectinvitecodeDto;
 import lips.userinfo.dto.User;
 
@@ -87,86 +88,52 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public int joinPro(ProjectDto dto, User user) {
 		List list = dao.selProbyinvite(dto);
-		//인바이트 코드로  프로젝트 검색 있는지 없는지 확인
-		if(list.isEmpty()){
-			// 빈 리스트이면(초대코드가 잘못된)
-//			System.out.println("존재하지 않는 초대코드 입니다"+list.toString());
-			return 1;
-		} else 
-			if(!list.isEmpty())
-			{
-//			System.out.println("존재하는 코드입니다"+list.toString());
-			//이미 가입하였는지 확인
-			Map map = new HashMap();
-			map.put("invitecode", dto.getInvitecode());
-			map.put("userid", user.getUserId());
-			ProjectinvitecodeDto checkDto = new ProjectinvitecodeDto();
-			checkDto = dao.invitecheck(map);
-//			System.out.println("체크시작한다");
-			if(checkDto!=null) {
-				
-				
-			
-				System.out.println("가입한 상태");
-				System.out.println(checkDto.getUserId());
-				System.out.println(checkDto.getUserLevel());
-				
-				if(checkDto.getUserLevel()==0) {
-					System.out.println("강제퇴장당한 상태");
-					return 5;
-				} else if(checkDto.getUserLevel()==-1) {
-					System.out.println("자발적으로 나간상태");
+		if(list.isEmpty()){return 1; /**없는 초대 코드 **/}
+		else if (!list.isEmpty()) { 
+			/**있는 초대 코드  24시간 내 코드인지 확인**/  
+			ProjectinvitecodeDto check24Dto = dao.inviteTimecheck(dto);
+			long expDate = check24Dto.getExpiryDate().getTime();
+			long curDate = new Date().getTime();
+			if(expDate<curDate) {
+				//System.out.println("24시간이 지남");
+				return 2;
+			} else if  (expDate>curDate) {
+				//자격을 갖추고있는지 확인
+				Map map = new HashMap();
+				map.put("invitecode", dto.getInvitecode());
+				map.put("userid", user.getUserId());
+				ProjectinvitecodeDto checkDto = new ProjectinvitecodeDto();
+				checkDto = dao.invitecheck(map);
+				if(checkDto==null) {
+					//가입하지 않은 순수한 상태 가입가능
+					Map map3 = new HashMap();
+					map3.put("projectId", check24Dto.getProjectId());
+					map3.put("user", user);
 					
+					dao.inProMember(map3);
+					return 3;
+				} else if(checkDto.getUserLevel()==-1) {
+					//자발적으로 나간 상태 상태
 					Map map5 = new HashMap();
 					map5.put("projectId", checkDto.getProjectId());
 					map5.put("user", user);
 					System.out.println(checkDto.getProjectId());
 					System.out.println(user.getUserId());
 					dao.upPromember(map5);
-					return 6;
-					
-				}
-				
-				
-				return 2;
-			} else if(checkDto==null) {
-//				System.out.println("가입하지 않은 상태");
-				//24시간 검증
-				ProjectinvitecodeDto check24Dto = dao.inviteTimecheck(dto);
-//				System.out.println("24시간 검증");
-				
-				
-				long expDate = check24Dto.getExpiryDate().getTime();
-				long curDate = new Date().getTime();
-//				System.out.println(curDate);
-//				System.out.println(expDate);
-				
-				if(expDate<curDate) {
-//					System.out.println("24시간이 지남");
-					return 3;
-				} else if (expDate>curDate) {
-					
-					
-					Map map3 = new HashMap();
-					map3.put("projectId", check24Dto.getProjectId());
-					map3.put("user", user);
-					
-					dao.inProMember(map3);
-					
-					
-					
 					return 4;
-				}
-				
+				} else if(checkDto.getUserLevel()==0) {
+					return 5;
+				} else if (checkDto.getUserLevel()==1) {
+					return 6;
 			}
-
-				
 			}
+		}
 		return 0;
-			
+		
+		
 
-			
-	}
+		
+	} 
 
 	@Override
 	public Map updatepage(ProjectDto dto,User user) {
@@ -184,6 +151,22 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 
+	@Override
+	public ProjectMemberDto UpdateProjectMemberBan(ProjectMemberDto dto) {
+		
+		System.out.println("이곳은프로젝트서비스임플");
+		dao.upPromemberLevelDown(dto);
+		return dto;
+
+	}
+
+	@Override
+	public ProjectMemberDto UpdateProjectMemberPardon(ProjectMemberDto dto) {
+		
+		dao.upPromemberLevelUp(dto);
+		return dto;
+
+	}
 
 
 

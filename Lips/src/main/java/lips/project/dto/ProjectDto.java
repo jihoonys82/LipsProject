@@ -19,20 +19,8 @@ public class ProjectDto {
 	private String status;
 	private String projectDesc;
 	//프로젝트 메인페이지 조회용
-	private String UserId;
+	private String userId;
 	
-	//프로젝트 초대코드
-	private String invitecode;
-
-	@Override
-	public String toString() {
-		return "ProjectDto [projectId=" + projectId + ", projectName=" + projectName + ", projectKey=" + projectKey
-				+ ", projectOpen=" + projectOpen + ", projectCreater=" + projectCreater + ", projectLeader="
-				+ projectLeader + ", createDate=" + createDate + ", closeDate=" + closeDate + ", status=" + status
-				+ ", projectDesc=" + projectDesc + ", UserId=" + UserId + ", invitecode=" + invitecode + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
-	}
-
 	public int getProjectId() {
 		return projectId;
 	}
@@ -114,11 +102,11 @@ public class ProjectDto {
 	}
 
 	public String getUserId() {
-		return UserId;
+		return userId;
 	}
 
 	public void setUserId(String userId) {
-		UserId = userId;
+		this.userId = userId;
 	}
 
 	public String getInvitecode() {
@@ -128,5 +116,17 @@ public class ProjectDto {
 	public void setInvitecode(String invitecode) {
 		this.invitecode = invitecode;
 	}
+
+	@Override
+	public String toString() {
+		return "ProjectDto [projectId=" + projectId + ", projectName=" + projectName + ", projectKey=" + projectKey
+				+ ", projectOpen=" + projectOpen + ", projectCreater=" + projectCreater + ", projectLeader="
+				+ projectLeader + ", createDate=" + createDate + ", closeDate=" + closeDate + ", status=" + status
+				+ ", projectDesc=" + projectDesc + ", userId=" + userId + ", invitecode=" + invitecode + "]";
+	}
+
+	//프로젝트 초대코드
+	private String invitecode;
+
 	
 }

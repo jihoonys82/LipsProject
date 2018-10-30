@@ -64,20 +64,19 @@ $(document).ready(function() {
 				if(data.result==1) {
 					alert("존재하지 않는 초대 코드입니다.");
 					} else if(data.result==2) {
-					alert("이미 가입한 프로젝트 입니다.");
+					alert("유효하지 않은 프로젝트 코드 입니다(24시간 경과).");
 					} else if(data.result==3) {
-					alert("유효하지 않은 프로젝트 코드입니다.");	
+					alert("가입되었습니다.");	
+					$(location).attr('href', '/project/main');
 					} else if(data.result==4) {
-					alert("확인 되었습니다.")	
+					alert("가입 되었습니다(재가입).")	
 					$(location).attr('href', '/project/main')
 // 					$(location).attr('href', '/project/main?projectId=' + ivCode )
 					} else if(data.result==5) {
 						alert("해당 프로젝트에 접근할 수 없습니다.")	
-					} else if (data.result==6) {
-						alert("다시 가입되었음.")	;
-					$(location).attr('href', '/project/main')
-						
-					}
+					} else if(data.result==6) {
+						alert("이미 가입한 프로젝트 입니다.")	
+					} 
 			}
 			, error : function() {console.log("조인 실패");}
 		  })

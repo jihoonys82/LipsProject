@@ -197,48 +197,43 @@
 
 <table class='scrolltbody table classic'>
 	<thead>
-
-		<tr><th style="width:26.25%">#</th><th style="width:26.3%"> 아이디 </th><th style="width:26.5%"> 상태 </th><th> 관리</th></tr>
+		<tr>
+			<th style="width:26.25%">#</th>
+			<th style="width:26.3%"> 아이디 </th>
+			<th style="width:26.5%"> 상태 </th>
+			<th> 관리</th>
+		</tr>
 	</thead>
+	
 	<tbody>
-	<%! int i =0; %>
-	<c:forEach items="${updatePageinfo.projectUserinfo}" var="pminfo">
-	<% i++; %>
-	<tr><td><%=i%></td><td>${pminfo.userId}</td><td>
-	<c:if test="${pminfo.userLevel eq '-1'}">프로젝트 탈퇴</c:if>
-	<c:if test="${pminfo.userLevel eq '0'}">이용 정지</c:if>
-	<c:if test="${pminfo.userLevel eq '1'}">참여중</c:if>
-	<c:if test="${pminfo.userLevel eq '2'}">프로젝트리더</c:if>
-	
-	</td><td style="text-align: center">
-	
-	<c:choose>
-   <c:when test="${pminfo.userLevel eq '0'}"> 
-   <form  method="post">
-   <input type="text" value="${updatePageinfo.projectUserinfo.userId}">
-   </form>
-   
-   
-   <button id ="pardon=" class="btn focus"> 정지 해제</button></c:when>
-   <c:when test="${pminfo.userLevel eq '1'}"> <button id = "ban" class="btn"> 이용 정지</button></c:when>
- 
- 
-
-<c:otherwise>
-	<button class="btn"> 메롱롱</button>
-</c:otherwise>
-</c:choose>
-		<!-- 20181029
- 	 1.버튼 -유저레벨 변경 에이잭스로 처리
- 	
- 	
- 	 -->
-
-
-	
-	</td></tr>
-	
-	</c:forEach>
+		<%! int i =0; %>
+		<c:forEach items="${updatePageinfo.projectUserinfo}" var="pminfo">
+			<% i++; %>
+			<tr id="${pminfo.userId }">
+				<td><%=i%></td>
+				<td>${pminfo.userId}</td>
+				<td>
+					<c:if test="${pminfo.userLevel eq '-1'}">프로젝트 탈퇴</c:if>
+					<c:if test="${pminfo.userLevel eq '0'}">이용 정지</c:if>
+					<c:if test="${pminfo.userLevel eq '1'}">참여중</c:if>
+					<c:if test="${pminfo.userLevel eq '2'}">프로젝트리더</c:if>
+				</td>
+				<td style="text-align: center" >
+					<c:set var="usercheck" value="${updatePageinfo.projectinfo.projectLeader }" />
+					<c:choose>
+						<c:when test="${pminfo.userId eq usercheck }"> <button id ="itsme=" class="btn focus">Leader</button></c:when>
+						<c:when test="${pminfo.userLevel eq '0'}"> <button id ="pardon" class="btn focus" onclick="pardon(this)" value="${pminfo.userId}"> 정지 해제</button></c:when>
+						<c:when test="${pminfo.userLevel eq '1'}"> <button id = "ban" class="btn" onclick="ban(this)" value="${pminfo.userId}"> 이용 정지</button></c:when>
+		
+						<c:otherwise>
+							<button class="btn"> 메롱롱</button>
+						</c:otherwise>
+					</c:choose>
+						<!-- 20181029 1.버튼 -유저레벨 변경 에이잭스로 처리  -->
+				</td>
+			</tr>
+			
+		</c:forEach>
 
 	</tbody>
 </table>
@@ -308,7 +303,67 @@
 							remainTime += "남음";
 						document.getElementById("proProDate").value = remainTime;
 
+						
+						
+						
+						
+						
+						
 					});
+
+	function ban(dom){
+		var projectId = '${updatePageinfo.projectinfo.projectId}';
+		var userId = '${pminfo.userId}';
+		$.ajax({
+			type : "post"
+			, url : "/project/update/member/ban"
+			, beforesend: function(){}
+			, data:{ "userId" : dom.value,
+					"projectId" : projectId}	
+			, dataType:"json"
+			, success : function(data) {
+				//alert("해당 유저를 ban 하였음");
+
+								//아이디에 추가하는방식 안돼
+				$("tr#"+dom.value + " td:nth-child(3)").html("이용 정지");
+				$("tr#"+dom.value + " td:nth-child(4)").html("<button class='btn focus' id='pardon' onclick='pardon(this)'>정지 해제</button>");
+				//console.log($("tr#"+dom.value + " td:nth-child(2)").text());
+				$("tr#"+dom.value + " td:nth-child(4) button").attr("value", $("tr#"+dom.value + " td:nth-child(2)").text());
+				
+									//아이디 값을 찾을 수 없어 넣을 수 없음
+									// 방법 1ajax에서 아이디도 같이 보낸다.
+				//$("#pardon").val("${pminfo.userId}");
+			}, error : function() {console.log("밴 실패");
+			}
+			
+			
+		});
+	
+	}
+	
+	function pardon(dom){
+		var projectId = '${updatePageinfo.projectinfo.projectId}';
+		var userId = '${pminfo.userId}';
+		$.ajax({
+			type : "post"
+			, url : "/project/update/member/pardon"
+			, beforesend: function(){}
+			, data:{ "userId" : dom.value,
+					"projectId" : projectId}	
+			, dataType:"json"
+			, success : function(data) {
+				//alert("ban 해제");
+				$("tr#"+dom.value + " td:nth-child(3)").html("참여중");
+				$("tr#"+dom.value + " td:nth-child(4)").html("<button class='btn' id='ban' onclick='ban(this)'>이용 정지</button>")
+// 				console.log($("tr#"+dom.value + " td:nth-child(2)").text());
+				$("tr#"+dom.value + " td:nth-child(4) button").attr("value", $("tr#"+dom.value + " td:nth-child(2)").text());
+			}, error : function() {console.log("용서 실패");
+			}
+			
+			
+		});
+	
+	}
 
 	
 </script>

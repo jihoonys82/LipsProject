@@ -158,18 +158,6 @@ $(document).ready(function() {
 });
 
 
-function timeLineNotice() {
-	$.ajax({
-
-		},success : function(responseData){
-			console.log("test");
-
-		}
-		
-		
-	})
-}
-
 function oneLineNotice(){
 	$.ajax({
 		type:"post",

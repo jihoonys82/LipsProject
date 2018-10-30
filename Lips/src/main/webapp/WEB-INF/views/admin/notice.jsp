@@ -40,7 +40,7 @@
 				<label class="view-form-label">타임라인 공지사항</label>
 			</div>
 			
-			<div style="overflow-y : scroll;">
+			<div class="div-scroll">
 			<table class="table classic stripe">
 				<thead>
 					<tr>
@@ -52,20 +52,22 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${nInfo }" var="nInfo">
-					<tr class="text-center">
-						<td>
-							${nInfo.noticeId}
-						</td>
-						<td>
-							${nInfo.noticeTitle}
-						</td>
-						<td>
-							${nInfo.noticeContent}
-						</td>
-						<td>
-							<a class="btn mini">delete</a>
-						</td>
-						</tr>						
+					<c:if test="${nInfo.noticeCategory eq 0}">
+						<tr class="text-center">
+							<td id="id">
+								${nInfo.noticeId}
+							</td>
+							<td id="title">
+								${nInfo.noticeTitle}
+							</td>
+							<td id="content">
+								${nInfo.noticeContent}
+							</td>
+							<td id="delete">
+								<a class="btn mini">delete</a>
+							</td>
+						</tr>
+					</c:if>							
 					</c:forEach>
 				</tbody>
 			</table>
@@ -89,7 +91,7 @@
 		<div id="bodyNotice" class="property"></div>
 	</div>
 	<div class="foot">
-		<a href="#" class="btn focus">확인</a>
+		<a id="btnTimeLineNotice" href="#" class="btn focus">확인</a>
 		<a href="#" class="btn" id="btnCancel_notice">취소</a>
 	</div>
 </div>
@@ -127,16 +129,46 @@ $(document).ready(function() {
 		modalNotice.hide();
 	});
 	
-	$("#btnNotice").click(function(){
+	$("#btnTimeLineNotice").click(function(){
 		$.ajax({
 			type: "post"
 			, url: "/admin/notice"
 			, dataType: "json"
-			, data: {"param": "0"}
+			, data: {"param": "0",  
+					"noticeTitle" : $("div").children("select").val(),
+					"noticeContent" : $("div").children("textarea").val()
+			}
+			,success : function(responseData){
+				console.log("test");
+				
+				$('#id').html($("div").children("select").val());
+				$('#content').html($("div").children("textarea").val());
+				
+				$("div").children("select").val('');
+				$("div").children("textarea").val('');
+				
+				modalNotice.hide();
+				
+				
+				
+			}
 		})
 	});
 	
 });
+
+
+function timeLineNotice() {
+	$.ajax({
+
+		},success : function(responseData){
+			console.log("test");
+
+		}
+		
+		
+	})
+}
 
 function oneLineNotice(){
 	$.ajax({
@@ -144,7 +176,7 @@ function oneLineNotice(){
 		url: "/admin/notice",
 		dataType:"json",
 		data:{"param":"1",
-				"content" : $('#inputOneLine').val()
+			 "content" : $('#inputOneLine').val()
 		},success : function(responseData){
 			console.log("test");
 			$('#oneLine').val($('#inputOneLine').val());

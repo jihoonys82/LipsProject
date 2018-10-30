@@ -118,12 +118,20 @@
 	</select>
 	
 	<select id="selNInfo" resultType="lips.admin.dto.NoticeDto">
-		SELECT * FROM NOTICE
+		SELECT * FROM NOTICE ORDER BY noticeId DESC
 	</select>
+	
 	<insert id="inOneLineNotice" parameterType="String">
-		INSERT INTO notice (noticeid, noticeTitle, noticeContent, createDate, noticeCategory) VALUES 
-    		(NOTICE_SEQ.nextval,'한줄공지',#{content}, sysdate, 1)
+		INSERT INTO notice (noticeid, noticeContent, createDate, noticeCategory) VALUES 
+    		(NOTICE_SEQ.nextval, #{content}, sysdate, 1)
 	</insert>
 	
+	<insert id="inTimeLineNotice" parameterType="lips.admin.dto.NoticeDto">
+		INSERT INTO notice (noticeid, noticeTitle, noticeContent, createDate, noticeCategory) VALUES 
+		    (NOTICE_SEQ.nextval, #{noticeTitle}, #{noticeContent}, sysdate, 0)
+	</insert>
 	
+	<select id="selOneLineHeader" resultType="String">
+		select noticeContent from notice where noticeid =( select max(noticeid) from notice where noticeCategory = 1)
+	</select>
  </mapper>  

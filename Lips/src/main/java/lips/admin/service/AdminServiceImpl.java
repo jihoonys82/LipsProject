@@ -34,6 +34,16 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+	public void timeLineNotice(NoticeDto notice) {
+		adminDao.inTimeLineNotice(notice);
+	}
+	
+	@Override
+	public String getOneLineNotice() {
+		return adminDao.selOneLineHeader();
+	}
+	
+	@Override
 	public void closeAccount(User user) {
 		adminDao.upUserAccClose(user);;
 	}
@@ -171,9 +181,6 @@ public class AdminServiceImpl implements AdminService{
 		
 		return list;
 	}
-
-
-
 
 
 }

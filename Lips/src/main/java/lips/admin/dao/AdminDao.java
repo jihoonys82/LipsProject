@@ -23,7 +23,16 @@ public interface AdminDao {
 	 */
 	public void inNotice(NoticeDto notice);
 	
+	/**
+	 * 	한 줄 공지 DB에 저장
+	 * @param content
+	 */
 	public void inOneLineNotice(String content);
+	
+	public void inTimeLineNotice(NoticeDto notice);
+	
+	public String selOneLineHeader();
+
 	/**
 	 *   유저의 block 여부 설정 - 강등 
 	 * @param user

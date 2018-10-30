@@ -49,15 +49,26 @@ public class AdminController {
 	   
 	   model.addAttribute("nInfo", nInfo);
    }
+   
    @RequestMapping(value="/notice",method=RequestMethod.POST)
-   public ModelAndView noticeWrite(String param, String content) {
+   public ModelAndView noticeWrite(String param, String content, NoticeDto notice) {
 	   ModelAndView mav = new ModelAndView();
 	   
 	   if(param.equals("1")) {
 		   adminService.oneLineNotice(content);
 	   }else if(param.equals("0")) {
-		   
+		   adminService.timeLineNotice(notice);
 	   }
+	   mav.setViewName("jsonView");
+	   return mav;
+   }
+   
+   @RequestMapping(value="/notice/oneLine",method=RequestMethod.POST)
+   public ModelAndView noticeOneLine() {
+	   ModelAndView mav = new ModelAndView();
+	   
+	   mav.addObject("data", adminService.getOneLineNotice());
+	   
 	   mav.setViewName("jsonView");
 	   return mav;
    }

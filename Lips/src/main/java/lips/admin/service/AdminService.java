@@ -9,12 +9,21 @@ import lips.userinfo.dto.User;
 import lips.utils.Paging;
 
 public interface AdminService {
+
+	// Notice 등록
 	
 	public List<NoticeDto> getNinfo();
 	
+	public void oneLineNotice(String content);
+	
+	public void timeLineNotice(NoticeDto notice); 
+
+	public String getOneLineNotice();
+
 	public void notice(NoticeDto notice);
 	
-	public void oneLineNotice(String content);
+	// User 관리
+	
 	public void closeAccount(User user);
 	
 	public void reopenAccount(User user);

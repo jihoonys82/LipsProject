@@ -4,14 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 
 import lips.admin.dto.NoticeDto;
-import lips.admin.util.Paging;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
+import lips.utils.Paging;
 
 public interface AdminService {
 	
+	public List<NoticeDto> getNinfo();
+	
 	public void notice(NoticeDto notice);
 	
+	public void oneLineNotice(String content);
 	public void closeAccount(User user);
 	
 	public void reopenAccount(User user);

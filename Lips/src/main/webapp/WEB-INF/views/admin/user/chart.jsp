@@ -13,32 +13,33 @@
 	</div>
 		
 	<div class="body forDisplay-body-first" >
-			<div class="forDisplay-body-second row" style="vertical-align: baseline;" >
-				<div class="blackBox col col-1">
+			<div class="forDisplay-body-second row">
+				<div class="blackBox inline-block w-5">
 					기간
 				</div>
 
-				<input type="date" class="col col-2 color-date input"/>
-				<input type="date" class="col col-2 color-date input"/>
+				<input type="date" class="color-date input w-15"/>
+				<input type="date" class="color-date input w-15"/>
 				
-				<div class="col col-2">
-					<a class="btn mini focus margin-a">오늘</a> 
+				<div class="inline-block w-15">
+					<a class="btn mini focus">
+						오늘
+					</a> 
 					<a class="btn mini focus">일주일</a> 
 					<a class="btn mini focus">한 달</a>				
 				</div>	
 
-				<div id="combo_1" class="combo col col-2">
+				<div id="combo_1" class="combo inline-block w-20">
 					
 					<a class="btn small forSizing-btn-first">Select...</a>
 					<a class="btn small toggle"><i class="icon-arrow2"></i></a>
 					<ul>
 						<li value="1">유저 아이디</li>
 						<li value="2">유저 닉네임</li>
-						<li value="3">강등된 유저</li>
 					</ul>
 				
 				</div>
-				<div class="col col-2">
+				<div class="inline-block w-20">
 					<input type="text" class="forSizing-input input"/>
 			
 					<button class="btn small focus"

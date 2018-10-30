@@ -5,7 +5,7 @@
 
  <mapper namespace="lips.admin.dao.AdminDao">
 
- 	<select id="selUserInfo" resultType="lips.userinfo.dto.User" parameterType="lips.admin.util.Paging">
+ 	<select id="selUserInfo" resultType="lips.userinfo.dto.User" parameterType="lips.utils.Paging">
 	 	SELECT * FROM
 	 		(SELECT rownum rnum, U.* FROM
 	 			(SELECT * FROM USERINFO ORDER BY USERID) U ORDER BY rnum)
@@ -46,7 +46,7 @@
  		SELECT COUNT(*) FROM PROJECTINFO
  	</select>
  	
- 	 <select id="selProInfo" resultType="lips.project.dto.ProjectDto" parameterType="lips.admin.util.Paging">
+ 	 <select id="selProInfo" resultType="lips.project.dto.ProjectDto" parameterType="lips.utils.Paging">
 	 	SELECT * FROM
 	 		(SELECT rownum rnum, P.* FROM
 	 			(SELECT * FROM PROJECTINFO ORDER BY PROJECTID DESC) P ORDER BY rnum)
@@ -117,6 +117,13 @@
 		SELECT COUNT(DISTINCT(pm.userId)) FROM project_member pm, projectinfo pi WHERE pm.projectId = pi.projectId AND pi.status = 'OPEN'
 	</select>
 	
+	<select id="selNInfo" resultType="lips.admin.dto.NoticeDto">
+		SELECT * FROM NOTICE
+	</select>
+	<insert id="inOneLineNotice" parameterType="String">
+		INSERT INTO notice (noticeid, noticeTitle, noticeContent, createDate, noticeCategory) VALUES 
+    		(NOTICE_SEQ.nextval,'한줄공지',#{content}, sysdate, 1)
+	</insert>
 	
 	
  </mapper>  

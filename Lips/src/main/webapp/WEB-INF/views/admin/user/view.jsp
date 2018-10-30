@@ -19,6 +19,9 @@
 
 				<div class="view-form-row">
 					<label for="status" class="view-form-label">회원상태</label>
+						<c:if test="${userInfo.blocked eq 0 && userInfo.userLevel > 1 }">						
+							<input type="text" name="status" id="status" class="input view-form-input" readonly="readonly" value="관리자"/>										
+						</c:if>					
 						<c:if test="${userInfo.blocked eq 0 && userInfo.userLevel eq 1 }">						
 							<input type="text" name="status" id="status" class="input view-form-input" readonly="readonly" value="가입"/>										
 						</c:if>
@@ -67,11 +70,18 @@
 				
 	
 				<div class="viewUserBtn">
-				
 					<a class="btn normal" style="float: right;" onclick="goBack()">뒤로 가기</a>
-					<a class="btn normal focus">프로젝트 공지</a>
-					<a class="btn normal focus" onclick="modalReopenAcc.show()">정지 해제</a>
-					<a class="btn normal focus" onclick="modalCloseAcc.show()">탈퇴 처리</a>
+					<c:choose>
+						<c:when test="${userInfo.blocked eq 1 && userInfo.userLevel eq 0}">
+							<a class="btn normal focus">프로젝트 공지</a>				
+							<a class="btn normal focus" onclick="modalReopenAcc.show()">정지 해제</a>
+						</c:when>							
+						<c:when test="${userInfo.blocked eq 0 && userInfo.userLevel eq 1 }">
+							<a class="btn normal focus">프로젝트 공지</a>
+							<a class="btn normal focus" onclick="modalCloseAcc.show()">탈퇴 처리</a>					
+						</c:when>
+					</c:choose>
+					
 				</div>
 			</div>
 		</div>

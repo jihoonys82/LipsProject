@@ -4,11 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 
 import lips.admin.dto.NoticeDto;
-import lips.admin.util.Paging;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
+import lips.utils.Paging;
 
 public interface AdminDao {
+	
+	/**
+	 * 	공지사항 정보 가져오기 
+	 * @return NoticeDto
+	 */
+	public List<NoticeDto> selNInfo();
 	
 	/**
 	 *  공지사항 정보 DB에 저장
@@ -17,6 +23,7 @@ public interface AdminDao {
 	 */
 	public void inNotice(NoticeDto notice);
 	
+	public void inOneLineNotice(String content);
 	/**
 	 *   유저의 block 여부 설정 - 강등 
 	 * @param user

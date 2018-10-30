@@ -14,22 +14,22 @@
 
 	<div class="body forDisplay-body-first" >
 			<div class="forDisplay-body-second row">
-				<div class="blackBox col col-1">
+				<div class="blackBox inline-block w-5">
 					기간
 				</div>
 
-				<input type="date" class="col col-2 color-date input"/>
-				<input type="date" class="col col-2 color-date input"/>
+				<input type="date" class="color-date input w-15"/>
+				<input type="date" class="color-date input w-15"/>
 				
-				<div class="col col-2" style="vertical-align: baseline;" >
-					<a class="btn mini focus" style="display: table;">
+				<div class="inline-block w-15">
+					<a class="btn mini focus">
 						오늘
 					</a> 
-					<a class="btn mini focus" style="display: table;">일주일</a> 
-					<a class="btn mini focus" style="display: table;">한 달</a>				
+					<a class="btn mini focus">일주일</a> 
+					<a class="btn mini focus">한 달</a>				
 				</div>	
 
-				<div id="combo_1" class="combo col col-2">
+				<div id="combo_1" class="combo inline-block w-20">
 					
 					<a class="btn small forSizing-btn-first">Select...</a>
 					<a class="btn small toggle"><i class="icon-arrow2"></i></a>
@@ -40,7 +40,7 @@
 					</ul>
 				
 				</div>
-				<div class="col col-2">
+				<div class="inline-block w-20">
 					<input type="text" class="forSizing-input input"/>
 			
 					<button class="btn small focus"

@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 
 import lips.admin.dao.AdminDao;
 import lips.admin.dto.NoticeDto;
-import lips.admin.util.Paging;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
+import lips.utils.Paging;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -19,11 +19,20 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired AdminDao adminDao;
 
 	@Override
+	public List<NoticeDto> getNinfo() {
+		return adminDao.selNInfo();
+	}
+
+	@Override
 	public void notice(NoticeDto notice) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	@Override
+	public void oneLineNotice(String content) {
+		adminDao.inOneLineNotice(content);
+	}
+	
 	@Override
 	public void closeAccount(User user) {
 		adminDao.upUserAccClose(user);;
@@ -162,6 +171,9 @@ public class AdminServiceImpl implements AdminService{
 		
 		return list;
 	}
+
+
+
 
 
 }

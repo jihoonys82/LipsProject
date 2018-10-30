@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import lips.admin.dto.NoticeDto;
 import lips.admin.service.AdminService;
-import lips.admin.util.Paging;
 import lips.project.dto.ProjectDto;
 import lips.project.service.ProjectService;
 import lips.userinfo.dto.User;
 import lips.userinfo.dto.UserTracker;
+import lips.utils.Paging;
  @Controller
  @RequestMapping(value="/admin")
 public class AdminController {
@@ -41,9 +42,26 @@ public class AdminController {
    }
    
    @RequestMapping(value="/notice", method=RequestMethod.GET)
-   public void notice() {
+   public void notice(Model model) {
 	   logger.info("공지 페이지");
+	   
+	   List<NoticeDto> nInfo = adminService.getNinfo();
+	   
+	   model.addAttribute("nInfo", nInfo);
    }
+   @RequestMapping(value="/notice",method=RequestMethod.POST)
+   public ModelAndView noticeWrite(String param, String content) {
+	   ModelAndView mav = new ModelAndView();
+	   
+	   if(param.equals("1")) {
+		   adminService.oneLineNotice(content);
+	   }else if(param.equals("0")) {
+		   
+	   }
+	   mav.setViewName("jsonView");
+	   return mav;
+   }
+   
   
    @RequestMapping(value="/project/chart", method=RequestMethod.GET)
    public void proChart(Model model) {

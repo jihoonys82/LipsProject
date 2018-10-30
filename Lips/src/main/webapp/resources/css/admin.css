@@ -121,6 +121,18 @@ body {
 	margin-right: 3em;
 }
 
+.w-5 {
+	width : 5%;
+}
+
+.w-15 {
+	width  : 15%;
+}
+
+.w-20 {
+	width : 20%;
+}
+
 /* 수정 필요 */
 .marginForBox {
 	margin : 2em;
@@ -227,11 +239,12 @@ body {
 }
 
 .forSize-second {
-	min-height: 24.8em;
+	width : 80%;
+	height: 240px;
 }
 
 .table.classic>thead th:first-child, .table.classic>tbody>tr>td:first-child {
-	width: 80px;
+	width : 80px;
 	text-align: center;
 }
 
@@ -291,10 +304,6 @@ body {
 	 list-style: none;
 	 display: list-item;
 	 margin-left: 50px;
-}
-
-.combo {
-	margin-left : 7em;
 }
 
 /* project_chart */

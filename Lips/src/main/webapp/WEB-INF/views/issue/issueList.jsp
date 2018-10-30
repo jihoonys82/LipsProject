@@ -71,7 +71,11 @@
 						<td>${issue.createUser }</td>
 						<td>${issue.assignee }</td>
 						<td><span class="countDate"><fmt:formatDate value="${issue.expectedEndDate }" pattern="yyyy/MM/dd HH:mm:ss" /></span></td>
-						<td>${issue.issueStage }</td>
+						<td>
+							<div class="myIssueStage">
+								<span class="label success mini issueStage">${issue.issueStage }</span>								
+							</div>
+						</td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -112,5 +116,20 @@ $(document).ready(function() {
 	
 		cdList[i].innerText = remainTime;
 	}
+	
+	//issue Stage id to stage Name
+	var stageNum = document.getElementsByClassName("issueStage");
+	
+	<c:forEach items="${issueStage}" var="stage">
+		for(var i=0;i<stageNum.length;i++) {
+			if("${stage.stageAssetId}" == stageNum[i].innerHTML){
+				stageNum[i].innerHTML = "${stage.stageName}";
+				if(stageNum[i].innerHTML == "99"){
+					stageNum[i].classList.remove("success");
+				}
+			}
+		} 	
+	</c:forEach>
+	
 });
 </script>

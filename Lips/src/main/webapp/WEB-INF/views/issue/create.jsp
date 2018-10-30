@@ -301,8 +301,8 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 	<div class="body">
 		<div class="row">
 			<div class="newStage" style="margin: 10px;float:right;">
-				<span>이슈단계를 추가/수정하면 작성 내용이 사라집니다!</span>
-				<button type="button" class="btn warning">이슈단계 추가/수정</button>			
+				<span class="label danger mini">주의!</span>이슈단계를 추가/수정하면 작성 내용이 사라집니다!
+				<button type="button" class="btn">이슈단계 추가/수정</button>			
 			</div>
 		</div>
 		<div class="row mt-1">

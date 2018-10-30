@@ -51,6 +51,8 @@ public class IssueService {
 		mav.addObject("issueAssigned", issueDao.selIssueByAssignee(user));
 		mav.addObject("issueFollowing", issueDao.selIssueByFollowing(user));
 		
+		mav.addObject("issueStage", issueDao.selStageAsset());
+		
 		mav.setViewName("issue/main");
 		
 		return mav;
@@ -182,7 +184,7 @@ public class IssueService {
 		if(!issues.isEmpty()) {
 			mav.addObject("listType", listType);
 			mav.addObject("issues", issues);
-			mav.addObject("stageAsset", issueDao.selStageAsset());
+			mav.addObject("issueStage", issueDao.selStageAsset());
 			mav.addObject("paging", paging);
 			mav.setViewName("issue/issueList");
 		} else {

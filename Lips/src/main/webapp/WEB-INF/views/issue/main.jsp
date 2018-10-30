@@ -24,7 +24,7 @@
 		 		</tr>
 		 		<tr>
 					<td>이슈진행단계</td>
-					<td>${issueCloseDeadline.issueStage }</td>		
+					<td><span class="label success mini issueStage">${issueCloseDeadline.issueStage }</span></td>		
 		 		</tr>
 		 		<tr>
 					<td>이슈댓글 수</td>
@@ -57,7 +57,7 @@
 		 		</tr>
 		 		<tr>
 					<td>이슈진행단계</td>
-					<td>${issueMostFollowed.issueStage }</td>		
+					<td><span class="label success mini issueStage">${issueMostFollowed.issueStage }</span></td>		
 		 		</tr>
 		 		<tr>
 					<td>이슈댓글 수</td>
@@ -78,7 +78,7 @@
 				<strong>내게 할당된 이슈</strong>
 				<a href="/issue/issueList?listType=AssignedIssue" class="btn focus small btnMore">더보기</a>
 			</div>
-			<table class="table classic hover">
+			<table id="tbAssigned" class="table classic hover">
 				<thead>
 					<tr>
 						<th class="myCols-1">이슈번호</th>
@@ -97,9 +97,10 @@
 						<td><span class="countDate"><fmt:formatDate value="${issue.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>
 						<td>
 							<div class="myIssueStage">
-								<button class="btn btn-small myIssueStageBtn"><span class="icon icon-chevron-left"></span></button>
-								${issue.issueStage }
-								<button class="btn btn-small myIssueStageBtn"><span class="icon icon-chevron-right"></span></button>							
+								<button class="btn mini myIssueStageBtn"><span class="icon icon-chevron-left"></span></button>
+								<span class="label mini success issueStage">${issue.issueStage }</span>
+								<input type="hidden" value="${issue.issueStage }" />
+								<button class="btn mini myIssueStageBtn"><span class="icon icon-chevron-right"></span></button>							
 							</div>
 						</td>
 					</tr>
@@ -117,7 +118,7 @@
 				<strong>내가 팔로잉한 이슈</strong>
 				<a href="/issue/issueList?listType=FollowingIssue" class="btn focus small btnMore">더보기</a>
 			</div>
-			<table class="table classic hover">
+			<table id="tbFollowing" class="table classic hover">
 				<thead>
 					<tr>
 						<th class="myCols-1">이슈번호</th>
@@ -125,7 +126,7 @@
 						<th class="myCols-1">이슈 생성자</th>
 						<th class="myCols-1">이슈 담당자</th>
 						<th class="myCols-2">남은 기간</th>
-						<th class="myCols-1">단계</th>
+						<th class="myCols-2">단계</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -136,7 +137,11 @@
 							<td>${folIssue.createUser }</td>
 							<td>${folIssue.assignee }</td>
 							<td><span class="countDate"><fmt:formatDate value="${folIssue.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>
-							<td>${folIssue.issueStage }</td>
+							<td>
+								<div class="myIssueStage">
+									<span class="label success mini issueStage">${folIssue.issueStage }</span>								
+								</div>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -169,5 +174,21 @@ $(document).ready(function() {
 	
 		cdList[i].innerText = remainTime;
 	}
+	
+	
+	//issue Stage id to stage Name
+	var stageNum = document.getElementsByClassName("issueStage");
+	
+	<c:forEach items="${issueStage}" var="stage">
+		for(var i=0;i<stageNum.length;i++) {
+			if("${stage.stageAssetId}" == stageNum[i].innerHTML){
+				stageNum[i].innerHTML = "${stage.stageName}";
+				if(stageNum[i].innerHTML == "99"){
+					stageNum[i].classList.remove("success");
+				}
+			}
+		} 	
+	</c:forEach>
+
 });
 </script>

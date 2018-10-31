@@ -1,12 +1,15 @@
 package lips.dashboard.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import lips.card.dto.CardDto;
 import lips.dashboard.dto.DashBoardDto;
 import lips.dashboard.service.DashBoardService;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
 
 
 @Controller
@@ -36,6 +41,7 @@ public class DashBoardController {
 		if(boarddto != null) {
 			maxXLocation = dbsvc.maxXLocation(boarddto);
 			mav.addObject("dashBoardId",boarddto.getDashboardId());
+			mav.addObject("projectId",projectId);
 		}else{
 			maxXLocation = 1 ;
 			mav.addObject("dashBoardId", 0);
@@ -47,13 +53,18 @@ public class DashBoardController {
 	}
 	
 	@RequestMapping(value = "/dashBoardCustom", method = RequestMethod.GET)
-	public ModelAndView dashCustom(@RequestParam(required=false,defaultValue="0") int dashboardId) {
+	public ModelAndView dashCustom(
+			@RequestParam(required=false,defaultValue="0") int dashboardId , 
+			@RequestParam(required=false,defaultValue="0") int projectId
+			) {
 		ModelAndView mav = new ModelAndView();
 		
 		List<CardDto> selCard = new ArrayList<CardDto>();
 		selCard = dbsvc.AllCardList();
 		
 		mav.addObject("selCard", selCard);
+		mav.addObject("dashboardId",dashboardId);
+		mav.addObject("projectId",projectId);
 		
 		mav.setViewName("dashboard/dashcustom");
 		return mav;
@@ -61,12 +72,14 @@ public class DashBoardController {
 	
 	
 	
-	@RequestMapping(value = "/dashBoardCustom", method = RequestMethod.POST)
-	public ModelAndView dashCustomSaveProc() {
+	@RequestMapping(value = "/dashsave", method = RequestMethod.POST)
+	public ModelAndView dashCustomSaveProc(String data) {
 		ModelAndView mav = new ModelAndView();
+		Map<String, String> dataMap = new HashMap<>();
 		
-		logger.info("project start /dashboard view");
+		dataMap = dbsvc.splitData(data);
 		
+		mav.setViewName("dashboard/dashcustom");
 		return mav;
 	}
 }

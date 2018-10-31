@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="col col-12" style="margin: 3px; text-align: right; padding: 12px;">
-<a href="/dashboard/dashBoardCustom?dashboardId=${dashBoardId}" >
+<a href="/dashboard/dashBoardCustom?dashboardId=${dashBoardId}&projectId=${projectId}" >
 	<button class="btn focus">Custom</button>
 </a>
 

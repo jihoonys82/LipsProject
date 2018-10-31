@@ -1,6 +1,9 @@
 package lips.dashboard.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +13,6 @@ import lips.dashboard.dao.DashBoardDao;
 import lips.dashboard.dto.DashBoardDto;
 import lips.userinfo.dto.User;
 import lips.userinfo.dto.UserByToken;
-
 
 
 @Service
@@ -44,6 +46,31 @@ public class DashBoardServiceImpl implements DashBoardService{
 	public List<CardDto> AllCardList() {
 	
 		return dao.selAllCardList();
+	}
+	@Override
+	public Map<String, String> splitData(String data) {
+		
+		int length = data.split(",").length;
+		
+		List<String> splitList = new ArrayList<>();
+		Map<String, String> splitMap = new HashMap<>();
+		
+		System.out.println(splitMap);
+		for(int i = 0 ; i<length; i++) {
+			splitList.add(data.split(",")[i]);
+		}
+		for(int j = 0 ; j<length; j++) {
+			String startreplace = splitList.get(j).split(":")[0].replace("[{", "");
+			String startre = startreplace.replace("\"", "");
+			String endreplace = splitList.get(j).split(":")[1].replace("}]", "");
+			String endre = endreplace.replace("\"", "");
+			splitMap.put(startre, endre) ;
+		}
+		System.out.println("data :" + data);
+		System.out.println("splitList" + splitList);
+		System.out.println("splitMap " + splitMap);
+		System.out.println("splitMapSelect " + splitMap.get("projectId"));
+		return splitMap;
 	}
 
 

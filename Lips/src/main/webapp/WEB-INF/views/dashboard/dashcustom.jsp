@@ -99,7 +99,7 @@
 <div class="row">
 	<div class="col col-12" style="margin-top: 10px; margin-bottom: 10px;" id="headNav">
 		<div class="panel">
-			<div class="head">
+			<div class="head" style="float: left; width: 90%;">
 				<strong>Line Select</strong>
 				<div style="float: right;">	
 					<div  class="combo">
@@ -117,21 +117,32 @@
 						<select id="comboLineY" class="btn small toggle">
 							<option value="1">1</option>
 							<option value="2">2</option>
-							<option value="3">3</option>
+							<option value="3">3</option> 
 							<option value="4">4</option>
 						</select>
 					</div>
-				</div>
-	
+				</div> 
 			</div><!-- end of layout selector -->
+				<div style="float: left; vertical-align: top; height: 100%; margin-left: 10px; margin-top: 2px;"><!--save button  -->
+					<button class="btn" style="height: 35px;" type="button" onclick="saveData()">저장</button>
+				</div><!--end of save button  --> 
+			
 		</div><!-- end of panel  -->
+		
 	</div>
 </div>
 <!-- combo End -->
 <div class="cardLayout">
 	<div class="row" id='x1'>
-		<div class="single" id="y1">
-		
+		<div class="single" id="y1" style="text-align: center;">
+			<h1>사용법</h1>
+			<br>
+			<div style="text-align: left; width: 400px; padding: 20px;">
+				1. 생성하고 싶은 라인갯수에 맞춰 X,Y를 선택<br>
+				2. 위치를 선택한후 해당위치에 넣고 싶은 카드를 선택<br>  
+				3. 저장 
+			</div>
+			  
 		</div>
 	</div>
 </div> <!-- end of cardLayout -->
@@ -140,6 +151,8 @@
 <script>
 //선택된 카드 저장할 변수 선언 
 var selectedLocation; 
+var dataCollection = new Object();
+var saveList = new Array();
 
 $(document).ready(function(){
 	//0. 각 레이아웃 셀에 대한 값 변수 생성 및 초기화 
@@ -147,16 +160,6 @@ $(document).ready(function(){
 	var $tilesbody = $("div.col-10");
 	var $assetlist = $("#assetlist").html();
 	$("div.activityLog").empty().append($assetlist);
-	
-	var sideHide = function() {
-		$tilesbody.removeClass("col-10").addClass("col-12");
-		$("div.activityLog").hide();
-	}
-	var sideShow = function() {
-		$tilesbody.removeClass("col-12").addClass("col-10");
-		$("div.activityLog").show();
-	}
-// 	sideHide();
 	
 	// layout[x][y] init
 	var lineX = $("#comboLineX").val();
@@ -222,159 +225,45 @@ $(document).ready(function(){
 			$("div.card").css("background-color", "black");
 			$(this).css("background-color", "gray");
 			selectedLocation=$(this);
-// 			sideShow();
 		});
 	}
 
 	//3. 레이아웃 좌표에 카드 insert - document ready 상단으로 빼냈음
 
-
-
 	//4. 지정한 설정 저장
-	
 	
 });
 
 
 //3. 카드 로드.
 var insertCard = function(obj) {
-	$(selectedLocation).empty().load(obj.id);		
+	$(selectedLocation).empty().load(obj.id);
+	dataCollector(selectedLocation , obj.id);
 }
 
-	
-// 	// tilesbody 위에 올라갈 div
-// 	var $divbase = $("<div>").attr("id", "divbase").css("height", "100%");	
-// 	// tilesbody
-// 	var $tilesbody = $("div.col-10");
-	
-// 	var $assetlist = $("#assetlist").html();
+//저장시 사용할 데이터 콜렉터 value 값 추가 해야 됨 카드 생성후
 
-	
-// 	$tilesbody.removeClass("col-10").addClass("col-12");
-// 	$tilesbody.append($divbase);
-	
-// 	//location 좌표 id 저장용 object
-// 	var locationOb= Object();
-	
-// 	//기본값들
-// 	//통합 location 1,1
-// 	var cardLocation = "1,1";
-	
-// 	//xlocation 기본값 1
-// 	var xLocation = 1*1;
-	
-// 	//ylocation 기본값 1
-// 	var yLocation = 1*1;
-	
-// 	//xlocation max 기본값 1
-// 	var maxXLocation = 1 * 1;
-	
-// 	//ylocation max 기본값 1
-// 	var maxYLocation = 1 * 1;
-// 	//기본값 end
-	
-	
-		
-// 	//assetlist click event
-// 	function cardclick(obj){
-// 		$(cardLocation).empty().load(obj.id);
-// // 		console.log(cardLocation);  
-// 	}
+var dataCollector = function(id , card){
+	var idcard = id.attr("id");
+	dataCollection[idcard+""] = card;
+}
 
-	
-// 	$(document).ready(function combobox() {
-	
-		
-			
-// 		//side asset list div tiles empty 
-// 		$("div.activityLog").empty().append($assetlist);
-// 		$("div.activityLog").hide();
-		
-// 		//layout 기본 1,1 세팅
-// 		layoutSetting(1,1);
-		
-// 		//combo box script
-// 		jui.ready([ "ui.combo" ], function(combo) {
-// 			comboLineX = combo("#comboLineX", {
-// 				index : 0,
-// 				event : {
-// 					change : function(data) {
-// 						maxXLocation = data.value * 1;
-// 						$("#divbase").empty();
-// 						layoutSetting(maxXLocation, maxYLocation);
-// 					}
-// 				}
-// 			});
-// 		});
-// 		jui.ready([ "ui.combo" ], function(combo) {
-// 			comboLineY = combo("#comboLineY", {
-// 				index : 0,
-// 				event : {
-// 					change : function(data) {
-// 						maxYLocation = data.value * 1;
-// 						$("#divbase").empty();
-// 						layoutSetting(maxXLocation, maxYLocation);
-// 					}
-// 				}
-// 			});
-// 		});
-		
-// 	});
-	
-// 	//click Card base div function
-// 	function clickCard(dom){
-// 		cardLocation = $(dom);
-// 		$tilesbody.removeClass("col-12").addClass("col-10");
-// // 		$("div.activityLog").load("/card/assetList?"+location);	//jsp + sub jsp병합 전
-// 		$("div.activityLog").show();
-// 	}
-	
-// 	//layoutsetting function
-// 	function layoutSetting(maxXLocation, maxYLocation) {
-// 		//x location for (maxXLocation 으로 돌림)
-// 		for (var i = 1; i < maxXLocation+1 ; i++) {
-			
-// 			xLocation = i;
-			
-// 			var $cardBase = $("<div>")
-// 			.attr("id","div"+i)
-// 			.css("height", "100%")
-// 			.css("width", 99 / maxXLocation + "%")
-// 			.css("float", "left");
-			
-// 			$("#divbase").append($cardBase);
-// // 			$("#divbase").html($cardBase);
-			
-// 			//y location for (maxYLocation 으로 돌림)
-// 			for (var j = 1; j < maxYLocation+1; j++) {
+var saveData = function(){
+	<c:set value="${dashboardId}" var="dashId" />
+	<c:set value="${projectId}" var="prjecId"/>
+		dataCollection.dashboardId= ${dashId};
+		dataCollection.projectId=${prjecId};
+		saveList.push(dataCollection);
+	$.ajax({
+		type:"post"
+			, url: "/dashboard/dashsave"
+			, data: {data:JSON.stringify(saveList)}
+			, success: function(){
+				alert("저장 완료");
 				
-// 				yLocation = j;
-// 				locationOb.x = xLocation;
-// 				locationOb.y = yLocation;
-				
-// 				var $cardadd = $("<img>")
-// 				.attr("src", "/resources/img/card/dashAddCard.png")
-// 				.css("height", "100px")
-// 				.css("width", "100px")
-				
-				
-// 				var $carddiv = $("<div>")
-// 					.attr("id","positionX="+xLocation+"&positionY="+yLocation)
-// 					.attr("onclick","clickCard(this)")
-// 					.css("min-height", "200px")
-// 					.css("width", "100%")
-// 					.css("border", "1px solid white")
-// // 					.css("position", "absolute")
-// // 					.css("height", "auto")
-// 					.click(function(dom){});
-					 
-// 				$carddiv.append($cardadd);
-// 				$cardBase.append($carddiv);
-// 			}
-		
-// 		}
-		
-		
-// 	}
-	
+			}
+
+	})
+}
+
 </script>

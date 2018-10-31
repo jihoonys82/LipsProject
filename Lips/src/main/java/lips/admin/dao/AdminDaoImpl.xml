@@ -134,4 +134,15 @@
 	<select id="selOneLineHeader" resultType="String">
 		select noticeContent from notice where noticeid =( select max(noticeid) from notice where noticeCategory = 1)
 	</select>
+	
+	<insert id="inNoticeToLeader" parameterType="lips.admin.dto.NoticeDto">
+		INSERT INTO notice (noticeid, noticeTitle, noticeContent, createDate, noticeCategory) VALUES 
+		    (NOTICE_SEQ.nextval, #{noticeTitle}, #{noticeContent}, sysdate, 2)
+	</insert>
+	
+	<insert id="inNoticeToStop" parameterType="lips.admin.dto.NoticeDto">
+		INSERT INTO notice (noticeid, noticeTitle, noticeContent, createDate, noticeCategory) VALUES 
+		    (NOTICE_SEQ.nextval, #{noticeTitle}, #{noticeContent}, sysdate, 3)
+	</insert>
+	
  </mapper>  

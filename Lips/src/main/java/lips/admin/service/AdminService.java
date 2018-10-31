@@ -17,11 +17,13 @@ public interface AdminService {
 	public void oneLineNotice(String content);
 	
 	public void timeLineNotice(NoticeDto notice); 
+	
+	public void noticeToStop(NoticeDto notice);
+	
+	public void noticeToLeader(NoticeDto notice);
 
 	public String getOneLineNotice();
 
-	public void notice(NoticeDto notice);
-	
 	// User 관리
 	
 	public void closeAccount(User user);

@@ -61,18 +61,7 @@ public class AdminController {
 	   }
 	   mav.setViewName("jsonView");
 	   return mav;
-   }
-   
-   @RequestMapping(value="/notice/oneLine",method=RequestMethod.POST)
-   public ModelAndView noticeOneLine() {
-	   ModelAndView mav = new ModelAndView();
-	   
-	   mav.addObject("data", adminService.getOneLineNotice());
-	   
-	   mav.setViewName("jsonView");
-	   return mav;
-   }
-   
+   }   
   
    @RequestMapping(value="/project/chart", method=RequestMethod.GET)
    public void proChart(Model model) {

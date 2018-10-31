@@ -50,20 +50,20 @@
 						<th>삭제</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="noticeTable">
 					<c:forEach items="${nInfo }" var="nInfo">
 					<c:if test="${nInfo.noticeCategory eq 0}">
 						<tr class="text-center">
-							<td id="id">
+							<td name="noticeId">
 								${nInfo.noticeId}
 							</td>
-							<td id="title">
+							<td name="noticeTitle">
 								${nInfo.noticeTitle}
 							</td>
-							<td id="content">
+							<td name="noticeContent">
 								${nInfo.noticeContent}
 							</td>
-							<td id="delete">
+							<td name="noticeDelete">
 								<a class="btn mini">delete</a>
 							</td>
 						</tr>
@@ -137,26 +137,35 @@ $(document).ready(function() {
 			, data: {"param": "0",  
 					"noticeTitle" : $("div").children("select").val(),
 					"noticeContent" : $("div").children("textarea").val()
-			}
-			,success : function(responseData){
+			},success : function(responseData){
 				console.log("test");
 				
-				$('#id').html($("div").children("select").val());
-				$('#content').html($("div").children("textarea").val());
+// 				$('#id').html($("div").children("select").val());
+// 				$('#content').html($("div").children("textarea").val());				
 				
 				$("div").children("select").val('');
 				$("div").children("textarea").val('');
-				
+
+				updateNoticeList();
 				modalNotice.hide();
 				
-				
-				
-			}
+			} 
 		})
 	});
 	
 });
-
+function updateNoticeList(){
+	$.ajax({
+		type:"post",
+		url:"/admin/notice/updateList",
+		dataType: "json",
+		success: function(responseData){
+			$('#noticeTable').append();
+			
+			
+		}
+	});
+}
 
 function oneLineNotice(){
 	$.ajax({

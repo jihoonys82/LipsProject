@@ -24,11 +24,6 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public void notice(NoticeDto notice) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
 	public void oneLineNotice(String content) {
 		adminDao.inOneLineNotice(content);
 	}
@@ -41,6 +36,17 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public String getOneLineNotice() {
 		return adminDao.selOneLineHeader();
+	}
+	
+	@Override
+	public void noticeToStop(NoticeDto notice) {
+		
+	}
+
+	@Override
+	public void noticeToLeader(NoticeDto notice) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	@Override
@@ -181,6 +187,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		return list;
 	}
+
 
 
 }

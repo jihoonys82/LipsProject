@@ -95,44 +95,44 @@
 
 							<div class="view-form-row">
  								<label for="userMember" class="view-form-label">프로젝트 멤버</label>
- 									<c:if test="${uPInfo[0].userId ne null}"> 
- 											<c:forEach items="${uPInfo}" var="uPInfo"> 
- 												<div> 
-													<ul>
- 													<li>
-														<span id="userMember">${uPInfo.userId}</span>
-<!-- 														<input type="text" name="userMember" id="userMember" class="input view-form-input" readonly="readonly" -->
-<%-- 															value="${uPInfo.userId }"/> --%>
-													</li>
-													</ul>
-												</div>
-											</c:forEach> 								
-									</c:if>
-									<c:if test="${uPInfo[0].userId eq null}">
-										<div>
-											<input type="text" name="userMember" id="userMember" class="input view-form-input" readonly="readonly"
-												value="참여멤버 없음"/>
-											<span id="userMember">참여멤버 없음</span>
-												
-										</div> 																
-									</c:if>
+								
+								<table class='scrolltbody table classic'>
+									<thead>
+										<tr>
+											<th style="width:26.25%">#</th>
+											<th style="width:26.3%"> 아이디 </th>
+											<th style="width:26.5%"> 상태 </th>
+										</tr>
+									</thead>
+	
+									<tbody>
+										<c:if test="${uPinfo[0].userId ne null }">	
+											<%! int i =0; %>
+											<c:forEach items="${uPInfo}" var="uPInfo">
+												<% i++; %>
+												<tr id="${uPInfo.userId}">
+													<td><%=i%></td>
+													<td>${uPInfo.userId}</td>
+													<td style="text-align: center">
+														<!-- 유저객체 -->
+													</td>
+												</tr>
+												</c:forEach>
+										</c:if>
+		
+										<c:if test="${uPInfo[0].userId eq null}">
+											<tr>
+												<td> </td>
+												<td>참여멤버 없음</td>
+												<td> </td>
+											</tr>
+										</c:if>
+	
+									</tbody>
+								</table>	
+
 							</div>
 							
-						<div class="forPaging">
-							<div style="display:block; text-align:center;">
-								<div class="paging" style="width:350px;">		
-											<a href="#" class="prev" style="display:block;">Previous</a>
-											<div class="list">
-												<a href="#">1</a>
-												<a href="#" class="active">2</a>
-												<a href="#">3</a>
-												<a href="#">4</a>
-												<a href="#">5</a>
-											</div>
-											<a href="#" class="next">Next</a>
-									</div>
-							</div>
-						</div>		
 					</div> <!-- col col-5_ end  -->
 										
 				
@@ -183,7 +183,7 @@
 		<div id="bodyStop" class="property"></div>
 	</div>
 	<div class="foot">
-		<a href="#" class="btn focus">확인</a>
+		<a href="#" class="btn focus" id="btnNToStop">확인</a>
 		<a href="#" class="btn" id="btnCancel_stop">취소</a>
 	</div>
 </div>
@@ -199,7 +199,7 @@
 		<div id="bodyNotice" class="property"></div>
 	</div>
 	<div class="foot">
-		<a href="#" class="btn focus">확인</a>
+		<a href="#" class="btn focus" id="btnNToCreater">확인</a>
 		<a href="#" class="btn" id="btnCancel_notice">취소</a>
 	</div>
 </div>
@@ -277,6 +277,26 @@ $(document).ready(function() {
 	
 	$("#iCancel_notice").click(function() {
 		modalNotice.hide();
+	});
+	
+	$("#btnNToCreater").click(function() {
+		$.ajax({
+			type: "post"
+			, url: "/admin/project/view"
+			, dataType: "json"
+			, data: {"param": "notice",
+				"noticeTitle" : ${"div"}.children("select").val(),
+				"noticeContent" : ${"div"}.children("textarea").val()
+	
+			},success : function(responseData){
+				console.log("test");
+				
+				
+	
+			} 
+			
+		
+		})
 	});
 
 	var cd = document.getElementById("proProDate");

@@ -31,6 +31,10 @@ public interface AdminDao {
 	
 	public void inTimeLineNotice(NoticeDto notice);
 	
+	public void noticeToLeader(NoticeDto notice);
+	
+	public void noticeToStop(NoticeDto notice);
+	
 	public String selOneLineHeader();
 
 	/**

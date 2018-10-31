@@ -61,7 +61,7 @@ public class AdminController {
 	   }
 	   mav.setViewName("jsonView");
 	   return mav;
-   }   
+   }
   
    @RequestMapping(value="/project/chart", method=RequestMethod.GET)
    public void proChart(Model model) {

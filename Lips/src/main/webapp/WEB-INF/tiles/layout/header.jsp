@@ -45,6 +45,7 @@ $(document).ready( function() {
 		url : "/admin/notice/oneLine",
 		type : "POST",
 		success : function(responseData) {
+			console.log(responseData);
 			$('#oneLine1').html(responseData.data);
 			$('#oneLine2').html(responseData.data);
 		}

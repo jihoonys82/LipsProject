@@ -68,7 +68,6 @@ public class AdminController {
 	   ModelAndView mav = new ModelAndView();
 	   
 	   mav.addObject("data", adminService.getOneLineNotice());
-	   
 	   mav.setViewName("jsonView");
 	   return mav;
    }

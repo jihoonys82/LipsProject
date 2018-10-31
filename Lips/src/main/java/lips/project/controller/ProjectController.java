@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -137,7 +138,20 @@ public class ProjectController {
 
 	// 프로젝트 수정 페이지 프로세스
 	@RequestMapping(value = "/update/project", method = RequestMethod.POST)
-	public void projectUpdateProc(ProjectDto dto) {
+	public ModelAndView projectUpdateProc(HttpServletResponse resp, ProjectDto dto, String invitecode) {
+		resp.setContentType("application/json; charset=utf-8");
+
+		
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("jsonView");
+		service.projectUpdate(dto,invitecode);
+		mav.addObject("result","메롱");
+	
+	
+		
+		return mav;
 
 	}
 	
@@ -146,18 +160,11 @@ public class ProjectController {
 	public void projectUpdateProMemberBan(ProjectMemberDto dto, HttpServletResponse resp) {
 		
 		
-		System.out.println("하하하하");
-		System.out.println(dto.getUserId());
-		System.out.println(dto.getProjectId());
+	
 		resp.setContentType("application/json; charset=utf-8");
 		 PrintWriter out;
 		dto = service.UpdateProjectMemberBan(dto);
-		
-		
-		System.out.println("촤하하하");
-		System.out.println(dto.getUserId());
-		System.out.println(dto.getProjectId());
-		
+
 		int result = dto.getUserLevel();
 		
 		try {
@@ -179,17 +186,11 @@ public class ProjectController {
 	public void projectUpdateProMemberPardon(ProjectMemberDto dto, HttpServletResponse resp) {
 		
 		
-		System.out.println("하하하하");
-		System.out.println(dto.getUserId());
-		System.out.println(dto.getProjectId());
 		resp.setContentType("application/json; charset=utf-8");
 		 PrintWriter out;
 		dto = service.UpdateProjectMemberPardon(dto);
 		
-		
-		System.out.println("촤하하하");
-		System.out.println(dto.getUserId());
-		System.out.println(dto.getProjectId());
+
 		
 		int result = dto.getUserLevel();
 		
@@ -201,15 +202,50 @@ public class ProjectController {
 			e.printStackTrace();
 		}
 		
-		
-		
-		
+	}
+	//초대코드 재생성 프로세스
+	@RequestMapping(value = "/reinvitecode", method = RequestMethod.POST)
+	public void inviteRefresh(ProjectDto dto,HttpServletResponse resp) {
+		resp.setContentType("application/json; charset=utf-8");
+		 PrintWriter out;
+		String result = UUID.randomUUID().toString().split("-")[4]+"_"+dto.getProjectKey();
+		try {
+			
+			out = resp.getWriter();
+			out.append("{\"result\":\""+result+"\"}");
+			//int 나 map 넘길때 out.append("{\"result\":"+result+"}");
+			//string 넘길때 out.append("{\"result\":\""+result+"\"}");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
-
-	// 프로젝트 삭제 프로세스
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public void projectDeleteProc(ProjectDto dto) {
-
+	
+	
+	// 프로젝트 종료처리 프로세스
+	@RequestMapping(value = "/close", method = RequestMethod.POST)
+	public void projectDeleteProc(ProjectDto dto,HttpServletResponse resp) {
+		resp.setContentType("application/json; charset=utf-8");
+		 PrintWriter out;
+		 service.delPro(dto);
+		 
+		 
+	
+			try {
+				
+				String result = "프로젝트잘끝냈지롱";
+				out = resp.getWriter();
+				out.append("{\"result\":\""+result+"\"}");
+				
+				
+			} catch (IOException e) {
+		
+				e.printStackTrace();
+			}
+		
 	}
+	
+	
 }

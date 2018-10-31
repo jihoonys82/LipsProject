@@ -72,9 +72,8 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public int delPro(ProjectDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void delPro(ProjectDto dto) {
+		dao.UpProStatus(dto);
 	}
 
 	
@@ -145,6 +144,7 @@ public class ProjectServiceImpl implements ProjectService {
 		map.put("issuecount", adao.selIssCntOnP(dto));
 		map.put("userinfo", user);
 		map.put("projectUserinfo", dao.selProOnlyMember(dto));
+		map.put("invitecode", dao.selInvitebyProid(dto));
 		System.out.println("테스트+++"+adao.selUOnP(dto).toString());
 	
 		return map;
@@ -166,6 +166,21 @@ public class ProjectServiceImpl implements ProjectService {
 		dao.upPromemberLevelUp(dto);
 		return dto;
 
+	}
+
+
+	@Override
+	public ProjectDto projectUpdate(ProjectDto dto,String invitecode) {
+		//프로젝트 정보 업데이트
+		dao.upPro(dto);
+		
+
+		Map map = new HashMap();
+		map.put("projectId", dto.getProjectId());
+		map.put("invitecode", invitecode);
+		//초대코드 업데이트
+		dao.upProinvite(map);
+		return dao.selProbyProId(String.valueOf(dto.getProjectId()));
 	}
 
 

@@ -5,6 +5,39 @@
  <mapper namespace="lips.project.dao.ProjectDao">
  	
  	
+ 	<!-- 프로젝트 종료(프로젝트 스테이터스 close처리 -->
+ 	<update id ="UpProStatus"  parameterType="lips.project.dto.ProjectDto" >
+ 	UPDATE projectinfo SET status = 'CLOSE' WHERE projectId=#{projectId}
+ 	</update>
+ 	
+ 	
+ 	<!-- 몰라  -->
+ 	<select id="selInvitebyProid" parameterType="lips.project.dto.ProjectDto" resultType="lips.project.dto.ProjectinvitecodeDto">
+ 	SELECT * FROM Project_invitation WHERE projectId=#{projectId}
+ 	
+ 	</select>
+ 	
+ 	<!-- 프로젝트 초대코드 업데이트 -->
+ 	<update id="upProinvite" parameterType="hashmap">
+ 	UPDATE Project_invitation set invitecode = #{invitecode}
+ 	WHERE projectId=#{projectId}
+ 	</update>
+ 
+ 	
+ 	
+ 	<!-- 프로젝트 업데이트  -->
+ 	<update id="upPro" parameterType="lips.project.dto.ProjectDto">
+ 		UPDATE projectinfo SET 
+ 		projectName = #{projectName}
+ 		,projectKey = #{projectKey}
+ 		,status = #{status}
+ 		,projectOpen = #{projectOpen}
+ 		WHERE projectId=#{projectId}
+ 	
+ 	</update>
+  	
+ 	
+ 	
  	<!-- 프로젝트 멤버 업데이터(자발적으로 프로젝트 탈퇴한 이용자가 재가입) -->
  	<update id="upPromember" parameterType="lips.project.dto.ProjectMemberDto">
 		UPDATE project_member SET userlevel = 1 where userid = #{userId} 
@@ -95,8 +128,8 @@
  	<insert id="inProMember" parameterType="hashmap">
 
  		INSERT INTO project_member 
- 		(projectId,userId) VALUES
- 		(#{projectId},#{user.userId} )
+ 		(projectId,userId,userLevel) VALUES
+ 		(#{projectId},#{user.userId},1 )
  	
  	</insert>
  	

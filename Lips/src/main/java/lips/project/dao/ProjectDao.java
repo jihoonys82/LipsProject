@@ -10,6 +10,28 @@ import lips.userinfo.dto.User;
 
 public interface ProjectDao {
 	
+	/**
+	 * 
+	 * @param map(projectId & invitecode)
+	 */
+	
+	public void upProinvite(Map map); 
+	
+	
+	
+	/** ProjectDto(ProjectId)를 바탕으로 ProjectinvitecodeDto 출력
+	 * 
+	 * @param ProjectDto
+	 * @return ProjectinvitecodeDto
+	 */
+	public ProjectinvitecodeDto selInvitebyProid(ProjectDto dto); 
+	/**프로젝트 업데이트
+	 * 
+	 * @param Projectdto
+	 * @return ProjectDto
+	 */
+	public void upPro(ProjectDto dto);
+	
 	/** 프로젝트 멤버 레벨 변경(pardon= level = 1)
 	 * 
 	 * @param ProjectMemberDto
@@ -77,8 +99,5 @@ public interface ProjectDao {
 	public List selProMember(ProjectDto dto);
 	
 	
-	public int upPro(ProjectDto dto);
-	
-	
-	public int delPro(ProjectDto dto);
+	public void UpProStatus(ProjectDto dto);
 }

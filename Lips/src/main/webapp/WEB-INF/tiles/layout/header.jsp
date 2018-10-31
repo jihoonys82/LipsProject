@@ -42,7 +42,7 @@
 <script>
 $(document).ready( function() {
 	$.ajax({
-		url : "/admin/notice/oneLine",
+		url : "/alarm/notice/oneLine",
 		type : "POST",
 		success : function(responseData) {
 			$('#oneLine1').html(responseData.data);

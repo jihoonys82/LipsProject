@@ -1,14 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html;" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <div class="navbar header"  >
 	<div class="headerLogo" style="display:flex;">
 		<img src="/resources/img/logo.png" alt="logo" width="100" height="50" onclick="goMain()">
-		<div class="marquee">
+		<div class="marquee" style="height:40px;">
   			<div>
-    			<span id="oneLine1"></span>
-    			<span id="oneLine2"></span>
+    			<span class="glow" id="oneLine1" style="font-size: large;"></span>
+    			<span class="glow" id="oneLine2" style="font-size: large;"></span>
   			</div>
 		</div>
 		<script>function goMain(){window.location.href= '/main';}</script>
@@ -90,8 +89,12 @@ var alarmManager = new function(){
 			options = {body	: "진행중인 이슈에 대한 새로운 변경사항이 있습니다."}
 		}else if(data.content=="comment"){
 			options = {body	: "진행중인 이슈에 새로운 댓글이 달렸습니다."}
+		}else if(data.content=="updateFollow"){
+			options = {body	: "팔로잉한 이슈에 대한 새로운 변경사항이 있습니다."}
+		}else if(data.content=="commentFollow"){
+			options = {body	: "팔로잉한 이슈에 새로운 댓글이 달렸습니다."}
 		}else{
-			options = {body	: ""}
+			
 		}
 		function callback(){
 			location.href='/issue/detail?issueId='+data.issueId;

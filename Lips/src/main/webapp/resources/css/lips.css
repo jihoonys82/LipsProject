@@ -232,10 +232,11 @@ body {
 
 /* Project */
 .marquee {
-  height: 25px;
+  top: 10px;
   width: 80%;
   overflow: hidden;
   position: relative;
+  margin: 0 auto;
 }
 
 .marquee div {

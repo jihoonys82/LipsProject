@@ -3,6 +3,7 @@ package lips.dashboard.dao;
 import java.util.List;
 
 import lips.card.dto.CardDto;
+import lips.dashboard.dto.DashBoardAssetDto;
 import lips.dashboard.dto.DashBoardDto;
 
 public interface DashBoardDao {
@@ -25,5 +26,17 @@ public interface DashBoardDao {
 	 * @return List<CardDto>
 	 */
 	public List<CardDto> selAllCardList();
+	
+	public void insertDashBoard(DashBoardDto dto);
+	
+	public DashBoardAssetDto selectAssetId(DashBoardAssetDto dto);
+	
+	public int selectUserAssetCount(DashBoardAssetDto dto);
+	
+	public void deletUserAssetDataBydashId(DashBoardAssetDto dto);
+	
+	public void updateUserAssetData(DashBoardAssetDto dto);
+	
+	public void insertUserAssetData(DashBoardAssetDto dto);
 	
 }

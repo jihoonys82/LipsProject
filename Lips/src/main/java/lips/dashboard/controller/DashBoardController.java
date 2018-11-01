@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,8 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import lips.card.dto.CardDto;
 import lips.dashboard.dto.DashBoardDto;
 import lips.dashboard.service.DashBoardService;
-import net.sf.json.JSON;
-import net.sf.json.JSONObject;
 
 
 @Controller
@@ -69,17 +66,20 @@ public class DashBoardController {
 		mav.setViewName("dashboard/dashcustom");
 		return mav;
 	}
-	
-	
-	
 	@RequestMapping(value = "/dashsave", method = RequestMethod.POST)
-	public ModelAndView dashCustomSaveProc(String data) {
+	public ModelAndView dashCustomSaveProc(String saveData) {
 		ModelAndView mav = new ModelAndView();
 		Map<String, String> dataMap = new HashMap<>();
 		
-		dataMap = dbsvc.splitData(data);
+		dataMap = dbsvc.splitData(saveData);
+		String projectId = dataMap.get("projectId");
+		int dashboardId = dbsvc.getDashBoardId(dataMap);
+		dbsvc.insertData(dataMap , dashboardId);
 		
-		mav.setViewName("dashboard/dashcustom");
+		System.out.println("dataMap"+ dataMap);
+//		projectId="+dataMap.get("projectId")
+	
+		mav.setViewName("redirect:/dashboard/dashview?projectId="+projectId);
 		return mav;
 	}
 }

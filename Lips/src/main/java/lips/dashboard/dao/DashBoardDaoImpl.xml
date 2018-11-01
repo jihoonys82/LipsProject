@@ -21,4 +21,35 @@
 		FROM Dashboard_asset
 		ORDER BY assetid
 	</select>
+	<insert id="insertDashBoard" parameterType="lips.dashboard.dto.DashBoardDto">
+		INSERT INTO dashboard(dashboardId,projectId,userId,dashboardName)
+		VALUES (Dashboard_SEQ.NEXTVAL , #{projectId} , #{userId} , #{dashboardName})
+	</insert>
+	
+	<select id="selectAssetId" parameterType="lips.dashboard.dto.DashBoardAssetDto" resultType="lips.dashboard.dto.DashBoardAssetDto">
+		SELECT assetid 
+		FROM Dashboard_asset
+		WHERE assetview=#{assetView}
+	</select>
+	
+	<select id="selectUserAssetCount" parameterType="lips.dashboard.dto.DashBoardAssetDto" resultType="Integer">
+		SELECT 
+		COUNT(*)
+		FROM Dashboard_user_asset
+		WHERE dashboardid=#{dashboardId} AND positionx=#{positionX} AND positiony=#{positionY}
+	</select>
+	<delete id="deletUserAssetDataBydashId" parameterType="lips.dashboard.dto.DashBoardAssetDto">
+		DELETE 
+		FROM Dashboard_user_asset
+		WHERE dashboardid=#{dashboardId}
+	</delete>
+	<update id="updateUserAssetData" parameterType="lips.dashboard.dto.DashBoardAssetDto">
+		UPDATE Dashboard_user_asset
+		SET assetid=#{assetId}
+		WHERE dashboardid=#{dashboardId} AND positionx=#{positionX} AND positiony=#{positionY}  
+	</update>
+	<insert id="insertUserAssetData" parameterType="lips.dashboard.dto.DashBoardAssetDto">
+		INSERT INTO Dashboard_user_asset(dashboardid, assetid, positionx, positiony)
+		VALUES(#{dashboardId},#{assetId},#{positionX},#{positionY})
+	</insert>
 </mapper>

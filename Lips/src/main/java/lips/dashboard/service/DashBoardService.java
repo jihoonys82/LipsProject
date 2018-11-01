@@ -15,5 +15,9 @@ public interface DashBoardService {
 	public List<CardDto> AllCardList();
 	
 	public Map<String, String> splitData(String data);
+	
+	public int getDashBoardId(Map<String, String> dataMap);
+	
+	public void insertData(Map<String, String> dataMap ,int dashboardId);
 
 }

@@ -4,7 +4,7 @@
 
 <div>
 	<c:forEach items="${selCard}" var="Card" >
-		<div>
+		<div >
 		<c:set value="${Card.assetView}" var="url"/>
 			<c:import url="${url }?dashboardId=${Card.dashboardId}&positionX=${Card.positionX }&positionY=${Card.positionY}"/>
 		</div>

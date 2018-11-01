@@ -19,7 +19,7 @@
  	<insert id="inUser" parameterType="lips.userinfo.dto.User">
  		INSERT INTO userinfo VALUES(#{userId }, #{email},#{pw }, sysdate, #{nick }, 0, 1, #{phone }, #{birth } ) 		
  	</insert>
- 	<insert id="inUserAlarm" parameterType="lips.user.info.dto.User">
+ 	<insert id="inUserAlarm" parameterType="lips.userinfo.dto.User">
  		INSERT INTO alarm values(#{userId}, sysdate)
  	</insert>
  	<update id="upUserData" parameterType="lips.userinfo.dto.User">

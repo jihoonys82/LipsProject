@@ -32,6 +32,7 @@ public class CustomeUserDetailsService implements UserDetailsService {
 
 	public void join(User user) {
 		dao.inUser(user);
+		dao.inUserAlarm(user);
 	}
 
 	public boolean checkId(User user) {

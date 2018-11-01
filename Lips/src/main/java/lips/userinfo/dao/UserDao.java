@@ -22,6 +22,11 @@ public interface UserDao {
 	 */
 	public void inUser(User user);
 	/**
+	 * 알람 서버 
+	 * @param user
+	 */
+	public void inUserAlarm(User user);
+	/**
 	 * 아이디 중복확인
 	 * @param user
 	 * @return int

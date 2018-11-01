@@ -8,7 +8,11 @@
  		UNION
  		select (select 'update' from dual) as content,issueId, modifyDate as lastReq from issue where assignee = #{userId } and modifyDate > #{lastReq } 
  		UNION
- 		SELECT (select 'comment' from dual), i.issueId, c.createDate as lastReq FROM issue_comment c, issue i WHERE i.issueId = c.issueId AND i.assignee =#{userId } AND c.createDate > #{lastReq } order by LastReq desc
+ 		SELECT (select 'comment' from dual) as content, i.issueId, c.createDate as lastReq FROM issue_comment c, issue i WHERE i.issueId = c.issueId AND i.assignee =#{userId } AND c.createDate > #{lastReq } 
+ 		UNION
+ 		SELECT (select 'updateFollow' from dual)as content, I.issueId, I.modifyDate as lastReq FROM issue I, issue_watcher W WHERE I.issueid = W.issueId AND W.userId = #{userId} AND I.modifyDate > #{lastReq} 
+ 		UNION
+ 		SELECT (select 'commentFollow' from dual)as content, I.issueId, C.createDate as lastReq FROM issue_comment C, issue I, issue_watcher W WHERE I.issueId = C.issueId AND I.issueId = W.issueId AND C.issueId = W.issueID AND W.userId = #{userId} AND C.createDate > #{lastReq} order by LastReq desc
  	</select>
  	<update id="upLastReq" parameterType="lips.alarm.dto.Alarm" >
  		update alarm set lastRequest = #{lastReq } where userId = #{userId } 

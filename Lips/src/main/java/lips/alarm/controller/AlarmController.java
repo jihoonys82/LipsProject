@@ -30,7 +30,7 @@ public class AlarmController {
 		ModelAndView mav = new ModelAndView();
 		
 		List<Alarm> list = as.getNewAlarm(alarm);
-		
+
 		mav.addObject("data", list);
 		mav.setViewName("jsonView");
 		return mav;
@@ -39,9 +39,8 @@ public class AlarmController {
 	   @RequestMapping(value="/notice/oneLine",method=RequestMethod.POST)
 	   public ModelAndView noticeOneLine() {
 		   ModelAndView mav = new ModelAndView();
-		   
-		   mav.addObject("data", adminService.getOneLineNotice());
-		   
+		   String oneLine = adminService.getOneLineNotice();
+		   mav.addObject("data", oneLine);
 		   mav.setViewName("jsonView");
 		   return mav;
 	   }

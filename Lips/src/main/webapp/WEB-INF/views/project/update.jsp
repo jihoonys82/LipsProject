@@ -7,12 +7,9 @@
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
 <style>
 
-.active {
-    background: #835acc;
-}
 .scrolltbody {
     display: block;
-    width: 400px;
+    width: 320px;
     border-collapse: collapse;
 }
 .scrolltbody th { border: 1px solid #000; background: pink; }
@@ -22,10 +19,11 @@
     height: 200px;
     overflow: auto;
 }
-.scrolltbody th:nth-of-type(1), .scrolltbody td:nth-of-type(1) { width: 120px; }
-.scrolltbody th:nth-of-type(2), .scrolltbody td:nth-of-type(2) { width: 120px; }
-.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) { width: 120px; }
-.scrolltbody th:last-child { width: 100px; }
+.scrolltbody th:nth-of-type(1), .scrolltbody td:nth-of-type(1) { width: 40px; }
+.scrolltbody th:nth-of-type(2), .scrolltbody td:nth-of-type(2) { width: 40px; }
+.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) { width: 80px; }
+.scrolltbody th:nth-of-type(4), .scrolltbody td:nth-of-type(4) { width: 100px; }
+.scrolltbody th:last-child { width: 100px }
 .scrolltbody td:last-child { width: calc( 100px - 19px );  }
 
 
@@ -91,7 +89,7 @@
 <div class="row">
 	<div class="h3 issueHeading">프로젝트 관리</div>
 	<div class="panel myIssue">
-		<div class="head">
+		<div class="head" id="head">
 			<strong>[${updatePageinfo.projectinfo.projectKey}]${updatePageinfo.projectinfo.projectName}</strong>
 		</div>
 
@@ -200,7 +198,7 @@
 									<label for="proProInviteCode" class="view-form-label">프로젝트 초대 코드</label> 
 									<div id="combo_2" class="combo">
 										<a class="btn" id="invitecode"
-											style="width: 13em; border-color: #4f4f4f; background: #2a2a2a; color: white !important;">
+											style="width: 20em; border-color: #4f4f4f; background: #2a2a2a; color: white !important;">
 											${updatePageinfo.invitecode.inviteCode }</a> <a class="btn toggle" id="inviteRefresh"><i
 										class="icon-refresh"></i></a>
 						
@@ -234,19 +232,20 @@
 <table class='scrolltbody table classic'>
 	<thead>
 		<tr>
-			<th style="width:26.25%">#</th>
-			<th style="width:26.3%"> 아이디 </th>
-			<th style="width:26.5%"> 상태 </th>
+			<th>#</th>
+			<th> 아이디 </th>
+			<th> 상태 </th>
+			<th> 관리</th>
 			<th> 관리</th>
 		</tr>
 	</thead>
 	
 	<tbody>
-		<%! int i =0; %>
-		<c:forEach items="${updatePageinfo.projectUserinfo}" var="pminfo">
-			<% i++; %>
+		
+		<c:forEach items="${updatePageinfo.projectUserinfo}" var="pminfo" varStatus="a">
+		
 			<tr id="${pminfo.userId }">
-				<td><%=i%></td>
+				<td>${a.index +1 }</td>
 				<td>${pminfo.userId}</td>
 				<td>
 					<c:if test="${pminfo.userLevel eq '-1'}">프로젝트 탈퇴</c:if>
@@ -254,7 +253,7 @@
 					<c:if test="${pminfo.userLevel eq '1'}">참여중</c:if>
 					<c:if test="${pminfo.userLevel eq '2'}">프로젝트리더</c:if>
 				</td>
-				<td style="text-align: center" >
+				<td>
 					<c:set var="usercheck" value="${updatePageinfo.projectinfo.projectLeader }" />
 					<c:choose>
 						<c:when test="${pminfo.userId eq usercheck }"> <button id ="itsme=" class="btn focus">Leader</button></c:when>
@@ -267,8 +266,11 @@
 					</c:choose>
 						<!-- 20181029 1.버튼 -유저레벨 변경 에이잭스로 처리  -->
 				</td>
+				<td>
+				<button class="btn focus leader" onclick="leader(this)" value="${pminfo.userId}">리더 위임</button>
+				</td>
+			
 			</tr>
-		
 		</c:forEach>
 
 	</tbody>
@@ -328,28 +330,44 @@
 
 
 
-<!-- 20181101 모달이 아래쪽에서 계속 보이는문제 -->
-<!-- 남은 과제 : 리더넘기기 작업 -->
-  <!-- 윈도우모달 -->
+
+  <!-- 윈도우모달  종료처리 -->
    
-   <div id="win_2" class="window">
+<div id="win_2" class="window">
     <div class="head">
-        <div class="left"></div>
-     
+        <div class="left">ProjectClose</div>
+        <div class="right">
+            <a href="#" class="close"><i class="icon-exit"></i></a>
+        </div>
     </div>
- 
-      <div class="body" style="text-align:center;">
-      <div id="modalsr" style="text-align:center; margin : 1em auto"><p>프로젝트 생성에 성공하였습니다.</p><p>프로젝트 참가 코드 </p></div>
-         
-             <button id="invitecopy"class="btn focus" style="float: right; bottom: 3.5em; right: 6.5em;"> Copy </button>
-         <div style="text-align: center; margin-top: 45px;">
-            <a class="btn large focus" href="/project/main">확인</a> 
-         </div>
-      </div>
-   
+    <div class="body" style="text-align:center; font-size :1.5em" >
+        <br><h5>정말 해당 프로젝트를 종료처리 하시겠습니까? </h5><h5>프로젝트를 종료처리하시면 다시는 되돌릴 수 없습니다.</h5>
+    </div>
+    <div class="foot" align="center">
+        <a href="#" class="btn focus" id="modalProjectClose">예 종료처리하겠습니다.</a> <a href="#" class="btn" id="jucancel">아니오 취소할게요.</a>
+    </div>
 </div>
 	<!-- 윈도우 모달 끝  -->
 
+  <!-- 윈도우모달 프로젝트리더넘기기 -->
+   
+<div id="win_3" class="window">
+    <div class="head">
+        <div class="left"><span>경고</span></div>
+        <div class="right">
+            <a href="#" class="close"><i class="icon-exit"></i></a>
+        </div>
+    </div>
+    <div class="body" style="text-align:center; font-size :1.5em" >
+        <br><h5>프로젝트 리더를 변경하시겠습니까? </h5><h5>
+        프로젝트 리더를 위임하시면 더 이상 프로젝트 관리페이지를 확인할 수 없습니다.</h5>
+    </div>
+    <div class="foot" align="center">
+        <a href="#" class="btn focus" id="modalProjectLeader">예 새로운 프로젝트 리더가 필요합니다.</a> 
+        <a href="#" class="btn" id="leadercancel">아니오 취소할게요.</a>
+    </div>
+</div>
+	<!-- 윈도우 모달 끝  -->
 
 
 
@@ -368,17 +386,74 @@
 <script type="text/javascript">
 var status = "${updatePageinfo.projectinfo.status}";
 var projectOpen = "${updatePageinfo.projectinfo.projectOpen}";
+var userId;
 
 	$(document).ready(function() {
-		//프로젝트 종료처리
-			
-				$("#ProjectClose").click(function() {
+		
+		$("#jucancel").click(function(){
+			win_2.hide();
+		});
+		
+		$("#ProjectClose").click(function() {
+			   win_2.show();
+			});
+      
+		$(".leader").click(function(){
+			userId = $(this).val();
+			console.log(userId);
+			win_3.show();
+		});
+		
+		// 이상하게 요게 안먹네 그래서 위에걸로 대체
+// 		function leader(dom){
+// 			userId = dom.value;
+// 			 win_3.show();
+// 		}
+		
+		$("#leadercancel").click(function(){
+			win_3.hide();
+		});
+		
+		//////////////
+
+$("#modalProjectLeader").click(function() {
+	var projectId = '${param.projectId}';
+	
+$.ajax({
+type : "post"
+	, url : "/project/update/leader"
+	, beforesend: function(){}
+	, data : {
+			"projectId": projectId,
+			"userId" : userId
+	}
+	, dataType: "json"
+	, success : function(data) {
+		console.log("프로젝트 종료 성공");
+// 		 win_3.hide();
+		 alert("새로운 프로젝트 리더가 등록되었습니다.");	
+		 $(location).attr('href', '/project/main');
+		
+		
+	
+	}
+	, error : function() {console.log("프로젝트 종료 처리 실패");}
+  })
+});
+
+		////////////
+		
+		
+		
+		
+		//프로젝트 종료처리	
+				$("#modalProjectClose").click(function() {
 					var projectId = '${param.projectId}';
 			$.ajax({
 				type : "post"
 					, url : "/project/close"
 					, beforesend: function(){
-						 win_2.show();
+						
 						
 					}
 					, data : {
@@ -391,7 +466,9 @@ var projectOpen = "${updatePageinfo.projectinfo.projectOpen}";
 					
 						 $("#button_2").html("<span>프로젝트 종료</span>");
 						 $("#closemama").html("");
-// 					
+						 win_2.hide();
+						 alert("해당 프로젝트가 종료처리 되었습니다.");	
+			
 						
 						
 					
@@ -459,7 +536,11 @@ var projectOpen = "${updatePageinfo.projectinfo.projectOpen}";
 					, success : function(data) {
 // 						console.log("프로젝트 업데이트 성공");
 // 						console.log(data.result);
-						alert("프로젝트 정보를 수정하였습니다.");
+// 					$("#head").html("<strong>["+data.ProjectKey"]"+data.ProjectName"</strong>");
+					$("#head").html("<strong>"+"["+data.ProjectKey+"]"+data.ProjectName+"</strong>");
+							alert("프로젝트 정보를 수정하였습니다.");
+// 							
+						
 						
 						
 					
@@ -550,6 +631,9 @@ var projectOpen = "${updatePageinfo.projectinfo.projectOpen}";
 	
 	}
 	jui.ready([ "ui.button" ], function(button) {
+		
+		
+		
 	    button_1 = button("#button_1", {
 	        type: "radio",
 	        index: ${updatePageinfo.projectinfo.projectOpen},
@@ -602,13 +686,24 @@ var projectOpen = "${updatePageinfo.projectinfo.projectOpen}";
 	        }
 	    });
 	    
+	   
+	    
+	});
+	
+	jui.ready([ "ui.window" ], function(win) {
 	    win_2 = win("#win_2", {
 	        width: 500,
 	        height: 300,
 	        modal: true
 	    });
 	    
+	    win_3 = win("#win_3", {
+	        width: 500,
+	        height: 300,
+	        modal: true
+	    });
 	});
+
 	
 </script>
 

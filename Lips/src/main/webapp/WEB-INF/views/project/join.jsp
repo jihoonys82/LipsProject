@@ -70,7 +70,7 @@ $(document).ready(function() {
 					$(location).attr('href', '/project/main');
 					} else if(data.result==4) {
 					alert("가입 되었습니다(재가입).")	
-					$(location).attr('href', '/project/main')
+					$(location).attr('href', '/project/main');
 // 					$(location).attr('href', '/project/main?projectId=' + ivCode )
 					} else if(data.result==5) {
 						alert("해당 프로젝트에 접근할 수 없습니다.")	

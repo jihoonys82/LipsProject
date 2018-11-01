@@ -20,5 +20,6 @@ public interface ProjectService {
 	public int joinPro(ProjectDto dto,User user);
 	public Map updatepage(ProjectDto dto,User user);
 	public ProjectDto projectUpdate(ProjectDto dto,String invitecode);
+	public void leaderAuthorize(ProjectDto dto);
 
 }

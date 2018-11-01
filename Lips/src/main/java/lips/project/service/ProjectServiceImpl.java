@@ -184,6 +184,13 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 
+	@Override
+	public void leaderAuthorize(ProjectDto dto) {
+		dao.upProLeader(dto);
+		
+	}
+
+
 
 
 		

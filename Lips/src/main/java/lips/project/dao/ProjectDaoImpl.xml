@@ -4,6 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="lips.project.dao.ProjectDao">
  	
+ 	<!-- 리더위임 -->
+ 	<update id ="upProLeader"  parameterType="lips.project.dto.ProjectDto" >
+ 	UPDATE projectinfo SET projectleader = #{userId} WHERE projectId=#{projectId}
+ 	</update>
+ 	
+ 	
  	
  	<!-- 프로젝트 종료(프로젝트 스테이터스 close처리 -->
  	<update id ="UpProStatus"  parameterType="lips.project.dto.ProjectDto" >

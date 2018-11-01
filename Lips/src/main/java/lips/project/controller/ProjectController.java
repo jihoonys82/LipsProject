@@ -147,7 +147,8 @@ public class ProjectController {
 		
 		mav.setViewName("jsonView");
 		service.projectUpdate(dto,invitecode);
-		mav.addObject("result","메롱");
+		mav.addObject("ProjectKey",dto.getProjectKey());
+		mav.addObject("ProjectName",dto.getProjectName());
 	
 	
 		
@@ -247,5 +248,29 @@ public class ProjectController {
 		
 	}
 	
+	
+	// 프로젝트 리더넘기기 프로세스
+	@RequestMapping(value = "/update/leader", method = RequestMethod.POST)
+	public void projectLeader(ProjectDto dto,HttpServletResponse resp) {
+		resp.setContentType("application/json; charset=utf-8");
+		 PrintWriter out;
+		
+		 service.leaderAuthorize(dto);
+		 
+		 
+	
+			try {
+				
+				String result = "프로젝트 리떠 위임 짤 했찌롱~";
+				out = resp.getWriter();
+				out.append("{\"result\":\""+result+"\"}");
+				
+				
+			} catch (IOException e) {
+		
+				e.printStackTrace();
+			}
+		
+	}
 	
 }

@@ -123,7 +123,7 @@
 								<td>중단</td>
 							</c:when>
 							<c:when test="${pList.status eq 'CLOSE'}">
-								<td>완료</td>
+								<td>종료</td>
 							</c:when>
 							<c:otherwise>
 								<td>알 수 없음</td>

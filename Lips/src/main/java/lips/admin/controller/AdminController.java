@@ -155,35 +155,42 @@ public class AdminController {
    public void proDetailView(Model model, ProjectDto project) {
 	   logger.info("프로젝트 상세 페이지");
 	   
+	   ModelAndView mav = new ModelAndView();
+	   
 	   ProjectDto proInfo = adminService.getProInfo(project);
 	   List<ProjectDto> uPInfo = adminService.getUOnP(project);
 	   
 	   List<Integer> pList = adminService.getNumOfPInfo(project);
-	   HashMap<String, String> pTime = adminService.getElapsedTime(project);
+//	   HashMap<String, String> pTime = adminService.getElapsedTime(project);
 	   
 	   model.addAttribute("proInfo", proInfo);
 	   model.addAttribute("uPInfo",uPInfo);
 	   model.addAttribute("pList",pList);
-	   model.addAttribute("pTime",pTime);
+//	   model.addAttribute("pTime",pTime);
 
 //	   ProjectDto projectinfo = adminService.getProInfo(project);
 //	   model.addAttribute("proInfo",projectinfo);
 	   
    }
    
+   
    @RequestMapping(value="/project/view", method=RequestMethod.POST)
-   public ModelAndView projectClose(Model model, ProjectDto project, String param) {
+   public ModelAndView projectManage(Model model, ProjectDto project, String param, NoticeDto notice) {
 		logger.info("프로젝트 상세 페이지_정지 & 재개");
 		ModelAndView mav = new ModelAndView();
 		
 		if(param.equals("restart")) {
 			adminService.restartProject(project);
+			
 		} else if(param.equals("stop")) {
+			adminService.noticeToStop(notice);
 			adminService.stopProject(project);
+			
 		} else if(param.equals("finish")) {
 			adminService.finishProject(project);
-		} else if(param.equals("notice")) {
 			
+		} else if(param.equals("leader")) {
+			adminService.noticeToLeader(notice);
 		}
 		
 		String status = project.getStatus();

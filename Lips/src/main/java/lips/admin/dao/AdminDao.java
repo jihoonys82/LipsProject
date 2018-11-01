@@ -24,17 +24,29 @@ public interface AdminDao {
 	public void inNotice(NoticeDto notice);
 	
 	/**
-	 * 	한 줄 공지 DB에 저장
+	 * 	1 : 한 줄 공지 DB에 저장
 	 * @param content
 	 */
 	public void inOneLineNotice(String content);
 	
 	public void inTimeLineNotice(NoticeDto notice);
 	
-	public void noticeToLeader(NoticeDto notice);
+	/**
+	 * 	2 : 프로젝트 리더에게 공지 
+	 * @param notice
+	 */
+	public void inNoticeToLeader(NoticeDto notice);
 	
-	public void noticeToStop(NoticeDto notice);
+	/**
+	 *  3 : 프로젝트 정지 사유 공지 
+	 * @param notice
+	 */
+	public void inNoticeToStop(NoticeDto notice);
 	
+	/**
+	 *   최신 한줄공지 select 
+	 * @return
+	 */
 	public String selOneLineHeader();
 
 	/**

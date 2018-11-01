@@ -40,18 +40,17 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	public void noticeToStop(NoticeDto notice) {
-		
+		adminDao.inNoticeToStop(notice);
 	}
 
 	@Override
 	public void noticeToLeader(NoticeDto notice) {
-		// TODO Auto-generated method stub
-		
+		adminDao.inNoticeToLeader(notice);
 	}
 	
 	@Override
 	public void closeAccount(User user) {
-		adminDao.upUserAccClose(user);;
+		adminDao.upUserAccClose(user);
 	}
 
 	@Override

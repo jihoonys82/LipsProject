@@ -146,7 +146,7 @@ $(document).ready(function() {
 				$("div").children("select").val('');
 				$("div").children("textarea").val('');
 
-				updateNoticeList();
+// 				updateNoticeList();
 				modalNotice.hide();
 				
 			} 
@@ -154,18 +154,19 @@ $(document).ready(function() {
 	});
 	
 });
-function updateNoticeList(){
-	$.ajax({
-		type:"post",
-		url:"/admin/notice/updateList",
-		dataType: "json",
-		success: function(responseData){
-			$('#noticeTable').append();
+
+// function updateNoticeList(){
+// 	$.ajax({
+// 		type:"post",
+// 		url:"/admin/notice/updateList",
+// 		dataType: "json",
+// 		success: function(responseData){
+// 			$('#noticeTable').append();
 			
 			
-		}
-	});
-}
+// 		}
+// 	});
+// }
 
 function oneLineNotice(){
 	$.ajax({

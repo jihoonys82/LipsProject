@@ -1,5 +1,7 @@
 package lips.card.dao;
 
+
+import java.util.Date;
 import java.util.List;
 
 import lips.card.dto.CardDto;
@@ -18,11 +20,19 @@ public interface CardDao {
 	 * @return String
 	 */
 	public String selCardValueDto(CardDto dto);
+	
 	/**
 	 * Dashboard_asset 에서 모든 카드 리스트를 출력한다
 	 * @return List<CardDto>
 	 */
 	public List<CardDto> selAllCardList();
+	
+	/*
+	 * projectId 로 projectinfo 를 조회후 closedate를 출력
+	 * @param Integer
+	 * @return Date
+	 * */
+	public Date selprojectDeadLinebyprojectId(CardDto dto);
 	
 	
 	

@@ -1,5 +1,7 @@
 package lips.card.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +64,23 @@ public class CardServiceImpl implements CardService {
 		
 		mav.addObject("issueStage", issueDao.selStageAsset());
 		mav.setViewName("card/card3");
+		return mav;
+	}
+
+	@Override
+	public ModelAndView setCard5ProjectEnddate(CardDto dto) {
+		ModelAndView mav = new ModelAndView();
+
+		Date date = dao.selprojectDeadLinebyprojectId(dto);
+		SimpleDateFormat parseDate = new SimpleDateFormat("yyyy/MM/dd");
+		String deadLine = parseDate.format(date);
+		
+		System.out.println("+++++++++++++++++++++++++++++++++++++++"+deadLine);
+		mav.addObject("deadLine", deadLine);
+		mav.setViewName("card/card5");
+		
+//		"May 9, 2017 06:00:00"
+		
 		return mav;
 	}
 

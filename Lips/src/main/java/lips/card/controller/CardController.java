@@ -28,6 +28,7 @@ public class CardController {
 	public ModelAndView cardController(
 			@RequestParam(required=false,defaultValue="0") int positionX ,
 			@RequestParam(required=false,defaultValue="0") int dashboardId,
+			@RequestParam(required=false,defaultValue="0") int projectId,
 			CardDto dto
 			) {
 		ModelAndView mav = new ModelAndView();
@@ -35,6 +36,7 @@ public class CardController {
 			List<CardDto> selCard = new ArrayList<CardDto>();
 			selCard = csvc.YLocationList(dto);
 			mav.addObject("selCard", selCard);
+			mav.addObject("projectId",projectId);
 			mav.setViewName("card/cardcontroll");
 			
 		}else {
@@ -80,6 +82,7 @@ public class CardController {
 			@RequestParam(required=false,defaultValue="0") int dashboardId,
 			@RequestParam(required=false,defaultValue="0") int positionX ,
 			@RequestParam(required=false,defaultValue="0") int positionY,
+			@RequestParam(required=false,defaultValue="0") int projectId,
 			CardDto dto
 			) {
 		
@@ -99,6 +102,7 @@ public class CardController {
 			@RequestParam(required=false,defaultValue="0") int dashboardId,
 			@RequestParam(required=false,defaultValue="0") int positionX ,
 			@RequestParam(required=false,defaultValue="0") int positionY,
+			@RequestParam(required=false,defaultValue="0") int projectId,
 			CardDto dto
 			) {
 		ModelAndView mav = new ModelAndView();
@@ -114,6 +118,7 @@ public class CardController {
 			@RequestParam(required=false,defaultValue="0") int dashboardId,
 			@RequestParam(required=false,defaultValue="0") int positionX ,
 			@RequestParam(required=false,defaultValue="0") int positionY,
+			@RequestParam(required=false,defaultValue="0") int projectId,
 			CardDto dto
 			) {
 		ModelAndView mav = new ModelAndView();
@@ -129,6 +134,7 @@ public class CardController {
 			@RequestParam(required=false,defaultValue="0") int dashboardId,
 			@RequestParam(required=false,defaultValue="0") int positionX ,
 			@RequestParam(required=false,defaultValue="0") int positionY,
+			@RequestParam(required=false,defaultValue="0") int projectId,
 			CardDto dto
 			) {
 		ModelAndView mav = new ModelAndView();
@@ -145,13 +151,12 @@ public class CardController {
 			@RequestParam(required=false,defaultValue="0") int dashboardId,
 			@RequestParam(required=false,defaultValue="0") int positionX ,
 			@RequestParam(required=false,defaultValue="0") int positionY,
+			@RequestParam(required=false,defaultValue="0") int projectId,
 			CardDto dto
 			) {
 		ModelAndView mav = new ModelAndView();
-		String CardValue = csvc.CardValue(dto);
-		mav.addObject("cardvalue", CardValue);
 		
-		mav.setViewName("card/card5");
+		mav = csvc.setCard5ProjectEnddate(dto);
 		
 		return mav;
 	}
@@ -161,6 +166,7 @@ public class CardController {
 			@RequestParam(required=false,defaultValue="0") int dashboardId,
 			@RequestParam(required=false,defaultValue="0") int positionX ,
 			@RequestParam(required=false,defaultValue="0") int positionY,
+			@RequestParam(required=false,defaultValue="0") int projectId,
 			CardDto dto
 			) {
 		ModelAndView mav = new ModelAndView();
@@ -177,6 +183,7 @@ public class CardController {
 			@RequestParam(required=false,defaultValue="0") int dashboardId,
 			@RequestParam(required=false,defaultValue="0") int positionX ,
 			@RequestParam(required=false,defaultValue="0") int positionY,
+			@RequestParam(required=false,defaultValue="0") int projectId,
 			CardDto dto
 			) {
 		ModelAndView mav = new ModelAndView();
@@ -193,6 +200,7 @@ public class CardController {
 			@RequestParam(required=false,defaultValue="0") int dashboardId,
 			@RequestParam(required=false,defaultValue="0") int positionX ,
 			@RequestParam(required=false,defaultValue="0") int positionY,
+			@RequestParam(required=false,defaultValue="0") int projectId,
 			CardDto dto
 			) {
 		ModelAndView mav = new ModelAndView();
@@ -209,6 +217,7 @@ public class CardController {
 			@RequestParam(required=false,defaultValue="0") int dashboardId,
 			@RequestParam(required=false,defaultValue="0") int positionX ,
 			@RequestParam(required=false,defaultValue="0") int positionY,
+			@RequestParam(required=false,defaultValue="0") int projectId,
 			CardDto dto
 			) {
 		ModelAndView mav = new ModelAndView();

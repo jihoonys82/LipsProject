@@ -6,7 +6,7 @@
 	<c:forEach items="${selCard}" var="Card" >
 		<div >
 		<c:set value="${Card.assetView}" var="url"/>
-			<c:import url="${url }?dashboardId=${Card.dashboardId}&positionX=${Card.positionX }&positionY=${Card.positionY}"/>
+			<c:import url="${url }?dashboardId=${Card.dashboardId}&positionX=${Card.positionX }&positionY=${Card.positionY}&projectId=${projectId}"/>
 		</div>
 	</c:forEach>
 </div>

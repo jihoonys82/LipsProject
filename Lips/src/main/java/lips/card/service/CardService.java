@@ -17,5 +17,7 @@ public interface CardService {
 	public ModelAndView setIssueDeadLine(User user);
 	
 	public ModelAndView setIssueMostFollowed(User user);
+	
+	public ModelAndView setCard5ProjectEnddate(CardDto dto);
 
 }

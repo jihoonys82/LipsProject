@@ -26,7 +26,7 @@ $(document).ready(function(){
 		.css("height", "100%")
 		.css("float", "left")
 // 		.css("border", "1px solid white")
-		.load("/card/cardcontroll?dashboardId=${dashBoardId}&positionX="+positionX);
+		.load("/card/cardcontroll?dashboardId=${dashBoardId}&positionX="+positionX+"&projectId=${projectId}");
 		$("#divbase").append( $div);
 	}
 });

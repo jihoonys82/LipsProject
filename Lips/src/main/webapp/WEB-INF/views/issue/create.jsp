@@ -274,6 +274,7 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 					<input type="hidden" name="customValues" id="customValues" class="input issue-form-input" value="" />
 				</div>
 			</form>
+			
 			<div class="issue-form-row">
 				<label for="issueFile" class="issue-form-label">파일 업로드</label>
 				추가예정
@@ -281,9 +282,39 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 			</div>
 			<div class="hr mt-1 mb-1"></div>
 			<div class="h4 mt-1 mb-1">추가항목</div>
-			<div class="issue-form-row">
-				<label for="issueCustom1" class="issue-form-label">커스텀1</label>
-				추가예정
+			<div class="issue-form-row" id="customDiv">
+			<%-- YJ 작업 2018 11 01 --%>
+<!-- 				<label for="issueCustom1" class="issue-form-label">커스텀</label> -->
+				<div id="issueCustom1">
+
+					<button id="addCustomBtn" class="btn focus" style="width:20%;text-align: center;" onclick="addCustome()">커스텀 컬럼 추가하기</button>
+				 </div>
+				 <script>
+				 var i = 0;
+				 function addCustome(){
+					$("<div style='display: none;'>"+
+						"<div style='display:flex'>"+
+							"<select name='customSelect' id='custome"+i+"' class='input issue-form-input' style='width: 15%; margin-bottom: 10px;' onchange='selectType(this)'>"+
+								"<option value='0' >컬럼 타입</option>"+
+								"<option value='text'>Text</option>"+
+								"<option value='checkBox'>Check Box</option>"+								 
+							"</select>"+
+						"</div>"+
+					"</div>"					 
+					 ).prependTo($('#issueCustom1')).slideDown("slow");
+					i++;
+				 }
+				 function selectType(select){ 
+					var idx = select.options.selectedIndex;
+					if(idx==0) return;
+					createInputBox(select.options[idx].value, select.id);
+				 }
+				 function createInputBox(type,id){
+					console.log(type);
+					console.log(id);
+				 }
+				 </script>
+			<%-- YJ End --%>
 			</div>
 		</div>
 		<div class="foot alignCenter">

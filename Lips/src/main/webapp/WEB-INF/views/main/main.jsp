@@ -14,10 +14,9 @@ $(document).ready(function() {
 	notify(notifyTitle,options);
 });
 </script>
-<h1>메인페이지에요</h1>
-<sec:authorize access="hasAuthority('USER')">
-	<sec:authentication property="principal.nick" /> 님 환영합니다.	
-	</sec:authorize>
+<h1>메인페이지애오</h1>
+<h2>아직 아무것도 없지만 일단은 메인이애오</h2>
+
 
 
 

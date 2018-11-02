@@ -26,7 +26,7 @@
 			<a class="btn">Search</a>
 		</div>
 		<sec:authorize access="hasAuthority('USER')">
-			<a class="btn" href="<c:url value='/user/logout' />">logout</a>
+			<a class="btn" href="<c:url value='/logout' />">logout</a>
 		</sec:authorize>
 		<sec:authorize access="!hasAuthority('USER')">
 				<a class="btn" href="<c:url value='/user/login' />">login</a>

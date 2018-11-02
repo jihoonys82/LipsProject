@@ -93,13 +93,7 @@ public class UserController {
 		service.updateInfo(user);
 		return "redirect:/logout";
 	}
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout() {
-		Collection<? extends GrantedAuthority> list = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-		userTrack.setUserTrack((List)list, false);
-		return "redirect:/logout";
-	}
-	
+
 	@RequestMapping(value="/access_denied",method=RequestMethod.GET)
 	public void denied() {}
 	

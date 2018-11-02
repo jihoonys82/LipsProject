@@ -145,4 +145,8 @@
 		    (NOTICE_SEQ.nextval, #{noticeTitle}, #{noticeContent}, sysdate, 3)
 	</insert>
 	
+	<update id="upOneLineHeader">
+		UPDATE NOTICE SET NOTICECONTENT = ' ', NOTICECATEGORY = 4 WHERE NOTICEID =( SELECT MAX(NOTICEID) FROM NOTICE WHERE NOTICECATEGORY = 1)	
+	</update>
+	
  </mapper>  

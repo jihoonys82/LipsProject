@@ -4,9 +4,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
+<style>
+
+.view-form-row .view-form-label {
+	display: inline-block;
+	text-align : center;
+	width: 20%;
+	margin-right: 5px;
+}
+
+</style>
+
 	<div class="panel">
 		<div class="body">
 			<div class="viewUserBox">
+			<div style="width: 80%; margin : 0 auto;">
 				<div class="view-form-row">
 					<label for="nick" class="view-form-label">아이디</label>
 					<input type="text" name="id" id="id" class="input view-form-input" readonly="readonly" value="${userInfo.userId }"/> 
@@ -67,22 +79,23 @@
 						</c:if>
 					
 				</div>
-				
+				</div>
 	
 				<div class="viewUserBtn">
-					<a class="btn normal" style="float: right;" onclick="goBack()">뒤로 가기</a>
+<!-- 					<a class="btn normal" style="float: right;" onclick="goBack()">뒤로 가기</a> -->
 					<c:choose>
-						<c:when test="${userInfo.blocked eq 1 && userInfo.userLevel eq 0}">
-							<a class="btn normal focus">프로젝트 공지</a>				
+						<c:when test="${userInfo.blocked eq 1 && userInfo.userLevel eq 0}">			
 							<a class="btn normal focus" onclick="modalReopenAcc.show()">정지 해제</a>
+							<a class="btn normal" onclick="goBack()">뒤로 가기</a>
 						</c:when>							
 						<c:when test="${userInfo.blocked eq 0 && userInfo.userLevel eq 1 }">
-							<a class="btn normal focus">프로젝트 공지</a>
-							<a class="btn normal focus" onclick="modalCloseAcc.show()">탈퇴 처리</a>					
+							<a class="btn normal focus" onclick="modalCloseAcc.show()">탈퇴 처리</a>
+							<a class="btn normal" onclick="goBack()">뒤로 가기</a>					
 						</c:when>
 					</c:choose>
 					
 				</div>
+				
 			</div>
 		</div>
 	</div>

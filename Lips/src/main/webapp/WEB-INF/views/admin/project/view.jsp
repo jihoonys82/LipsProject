@@ -43,10 +43,11 @@
 				<div class="col col-12">	
 					
 					<div class="viewTwinBox col col-5">
+					
 						<div class="infomation">프로젝트 정보</div>
 							<div class="view-form-row">
-							<label for="proName" class="view-form-label">프로젝트 명</label>
-							<input type="text" name="proName" id="proName" class="input view-form-input" readonly="readonly"
+								<label for="proName" class="view-form-label">프로젝트 명</label>
+								<input type="text" name="proName" id="proName" class="input view-form-input" readonly="readonly"
 								value="${proInfo.projectName }"/>
 							</div>
 							
@@ -85,7 +86,7 @@
 							</div>				
 													
 							<div class="view-form-row">
-							<label for="proIssue" class="view-form-label">등록된 이슈</label>
+							<label for="proIssue" class="view-form-label">등록 이슈</label>
 							<input type="text" name="proIssue" id="proIssue" class="input view-form-input" readonly="readonly"
 								value="${pList[1] } 개"/> 
 							</div>
@@ -128,11 +129,11 @@
 	
 									<tbody>
 										<c:if test="${uPInfo[0].userId ne null}">	
-											<%! int i = 0; %>
-											<c:forEach items="${uPInfo}" var="uPInfo">
-												<% i++; %>
+											
+											<c:forEach items="${uPInfo}" var="uPInfo" varStatus="i">
+												
 												<tr id="${uPInfo.userId}">
-													<td><%=i%></td>
+													<td>${i.index +1 }</td>
 													<td style="text-align: center">${uPInfo.userId}</td>
 												</tr>
 											</c:forEach>

@@ -39,6 +39,11 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+	public void upOneLineHeader() {
+		adminDao.upOneLineHeader();
+	}
+	
+	@Override
 	public void noticeToStop(NoticeDto notice) {
 		adminDao.inNoticeToStop(notice);
 	}
@@ -186,8 +191,6 @@ public class AdminServiceImpl implements AdminService{
 		
 		return list;
 	}
-
-
 
 }
 	

@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import lips.card.dto.CardDto;
 import lips.card.service.CardService;
+import lips.userinfo.dto.User;
+import lips.userinfo.dto.UserByToken;
 
 @Controller
 @RequestMapping(value = "/card")
@@ -79,15 +81,14 @@ public class CardController {
 			@RequestParam(required=false,defaultValue="0") int positionX ,
 			@RequestParam(required=false,defaultValue="0") int positionY,
 			CardDto dto
-			
 			) {
+		
 		ModelAndView mav = new ModelAndView();
 		if(dashboardId != 0) {
 		String CardValue = csvc.CardValue(dto);
 			mav.addObject("cardvalue", CardValue);
 			
 		}
-		
 		mav.setViewName("card/card1");
 		
 		return mav;
@@ -101,10 +102,9 @@ public class CardController {
 			CardDto dto
 			) {
 		ModelAndView mav = new ModelAndView();
-		String CardValue = csvc.CardValue(dto);
-		mav.addObject("cardvalue", CardValue);
-		
-		mav.setViewName("card/card2");
+		User user = new UserByToken().getInstance();
+			
+		mav = csvc.setIssueDeadLine(user);
 		
 		return mav;
 	}
@@ -117,10 +117,9 @@ public class CardController {
 			CardDto dto
 			) {
 		ModelAndView mav = new ModelAndView();
-		String CardValue = csvc.CardValue(dto);
-		mav.addObject("cardvalue", CardValue);
-		
-		mav.setViewName("card/card3");
+		User user = new UserByToken().getInstance();
+			
+		mav = csvc.setIssueMostFollowed(user);
 		
 		return mav;
 	}

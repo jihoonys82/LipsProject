@@ -7,6 +7,41 @@
 <meta charset="UTF-8">
 <title>Lips - Project Management System</title>
 
+
+
+<style>
+
+p {
+
+  font-family: Meiryo, "Hiragino Kaku Gothic Pro W3", Courier New, sans-serif;
+
+  line-height: 1.5;
+
+  margin-bottom: 25px;
+
+  color: #fff;
+
+}
+
+
+
+
+.intromain {
+/* 																										<img src="/resources/img/intro.jpg"> */
+  background: linear-gradient(-45deg, rgba(246, 255, 0, .8), rgba(255, 0, 161, .8)) fixed, url("/resources/img/intro.jpg") fixed;
+
+  background-size: cover;
+
+
+
+}
+.introbutton {
+top: 35em; 
+position: relative;
+}
+
+
+</style>
 <!-- 부트스트랩 -인트로용 -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
@@ -22,57 +57,23 @@
 	integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
 	crossorigin="anonymous"></script>
 <!-- 인트로CSS -->
-<link rel="stylesheet" href="/resources/css/lips_intro.css?ver=1" />
+<!-- <link rel="stylesheet" href="/resources/css/lips_intro.css?ver=1" /> -->
 </head>
-
-
-
-<body id="intromain">
-
-	<!-- 캐러셀 -->
-	<div id="carouselExampleIndicators" class="carousel slide"
-		data-ride="carousel">
-		<ol class="carousel-indicators">
-			<li data-target="#carouselExampleIndicators" data-slide-to="0"
-				class="active"></li>
-			<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-			<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-		</ol>
-		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<img class="d-block  w-100"
-					src="https://via.placeholder.com/1800x480" alt="First slide">
-			</div>
-			<div class="carousel-item">
-				<img class="d-block  w-100"
-					src="https://via.placeholder.com/1800x480" alt="Second slide">
-			</div>
-			<div class="carousel-item">
-				<img class="d-block  w-100"
-					src="https://via.placeholder.com/1800x480" alt="Third slide">
-			</div>
-		</div>
-		<a class="carousel-control-prev" href="#carouselExampleIndicators"
-			role="button" data-slide="prev"> <span
-			class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-			class="sr-only">Previous</span>
-		</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
-			role="button" data-slide="next"> <span
-			class="carousel-control-next-icon" aria-hidden="true"></span> <span
-			class="sr-only">Next</span>
-		</a>
-	</div>
-	<!-- 캐러셀end -->
+<body class="intromain">
 	<div align="center">
-
+	
+	
+	<div>
+	<p> Hello</p>
+	</div>
 
 
 		<!-- 버튼 start -->
 		<a href="/user/login">
-		<button class="button">get Started</button>
+		<button class="btn btn-primary introbutton">get Started</button>
 		</a>
 		 <a href='#'>
-		 <button class="button" >donation</button>
+		 <button class="btn btn-outline-dark introbutton">donation</button>
 		 </a>
 		<!-- 버튼 end -->
 
@@ -89,7 +90,7 @@
 			
 			
 			
-			Copyright ⓒ 2018. KH B-Class반 파이널프로젝트 3조 -김용재/김혁수/모영호/문재환/이현우/ all rights reserved.</h3>
+			Copyright ⓒ 2018. KH B-Class반 파이널프로젝트 3조 -김용재/모영호/안희민/유석호/송주현/정지훈/ all rights reserved.</h3>
 		</div>
 		</div>
 		

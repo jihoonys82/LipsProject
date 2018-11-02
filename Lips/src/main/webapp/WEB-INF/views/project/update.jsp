@@ -7,6 +7,9 @@
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
 <style>
 
+.active {
+    background: #835acc;
+}
 .scrolltbody {
     display: block;
     width: 320px;
@@ -21,8 +24,8 @@
 }
 .scrolltbody th:nth-of-type(1), .scrolltbody td:nth-of-type(1) { width: 40px; }
 .scrolltbody th:nth-of-type(2), .scrolltbody td:nth-of-type(2) { width: 40px; }
-.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) { width: 80px; }
-.scrolltbody th:nth-of-type(4), .scrolltbody td:nth-of-type(4) { width: 100px; }
+.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) { width: 70px; }
+.scrolltbody th:nth-of-type(4), .scrolltbody td:nth-of-type(4) { width: 70px; }
 .scrolltbody th:last-child { width: 100px }
 .scrolltbody td:last-child { width: calc( 100px - 19px );  }
 

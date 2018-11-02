@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Lips - Project Management System</title>
-
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.0.min.js" ></script>
 
 
 <style>
@@ -35,10 +36,7 @@ p {
 
 
 }
-.introbutton {
-top: 40em; 
-position: relative;
-}
+
 
 
 </style>
@@ -61,24 +59,30 @@ position: relative;
 </head>
 <body class="intromain">
 	<div align="center">
-	
-	
-	<div>
-	<p> Hello</p>
+
+
+<div id="image">	
+<img src="/resources/img/donaplz.png" >
+</div>
+
+ <form style="position: absolute; margin: 0 auto;"action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick" />
+<input type="hidden" name="hosted_button_id" value="T7AZQARKNVDGL" />
+<!-- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" /> -->
+<!-- <img alt="" border="0" src="https://www.sandbox.paypal.com/en_KR/i/scr/pixel.gif" width="1" height="1" /> -->
+<!-- </form> -->
+<h1 style="position:relative; top :-3em; color:white"> Thank you for your Donation!</h1>
+<button style="position: relative; float:none;
+    top: -5em;"class="btn btn-primary">Donation</button>
+</form>
+  
+
+
+
+
 	</div>
-
-
-		<!-- 버튼 start -->
-		<a href="/user/login">
-		<button class="btn btn-outline-info introbutton">get Started</button>
-		</a>
-		 <a href="/donation">
-		 <button class="btn btn-outline-primary introbutton">donation</button>
-		 </a>
-		<!-- 버튼 end -->
-
-
-	</div>
+<a href="/intro"><button style="position: absolute; margin: 0 auto;"
+   class="btn btn-secondary" id="back">Back</button></a>	
 <footer class="container-fluid">
 	<div class="row">
 		<div>
@@ -104,6 +108,20 @@ position: relative;
 	
 </footer>
 
-
 </body>
+<script type="text/javascript">
+$(function(){
+	  $("#back").mouseenter(function(){
+		  $("#image").html("<img src='/resources/img/donaplz2.png' >");
+	  });
+	  $("#back").mouseleave(function(){
+		  $("#image").html("<img src='/resources/img/donaplz.png' >");
+	  });
+	});
+	
+	//20181102 여기까지함.  
+	// 도네  버튼 위치 조정
+	// 이미지 감싸는 div 크기 고정하기
+	// 프로젝트 - 종료된 프로젝트 
+</script>
 </html>

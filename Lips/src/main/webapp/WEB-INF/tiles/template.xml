@@ -56,6 +56,10 @@
 	<definition name="intro"
 		template="/WEB-INF/views/main/intro.jsp">
 	</definition>
+	<!-- 예외추가 도네이션페이지 _모영호 -->
+	<definition name="donation"
+		template="/WEB-INF/views/main/donation.jsp">
+	</definition>
 	
 	<definition name="user/access_denied"
 		template="/WEB-INF/views/user/access_denied.jsp">

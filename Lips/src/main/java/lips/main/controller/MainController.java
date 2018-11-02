@@ -29,5 +29,11 @@ public class MainController {
 	public String main() {
 		return "main/main";
 	}
+	
+	//도네이션 
+		@RequestMapping(value = "/donation", method = RequestMethod.GET)
+		public String donation() {
+			return "donation";
+		}
 
 }

@@ -258,7 +258,7 @@ margin-top: -3em;
 			
 			
 			
-			Copyright ⓒ 2018. KH B-Class FinalProject Lips by FLECHA* 김용재/모영호/안희민/유석호/송주현/정지훈/ all rights reserved.</h3>
+			Copyright ⓒ 2018. KH B-Class FinalProject Lips by FLECHA(김용재/모영호/안희민/유석호/송주현/정지훈/) all rights reserved.</h3>
 		</div>
 		</div>
 		

@@ -29,8 +29,8 @@ p {
 
 .intromain {
 									
-  background: linear-gradient(-45deg, rgba(31, 31, 29, 0.77), rgba(12, 12, 12, 0.65)) fixed, url(/resources/img/intro.jpg) fixed;
-
+/*   background: linear-gradient(-45deg, rgba(31, 31, 29, 0.77), rgba(12, 12, 12, 0.65)) fixed, url(/resources/img/intro/intro.jpg) fixed; */
+    background: linear-gradient(-45deg, rgba(19, 19, 19, 0.89), rgba(12, 12, 12, 0.65)) fixed, url(/resources/img/intro/intro.jpg) fixed;
   background-size: cover;
 
 
@@ -61,28 +61,29 @@ p {
 	<div align="center">
 
 
-<div id="image">	
-<img src="/resources/img/donaplz.png" >
+<div id="image" style="height: 25em; padding-bottom: 3em;">	
+<img src="/resources/img/intro/donaplz.png" style='padding: 6em; '  >
 </div>
 
- <form style="position: absolute; margin: 0 auto;"action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+
+<h1 style="top :-3em; color:white"> Thank you for your Donation!</h1>
+<div id="dona" style="margin: 3em auto;">
+ <form style="display: inline;"action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick" />
 <input type="hidden" name="hosted_button_id" value="T7AZQARKNVDGL" />
 <!-- <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" /> -->
 <!-- <img alt="" border="0" src="https://www.sandbox.paypal.com/en_KR/i/scr/pixel.gif" width="1" height="1" /> -->
 <!-- </form> -->
-<h1 style="position:relative; top :-3em; color:white"> Thank you for your Donation!</h1>
-<button style="position: relative; float:none;
-    top: -5em;"class="btn btn-primary">Donation</button>
+
+<button class="btn btn-primary" id="donation">Donation</button>
 </form>
   
-
-
-
-
+<a href="/intro">
+<button class="btn btn-secondary" id="back">Back</button>
+</a>	
+   </div> 
 	</div>
-<a href="/intro"><button style="position: absolute; margin: 0 auto;"
-   class="btn btn-secondary" id="back">Back</button></a>	
+
 <footer class="container-fluid">
 	<div class="row">
 		<div>
@@ -101,7 +102,7 @@ p {
 			
 			
 			
-			Copyright ⓒ 2018. KH B-Class FinalProject Lips by 김용재/모영호/안희민/유석호/송주현/정지훈/ all rights reserved.</h3>
+			Copyright ⓒ 2018. KH B-Class FinalProject Lips by FLECHA* 김용재/모영호/안희민/유석호/송주현/정지훈/ all rights reserved.</h3>
 		</div>
 		</div>
 		
@@ -112,12 +113,22 @@ p {
 <script type="text/javascript">
 $(function(){
 	  $("#back").mouseenter(function(){
-		  $("#image").html("<img src='/resources/img/donaplz2.png' >");
+		  $("#image").html("<img src='/resources/img/intro/donaplz2.png' style='padding: 6em;' >");
 	  });
 	  $("#back").mouseleave(function(){
-		  $("#image").html("<img src='/resources/img/donaplz.png' >");
+		  $("#image").html("<img src='/resources/img/intro/donaplz.png' style='padding: 6em;' >");
+	  });
+	  
+	  $("#donation").mouseenter(function(){
+		  $("#image").html("<img src='/resources/img/intro/donaplz3.png' style='padding: 6em;' >");
+	  });
+	  $("#donation").mouseleave(function(){
+		  $("#image").html("<img src='/resources/img/intro/donaplz.png' style='padding: 6em;' >");
 	  });
 	});
+	
+	
+
 	
 	//20181102 여기까지함.  
 	// 도네  버튼 위치 조정

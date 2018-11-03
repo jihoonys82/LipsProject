@@ -9,35 +9,177 @@
 
 
 
+
 <style>
 
-p {
+.introtext {
 
-  font-family: Meiryo, "Hiragino Kaku Gothic Pro W3", Courier New, sans-serif;
-
-  line-height: 1.5;
-
-  margin-bottom: 25px;
-
-  color: #fff;
+	height: 10em;
+    line-height: 10em;
+    margin: 10em;
+    margin-left: 20em;
+    margin-right: 20em;
+    border-radius: 10px;
+    border: 1.5px solid #afafaf73;
 
 }
+
+html, body {
+@import url("https://fonts.googleapis.com/css?family=Syncopate");
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Syncopate', Helvetica, Arial;
+	text-transform: uppercase;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	display: table;
+}
+html {
+  /* subtlepatterns.com */
+	background: url("http://neilcarpenter.com/demos/asfalt.png") repeat;
+}
+body {
+	overflow: hidden;	
+	background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%, rgba(0,0,0,0.44) 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.44))); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%,rgba(0,0,0,0.44) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%,rgba(0,0,0,0.44) 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%,rgba(0,0,0,0.44) 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(0,0,0,0.44) 100%); /* W3C */
+}
+p {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 2em;
+	line-height: 2em;
+}
+i {
+	display: inline-block;
+	font-style: normal;
+	padding: 0 0.25em;
+	-webkit-transform: scale(0) translate3d(0, -2000px, 0);
+	   -moz-transform: scale(0) translate3d(0, -2000px, 0);
+		-ms-transform: scale(0) translate3d(0, -2000px, 0);
+		 -o-transform: scale(0) translate3d(0, -2000px, 0);
+			transform: scale(0) translate3d(0, -2000px, 0);
+	background: rgba(255, 255, 255, 0.3);
+	border-radius: 50%;
+}
+i.fly-in-out {
+	-webkit-animation: fly-in-out 3s infinite ease-in-out;
+	   -moz-animation: fly-in-out 3s infinite ease-in-out;
+		 -o-animation: fly-in-out 3s infinite ease-in-out;
+			animation: fly-in-out 3s infinite ease-in-out;
+}
+
+@-webkit-keyframes fly-in-out {
+	0% {
+		-webkit-transform: scale(0) translate3d(0, -1000px, 0);
+		background: rgba(255, 255, 255, 0.3);
+		box-shadow: 0 0 100px 100px rgba(255, 255, 255, 0.2);
+		border-radius: 50%;
+	}
+	15%, 85% {
+		color: rgba(255, 255, 255, 0.8);
+		text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+		-webkit-transform: scale(1) translate3d(0, 0, 0);
+		background: transparent;
+		box-shadow: none;
+	}
+	100% {
+		color: transparent;	
+		-webkit-transform: scale(0) translate3d(0, 1000px, 0);
+		background: rgba(255, 255, 255, 0.3);
+		box-shadow: 0 0 100px 100px rgba(255, 255, 255, 0.2);
+		border-radius: 50%;
+	}
+}
+@-moz-keyframes fly-in-out {
+	0% {
+		-moz-transform: scale(0) translate3d(0, -2000px, 0);
+		background: rgba(255, 255, 255, 0.3);
+		box-shadow: 0 0 100px 100px rgba(255, 255, 255, 0.2);
+		border-radius: 50%;
+	}
+	15%, 85% {
+		color: rgba(255, 255, 255, 0.8);
+		text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+		-moz-transform: scale(1) translate3d(0, 0, 0);
+		background: transparent;
+		box-shadow: none;
+	}
+	100% {
+		color: transparent;	
+		-moz-transform: scale(0) translate3d(0, 2000px, 0);
+		background: rgba(255, 255, 255, 0.3);
+		box-shadow: 0 0 100px 100px rgba(255, 255, 255, 0.2);
+		border-radius: 50%;
+	}
+}
+@-o-keyframes fly-in-out {
+	0% {
+		-o-transform: scale(0) translate3d(0, -2000px, 0);
+		background: rgba(255, 255, 255, 0.3);
+		box-shadow: 0 0 100px 100px rgba(255, 255, 255, 0.2);
+		border-radius: 50%;
+	}
+	15%, 85% {
+		color: rgba(255, 255, 255, 0.8);
+		text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+		-o-transform: scale(1) translate3d(0, 0, 0);
+		background: transparent;
+		box-shadow: none;
+	}
+	100% {
+		color: transparent;	
+		-o-transform: scale(0) translate3d(0, 2000px, 0);
+		background: rgba(255, 255, 255, 0.3);
+		box-shadow: 0 0 100px 100px rgba(255, 255, 255, 0.2);
+		border-radius: 50%;
+	}
+}
+@keyframes fly-in-out {
+	0% {
+		transform: scale(0) translate3d(0, -2000px, 0);
+		background: rgba(255, 255, 255, 0.3);
+		box-shadow: 0 0 100px 100px rgba(255, 255, 255, 0.2);
+		border-radius: 50%;
+	}
+	15%, 85% {
+		color: rgba(255, 255, 255, 0.8);
+		text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+		transform: scale(1) translate3d(0, 0, 0);
+		background: transparent;
+		box-shadow: none;
+	}
+	100% {
+		color: transparent;	
+		transform: scale(0) translate3d(0, 2000px, 0);
+		background: rgba(255, 255, 255, 0.3);
+		box-shadow: 0 0 100px 100px rgba(255, 255, 255, 0.2);
+		border-radius: 50%;
+	}
+}
+
+
+
+
 
 
 
 
 .intromain {
 									
-  background: linear-gradient(-45deg, rgba(31, 31, 29, 0.77), rgba(12, 12, 12, 0.65)) fixed, url(/resources/img/intro.jpg) fixed;
-
+/*   background: linear-gradient(-45deg, rgba(31, 31, 29, 0.77), rgba(12, 12, 12, 0.65)) fixed, url(/resources/img/intro/intro.jpg) fixed; */
+    background: linear-gradient(-45deg, rgba(19, 19, 19, 0.89), rgba(12, 12, 12, 0.65)) fixed, url(/resources/img/intro/intro.jpg) fixed;
   background-size: cover;
 
 
 
 }
 .introbutton {
-top: 40em; 
-position: relative;
+margin-top: 3em;
 }
 
 
@@ -60,20 +202,34 @@ position: relative;
 <!-- <link rel="stylesheet" href="/resources/css/lips_intro.css?ver=1" /> -->
 </head>
 <body class="intromain">
-	<div align="center">
+<div align="center">
 	
-	
-	<div>
-	<p> Hello</p>
-	</div>
+<div class="introtext">
+
+<!-- <p style="margin: 4em auto;"> Lightweight Integrated Project management System</p> -->
+
+<p style="margin: 4em auto; display: inline;"> LIPS</p>
+<p style="margin: 4em auto;
+    float: none;
+    top: -9em;
+    color: #afa1a3e0;
+    font-size : 1em;
+    position: relative;">Project Management System</p>
+
+</div>
+
+
+
+
+
 
 
 		<!-- 버튼 start -->
 		<a href="/user/login">
-		<button class="btn btn-outline-info introbutton">get Started</button>
+		<button class="btn btn-outline-danger introbutton">get Started</button>
 		</a>
 		 <a href="/donation">
-		 <button class="btn btn-outline-primary introbutton">donation</button>
+		 <button class="btn btn-outline-info introbutton">donation</button>
 		 </a>
 		<!-- 버튼 end -->
 
@@ -97,13 +253,59 @@ position: relative;
 			
 			
 			
-			Copyright ⓒ 2018. KH B-Class FinalProject Lips by 김용재/모영호/안희민/유석호/송주현/정지훈/ all rights reserved.</h3>
+			Copyright ⓒ 2018. KH B-Class FinalProject Lips by FLECHA* 김용재/모영호/안희민/유석호/송주현/정지훈/ all rights reserved.</h3>
 		</div>
 		</div>
 		
 	
 </footer>
 
+<script type="text/javascript">
+testEle = $('#test');
+$('#fadeOutBt').click(function(){
+testEle.fadeOut();
+});
+$('#fadeInBt').click(function(){
+testEle.fadeIn();
+});
 
+
+var paragraph = document.getElementsByTagName('p')[0];
+
+function textEffect(animationName) {
+  var text = paragraph.innerHTML,
+		chars = text.length,
+		newText = '',
+		animation = animationName,
+		char,
+		i;
+
+	for (i = 0; i < chars; i += 1) {
+		newText += '<i>' + text.charAt(i) + '</i>';
+	}
+
+	paragraph.innerHTML = newText;
+
+	var wrappedChars = document.getElementsByTagName('i'),
+		wrappedCharsLen = wrappedChars.length,
+		j = 0;
+
+	function addEffect () {
+		setTimeout(function () {
+			wrappedChars[j].className = animation;
+			j += 1;
+			if (j < wrappedCharsLen) {
+				addEffect();
+			}
+		}, 100)
+	}
+
+	addEffect();
+};
+
+textEffect('fly-in-out');
+
+
+</script>
 </body>
 </html>

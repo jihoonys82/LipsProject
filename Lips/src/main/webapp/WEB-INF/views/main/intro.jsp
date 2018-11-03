@@ -12,6 +12,9 @@
 
 <style>
 
+
+
+
 .introtext {
 
 	height: 10em;
@@ -179,7 +182,7 @@ i.fly-in-out {
 
 }
 .introbutton {
-margin-top: 3em;
+margin-top: -3em;
 }
 
 
@@ -208,15 +211,17 @@ margin-top: 3em;
 
 <!-- <p style="margin: 4em auto;"> Lightweight Integrated Project management System</p> -->
 
-<p style="margin: 4em auto; display: inline;"> LIPS</p>
-<p style="margin: 4em auto;
-    float: none;
-    top: -9em;
-    color: #afa1a3e0;
-    font-size : 1em;
-    position: relative;">Project Management System</p>
+<p style="font-size : 1em; padding: 0.5em;"> Project Management</p>
+<div style="margin: 2em auto;
+    position: relative;
+    top: -3em;
+    font-size: 2.5em;
+    color: #b7acac;
+    font-family: 'Syncopate', Helvetica, Arial;"
+    ><span>L </span><span style="color:red;">i </span><span> p s</span></div>
 
-</div>
+
+
 
 
 

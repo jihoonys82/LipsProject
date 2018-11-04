@@ -4,6 +4,13 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <sec:authentication property="principal.nick" var="usernick" />
+<style>
+.mainContents {
+border : 1px solid white;
+margin: 10px auto;
+height: 30em;
+}
+</style>
 <script>
 $(document).ready(function() {
 	var usernick = '${usernick }';
@@ -14,9 +21,15 @@ $(document).ready(function() {
 	notify(notifyTitle,options);
 });
 </script>
-<h1>메인페이지애오</h1>
-<h2>아직 아무것도 없지만 일단은 메인이애오</h2>
 
 
+<div class="row">
+	<div class="col col-6 mainContents">하하</div>
+	<div class="col col-6 mainContents">하하2ㅇㅇ</div>
+</div>
+
+<div> 
+	<div class="col col-12 mainContents">히히</div>
+</div>
 
 

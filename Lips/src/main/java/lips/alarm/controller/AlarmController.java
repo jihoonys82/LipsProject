@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import lips.admin.dto.NoticeDto;
 import lips.admin.service.AdminService;
 import lips.alarm.dto.Alarm;
 import lips.alarm.service.AlarmService;
@@ -39,7 +40,7 @@ public class AlarmController {
 	   @RequestMapping(value="/notice/oneLine",method=RequestMethod.POST)
 	   public ModelAndView noticeOneLine() {
 		   ModelAndView mav = new ModelAndView();
-		   String oneLine = adminService.getOneLineNotice();
+		   NoticeDto oneLine = adminService.getOneLineNotice();
 		   mav.addObject("data", oneLine);
 		   mav.setViewName("jsonView");
 		   return mav;

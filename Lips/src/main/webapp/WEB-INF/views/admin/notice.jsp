@@ -19,9 +19,10 @@
 	text-align: center;
 	height : 200px;
 	width : 80%;
-	overflow-y : scroll;
-	 
+	overflow : hidden;
+	margin-left : 10%; 
 }
+::-webkit-scrollbar{width:10px;}
 
 </style> 
 
@@ -36,8 +37,14 @@
 					<a href="javascript:moreList();"><i class="icon-more"></i></a>
 				</label>
 				<div style="padding: 1em;">
-					<input type="text" name="notice" id="oneLine" class="input view-form-input" readonly="readonly"
-						value="${oneLine}">
+					<c:if test="${oneLine.noticeCategory eq '1'}">
+						<input type="text" name="notice" id="oneLine" class="input view-form-input" readonly="readonly"
+							value="${oneLine.noticeTitle}">
+					</c:if>
+					<c:if test="${oneLine.noticeCategory eq '4' }">
+						<input type="text" name="notice" id="oneLine" class="input view-form-input" readonly="readonly"
+							value="삭제된 공지입니다">						
+					</c:if>	
 					<a class="btn mini focus" id="btnDelete">삭제</a>
 				</div>
 				<div style="padding: 1em;">
@@ -108,9 +115,9 @@
 	</div>
 </div>
 
-<div id="win_2" class="window">
+<div id="modalMore" class="window">
     <div class="head">
-        <div class="left">HOME</div>
+        <div class="left">한줄 공지 더보기</div>
         <div class="right">
             <a href="#" class="close"><i class="icon-exit"></i></a>
         </div>
@@ -119,11 +126,12 @@
         <br/>
     </div>
     <div class="foot" align="center">
-        <a href="#" class="btn focus">Save</a> <a href="#" class="btn">Close</a>
+        <a class="btn btnClose" href="#">닫기</a>
     </div>
 </div>
 	
 <script type="text/javascript">
+
 jui.ready([ "ui.property" ], function(PropertyView) {
 
 	window.complexSettings = new PropertyView('#bodyNotice', {
@@ -147,14 +155,26 @@ jui.ready([ "ui.property" ], function(PropertyView) {
 });	
 
 jui.ready([ "ui.window" ], function(win) {
-    win_2 = win("#win_2", {
+    modalMore = win("#modalMore", {
         width: 500,
         height: 300,
         modal: true
     });
 });
 
+jui.ready([ "grid.table" ], function(table) {
+    moreTable = table("#moreTable", {
+        scroll: true
+        
+    });
+});
+
+
 $(document).ready(function() {
+	
+	$("#btnClose").click(function() {
+		modalMore.hide();
+	});
 	
 	$("#btnCancel_notice").click(function(){
 		modalNotice.hide();
@@ -216,7 +236,7 @@ function updateOneLineNotice() {
 		, success: function(responseData) {
 			console.log(responseData.notice);
 			
-			$("#oneLine").val(responseData.notice);
+			$("#oneLine").val(responseData.notice.noticeContent);
 			
 		}
 	
@@ -250,10 +270,13 @@ function moreList() {
 			"param":"more"
 		}, success : function(responseData) {
 			console.log(responseData.more[0].createDate);
+
+ 			$("#bodyModal div:nth-child(2)").remove();
+ 	
 			var content = "";
 			content += 
-				"<div class='moreListTable'>"+			
-					"<table class='table simple normal'>" + 
+				"<div class='moreListTable' style='overflow-y: scroll;'>"+			
+					"<table id='moreTable' class='table simple normal'>" + 
 						"<thead>" +
 							"<tr>" + 
 								"<th>" +
@@ -263,7 +286,7 @@ function moreList() {
 									"내용"  +
 								"</th>" + 
 								"<th>" +
-									"공지 일자" +
+									"상태" +
 								"</th>" +
 							"</tr>" +
 						"</thead>" + 
@@ -271,28 +294,44 @@ function moreList() {
 						if(responseData.more[0].noticeId == null){
 							content += 	"<span>등록된 공지가 없습니다</span>";
 						}else{
+						
 							 for(var i = 0 ; i<responseData.more.length;i++){
-								 content += "<tr>" +
-									"<td>"+
-									responseData.more[i].noticeId +
-								"</td>" +
-								"<td>" +
-									responseData.more[i].noticeContent +
-								"</td>"+
-								"<td>"+
-									responseData.more[i].createDate + 
-								"</td>" + 
-							"</tr>"
+								 content += 
+									"<tr>" +
+										"<td>"+
+											responseData.more[i].noticeId +
+										"</td>" +
+										"<td>" +
+											responseData.more[i].noticeContent +
+										"</td>"+
+										"<td>"+
+								
+											   new Date('<fmt:formatDate value="${responseData.more[i].createDate }" pattern="yyyy/MM/dd" />') + 
+										
+										"</td>" + 
+									"</tr>"
 							 }
 						}
+						
+				
 					content += "</tbody></table></div>";
+					
 			$(content).appendTo("#bodyModal");			
 		}	
 		
 	});
 
 
-	win_2.show();
+	modalMore.show();
 }
+
+
+function showDate() {
+    var d = new Date();
+    var n = d.getFullYear();
+    document.getElementById("tdDate").text(n);
+
+}
+
 </script>	
 	

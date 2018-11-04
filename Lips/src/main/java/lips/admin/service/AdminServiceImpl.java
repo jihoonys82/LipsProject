@@ -34,13 +34,18 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public String getOneLineNotice() {
+	public NoticeDto getOneLineNotice() {
 		return adminDao.selOneLineHeader();
 	}
 	
 	@Override
 	public void upOneLineHeader() {
 		adminDao.upOneLineHeader();
+	}
+	
+	@Override
+	public List<NoticeDto> getMoreOneLineN() {
+		return adminDao.selMoreOneLineN();
 	}
 	
 	@Override

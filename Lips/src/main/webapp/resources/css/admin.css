@@ -112,13 +112,15 @@ body {
 }
 
 .chartBox {
-	display: inline-block;
+/* 	display: inline-block; */
 	border: 1px solid gray;
-	padding: 1em;
-	margin: 1em;
+/* 	padding: 1em; */
+/* 	margin: 1em; */
 	color: black;
-	margin-left: 3em;
-	margin-right: 3em;
+/* 	margin-left: 3em; */
+/* 	margin-right: 3em; */
+	overflow : hidden;
+	height : auto;
 }
 
 .w-5 {

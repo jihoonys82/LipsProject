@@ -90,7 +90,7 @@
 	<div class="body forSizing-chart">
 		<div class="row">
 			<div class="test col col-12">
-				<div class="chartBox col col-5" id="result"></div>
+				<div class="chartBox col col-5" id="chart"></div>
 				<div class="chartBox col col-5"></div>
 			</div>
 		</div>
@@ -109,6 +109,60 @@
 						}
 					}
 				});
+	});
+	
+	jui.define("chart.brush.simplescatter", [], function() {
+	    var SimpleScatterBrush = function() { 
+	        this.draw = function() {
+	            var g = this.chart.svg.group(),
+	                data = this.axis.data,
+	                keys = this.brush.target;
+	            
+	            for(var i = 0; i < data.length; i++) {
+	                for(var j = 0; j < keys.length; j++) {
+	                    var value = data[i][keys[j]];
+	                    
+	                    g.append(this.chart.svg.circle({
+	                        fill : this.color(i, j),
+	                        r : 5,
+	                        cx : this.axis.x(i),
+	                        cy : this.axis.y(value)
+	                    }));
+	                }
+	            }
+	            
+	            return g;
+	        }
+	    }
+	    
+	    return SimpleScatterBrush;
+	}, "chart.brush.core");
+	
+	jui.ready([ "chart.builder" ], function(builder) {
+	    builder("#chart", {
+	        width : 680,
+	        height : 400,
+	        axis : [{
+	            x : {
+	                type : "block",
+	                domain : "key"
+	            },
+	            y : {
+	                type : "range",
+	                domain : [ 0, 50 ]
+	            },
+	            data : [
+	                { key: "Q1", value1: 10, value2: 30 },
+	                { key: "Q2", value1: 15, value2: 20 },
+	                { key: "Q3", value1: 30, value2: 15 },
+	                { key: "Q4", value1: 20, value2: 40 }
+	            ]
+	        }],
+	        brush : [{
+	            type : "simplescatter",
+	            target : [ "value1", "value2" ]
+	        }]
+	    });
 	});
 </script>
 

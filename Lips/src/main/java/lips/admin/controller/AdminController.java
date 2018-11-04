@@ -46,7 +46,7 @@ public class AdminController {
 	   logger.info("공지 페이지");
 	   
 	   List<NoticeDto> nInfo = adminService.getNinfo();
-	   String oneLineHeader = adminService.getOneLineNotice();
+	   NoticeDto oneLineHeader = adminService.getOneLineNotice();
 	   
 	   model.addAttribute("nInfo", nInfo);
 	   model.addAttribute("oneLine",oneLineHeader);
@@ -63,11 +63,11 @@ public class AdminController {
 	   }else if(param.equals("delete")) {
 		   adminService.upOneLineHeader();
 	   }else if(param.equals("update")) {
-		   String oneLineNotice = adminService.getOneLineNotice();
+		   NoticeDto oneLineNotice = adminService.getOneLineNotice();
 		   
 		   mav.addObject("notice",oneLineNotice);
 	   }else if(param.equals("more")) {
-		   List<NoticeDto> moreNotice = adminService.getNinfo();
+		   List<NoticeDto> moreNotice = adminService.getMoreOneLineN();
 		   
 		   mav.addObject("more", moreNotice);
 	   }

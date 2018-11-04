@@ -29,23 +29,23 @@ public class DashBoardController {
 	
 	@RequestMapping(value = "/dashview", method = RequestMethod.GET)
 	public ModelAndView dashBoardView(@RequestParam(required=false,defaultValue="0") int projectId ) {
-		
+	
 		ModelAndView mav = new ModelAndView();
 		int maxXLocation ;
 	
 		DashBoardDto boarddto = dbsvc.checkPreset(projectId);
-		
 		if(boarddto != null) {
 			maxXLocation = dbsvc.maxXLocation(boarddto);
 			mav.addObject("dashBoardId",boarddto.getDashboardId());
-			mav.addObject("projectId",projectId);
 		}else{
 			maxXLocation = 1 ;
 			mav.addObject("dashBoardId", 0);
 		}
 		
+		mav.addObject("projectId",projectId);
 		mav.addObject("maxX",  maxXLocation);
 		mav.setViewName("dashboard/dashview");
+		
 		return mav;
 	}
 	
@@ -72,11 +72,12 @@ public class DashBoardController {
 		Map<String, String> dataMap = new HashMap<>();
 		
 		dataMap = dbsvc.splitData(saveData);
+		
 		String projectId = dataMap.get("projectId");
 		int dashboardId = dbsvc.getDashBoardId(dataMap);
 		dbsvc.insertData(dataMap , dashboardId);
 		
-		System.out.println("dataMap"+ dataMap);
+
 //		projectId="+dataMap.get("projectId")
 	
 		mav.setViewName("redirect:/dashboard/dashview?projectId="+projectId);

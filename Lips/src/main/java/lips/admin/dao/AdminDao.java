@@ -50,6 +50,11 @@ public interface AdminDao {
 	public String selOneLineHeader();
 
 	/**
+	 *  최신 한줄공지 업데이트 
+	 */
+	public void upOneLineHeader();
+	
+	/**
 	 *   유저의 block 여부 설정 - 강등 
 	 * @param user
 	 * @return 

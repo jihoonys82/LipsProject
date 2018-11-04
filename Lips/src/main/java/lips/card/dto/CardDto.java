@@ -6,7 +6,9 @@ public class CardDto {
 	private int positionX;
 	private int positionY;
 	private String assetValue;
+	private int projectId;
 	
+
 	//Dashboard_asset
 	private int assetId;
 	private String assetName;
@@ -16,10 +18,17 @@ public class CardDto {
 	@Override
 	public String toString() {
 		return "CardDto [dashboardId=" + dashboardId + ", positionX=" + positionX + ", positionY=" + positionY
-				+ ", assetValue=" + assetValue + ", assetId=" + assetId + ", assetName=" + assetName
-				+ ", assetDescription=" + assetDescription + ", assetView=" + assetView + "]";
+				+ ", assetValue=" + assetValue + ", projectId=" + projectId + ", assetId=" + assetId + ", assetName="
+				+ assetName + ", assetDescription=" + assetDescription + ", assetView=" + assetView + "]";
 	}
 
+	public int getProjectId() {
+		return projectId;
+	}
+	
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
+	}
 	public int getDashboardId() {
 		return dashboardId;
 	}

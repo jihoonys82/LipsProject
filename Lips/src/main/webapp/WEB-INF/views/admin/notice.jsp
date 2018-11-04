@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
-    
-<style>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<style>
 	
 .item textarea{
 	color		: black;
@@ -13,6 +13,15 @@
 .item select,.item select option {
 	color : black;
 }	
+
+.moreListTable {
+	
+	text-align: center;
+	height : 200px;
+	width : 80%;
+	overflow-y : scroll;
+	 
+}
 
 </style> 
 
@@ -23,10 +32,13 @@
 		
 		<div class="body forSize-first">
 			<div class="view-form-row">
-				<label class="view-form-label">현재 등록 중인 한줄 공지 <i class="icon-more"></i></label>
+				<label class="view-form-label">현재 등록 중인 한줄 공지 
+					<a href="javascript:moreList();"><i class="icon-more"></i></a>
+				</label>
 				<div style="padding: 1em;">
-					<input type="text" name="notice" id="oneLine" class="input view-form-input" readonly="readonly">
-					<a class="btn mini focus">삭제</a>
+					<input type="text" name="notice" id="oneLine" class="input view-form-input" readonly="readonly"
+						value="${oneLine}">
+					<a class="btn mini focus" id="btnDelete">삭제</a>
 				</div>
 				<div style="padding: 1em;">
 					<input type="text" name="notice" id="inputOneLine" class="input view-form-input" >
@@ -96,6 +108,20 @@
 	</div>
 </div>
 
+<div id="win_2" class="window">
+    <div class="head">
+        <div class="left">HOME</div>
+        <div class="right">
+            <a href="#" class="close"><i class="icon-exit"></i></a>
+        </div>
+    </div>
+    <div id="bodyModal">
+        <br/>
+    </div>
+    <div class="foot" align="center">
+        <a href="#" class="btn focus">Save</a> <a href="#" class="btn">Close</a>
+    </div>
+</div>
 	
 <script type="text/javascript">
 jui.ready([ "ui.property" ], function(PropertyView) {
@@ -120,7 +146,16 @@ jui.ready([ "ui.property" ], function(PropertyView) {
 
 });	
 
+jui.ready([ "ui.window" ], function(win) {
+    win_2 = win("#win_2", {
+        width: 500,
+        height: 300,
+        modal: true
+    });
+});
+
 $(document).ready(function() {
+	
 	$("#btnCancel_notice").click(function(){
 		modalNotice.hide();
 	});
@@ -153,20 +188,41 @@ $(document).ready(function() {
 		})
 	});
 	
+	
+	$("#btnDelete").click(function(){
+		$.ajax({
+			type: "post"
+			, url: "/admin/notice"
+			, dataType: "json"
+			, data: {"param":"delete"}
+			, success : function(responseData) {
+				
+				console.log("test_delete");
+				
+				updateOneLineNotice();
+				
+			}
+		})
+	});
+	
 });
 
-// function updateNoticeList(){
-// 	$.ajax({
-// 		type:"post",
-// 		url:"/admin/notice/updateList",
-// 		dataType: "json",
-// 		success: function(responseData){
-// 			$('#noticeTable').append();
+function updateOneLineNotice() {
+	$.ajax({
+		type: "post"
+		, url: "/admin/notice"
+		, dataType: "json"
+		, data: {"param": "update"}
+		, success: function(responseData) {
+			console.log(responseData.notice);
 			
+			$("#oneLine").val(responseData.notice);
 			
-// 		}
-// 	});
-// }
+		}
+	
+	});
+}
+
 
 function oneLineNotice(){
 	$.ajax({
@@ -176,7 +232,7 @@ function oneLineNotice(){
 		data:{"param":"1",
 			 "content" : $('#inputOneLine').val()
 		},success : function(responseData){
-			console.log("test");
+
 			$('#oneLine').val($('#inputOneLine').val());
 			$('#inputOneLine').val('');
 		}
@@ -184,5 +240,59 @@ function oneLineNotice(){
 	});
 }
 
+function moreList() {
+	
+	$.ajax({
+		type: "post"
+		, url: "/admin/notice"
+		, dataType: "json"
+		, data: {
+			"param":"more"
+		}, success : function(responseData) {
+			console.log(responseData.more[0].createDate);
+			var content = "";
+			content += 
+				"<div class='moreListTable'>"+			
+					"<table class='table simple normal'>" + 
+						"<thead>" +
+							"<tr>" + 
+								"<th>" +
+									"No." +
+								"</th>" +
+								"<th>" +
+									"내용"  +
+								"</th>" + 
+								"<th>" +
+									"공지 일자" +
+								"</th>" +
+							"</tr>" +
+						"</thead>" + 
+						"<tbody>";
+						if(responseData.more[0].noticeId == null){
+							content += 	"<span>등록된 공지가 없습니다</span>";
+						}else{
+							 for(var i = 0 ; i<responseData.more.length;i++){
+								 content += "<tr>" +
+									"<td>"+
+									responseData.more[i].noticeId +
+								"</td>" +
+								"<td>" +
+									responseData.more[i].noticeContent +
+								"</td>"+
+								"<td>"+
+									responseData.more[i].createDate + 
+								"</td>" + 
+							"</tr>"
+							 }
+						}
+					content += "</tbody></table></div>";
+			$(content).appendTo("#bodyModal");			
+		}	
+		
+	});
+
+
+	win_2.show();
+}
 </script>	
 	

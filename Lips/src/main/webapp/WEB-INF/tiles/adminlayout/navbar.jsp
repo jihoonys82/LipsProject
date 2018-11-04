@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>               
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
     
  <div class="navbar flat" style="overflow: hidden;">
 	<div class="inline right">
-		<span>admin 님 어서오세요</span>
-		<a class="btn">logout</a>	
+		<span><sec:authentication property="principal.nick" /> 님 어서오세요</span>
+		<a class="btn"  href="<c:url value='/logout' />">logout</a>	
 	</div>
 </div>
     

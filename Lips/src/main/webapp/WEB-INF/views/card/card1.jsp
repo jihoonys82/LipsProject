@@ -3,7 +3,7 @@
 
 <div style="margin: 3px;">
 	<div id="datepicker_4" class="calendar">
-	    <div class="head">
+	    <div class="head" style="hight:30px;">  
 	        <div class="prev"><i class="icon-chevron-left"></i></div>
 	        <div class="title"></div>
 	        <div class="next"><i class="icon-chevron-right"></i></div>

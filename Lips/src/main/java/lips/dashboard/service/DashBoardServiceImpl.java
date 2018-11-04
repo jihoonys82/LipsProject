@@ -55,10 +55,8 @@ public class DashBoardServiceImpl implements DashBoardService{
 			splitList.add(data.split(",")[i]);
 		}
 		for(int j = 0 ; j<length; j++) {
-//			System.out.println(splitList);
 			String startreplace = splitList.get(j).split(":")[0].replace("[{", "");
 			String startre = startreplace.replace("\"", "");
-//			System.out.println(splitList.get(j));
 			String endreplace = splitList.get(j).split(":")[1].replace("}]", "");
 			String endre = endreplace.replace("\"", "");
 			splitMap.put(startre, endre) ;
@@ -73,15 +71,17 @@ public class DashBoardServiceImpl implements DashBoardService{
 		String userId = user.getUserId();
 		int dashboardId = 0;
 		
-		if(Integer.parseInt(dataMap.get("dashboardId")) ==0) {
+		if(Integer.parseInt(dataMap.get("dashboardId"))== 0) {
 			DashBoardDto dto = new DashBoardDto();
 			dto.setProjectId(Integer.parseInt(dataMap.get("projectId")));
+				System.out.println("3"+ Integer.parseInt(dataMap.get("projectId")));
 			dto.setDashboardName(dataMap.get("dashBoardName"));
 			dto.setUserid(userId);
 			
 			dao.insertDashBoard(dto);
 			dto = dao.seldashboardDashDto(dto);
 			dashboardId = dto.getDashboardId();
+			
 		}else {
 			dashboardId = Integer.parseInt(dataMap.get("dashboardId"));
 		}

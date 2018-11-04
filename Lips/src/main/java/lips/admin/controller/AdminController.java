@@ -46,8 +46,10 @@ public class AdminController {
 	   logger.info("공지 페이지");
 	   
 	   List<NoticeDto> nInfo = adminService.getNinfo();
+	   String oneLineHeader = adminService.getOneLineNotice();
 	   
 	   model.addAttribute("nInfo", nInfo);
+	   model.addAttribute("oneLine",oneLineHeader);
    }
    
    @RequestMapping(value="/notice",method=RequestMethod.POST)
@@ -58,7 +60,19 @@ public class AdminController {
 		   adminService.oneLineNotice(content);
 	   }else if(param.equals("0")) {
 		   adminService.timeLineNotice(notice);
+	   }else if(param.equals("delete")) {
+		   adminService.upOneLineHeader();
+	   }else if(param.equals("update")) {
+		   String oneLineNotice = adminService.getOneLineNotice();
+		   
+		   mav.addObject("notice",oneLineNotice);
+	   }else if(param.equals("more")) {
+		   List<NoticeDto> moreNotice = adminService.getNinfo();
+		   
+		   mav.addObject("more", moreNotice);
 	   }
+	   
+	   
 	   mav.setViewName("jsonView");
 	   return mav;
    }

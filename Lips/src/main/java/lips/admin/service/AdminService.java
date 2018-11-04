@@ -23,6 +23,8 @@ public interface AdminService {
 	public void noticeToLeader(NoticeDto notice);
 
 	public String getOneLineNotice();
+	
+	public void upOneLineHeader();
 
 	// User 관리
 	

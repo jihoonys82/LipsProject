@@ -1,6 +1,5 @@
 package lips.admin.controller;
- import java.util.HashMap;
-import java.util.List;
+ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,6 +80,10 @@ public class AdminController {
    public void proChart(Model model) {
 	   logger.info("프로젝트 차트 페이지");
 	   
+	   List<Integer> cntList = adminService.getNumOfPro();
+	   
+	   model.addAttribute("cntList",cntList);
+
    }
    
    @RequestMapping(value="/project/text", method=RequestMethod.GET)
@@ -173,12 +176,13 @@ public class AdminController {
 	   
 	   ProjectDto proInfo = adminService.getProInfo(project);
 	   List<ProjectDto> uPInfo = adminService.getUOnP(project);
-	   
+	   List uInfo = projectService.selProMember(project);
 	   List<Integer> pList = adminService.getNumOfPInfo(project);
 //	   HashMap<String, String> pTime = adminService.getElapsedTime(project);
 	   
 	   model.addAttribute("proInfo", proInfo);
 	   model.addAttribute("uPInfo",uPInfo);
+	   model.addAttribute("uInfo",uInfo);
 	   model.addAttribute("pList",pList);
 //	   model.addAttribute("pTime",pTime);
 
@@ -192,23 +196,37 @@ public class AdminController {
    public ModelAndView projectManage(Model model, ProjectDto project, String param, NoticeDto notice) {
 		logger.info("프로젝트 상세 페이지_정지 & 재개");
 		ModelAndView mav = new ModelAndView();
-		
+		String error = "";
+
 		if(param.equals("restart")) {
 			adminService.restartProject(project);
 			
 		} else if(param.equals("stop")) {
-			adminService.noticeToStop(notice);
-			adminService.stopProject(project);
+			if(notice.getNoticeContent().equals("") ||
+				notice.getNoticeContent().equals("")) {
+				error = "모든 칸을 입력해주세요";
+					
+			} else {
+				adminService.noticeToStop(notice);
+				adminService.stopProject(project);								
+			}
 			
 		} else if(param.equals("finish")) {
 			adminService.finishProject(project);
 			
-		} else if(param.equals("leader")) {
-			adminService.noticeToLeader(notice);
+		} else if(param.equals("leader")) {			
+			if(notice.getNoticeTitle().equals("") ||
+					notice.getNoticeContent().equals("")) {
+				error = "모든 칸을 입력해주세요";
+				
+			} else {
+				adminService.noticeToLeader(notice);						
+			}
 		}
 		
 		String status = project.getStatus();
 		
+		mav.addObject("error",error);
 		mav.addObject("status",status);
 		mav.setViewName("jsonView");
 		return mav;

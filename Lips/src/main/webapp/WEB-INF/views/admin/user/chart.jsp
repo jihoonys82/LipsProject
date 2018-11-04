@@ -127,6 +127,43 @@
 					}
 				});
 	});
+	
+	var chart = jui.include("chart.builder");
+
+	chart("#result", {
+		width : 500,
+		height : 400,
+	    axis : {
+	        x : {
+	            type : "block",
+	            domain : "quarter",
+	            line : true
+	        },
+	        y : {
+	            type : "range",
+	            domain : function(d) { return [d.sales, d.profit ]; },
+	            step : 10,
+	            line : true,
+	            orient : "right"
+	        },
+	        data : [
+	            { quarter : "8월", sales : '${cntList[1]}', profit : '${cntList[2]}' },
+	            { quarter : "9월", sales : '${cntList[3]}', profit : -30 },
+	            { quarter : "10월", sales : 10, profit : -5 },
+	            { quarter : "11월", sales : 30, profit : 25 }
+	        ]
+	    },
+	    brush : {
+	        type : "column",
+	        target : [ "sales", "profit" ]
+	    },
+	    widget : [
+	    	{ type : "title", text : "Column Sample" },
+	        { type : "tooltip" },
+	    	{ type : "legend" }
+	    ]
+	});
+	
 </script>
 
 

@@ -14,7 +14,7 @@
 
 .scrolltbody {
     display: block;
-    width: 400px;
+    width: 320px;
     border-collapse: collapse;
 }
 .scrolltbody th { border: 1px solid #000; background: pink; }
@@ -24,13 +24,12 @@
     height: 200px;
     overflow: auto;
 }
-.scrolltbody th:nth-of-type(1), .scrolltbody td:nth-of-type(1) { width: 120px; }
-.scrolltbody th:nth-of-type(2), .scrolltbody td:nth-of-type(2) { width: 120px; }
-.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) { width: 120px; }
-.scrolltbody th:last-child { width: 100px; }
+.scrolltbody th:nth-of-type(1), .scrolltbody td:nth-of-type(1) { width: 40px; }
+.scrolltbody th:nth-of-type(2), .scrolltbody td:nth-of-type(2) { width: 50px; }
+.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) { width: 70px; }
+.scrolltbody th:nth-of-type(4), .scrolltbody td:nth-of-type(4) { width: 70px; }
+.scrolltbody th:last-child { width: 100px }
 .scrolltbody td:last-child { width: calc( 100px - 19px );  }
-
-
 
 </style>
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
@@ -115,41 +114,52 @@
 							</div>
 
 							<div class="view-form-row">
- 								<label for="userMember" class="row view-form-label">
- 								
- 								<h4>프로젝트 멤버</h4></label>
+ 								<label for="userMember" class="row view-form-label"> <h4>프로젝트 멤버</h4></label>
 								
+								<c:if test="${uInfo[0].userId ne null}">	
 								<table class='scrolltbody table classic'>
 									<thead>
 										<tr>
-											<th style="width:100%">#</th>
-											<th style="width:100%"> 아이디 </th>
+											<th>#</th>
+											<th>아이디</th>
+											<th>닉네임</th>
+											<th>상태</th>
+											<th>가입날짜</th>
 										</tr>
 									</thead>
-	
 									<tbody>
-										<c:if test="${uPInfo[0].userId ne null}">	
 											
-											<c:forEach items="${uPInfo}" var="uPInfo" varStatus="i">
-												
-												<tr id="${uPInfo.userId}">
-													<td>${i.index +1 }</td>
-													<td style="text-align: center">${uPInfo.userId}</td>
-												</tr>
-											</c:forEach>
-										</c:if>
-		
-										<c:if test="${uPInfo[0].userId eq null}">
-											<tr>
-												<td> </td>
-												<td>참여멤버 없음</td>
-												<td> </td>
-											</tr>
-										</c:if>
-	
-									</tbody>
-								</table>	
+									<c:forEach items="${uInfo}" var="uInfo" varStatus="i">		
+										<tr id="${uInfo.userId}">
+											<td>${i.index +1 }</td>
+											<td style="text-align: center">${uInfo.userId}</td>
+											<td>${uInfo.nick }</td>
 
+										<c:if test="${uInfo.blocked eq 0 && uInfo.userLevel > 1}">						
+											<td>관리자</td>
+										</c:if>
+										<c:if test="${uInfo.blocked eq 0 && uInfo.userLevel eq 1 }">						
+											<td>가입</td>
+										</c:if>
+										<c:if test="${uInfo.blocked eq 0 && uInfo.userLevel eq 0}">
+											<td>탈퇴</td>
+										</c:if>
+										<c:if test="${uInfo.blocked eq 1 && uInfo.userLevel eq 0}">
+											<td>강제 탈퇴</td>
+										</c:if>
+
+											<td><fmt:formatDate value="${uInfo.createDate}" pattern="yyyy-MM-dd" /></td>
+											
+										</tr>
+									</c:forEach>
+											
+									</tbody>
+								</table>			
+								</c:if>
+		
+								<c:if test="${uInfo[0].userId eq null}">
+									<span>참여멤버 없음</span>
+								</c:if>
 							</div>
 							
 					</div> <!-- col col-5_ end  -->
@@ -162,22 +172,22 @@
 		
 		<div class="body">
 
-			<div class="viewProBtn">
+			<div id="proBtn" class="viewProBtn">
 				<c:choose>
 					<c:when test="${proInfo.status eq 'OPEN'}">
-						<a class="btn normal focus" onclick="modalNotice.show();">리더에게 공지</a>
-						<a class="btn normal focus" onclick="modalStop.show();">프로젝트 정지</a>
-						<a class="btn normal" onclick="goBack()">뒤로 가기</a>					
+						<a id="aNotice" class="btn normal focus" onclick="modalNotice.show();">리더에게 공지</a>
+						<a id="aStop" class="btn normal focus" onclick="modalStop.show();">프로젝트 정지</a>
+						<a id="aBack" class="btn normal" onclick="goBack()">뒤로 가기</a>					
 					</c:when>
 					<c:when test="${proInfo.status eq 'PENDING'}">
-						<a class="btn normal focus" onclick="modalNotice.show();">리더에게 공지</a>
-						<a class="btn normal focus" onclick="modalRestartPro.show()">프로젝트 재개</a>						
-						<a class="btn normal focus" onclick="modalFinishPro.show()">프로젝트 종료</a>
-						<a class="btn normal" onclick="goBack()">뒤로 가기</a>	
+						<a id="aNotice" class="btn normal focus" onclick="modalNotice.show();">리더에게 공지</a>
+						<a id="aRestart" class="btn normal focus" onclick="modalRestartPro.show()">프로젝트 재개</a>						
+						<a id="aFinish" class="btn normal focus" onclick="modalFinishPro.show()">프로젝트 종료</a>
+						<a id="aBack" class="btn normal" onclick="goBack()">뒤로 가기</a>	
 					</c:when>
 					<c:when test="${proInfo.status eq 'CLOSE'}">
-						<a class="btn normal focus" onclick="modalNotice.show();">리더에게 공지</a>
-						<a class="btn normal" onclick="goBack()">뒤로 가기</a>	
+						<a id="aNotice" class="btn normal focus" onclick="modalNotice.show();">리더에게 공지</a>
+						<a id="aBack" class="btn normal" onclick="goBack()">뒤로 가기</a>	
 					</c:when>
 					<c:otherwise>
 						<td>알 수 없음</td>
@@ -361,16 +371,20 @@ $(document).ready(function() {
 
 			},success : function(responseData){
 				
-// 				var title = $("div").children("select").val();
-// 				var content = $("div").children("textarea").val();
+				if(responseData.error != "") {
+					alert(responseData.error);
 
-// 				$("div").children("select").val('');
-// 				$("div").children("textarea").val('');
+				}else{
+					modalNotice.hide();
+					alert("'${proInfo.projectLeader}' 님에게 공지가 발송되었습니다");
+					$("#bodyNotice").find("select").val('');
+					$("#bodyNotice").find("textarea").val('');
+				}
 				
-				modalNotice.hide();
-	
+			}, error: function() {
+				
+				alert("error");
 			} 
-			
 		
 		})
 	});
@@ -386,9 +400,39 @@ $(document).ready(function() {
 				"noticeContent": $("#bodyStop").find("textarea").val()
 		
 			}, success: function(responseData) {
-				console.log("test");
 				
-				modalStop.hide();
+				if(responseData.error != "") {
+					alert(responseData.error);
+					
+				} else {
+					$("#proProgress").empty();
+					$("#proProgress").val("중단");
+					
+					modalStop.hide();
+					alert("'${proInfo.projectName}'이/가 중단되었습니다");
+				
+					$("#aNotice").remove();
+					$("#aStop").remove();
+					
+					var aNewNotice = '<a id="aNewNotice" class="btn normal focus" onclick="modalNotice.show();">리더에게 공지</a>';
+					$("#proBtn").html(aNewNotice);
+
+					var aNewRestart = '<a id="aNewRestart" class="btn normal focus" onclick="modalRestartPro.show()" style="margin-left : 1em;">프로젝트 재개</a>';
+					$("#aNewNotice").after(aNewRestart);
+				
+					var aNewFinish = '<a id="aNewFinish" class="btn normal focus" onclick="modalFinishPro.show()" style="margin-left : 1em;">프로젝트 종료</a>';
+					$("#aNewRestart").after(aNewFinish);
+
+					var aNewBack = '<a id="aNewBack" class="btn normal" onclick="goBack()"  style="margin-left : 1em;">뒤로 가기</a>';
+					$("#aNewFinish").after(aNewBack);
+					
+					$("#bodyStop").find("select").val('');
+					$("#bodyStop").find("textarea").val('');
+					
+				}
+			}, error: function() {
+				
+				alert("error");
 			}
 			
 		})
@@ -403,13 +447,24 @@ $(document).ready(function() {
 			, data: {"projectId": "${proInfo.projectId}", "param":"finish" }
 			, success: function(data) {
 				
-				$("#proProgress").removeAttr("readonly");
+// 				$("#proProgress").removeAttr("readonly");
 				$("#proProgress").empty();
 				$("#proProgress").val("종료");
 // 				$("#proProgress").attr("readonly");
 			    	
 				modalFinishPro.hide();
+				alert("'${proInfo.projectName}'이/가 종료되었습니다");
 				
+				$("#aNotice").remove();
+				$("#aRestart").remove();
+				$("#aFinish").remove();
+				$("#aBack").remove();
+				
+				var aNewNotice = '<a id="aNewNotice" class="btn normal focus" onclick="modalNotice.show();">리더에게 공지</a>';
+				$("#proBtn").html(aNewNotice);
+				var aNewBack = '<a id="aNewBack" class="btn normal" onclick="goBack()" style="margin-left : 1em;">뒤로 가기</a>';
+				$("#aNewNotice").after(aNewBack);
+
 			}, error: function() {
 				
 				alert("error");
@@ -426,12 +481,25 @@ $(document).ready(function() {
 			, data: {"projectId": "${proInfo.projectId}", "param":"restart" }
 			, success: function(data) {
 				
-				$("#proProgress").removeAttr("readonly");
+// 				$("#proProgress").removeAttr("readonly");
 				$("#proProgress").empty();
 				$("#proProgress").val("진행 중");
 // 				$("#proProgress").attr("readonly");
 			    	
 				modalRestartPro.hide();
+				alert("'${proInfo.projectName}'이/가 다시 재개되었습니다");
+				
+				$("#aNotice").remove();
+				$("#aRestart").remove();
+				$("#aFinish").remove();
+				$("#aBack").remove();
+				
+				var aNewNotice = '<a id="aNewNotice" class="btn normal focus" onclick="modalNotice.show();">리더에게 공지</a>';
+				$("#proBtn").html(aNewNotice);
+				var aNewStop = '<a id="aNewStop" class="btn normal focus" onclick="modalStop.show();" style="margin-left : 1em;">프로젝트 정지</a>';
+				$("#aNewNotice").after(aNewStop);
+				var aNewBack = '<a id="aNewBack" class="btn normal" onclick="goBack()" style="margin-left : 1em;">뒤로 가기</a>';		
+				$("#aNewStop").after(aNewBack);
 				
 			}, error: function() {
 				

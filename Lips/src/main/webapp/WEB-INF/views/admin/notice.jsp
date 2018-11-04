@@ -37,13 +37,13 @@
 					<a href="javascript:moreList();"><i class="icon-more"></i></a>
 				</label>
 				<div style="padding: 1em;">
-					<c:if test="${oneLine.noticeCategory eq '1'}">
+					<c:if test="${'1' eq oneLine.noticeCategory}">
 						<input type="text" name="notice" id="oneLine" class="input view-form-input" readonly="readonly"
-							value="${oneLine.noticeTitle}">
+							value="${oneLine.noticeContent}"/>
 					</c:if>
-					<c:if test="${oneLine.noticeCategory eq '4' }">
+					<c:if test="${oneLine.noticeCategory eq '4'}">
 						<input type="text" name="notice" id="oneLine" class="input view-form-input" readonly="readonly"
-							value="삭제된 공지입니다">						
+							value="삭제된 공지입니다"/>						
 					</c:if>	
 					<a class="btn mini focus" id="btnDelete">삭제</a>
 				</div>
@@ -126,7 +126,7 @@
         <br/>
     </div>
     <div class="foot" align="center">
-        <a class="btn btnClose" href="#">닫기</a>
+        <a class="btn" id="btnClose" href="#">닫기</a>
     </div>
 </div>
 	
@@ -219,7 +219,10 @@ $(document).ready(function() {
 				
 				console.log("test_delete");
 				
-				updateOneLineNotice();
+				$("#oneLine").empty();
+				$("#oneLine").val("삭제된 공지입니다");
+				
+// 				updateOneLineNotice();
 				
 			}
 		})
@@ -304,12 +307,18 @@ function moreList() {
 										"<td>" +
 											responseData.more[i].noticeContent +
 										"</td>"+
-										"<td>"+
-								
-											   new Date('<fmt:formatDate value="${responseData.more[i].createDate }" pattern="yyyy/MM/dd" />') + 
+										"<td>";
 										
-										"</td>" + 
-									"</tr>"
+											if(responseData.more[i].noticeCategory == 4) {
+												content += "삭제";
+											} else if (responseData.more[i].noticeCategory == 1) {
+												content += "공지";
+											}
+// 											   new Date('<fmt:formatDate value="${responseData.more[i].createDate }" pattern="yyyy/MM/dd" />') + 
+										
+											content += 
+												"</td>" + 
+											"</tr>"
 							 }
 						}
 						

@@ -55,21 +55,27 @@
 			<div class="col col-12">
 				<div class="infoBox col col-3">
 					<div class="boxWrapper">
-						<div class="numBox">45</div>
+						<div class="numBox">
+							${cntList[0] }
+						</div>
 						<div>총 프로젝트</div>
 					</div>
 				</div>
 
 				<div class="infoBox col col-3">
 					<div class="boxWrapper">
-						<div class="numBox">3</div>
+						<div class="numBox">
+							${cntList[1] }
+						</div>
 						<div>신규 프로젝트</div>
 					</div>
 				</div>
 
 				<div class="infoBox col col-3">
 					<div class="boxWrapper">
-						<div class="numBox">12</div>
+						<div class="numBox">
+							${cntList[2] }
+						</div>
 						<div>진행  프로젝트</div>
 					</div>
 					
@@ -77,7 +83,9 @@
 
 				<div class="infoBox col col-3">
 					<div class="boxWrapper">
-						<div class="numBox">2</div>
+						<div class="numBox">
+							${cntList[3] }
+						</div>
 						<div>완료된 프로젝트</div>
 					</div>
 				</div>

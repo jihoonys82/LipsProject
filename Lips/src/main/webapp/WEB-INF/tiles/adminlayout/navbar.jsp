@@ -6,6 +6,7 @@
  <div class="navbar flat" style="overflow: hidden;">
 	<div class="inline right">
 		<span><sec:authentication property="principal.nick" /> 님 어서오세요</span>
+		<a class="btn" href='/main'>main</a>
 		<a class="btn"  href="<c:url value='/logout' />">logout</a>	
 	</div>
 </div>

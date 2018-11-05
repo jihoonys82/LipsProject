@@ -23,7 +23,7 @@
 			var dh = document.getElementById('termsBox').scrollHeight;
 			var dch = document.getElementById('termsBox').clientHeight;
 			var dct = document.getElementById('termsBox').scrollTop;
-			if ((dh == (dct + dch))) {
+			if ((dh <= (dct + dch + 20))) {
 				agreeRead = true;
 				$("#agreeBtn").removeClass('disabled');
 			}

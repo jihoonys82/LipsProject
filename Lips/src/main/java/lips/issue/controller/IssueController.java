@@ -1,5 +1,6 @@
 package lips.issue.controller;
 
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -153,5 +154,17 @@ public class IssueController {
 		
 		//mav.setViewName("issue/issueDetail");
 		return mav;
+	}
+	
+	/**
+	 * Change assignee via ajax
+	 */
+	@RequestMapping(value="/changeAssignee", method=RequestMethod.POST)
+	public void changeAssignee(String issueId, String userId) {
+		Map<String, String> map = new HashMap<>();
+		map.put("issueId", issueId);
+		map.put("userId", userId);
+		
+		issueService.changeAssignee(map);
 	}
 }

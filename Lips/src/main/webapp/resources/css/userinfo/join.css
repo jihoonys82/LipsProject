@@ -41,3 +41,4 @@
 	width			: 100%;
     text-align		: center !important;
 }
+::-webkit-scrollbar{width:10px;}

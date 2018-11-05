@@ -81,15 +81,15 @@
 				</div>
 				</div>
 	
-				<div class="viewUserBtn">
+				<div id="userBtn" class="viewUserBtn">
 <!-- 					<a class="btn normal" style="float: right;" onclick="goBack()">뒤로 가기</a> -->
 					<c:choose>
 						<c:when test="${userInfo.blocked eq 1 && userInfo.userLevel eq 0}">			
-							<a class="btn normal focus" onclick="modalReopenAcc.show()">정지 해제</a>
+							<a id="aReopen" class="btn normal focus" onclick="modalReopenAcc.show()">정지 해제</a>
 							<a class="btn normal" onclick="goBack()">뒤로 가기</a>
 						</c:when>							
 						<c:when test="${userInfo.blocked eq 0 && userInfo.userLevel eq 1 }">
-							<a class="btn normal focus" onclick="modalCloseAcc.show()">탈퇴 처리</a>
+							<a id="aClose" class="btn normal focus" onclick="modalCloseAcc.show()">탈퇴 처리</a>
 							<a class="btn normal" onclick="goBack()">뒤로 가기</a>					
 						</c:when>
 					</c:choose>
@@ -102,7 +102,7 @@
 
 <div id="modalReopenAcc" class="msgbox" style="display: none;">
 	<div class="head">정지 해제</div>
-	<div class="body" style="text-align: center; margin-bottom: 10%;">
+	<div id="bodyReopen" class="body" style="text-align: center; margin-bottom: 10%;">
 			<p>${userInfo.userId } 님의 강등을 취소하시겠습니까?</p>
 			<a class="btn focus small" id="btnReopen">확인</a> <a class="btn small" id="btnCancel_1">취소</a>
 	</div>
@@ -110,7 +110,7 @@
 
 <div id="modalCloseAcc" class="msgbox" style="display: none; width: 20em;">
 	<div class="head">탈퇴 처리</div>
-	<div class="body" style="text-align: center; margin-bottom: 10%;">
+	<div id="bodyClose" class="body" style="text-align: center; margin-bottom: 10%;">
 			<p>${userInfo.userId } 님을 강등시키시겠습니까?</p>
 		<div style="text-align: center;">
 			<a class="btn focus small close" id="btnClose">확인</a> <a class="btn small close" id="btnCancel_2">취소</a>
@@ -156,9 +156,27 @@
 // 				    	$("#status").attr("readonly",false);
 //				    });
 
-				        modalReopenAcc.hide();
+				        modalReopenAcc.hide();				        
+						alert("'${userInfo.userId}' 님을 정지해제 하셨습니다" );
+
+						$("#aReopen").remove();
+						
+						var aNewClose = '<a id="aNewClose" class="btn normal focus" onclick="modalCloseAcc.show()">탈퇴 처리</a>'; 
+						$("#userBtn").html(aNewClose);
+						
+						var aNewBack = '<a id="aNewBack" class="btn normal" onclick="goBack()" style="margin-left : 1em;">뒤로 가기</a>';
+						$("#aNewClose").after(aNewBack);
 					
-					
+
+// 						$("#userBtn").html(aNewBack);
+						
+// 						$(document).on("click","#btn",function(){
+// 							alert("!"); 
+// 						});
+//   				    $(document).on("click","#moveBtn",function(event){
+// 				            alert($(this).text());
+// 				        });
+						
 				}, error: function() {
 					alert("error");
 				}
@@ -170,7 +188,7 @@
 			$.ajax({
 				type: "post"
 				, url: "/admin/user/view"
-				, dataType: "json"
+				, dataType: "json" 
 				, data: {"userId": "${userInfo.userId}", "param":"false" }
 				, success: function(data) {
 				    	
@@ -181,7 +199,15 @@
 				        $("#status").val("강제탈퇴");
 				        
 				        modalCloseAcc.hide();
-				       
+						alert("'${userInfo.userId}' 님을 강제탈퇴시키셨습니다" );
+
+						$("#aClose").remove();
+				        
+						var aNewReopen = '<a id="aNewReopen" class="btn normal focus" onclick="modalReopenAcc.show()">정지 해제</a>'; 
+						$("#userBtn").html(aNewReopen);
+						
+						var aNewBack = '<a id="aNewBack" class="btn normal" onclick="goBack()" style="margin-left : 1em;">뒤로 가기</a>';
+						$("#aNewReopen").after(aNewBack);
 					
 				}, error: function() {
 					

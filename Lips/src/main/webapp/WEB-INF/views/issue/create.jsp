@@ -16,8 +16,11 @@ jui.ready([ "ui.autocomplete" ], function(autocomplete) {
 		if(name.length>0) {
 			
 			// Querystring null값인경우에 대한 예외처리
-			var projId = "";
-			if((${param.projectId} + "") != "" ) projId = ${param.projectId} + "";
+			var projId = $("select#projectId").val();
+			
+			if(projId == 0 ){
+				return false;
+			}
 			
 			$.ajax({
 				type:"post"
@@ -25,12 +28,12 @@ jui.ready([ "ui.autocomplete" ], function(autocomplete) {
 				, data: { "name" : name ,"projectId" : projId }
 				, dataType: "json"
 				, success: function(data){
-					console.log(data);
+// 					console.log(data);
 					assign.update(data.name);
 				}
 				, error : function(e){
 					console.log("----error----");
-					console.log(e.responseText);
+// 					console.log(e.responseText);
 				}
 			});
 		}
@@ -287,17 +290,21 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 <!-- 				<label for="issueCustom1" class="issue-form-label">커스텀</label> -->
 				<div id="issueCustom1">
 
-					<button id="addCustomBtn" class="btn focus" style="width:20%;text-align: center;" onclick="addCustome()">커스텀 컬럼 추가하기</button>
+					<button id="addCustomBtn" class="btn focus" style="width:20%;text-align: center;" onclick="addCustom()">커스텀 컬럼 추가하기</button>
 				 </div>
 				 <script>
 				 var i = 0;
-				 function addCustome(){
+				 function addCustom(){
 					$("<div style='display: none;'>"+
 						"<div style='display:flex'>"+
-							"<select name='customSelect' id='custome"+i+"' class='input issue-form-input' style='width: 15%; margin-bottom: 10px;' onchange='selectType(this)'>"+
+							"<select name='customSelect' id='custom"+i+"' class='input issue-form-input customSelect' style='width: 15%; margin-bottom: 10px;' onchange='selectType(this)'>"+
 								"<option value='0' >컬럼 타입</option>"+
-								"<option value='text'>Text</option>"+
-								"<option value='checkBox'>Check Box</option>"+								 
+								"<option value='text'>text</option>"+
+								"<option value='checkbox'>checkbox</option>"+
+								"<option value='color'>color</option>"+
+								"<option value='date'>date</option>"+
+								"<option value='range'>range</option>"+
+								"<option value='time'>time</option>"+
 							"</select>"+
 						"</div>"+
 					"</div>"					 
@@ -306,17 +313,36 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 				 }
 				 function selectType(select){ 
 					var idx = select.options.selectedIndex;
+					$("#"+select.id+"Input").remove();
+					$("#"+select.id+"Name").remove();
 					if(idx==0) return;
-					createInputBox(select.options[idx].value, select.id);
+					createColumnBox(select.options[idx].value, select.id);
+				 }
+				 function createColumnBox(type,id){
+					$("#"+id+"Name").remove();
+					$("#"+id).after($("<input type='text' id='"+id+"Name' class='input customName' style='margin-left:10px;'"+ 
+							"placeholder='컬럼명을 입력해 주세요' onfocusout=createInputBox('"+type+"','"+id+"') />"));
 				 }
 				 function createInputBox(type,id){
-					console.log(type);
-					console.log(id);
+					 $("#"+id+"Input").remove();
+					 if(type=="checkbox"){
+						 $("#"+id+"Name").after($("<input type='"+type+"' id='"+id+"Input' class='input customInput' style='width:3%; margin-left:5px;' />"));
+					 }else if(type=="range"){
+						 $("#"+id+"Name").after($("<input type='"+type+"' id='"+id+"Input' class='input customInput' style='width:40%; margin-left:5px;' onmouseup=$('"+id+"InputVal').html($('#"+id+"Input').val()) /><b id='"+id+"InputVal'>50</b>"));
+						 //https://stackoverflow.com/questions/18544890/onchange-event-on-input-type-range-is-not-triggering-in-firefox-while-dragging
+					 }
+					 else{
+						 $("#"+id+"Name").after($("<input type='"+type+"' id='"+id+"Input' class='input customInput' style='width:50%; margin-left:5px;' />"));	 
+					 }
+					 //($("#"+id+"Input").is(":checked")==true) -- 체크여부 확인 or doc~...Name('custonInput')[n].checked == true || false;
+					 
 				 }
 				 </script>
+				 
 			<%-- YJ End --%>
 			</div>
 		</div>
+		
 		<div class="foot alignCenter">
 			<button type="button" id="issueFormSubmit" class="btn focus">Submit</button>
 			<button type="button" id="issueFormCancel" class="btn">Cancel</button>
@@ -325,6 +351,7 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 </div>
 
 <!-- set Stage Modal -->
+
 <div id="setStageModal" class="msgbox" style="display: none;">
 	<div class="head">
 		이슈 단계 설정하기

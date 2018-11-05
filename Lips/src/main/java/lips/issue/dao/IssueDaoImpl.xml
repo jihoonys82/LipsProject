@@ -143,5 +143,25 @@
 		WHERE ROWNUM BETWEEN ${startNo} AND ${endNo}
  	</select>
  	
+ 	<select id="selCountProjectMember" parameterType="lips.userinfo.dto.User" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM project_member
+ 		WHERE projectId = ${projectId} AND userId = #{userId} AND userId > 0
+ 	</select>
+ 	 
+ 	<select id="selIssueByIssueId" parameterType="lips.issue.dto.IssueDto" resultType="lips.issue.dto.IssueDto">
+ 		SELECT * FROM issue WHERE issueId= #{issueId}
+ 	</select>
  	
+ 	<select id="selCountIssueFollowingByIssue" parameterType="lips.issue.dto.IssueDto" resultType="int">
+ 		SELECT COUNT(*) FROM issue_watcher WHERE issueId = #{issueId}
+ 	</select>
+ 	
+ 	<select id="selFollowerByIssue" parameterType="lips.issue.dto.IssueDto" resultType="lips.userinfo.dto.User">
+ 		SELECT userId FROM issue_watcher WHERE issueId = #{issueId}
+ 	</select>
+ 	
+ 	<select id="selCommentByIssue" parameterType="lips.issue.dto.IssueDto" resultType="lips.issue.dto.IssueCommentDto">
+ 		SELECT * FROM issue_comment WHERE issueId = #{issueId}
+ 	</select>
  </mapper>  

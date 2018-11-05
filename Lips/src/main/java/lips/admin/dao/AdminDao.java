@@ -47,12 +47,18 @@ public interface AdminDao {
 	 *   최신 한줄공지 select 
 	 * @return
 	 */
-	public String selOneLineHeader();
+	public NoticeDto selOneLineHeader();
 
 	/**
-	 *  최신 한줄공지 업데이트 
+	 *  한줄공지 카테고리 4(삭제된 공지)로 업데이트
 	 */
 	public void upOneLineHeader();
+	
+	/**
+	 *  한줄 공지 더 보기 (삭제 공지 포함)
+	 * @return
+	 */
+	public List<NoticeDto> selMoreOneLineN();
 	
 	/**
 	 *   유저의 block 여부 설정 - 강등 

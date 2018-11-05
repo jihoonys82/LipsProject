@@ -131,8 +131,8 @@
 		    (NOTICE_SEQ.nextval, #{noticeTitle}, #{noticeContent}, sysdate, 0)
 	</insert>
 	
-	<select id="selOneLineHeader" resultType="String">
-		select noticeContent from notice where noticeid =( select max(noticeid) from notice where noticeCategory = 1)
+	<select id="selOneLineHeader" resultType="lips.admin.dto.NoticeDto">
+		select * from notice where noticeid =( select max(noticeid) from notice where noticeCategory = 1 or noticeCategory = 4)
 	</select>
 	
 	<insert id="inNoticeToLeader" parameterType="lips.admin.dto.NoticeDto">
@@ -146,7 +146,11 @@
 	</insert>
 	
 	<update id="upOneLineHeader">
-		UPDATE NOTICE SET NOTICECONTENT = ' ', NOTICECATEGORY = 4 WHERE NOTICEID =( SELECT MAX(NOTICEID) FROM NOTICE WHERE NOTICECATEGORY = 1)	
+		UPDATE NOTICE SET NOTICECATEGORY = 4 WHERE NOTICEID =( SELECT MAX(NOTICEID) FROM NOTICE WHERE NOTICECATEGORY = 1)	
 	</update>
+	
+	<select id="selMoreOneLineN" resultType="lips.admin.dto.NoticeDto">
+		SELECT * FROM NOTICE WHERE NOTICECATEGORY = 1 OR NOTICECATEGORY = 4 ORDER BY noticeId DESC
+	</select>
 	
  </mapper>  

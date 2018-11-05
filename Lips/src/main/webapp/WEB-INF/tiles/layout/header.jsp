@@ -44,8 +44,10 @@ $(document).ready( function() {
 		url : "/alarm/notice/oneLine",
 		type : "POST",
 		success : function(responseData) {
-			$('#oneLine1').html(responseData.data);
-			$('#oneLine2').html(responseData.data);
+			if(responseData.data.noticeCategory != 4){
+				$('#oneLine1').html(responseData.data.noticeContent);
+				$('#oneLine2').html(responseData.data.noticeContent);
+			}
 		}
 	});
 	

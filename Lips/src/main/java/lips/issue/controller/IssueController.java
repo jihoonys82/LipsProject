@@ -113,8 +113,7 @@ public class IssueController {
 		
 		return map;
 	}
-	
-	
+		
 	/**
 	 * Issue Create process
 	 */
@@ -122,11 +121,6 @@ public class IssueController {
 	public String issueCreateProc(IssueDto issueDto) {
 		issueService.setNewIssue(issueDto);
 		return "redirect:/issue/main";
-	}
-	
-	@RequestMapping(value="/detail", method=RequestMethod.GET)
-	public void issueDetail() {
-		
 	}
 	
 	/**
@@ -146,4 +140,18 @@ public class IssueController {
 		return mav; 
 	}
 	
+	/**
+	 * Issue Detail page
+	 */
+	@RequestMapping(value="/detail", method=RequestMethod.GET)
+	public ModelAndView issueDetail(@RequestParam int issueId) {
+		
+		IssueDto issueDto = new IssueDto();
+		issueDto.setIssueId(issueId);
+		
+		ModelAndView mav = issueService.getIssue(issueDto);
+		
+		//mav.setViewName("issue/issueDetail");
+		return mav;
+	}
 }

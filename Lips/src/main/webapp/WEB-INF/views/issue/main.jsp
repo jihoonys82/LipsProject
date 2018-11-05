@@ -3,6 +3,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
+<style> 
+.w-5 {
+	width: 5%;
+}
+.w-10 {
+	width: 10%;
+}
+.w-15 {
+	width: 15%;
+}
+.w-20 {
+	width: 20%;
+}
+.w-30 {
+	width: 30%;
+}
+.w-40 {
+	width: 39%;
+}
+
+</style>
 <div class="row">
 	<div class="col col-6 issueHeadline">
 		<h3>데드라인이 가까운 이슈</h3>
@@ -81,11 +102,11 @@
 			<table id="tbAssigned" class="table classic hover">
 				<thead>
 					<tr>
-						<th class="myCols-1">이슈번호</th>
+						<th class="w-10">이슈번호</th>
 						<th>제목</th>
-						<th class="myCols-1">이슈 생성자</th>
-						<th class="myCols-2">남은 기간</th>
-						<th class="myCols-2">단계</th>
+						<th class="w-10">이슈 생성자</th>
+						<th class="w-15">남은 기간</th>
+						<th class="w-20">단계</th>
 					</tr>
 				</thead>
 				<tbody>

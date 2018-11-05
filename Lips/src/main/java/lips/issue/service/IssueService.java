@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import lips.issue.dao.IssueDao;
 import lips.issue.dto.CategoryAssetDto;
+import lips.issue.dto.IssueCategoryDto;
+import lips.issue.dto.IssueCommentDto;
 import lips.issue.dto.IssueDto;
 import lips.issue.dto.IssueStagePresetDto;
 import lips.issue.dto.StageAssetDto;
@@ -190,7 +192,7 @@ public class IssueService {
 		} else {
 			// there is no issue redirect to issue Error page.
 			List<String> list = new ArrayList<>();
-			list.add("에러가 발생했습니다. 다음 이유 때문에 발생했을 가능성이 있습니다. 관리자에게 문의하세요.");
+			list.add("에러가 발생했습니다. 다음 이유 때문에 발생했을 가능성이 있습니다.");
 			list.add("project 정보가 정상적으로 요청되지 않았습니다.");
 			list.add("이슈가 한건도 없습니다. ");
 			mav.addObject("errorBody", list);
@@ -200,4 +202,75 @@ public class IssueService {
 		
 		return mav;
 	}
+	
+	/**
+	 * get issue detail data
+	 * @param isssueDto
+	 * @return
+	 */
+	public ModelAndView getIssue(IssueDto issueDto) {
+		ModelAndView mav = new ModelAndView();
+		User user = new UserByToken().getInstance();
+		
+		Map<String, String> map = new HashMap<>(); // for userId and projectId
+		map.put("userId", user.getUserId());
+		map.put("projectId", ((Integer)issueDto.getProjectId()).toString());
+		
+		// 1. 유저가 해당 이슈가 포함된 프로젝트 멤버인지 확인 (아니면 에러페이지) 
+		if(issueDao.selCountProjectMember(map) <= 0) {
+			List<String> list = new ArrayList<>();
+			list.add("에러가 발생했습니다. 다음 이유 때문에 발생했을 가능성이 있습니다.");
+			list.add("프로젝트에 참여중인 맴버가 아닙니다. 프로젝트 맴버만 조회 가능합니다.");
+			list.add("프로젝트 리더가 회원님을 밴 했습니다.");
+			mav.addObject("errorBody", list);
+			mav.addObject("errorTitle", "잘못된 요청입니다.");
+			mav.setViewName("error");
+		}
+		
+		// 2. 이슈 데이터 가져오기
+		IssueDto issue = issueDao.selIssueByIssueId(issueDto);
+		
+		// 3. 스테이지 데이터 가져오기
+		IssueStagePresetDto ispDto = new IssueStagePresetDto();
+		ispDto.setIssuePresetId(issue.getStagePresetId());
+		List<StageAssetDto> issueStages = issueDao.selStageAssetByPresetId(ispDto);
+		
+		// 4. 팔로워 수, 팔로워 리스트, 팔로잉 유무 가져오기 
+		int followerCount = issueDao.selCountIssueFollowingByIssue(issue);
+		List<User> follower = issueDao.selFollowerByIssue(issue);
+		boolean amIFollowing = false;
+		for(User u : follower) {
+			if(u.getUserId() == user.getUserId()) amIFollowing = true;
+		}
+		// 5. 프로젝트 정보 가져오기
+		ProjectDto projectDto = projectDao.selProbyProId(((Integer)issue.getProjectId()).toString());
+		
+		// 6. 이슈 카테고리명 가져오기
+		List<CategoryAssetDto> categories = issueDao.selCatByProjId(projectDto);
+		String categoryName ="";
+		for(CategoryAssetDto catAsset: categories) {
+			if(catAsset.getCategoryAssetId() == issue.getCategoryId()) {
+				categoryName = catAsset.getAssetName();
+			}
+		}
+		// TODO 7. 첨부파일 가져오기 
+		
+		// 8. 댓글 가져오기 
+		List<IssueCommentDto> comments = issueDao.selCommentByIssue(issue);
+		
+		// 9. mav에 추가 
+		mav.addObject("issue", issue );
+		mav.addObject("issueStages", issueStages);
+		mav.addObject("followerCount", followerCount);
+		mav.addObject("follower", follower);
+		mav.addObject("amIFollowing", amIFollowing);
+		mav.addObject("projectDto", projectDto);
+		
+		mav.addObject("comments", comments);
+		mav.addObject("catName", categoryName);
+		
+		mav.setViewName("issue/issueDetail");
+		return mav;
+	}
+	
 }

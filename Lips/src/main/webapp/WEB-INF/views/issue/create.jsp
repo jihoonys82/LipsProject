@@ -16,8 +16,11 @@ jui.ready([ "ui.autocomplete" ], function(autocomplete) {
 		if(name.length>0) {
 			
 			// Querystring null값인경우에 대한 예외처리
-			var projId = "";
-			if((${param.projectId} + "") != "" ) projId = ${param.projectId} + "";
+			var projId = $("select#projectId").val();
+			
+			if(projId == 0 ){
+				return false;
+			}
 			
 			$.ajax({
 				type:"post"
@@ -25,12 +28,12 @@ jui.ready([ "ui.autocomplete" ], function(autocomplete) {
 				, data: { "name" : name ,"projectId" : projId }
 				, dataType: "json"
 				, success: function(data){
-					console.log(data);
+// 					console.log(data);
 					assign.update(data.name);
 				}
 				, error : function(e){
 					console.log("----error----");
-					console.log(e.responseText);
+// 					console.log(e.responseText);
 				}
 			});
 		}

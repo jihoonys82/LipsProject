@@ -8,7 +8,7 @@
 .mainContents {
 border : 1px solid white;
 margin: 10px auto;
-height: 30em;
+height: 7em;
 }
 </style>
 <script>
@@ -23,13 +23,25 @@ $(document).ready(function() {
 </script>
 
 
+
 <div class="row">
-	<div class="col col-6 mainContents">하하</div>
-	<div class="col col-6 mainContents">하하2ㅇㅇ</div>
+	<div class="col col-6 mainContents">
+		<div class="col col-6 mainContents">내가 속한 프로젝트 수ㅇㅇㅇ ${mainInfo.ProjectCount}</div>
+		<div class="col col-6 mainContents">나에게 할당된 이슈 ${mainInfo.IssueCount}    </div>
+	</div>
+	<div class="col col-6 mainContents">
+		<div class="col col-12 mainContents">공지사항 ${mainInfo.Notice}  </div>
+	</div>
 </div>
 
-<div> 
-	<div class="col col-12 mainContents">히히</div>
+<div class="row">
+	<div class="col col-6 mainContents">
+		<div class="col col-12 mainContents">공개된 리스트 중 팔로워가 많은 순서 ${mainInfo.OpenProjectList} </div>
+	</div>
+	
+	<div class="col col-6 mainContents">
+	<div class="col col-12 mainContents">게시판 ${mainInfo.board} </div>
+	</div>
 </div>
 
 

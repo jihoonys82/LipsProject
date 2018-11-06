@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="lips.main.dao.MainDao">
+ 
+ 	
+ 	
+ 	<!-- 몰라  -->
+ 	<select id="selProIfOpen" resultType="lips.project.dto.ProjectDto">
+SELECT * FROM
+    (SELECT projInf.*, projwatcher.projectwatcher 
+    FROM projectInfo projInf,
+        (SELECT PI.projectId, SUM(IW.watcher) AS projectWatcher
+        FROM projectInfo PI, 
+           (SELECT I.issueId, I.projectId, COUNT(W.userId) AS watcher
+            FROM issue I, issue_watcher W
+            WHERE I.issueId = W.issueId
+            GROUP BY I.issueId, I.projectId) IW
+        WHERE PI.projectId = IW.projectId
+        GROUP BY PI.projectId) projWatcher
+    WHERE projInf.projectId = projWatcher.projectId
+    ORDER BY projwatcher.projectwatcher DESC) WHERE ROWNUM  <![CDATA[<]]>= 5
+ 	</select>													<!-- 태그를 열고닫는거랑 혼동 돼요 -->
+ 
+
+ 	
+ 	
+ </mapper>

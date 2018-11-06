@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import lips.issue.dto.CategoryAssetDto;
+import lips.issue.dto.IssueCommentDto;
 import lips.issue.dto.IssueDto;
 import lips.issue.dto.IssueStagePresetDto;
 import lips.issue.dto.StageAssetDto;
@@ -143,5 +144,53 @@ public interface IssueDao {
 	 * @return
 	 */
 	public List<IssueDto> selIssueByProjectPaging(Map<String, String> pMap);
+
+	/**
+	 * Check the user in project
+	 * @param map
+	 * @return
+	 */
+	public int selCountProjectMember(Map<String, String> map);
+
+	/**
+	 * get Issue by IssueId in the issueDto
+	 * @param issueDto
+	 * @return
+	 */
+	public IssueDto selIssueByIssueId(IssueDto issueDto);
+
+	/**
+	 * get Count the issue follower by issueId
+	 * @param issue
+	 * @return
+	 */
+	public int selCountIssueFollowingByIssue(IssueDto issue);
+
+	/**
+	 * get Users for following the issue
+	 * @param issue
+	 * @return
+	 */
+	public List<User> selFollowerByIssue(IssueDto issue);
+
+	/**
+	 * get issue comments by the Issue
+	 * @param issue
+	 * @return
+	 */
+	public List<IssueCommentDto> selCommentByIssue(IssueDto issueDto);
+	
+	/**
+	 * check the user is participating in project. 
+	 * @param user
+	 * @return
+	 */
+	public int selCountParticipatedByUser(User user);
+
+	/**
+	 * update Assginee
+	 * @param map : issueId, userId(new assignee)
+	 */
+	public void upIssueAssignee(Map<String, String> map);
 	
 }

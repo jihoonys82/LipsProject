@@ -3,9 +3,36 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
+<style> 
+.w-5 {
+	width: 5%;
+}
+.w-10 {
+	width: 10%;
+}
+.w-15 {
+	width: 15%;
+}
+.w-20 {
+	width: 20%;
+}
+.w-30 {
+	width: 30%;
+}
+.w-40 {
+	width: 39%;
+}
+.right{
+	float:right;
+	margin: 10px;
+}
+</style>
+<div class="right">
+	<a class="btn focus" href="/issue/create">새이슈</a>
+</div>
 <div class="row">
 	<div class="col col-6 issueHeadline">
-		<h3>데드라인이 가까운 이슈</h3>
+		<div class="h3">데드라인이 가까운 이슈</div>
 		<table class="table classic stripeless">
 			<thead>
 				<tr>
@@ -38,7 +65,7 @@
 		</table>
 	</div>
 	<div class="col col-6 issueHeadline">
-		<h3>가장 많이 팔로잉 한 이슈</h3>
+		<div class="h3">가장 많이 팔로잉 한 이슈</div>
 		<table class="table classic stripeless">
 			<thead>
 				<tr>
@@ -76,19 +103,26 @@
 		<div class="panel">
 			<div class="head">
 				<strong>내게 할당된 이슈</strong>
-				<a href="/issue/issueList?listType=AssignedIssue" class="btn focus small btnMore">더보기</a>
+				<c:if test="${issueAssigned.size() ne 0 }">					
+					<a href="/issue/issueList?listType=AssignedIssue" class="btn focus small btnMore">더보기</a>
+				</c:if>
 			</div>
 			<table id="tbAssigned" class="table classic hover">
 				<thead>
 					<tr>
-						<th class="myCols-1">이슈번호</th>
+						<th class="w-10">이슈번호</th>
 						<th>제목</th>
-						<th class="myCols-1">이슈 생성자</th>
-						<th class="myCols-2">남은 기간</th>
-						<th class="myCols-2">단계</th>
+						<th class="w-10">이슈 생성자</th>
+						<th class="w-15">남은 기간</th>
+						<th class="w-20">단계</th>
 					</tr>
 				</thead>
 				<tbody>
+					<c:if test="${issueAssigned.size() eq 0 }">
+						<tr>
+							<td colspan="5" style="text-align:center;">할당된 이슈가 없습니다.</td>
+						</tr>
+					</c:if>
 					<c:forEach items="${issueAssigned }" var="issue">
 					<tr>
 						<td>${issue.issueId }</td>
@@ -116,7 +150,9 @@
 		<div class="panel">
 			<div class="head">
 				<strong>내가 팔로잉한 이슈</strong>
-				<a href="/issue/issueList?listType=FollowingIssue" class="btn focus small btnMore">더보기</a>
+				<c:if test="${issueFollowing.size() ne 0 }">
+					<a href="/issue/issueList?listType=FollowingIssue" class="btn focus small btnMore">더보기</a>						
+				</c:if>
 			</div>
 			<table id="tbFollowing" class="table classic hover">
 				<thead>
@@ -130,6 +166,11 @@
 					</tr>
 				</thead>
 				<tbody>
+					<c:if test="${issueFollowing.size() eq 0 }">
+						<tr>
+							<td colspan="5" style="text-align:center;">팔로잉하는 이슈가 없습니다.</td>
+						</tr>
+					</c:if>
 					<c:forEach items="${issueFollowing }" var="folIssue">
 						<tr>
 							<td>${folIssue.issueId }</td>
@@ -155,6 +196,9 @@ $(document).ready(function() {
 	var cdList = document.getElementsByClassName("countDate");
 
 	for(i=0; i<cdList.length;i++) {
+		if(cdList[i].innerText == ""){
+			continue;
+		}
 		
 		var cDate = new Date(cdList[i].innerText);
 		var diff = moment(cDate).diff(moment());

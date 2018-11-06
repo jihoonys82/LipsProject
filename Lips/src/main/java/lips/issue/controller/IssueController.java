@@ -1,5 +1,6 @@
 package lips.issue.controller;
 
+import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import lips.issue.dto.IssueCommentDto;
 import lips.issue.dto.IssueDto;
 import lips.issue.dto.IssueStagePresetDto;
 import lips.issue.dto.StageAssetDto;
@@ -160,11 +162,59 @@ public class IssueController {
 	 * Change assignee via ajax
 	 */
 	@RequestMapping(value="/changeAssignee", method=RequestMethod.POST)
-	public void changeAssignee(String issueId, String userId) {
+	public void changeAssignee(String issueId, String userId, Writer writer) {
 		Map<String, String> map = new HashMap<>();
 		map.put("issueId", issueId);
 		map.put("userId", userId);
 		
 		issueService.changeAssignee(map);
+		
+		try {
+			writer.write("\"result\" : 1");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * Add Comment via Ajax
+	 */
+	@RequestMapping(value="/addComment", method=RequestMethod.POST)
+	public ModelAndView addComment(IssueCommentDto issueCommentDto) {
+
+		ModelAndView mav = issueService.addComment(issueCommentDto);
+
+		return mav;
+	}
+	
+	/**
+	 * Delete Comment via Ajax
+	 */
+	@RequestMapping(value="/deleteComment", method=RequestMethod.POST)
+	public void deleteComment(IssueCommentDto issueCommentDto, Writer writer) {
+		
+		issueService.deleteComment(issueCommentDto);
+		
+		try {
+			writer.append("{\"result\": 1 }");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Add watcher via Ajax
+	 */
+	public void addWatcher() {
+		
+	}
+	
+	/**
+	 * Delete watcher via Ajax
+	 */
+	public void removeWatcher() {
+		
 	}
 }

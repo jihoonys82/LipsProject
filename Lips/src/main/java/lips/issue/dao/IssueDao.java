@@ -192,5 +192,17 @@ public interface IssueDao {
 	 * @param map : issueId, userId(new assignee)
 	 */
 	public void upIssueAssignee(Map<String, String> map);
+
+	/**
+	 * Delete issue Comment 
+	 * @param issueCommentDto
+	 */
+	public void delComment(IssueCommentDto issueCommentDto);
+
+	/**
+	 * Add issue Comment
+	 * @param issueCommentDto
+	 */
+	public IssueCommentDto inComment(IssueCommentDto issueCommentDto);
 	
 }

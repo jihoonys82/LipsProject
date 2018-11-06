@@ -291,5 +291,32 @@ public class IssueService {
 	public void changeAssignee(Map<String, String> map) {
 		issueDao.upIssueAssignee(map);
 	}
+
+	/**
+	 * delete issue Comment
+	 * @param issueCommentDto
+	 */
+	public void deleteComment(IssueCommentDto issueCommentDto) {
+		issueDao.delComment(issueCommentDto);
+	}
+
+	/**
+	 * Add issue Comment (and file)
+	 * @param issueCommentDto
+	 * @return
+	 */
+	public ModelAndView addComment(IssueCommentDto issueCommentDto) {
+		ModelAndView mav = new ModelAndView();
+		
+		//TODO: file upload 처리 
+		
+		//ERROR: currval 문제 처리 , 본문내역 입력 안됨. 
+		IssueCommentDto icDto = issueDao.inComment(issueCommentDto); 
+		
+		mav.addObject("comment", icDto);
+		mav.setViewName("issue/commentBody");
+		
+		return mav;
+	}
 	
 }

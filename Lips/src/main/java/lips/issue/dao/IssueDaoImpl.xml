@@ -164,4 +164,12 @@
  	<select id="selCommentByIssue" parameterType="lips.issue.dto.IssueDto" resultType="lips.issue.dto.IssueCommentDto">
  		SELECT * FROM issue_comment WHERE issueId = #{issueId}
  	</select>
+ 	
+ 	<select id="selCountParticipatedByUser" parameterType="lips.userinfo.dto.User" resultType="int">
+ 		SELECT COUNT(*) FROM project_member WHERE userId=#{userId}
+ 	</select>
+ 	
+ 	<update id="upIssueAssignee" parameterType="map">
+ 		UPDATE issue SET assignee = #{userId} WHERE issueId = ${issueId}
+ 	</update>
  </mapper>  

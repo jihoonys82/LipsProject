@@ -54,7 +54,7 @@ $(document).ready( function() {
 });
 var alarmManager = new function(){
 	var idle = true; // 중복실행 방지 플래그
-	var interval = 500000; // 알람 체크 주기 (10초로 변경 예정)
+	var interval = 5000000; // 알람 체크 주기 (10초로 변경 예정)
 
 	this.proc = function(){
 		if(!idle) return;

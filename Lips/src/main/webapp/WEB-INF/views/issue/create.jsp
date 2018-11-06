@@ -215,7 +215,7 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 			<strong>새이슈</strong>
 		</div>
 		<div class="body">
-			<form action="/issue/create" method="post" enctype="multipart/form-data">
+			<form action="/issue/create" method="post" enctype="multipart/form-data" onsubmit="customValue();">
 				<div class="h4 mb-1">기본항목</div>
 				<div class="issue-form-row">
 					<label for="projectId" class="issue-form-label">프로젝트</label>
@@ -318,27 +318,51 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 					if(idx==0) return;
 					createColumnBox(select.options[idx].value, select.id);
 				 }
+				 
 				 function createColumnBox(type,id){
 					$("#"+id+"Name").remove();
 					$("#"+id).after($("<input type='text' id='"+id+"Name' class='input customName' style='margin-left:10px;'"+ 
 							"placeholder='컬럼명을 입력해 주세요' onfocusout=createInputBox('"+type+"','"+id+"') />"));
 				 }
+				 
 				 function createInputBox(type,id){
+					 
 					 $("#"+id+"Input").remove();
+					 
 					 if(type=="checkbox"){
-						 $("#"+id+"Name").after($("<input type='"+type+"' id='"+id+"Input' class='input customInput' style='width:3%; margin-left:5px;' />"));
-					 }else if(type=="range"){
-						 $("#"+id+"Name").after($("<input type='"+type+"' id='"+id+"Input' class='input customInput' style='width:40%; margin-left:5px;' onmouseup=$('"+id+"InputVal').html($('#"+id+"Input').val()) /><b id='"+id+"InputVal'>50</b>"));
-						 //https://stackoverflow.com/questions/18544890/onchange-event-on-input-type-range-is-not-triggering-in-firefox-while-dragging
+						 $("#"+id+"Name").after($("<input type='"+type+"' id='"+id+"Input' class='input customInput' style='width:3%; margin-left:5px;' />"));                           
+ 					 }else if(type=="range"){
+						 $("#"+id+"Name").after($("<input type='"+type+"' id='"+id+"Input' class='input customInput' style='width:40%; margin-left:5px;' oninput=$('#"+id+"InputVal').text($('#"+id+"Input').val()) /><b id='"+id+"InputVal'>50</b>"));
 					 }
 					 else{
 						 $("#"+id+"Name").after($("<input type='"+type+"' id='"+id+"Input' class='input customInput' style='width:50%; margin-left:5px;' />"));	 
 					 }
-					 //($("#"+id+"Input").is(":checked")==true) -- 체크여부 확인 or doc~...Name('custonInput')[n].checked == true || false;
-					 
+				
+				 }
+				 function customValue(){
+					 var arr = new Array();
+					 var $name = $('.customName');
+					 var $input = $('.customInput');
+					 for(var i=0;i<$input.length;i++){
+						 var obj = {};
+						 if($input[i].type =="checkbox"){
+							if($input[i].checked==true){
+								obj["value"]=true;
+							}
+							else{
+								obj["value"]=false;
+							}
+						 }else{
+							 obj["value"]=$input[i].value;
+						 }
+						 obj["name"]=$name[i].value;
+						 obj["type"]=$input[i].type;
+						 arr.push(obj);
+					 }
+					 $('#customValues').val(JSON.stringify(arr));
 				 }
 				 </script>
-				 
+		
 			<%-- YJ End --%>
 			</div>
 		</div>

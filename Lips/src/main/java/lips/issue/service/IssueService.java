@@ -38,24 +38,35 @@ public class IssueService {
 		
 //		logger.info(user.toString());
 		ModelAndView mav = new ModelAndView();
+		mav.setViewName("issue/main");
+		
+		//new user check - not participated in any project. 
+		int participated = issueDao.selCountParticipatedByUser(user);
+		logger.info("??"+participated);
+		if(participated <1) {
+			return mav;
+		}
 		
 		IssueDto issueDeadline = issueDao.selIssueByDealine(user);
 		IssueDto issueMostFollowed = issueDao.selIssueByFollower(user);
+//		logger.info(issueDeadline.toString());
+//		logger.info(issueMostFollowed.toString());
 		
-		mav.addObject("issueCloseDeadline", issueDeadline);
-		mav.addObject("watcherCloseDeadline", issueDao.selIssueWatcherCount(issueDeadline));
-		mav.addObject("commentCloseDeadline", issueDao.selIssueCommentCount(issueDeadline));
-		
-		mav.addObject("issueMostFollowed", issueMostFollowed);
-		mav.addObject("watcherMostFollowed", issueDao.selIssueWatcherCount(issueMostFollowed));
-		mav.addObject("commentMostFollowed", issueDao.selIssueWatcherCount(issueMostFollowed));
+		if(issueDeadline != null) {
+			mav.addObject("issueCloseDeadline", issueDeadline);
+			mav.addObject("watcherCloseDeadline", issueDao.selIssueWatcherCount(issueDeadline));
+			mav.addObject("commentCloseDeadline", issueDao.selIssueCommentCount(issueDeadline));
+		}
+		if(issueMostFollowed != null) {
+			mav.addObject("issueMostFollowed", issueMostFollowed);
+			mav.addObject("watcherMostFollowed", issueDao.selIssueWatcherCount(issueMostFollowed));
+			mav.addObject("commentMostFollowed", issueDao.selIssueWatcherCount(issueMostFollowed));			
+		}
 		
 		mav.addObject("issueAssigned", issueDao.selIssueByAssignee(user));
 		mav.addObject("issueFollowing", issueDao.selIssueByFollowing(user));
 		
 		mav.addObject("issueStage", issueDao.selStageAsset());
-		
-		mav.setViewName("issue/main");
 		
 		return mav;
 	}
@@ -271,6 +282,14 @@ public class IssueService {
 		
 		mav.setViewName("issue/issueDetail");
 		return mav;
+	}
+
+	/**
+	 * change assignee
+	 * @param map : issueId, userId
+	 */
+	public void changeAssignee(Map<String, String> map) {
+		issueDao.upIssueAssignee(map);
 	}
 	
 }

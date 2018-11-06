@@ -6,6 +6,8 @@
 <sec:authentication property="principal.userId"  var="userId"/>
 <sec:authentication property="principal.nick"  var="nick"/>
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
+<c:set var="startNo" value="1"/>
+<c:set var="endNo" value="99"/>
 <style>
 
 .issueDetail{
@@ -179,8 +181,19 @@ input[name=fileName] {
 			<div class="issueItem-2">
 				<span class="issueItem-label">진행 상황</span>
 				<div class="issueItem-value input issueDiv">
-					
-				
+					<div class="content">
+						<c:forEach items="${issueStages }" var="asset">
+							<c:if test="${asset.stageAssetId eq issue.issueStage }">
+								<span class="label success" style="border:2px solid red;">${asset.stageName }</span>
+							</c:if>
+							<c:if test="${asset.stageAssetId ne issue.issueStage }">
+								<span class="label success">${asset.stageName }</span>
+							</c:if>
+							<c:if test="${asset.stageAssetId ne endNo }">
+								<span class="icon icon-arrow4" style="vertical-align:middle;"></span>							
+							</c:if> 
+						</c:forEach>
+					</div>				
 				</div>
 			</div>
 			<div class="issueItem-2">
@@ -271,13 +284,16 @@ input[name=fileName] {
 
 <!-- modal -->
 <!-- set Stage Modal -->
-<div id="changeAssignee" class="msgbox" style="display: none;">
+<div id="changeAssignee" class="msgbox" style="display: none; width:50%;">
 	<div class="head">
 		담당자 변경
 	</div>
-	<div class="body">
+	<div class="body" style="min-height: 100px;">
 		<div class="row">
-			<input type="text" name="assignee" id="assignee" class="input" />
+			<div id="assign" class="group">
+				<label class="label"><i class="icon-search"></i></label>
+				<input type="text" name="assignee" id="assignee" class="input" />
+			</div>
 			<script data-jui="#assign" data-tpl="words" type="text/template">
 				<div class="dropdown">
   		 			<ul>
@@ -306,6 +322,9 @@ $(document).ready(function(){
 	var cdList = document.getElementsByClassName("countDate");
 
 	for(i=0; i<cdList.length;i++) {
+		if(cdList[i].innerText == ""){
+			continue;
+		}
 		
 		var cDate = new Date(cdList[i].innerText);
 		var diff = moment(cDate).diff(moment());
@@ -331,19 +350,21 @@ $(document).ready(function(){
 //assignee autocomplete
 jui.ready([ "ui.autocomplete" ], function(autocomplete) {
 	assign = autocomplete("#assign", {
-      target: "#assignee"
+      target: "input#assignee"
       , words: ["2글자 이상 입력하세요."]
-  });
+	});
 	
 	$("#assignee").keyup(function() {
 		var name = document.getElementById("assignee").value;
 		console.log(name);
 		if(name.length>0) {
 			//var projId = $("#projectId").val();
+			var projId = ${issue.projectId};
+			
 			$.ajax({
 				type:"post"
 				, url: "/issue/getMembers"
-				, data: { "name" : name ,"projectId" : ${issue.projectId} }
+				, data: { "name" : name ,"projectId" : projId }
 				, dataType: "json"
 				, success: function(data){
 					console.log(data);
@@ -367,23 +388,27 @@ jui.ready([ "ui.modal" ], function(modal) {
     });
     
     $("#submitAssign").click(function(){
-    	//TODO : fix below - how to get issueId,userId
-    	//TODO : make controller for "changeAssignee"
+    	var issueId = ${issue.issueId};
+    	var userId = $("#assingee").val();
+    	
+    	if($("#assignTo").text() == userId) {
+    		return false;
+    	}
+    	
     	$.ajax({
-    		type:"post"
+    		type: "post"
 			, url: "/issue/changeAssignee"
 			, data: { "issueId" : issueId ,"userId" : userId }
-			, dataType: "json"
-			, success: function(data){
-				console.log(data);
-				assign.update(data.name);
+			, success: function(){
+				//console.log(data);
+				$("#assignTo").text(userId);
 			}
 			, error : function(e){
 				console.log("----error----");
 				console.log(e.responseText);
 			}
     	});
-    	$("#assignTo").text($("#Assignee").val());
+    	//$("#assignTo").text($("#Assignee").val());
     	changeAssignee.hide();
     });
     //close button event

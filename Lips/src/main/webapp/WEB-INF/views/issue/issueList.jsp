@@ -38,7 +38,13 @@
 .issueListPaging{
 	width: 500px;
 }
-
+.alignCenter {
+	display: 		block; 
+	text-align: 	center;
+}
+.right{
+	float:right;
+}
 </style>
 <div class="issueList">
 	<div class="row mb-1">
@@ -49,29 +55,32 @@
 		<div class="panel col col-12" id="issueList">
 			<div class="head">
 				<strong>Issue List</strong>
+				<div class="right">
+					<a class="btn focus small" href="/issue/create">새이슈</a>
+				</div>
 			</div>
 			<table class="table classic hover">
 				<thead>
 					<tr>
 						<th class="w-10">#</th>
-						<th class="w-40">이슈 제목</th>
+						<th>이슈 제목</th>
 						<th class="w-5"><span class="icon icon-happy"></span></th>
 						<th class="w-10">생성자</th>
 						<th class="w-10">담당자</th>
-						<th class="w-15">남은기간</th>
+						<th class="w-20">남은기간</th>
 						<th class="w-10">단계</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${issues }" var="issue">
-					<tr>
+					<tr class="issueLine">
 						<td>${issue.issueId }</td>
 						<td>${issue.issueTitle }</td>
 						<td><span class="icon icon-happy"></span></td>
 						<td>${issue.createUser }</td>
 						<td>${issue.assignee }</td>
 						<td><span class="countDate"><fmt:formatDate value="${issue.expectedEndDate }" pattern="yyyy/MM/dd HH:mm:ss" /></span></td>
-						<td>
+						<td class="alignCenter">
 							<div class="myIssueStage">
 								<span class="label success mini issueStage">${issue.issueStage }</span>								
 							</div>
@@ -93,6 +102,12 @@
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
 <script>
 $(document).ready(function() {
+	
+	$(".issueLine").on('click',function(){
+		var issueId = $(this).children("td").eq(0).text();
+		$(location).attr("href", "/issue/detail?issueId=" + issueId);
+	});
+	
 	//countDate("countDate");
 	var cdList = document.getElementsByClassName("countDate");
 

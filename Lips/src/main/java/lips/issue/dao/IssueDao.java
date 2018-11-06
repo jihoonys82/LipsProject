@@ -180,4 +180,17 @@ public interface IssueDao {
 	 */
 	public List<IssueCommentDto> selCommentByIssue(IssueDto issueDto);
 	
+	/**
+	 * check the user is participating in project. 
+	 * @param user
+	 * @return
+	 */
+	public int selCountParticipatedByUser(User user);
+
+	/**
+	 * update Assginee
+	 * @param map : issueId, userId(new assignee)
+	 */
+	public void upIssueAssignee(Map<String, String> map);
+	
 }

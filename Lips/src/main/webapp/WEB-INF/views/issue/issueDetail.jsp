@@ -213,6 +213,23 @@ input[name=fileName] {
 				</div>
 			</div>
 		</div>
+		<div class="body" id="issueCustom">
+			<script>
+				var customList = ${issue.customValues};
+				for(var i = 0; i<customList.length;i++){
+					if(customList[i].type=="checkbox"){
+						customList[i].type="text";					
+					}
+					$("#issueCustom").append(
+						"<div class=issueItem-2>" +
+							"<span class='issueItem-label'>"+customList[i].name+"</span>"+
+							"<div class='issueItem-value issueDiv'>"+
+								"<input disabled='true' style='width:100%'class='input large' type='"+customList[i].type+"' value='"+customList[i].value+"'/>" +
+							"</div>" +
+						"</div>");	
+				}			
+			</script>
+		</div>
 	</div>
 </div>
 
@@ -242,6 +259,10 @@ input[name=fileName] {
 						${comment.commentContent }
 						<small> - <fmt:formatDate value="${comment.createDate }" pattern="yyyy-MM-dd HH:mm:ss"/> </small>
 					</div>
+					<c:if test="${comment.userId eq userId }" >
+						<button class="btn focus mini commentDelete"><span class="icon icon-close"></span></button>
+						<input type="hidden" value="${comment.commentId }" />
+					</c:if>
 				</div>
 				<c:if test="${comment.attachFile > 0 }"> 
 					<div class="row">
@@ -254,7 +275,7 @@ input[name=fileName] {
 				</c:if>
 			</div>
 		</c:forEach>
-		<div class="body">
+		<div class="body" id="addComment">
 			<div class="row">
 				<div class="col col-1">
 					${nick }(${userId})
@@ -274,7 +295,7 @@ input[name=fileName] {
 					</div>
 				</div>
 				<div class="col col-2">
-					<button class="btn focus">등록 </button>
+					<button class="btn focus commentAdd">등록 </button>
 				</div>			
 			</div>
 		</div>
@@ -293,6 +314,7 @@ input[name=fileName] {
 			<div id="assign" class="group">
 				<label class="label"><i class="icon-search"></i></label>
 				<input type="text" name="assignee" id="assignee" class="input" />
+				<input type="hidden" id="selectedAssignee" /> 
 			</div>
 			<script data-jui="#assign" data-tpl="words" type="text/template">
 				<div class="dropdown">
@@ -314,11 +336,13 @@ input[name=fileName] {
 
 <script>
 $(document).ready(function(){
+	// comment file upload (not action)
 	$("input:file").on('change',function(){
 		var $fname= $("input:file").val();
 		$("input[name='fileName']").val($fname);
 	});
 	
+	// count date
 	var cdList = document.getElementsByClassName("countDate");
 
 	for(i=0; i<cdList.length;i++) {
@@ -345,6 +369,58 @@ $(document).ready(function(){
 		cdList[i].innerText = remainTime;
 	}
 	
+	//Add Comment
+	$(".commentAdd").on('click', function(){
+		// TODO:file check and uplaod
+		
+		
+		var commentContent = $("#replyText").html();
+		//add comment
+		$.ajax({
+			type:"post"
+			, url: "/issue/addComment"
+			, data: { 
+				"issueId" : ${issue.issueId}
+				, "userId" : "${userId}"
+				, "commentContent" : commentContent
+				//, "attachFile" : attachFileId
+			}
+			, dataType: "html"
+			, success: function(data){
+				console.log(data.result);
+				data.insertBefore("#addComment");
+			}
+			, error : function(e){
+				console.log("----error----");
+				console.log(e.responseText);
+			}
+		});
+	});
+	
+	//Comment Delete
+	$(".commentDelete").on("click", function(){
+		var commentDOM = $(this).parent();
+		var commentId = commentDOM.find("input[type='hidden']").val();
+		var commenter = commentDOM.find("div.col-1").text().trim();
+		if(commenter != "${userId}") {
+			return false;
+		}
+		$.ajax({
+			type:"post"
+			, url: "/issue/deleteComment"
+			, data: { "commentId" : commentId }
+			, dataType: "json"
+			, success: function(data){
+				console.log(data.result);
+				commentDOM.parent().remove();
+			}
+			, error : function(e){
+				console.log("----error----");
+				console.log(e.responseText);
+			}
+		});
+	});
+	
 });
 
 //assignee autocomplete
@@ -369,6 +445,7 @@ jui.ready([ "ui.autocomplete" ], function(autocomplete) {
 				, success: function(data){
 					console.log(data);
 					assign.update(data.name);
+					$("#selectedAssignee").val(data.name);
 				}
 				, error : function(e){
 					console.log("----error----");
@@ -389,7 +466,10 @@ jui.ready([ "ui.modal" ], function(modal) {
     
     $("#submitAssign").click(function(){
     	var issueId = ${issue.issueId};
-    	var userId = $("#assingee").val();
+    	var userId = $("#selectedAssignee").val();
+//     	console.log("issueId:" + issueId);
+//     	console.log("userId:" + userId);
+//     	console.log($("#assignTo").text());
     	
     	if($("#assignTo").text() == userId) {
     		return false;
@@ -402,6 +482,7 @@ jui.ready([ "ui.modal" ], function(modal) {
 			, success: function(){
 				//console.log(data);
 				$("#assignTo").text(userId);
+				$("#selectedAssignee").val("");
 			}
 			, error : function(e){
 				console.log("----error----");
@@ -414,6 +495,8 @@ jui.ready([ "ui.modal" ], function(modal) {
     //close button event
     $("#cancelAssign").click(function(){
     	changeAssignee.hide();
+    	$("#selectedAssignee").val("");
+    	$("#assignee").val("");
 	});
 });
 

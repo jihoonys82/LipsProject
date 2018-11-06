@@ -202,7 +202,15 @@ public interface IssueDao {
 	/**
 	 * Add issue Comment
 	 * @param issueCommentDto
+	 * @return commentId 
 	 */
-	public IssueCommentDto inComment(IssueCommentDto issueCommentDto);
+	public int inComment(IssueCommentDto issueCommentDto);
+
+	/**
+	 * Get single issueComment by commentId
+	 * @param icId : IssueCommentDto
+	 * @return
+	 */
+	public IssueCommentDto selCommentById(IssueCommentDto icId);
 	
 }

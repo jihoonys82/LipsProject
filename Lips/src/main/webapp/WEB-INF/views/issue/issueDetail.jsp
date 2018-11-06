@@ -214,31 +214,35 @@ input[name=fileName] {
 			</div>
 		</div>
 		<div class="body" id="issueCustom">
-			<script>
-				var customList = ${issue.customValues};
-				for(var i = 0; i<customList.length;i++){
-					if(customList[i].type=="checkbox"){
-						customList[i].type="text";					
-					}
-					$("#issueCustom").append(
-						"<div class=issueItem-2>" +
-							"<span class='issueItem-label'>"+customList[i].name+"</span>"+
-							"<div class='issueItem-value issueDiv'>"+
-								"<input disabled='true' style='width:100%'class='input large' type='"+customList[i].type+"' value='"+customList[i].value+"'/>" +
-							"</div>" +
-						"</div>");	
-				}			
-			</script>
+			<c:if test="${issue.customValues ne null}">
+				<script>
+						
+					var customList = ${issue.customValues};
+					for(var i = 0; i<customList.length;i++){
+						if(customList[i].type=="checkbox"){
+							customList[i].type="text";					
+						}
+						$("#issueCustom").append(
+							"<div class=issueItem-2>" +
+								"<span class='issueItem-label'>"+customList[i].name+"</span>"+
+								"<div class='issueItem-value issueDiv'>"+
+									"<input disabled='true' style='width:100%'class='input large' type='"+customList[i].type+"' value='"+customList[i].value+"'/>" +
+								"</div>" +
+							"</div>");	
+					}			
+				</script>
+			</c:if>
 		</div>
 	</div>
 </div>
 
 <!-- Reply comment -->
 <div class="row issueDetail">
-	<div class="panel ">
+	<div class="panel">
 		<div class="head">
 			<i class="icon-left"></i> <strong>댓글</strong>
 		</div>
+		
 		<c:if test="${comments eq null }">
 			<div class="body">
 				<div class="row">
@@ -374,7 +378,7 @@ $(document).ready(function(){
 		// TODO:file check and uplaod
 		
 		
-		var commentContent = $("#replyText").html();
+		var commentContent = $("#replyText").val();
 		//add comment
 		$.ajax({
 			type:"post"
@@ -387,8 +391,9 @@ $(document).ready(function(){
 			}
 			, dataType: "html"
 			, success: function(data){
-				console.log(data.result);
-				data.insertBefore("#addComment");
+				console.log($(data).find("div.body").get(0).outerHTML);
+				$("#addComment").before($(data).find("div.body").get(0).outerHTML);
+				$("#replyText").val("");
 			}
 			, error : function(e){
 				console.log("----error----");

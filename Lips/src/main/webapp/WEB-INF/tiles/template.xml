@@ -61,6 +61,9 @@
 		template="/WEB-INF/views/main/donation.jsp">
 	</definition>
 	
+	<!-- 예외추가 : commentBody -->
+<!-- 	<difinition name="issue/detail" template="/WEB-INF/views/issue/commentBody.jsp" ></difinition> -->
+	
 	<definition name="user/access_denied"
 		template="/WEB-INF/views/user/access_denied.jsp">
 	</definition>

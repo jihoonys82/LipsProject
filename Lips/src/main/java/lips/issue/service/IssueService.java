@@ -309,10 +309,13 @@ public class IssueService {
 		ModelAndView mav = new ModelAndView();
 		
 		//TODO: file upload 처리 
-		
-		//ERROR: currval 문제 처리 , 본문내역 입력 안됨. 
-		IssueCommentDto icDto = issueDao.inComment(issueCommentDto); 
-		
+		 
+		int commentId = issueDao.inComment(issueCommentDto); 
+		logger.info("test : " + commentId + "");
+		IssueCommentDto idDto = new IssueCommentDto();
+		idDto.setCommentId(commentId);
+		IssueCommentDto icDto = issueDao.selCommentById(idDto);
+		System.out.println(icDto);
 		mav.addObject("comment", icDto);
 		mav.setViewName("issue/commentBody");
 		

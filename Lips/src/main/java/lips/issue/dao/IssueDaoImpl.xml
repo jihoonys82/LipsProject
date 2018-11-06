@@ -162,7 +162,7 @@
  	</select>
  	
  	<select id="selCommentByIssue" parameterType="lips.issue.dto.IssueDto" resultType="lips.issue.dto.IssueCommentDto">
- 		SELECT * FROM issue_comment WHERE issueId = #{issueId}
+ 		SELECT * FROM issue_comment WHERE issueId = #{issueId} ORDER BY createDate ASC
  	</select>
  	
  	<select id="selCountParticipatedByUser" parameterType="lips.userinfo.dto.User" resultType="int">
@@ -178,11 +178,14 @@
  	</delete>
  	
  	<insert id="inComment" parameterType="lips.issue.dto.IssueCommentDto" >
- 		INSERT INTO issue_comment(commentId, issueId, userId, commentContent, attachFile) 
- 		VALUES (issue_comment_SEQ.nextval, #{issueId}, #{userId}, #{commentContent}, #{attachFile}) 
-		<selectKey keyProperty="commentId" resultType="lips.issue.dto.IssueCommentDto" order="AFTER">
-			SELECT * FROM issue_comment WHERE commentId = issue_comment_SEQ.currval
+		<selectKey keyProperty="commentId" resultType="int" order="BEFORE">
+			SELECT issue_comment_SEQ.NEXTVAL FROM dual
 		</selectKey>
+ 		INSERT INTO issue_comment(commentId, issueId, userId, commentContent, attachFile) 
+ 		VALUES (issue_comment_SEQ.CURRVAL, #{issueId}, #{userId}, #{commentContent}, #{attachFile}) 
  	</insert>
  	
+ 	<select id="selCommentById" parameterType="lips.issue.dto.IssueCommentDto" resultType="lips.issue.dto.IssueCommentDto">
+ 		SELECT * FROM issue_comment WHERE commentId = #{commentId}
+ 	</select>
  </mapper>  

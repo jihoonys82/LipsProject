@@ -172,4 +172,17 @@
  	<update id="upIssueAssignee" parameterType="map">
  		UPDATE issue SET assignee = #{userId} WHERE issueId = ${issueId}
  	</update>
+ 	
+ 	<delete id="delComment" parameterType="lips.issue.dto.IssueCommentDto">
+ 		DELETE issue_comment WHERE commentId = #{commentId}
+ 	</delete>
+ 	
+ 	<insert id="inComment" parameterType="lips.issue.dto.IssueCommentDto" >
+ 		INSERT INTO issue_comment(commentId, issueId, userId, commentContent, attachFile) 
+ 		VALUES (issue_comment_SEQ.nextval, #{issueId}, #{userId}, #{commentContent}, #{attachFile}) 
+		<selectKey keyProperty="commentId" resultType="lips.issue.dto.IssueCommentDto" order="AFTER">
+			SELECT * FROM issue_comment WHERE commentId = issue_comment_SEQ.currval
+		</selectKey>
+ 	</insert>
+ 	
  </mapper>  

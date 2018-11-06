@@ -284,13 +284,11 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 
 			</div>
 			<div class="hr mt-1 mb-1"></div>
-			<div class="h4 mt-1 mb-1">추가항목</div>
+			<div class="h4 mt-1 mb-1" >추가항목</div>
 			<div class="issue-form-row" id="customDiv">
-			<%-- YJ 작업 2018 11 01 --%>
-<!-- 				<label for="issueCustom1" class="issue-form-label">커스텀</label> -->
 				<div id="issueCustom1">
-
-					<button id="addCustomBtn" class="btn focus" style="width:20%;text-align: center;" onclick="addCustom()">커스텀 컬럼 추가하기</button>
+					<p style="text-align:center">컬럼타입, 컬럼명을 지정하지 않을 경우 해당컬럼의 데이터가 저장되지 않습니다.<p>
+					<button id="addCustomBtn" class="btn focus" style="width : 20%; text-align: center;"  onclick="addCustom()">커스텀 컬럼 추가하기</button>
 				 </div>
 				 <script>
 				 var i = 0;
@@ -345,6 +343,9 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 					 var $input = $('.customInput');
 					 for(var i=0;i<$input.length;i++){
 						 var obj = {};
+						 if($name[i].value ==""){
+							 continue;
+						 }
 						 if($input[i].type =="checkbox"){
 							if($input[i].checked==true){
 								obj["value"]=true;
@@ -362,8 +363,6 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 					 $('#customValues').val(JSON.stringify(arr));
 				 }
 				 </script>
-		
-			<%-- YJ End --%>
 			</div>
 		</div>
 		

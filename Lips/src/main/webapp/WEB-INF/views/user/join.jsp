@@ -68,7 +68,7 @@
 	<form action="/user/join" method="POST" id="joinform" >
 		<div class="formItem">
 			<label for="inputId">아이디 (ID)</label> <input class="input large"
-				type="text" id="inputId" name="userId" onfocusout="checkId(this);"/>
+				type="text" id="inputId" name="userId" onfocusout="validId(this);"/>
 		</div>
 
 		<div class="formItem">
@@ -77,12 +77,12 @@
 		</div>
 		<div class="formItem">
 			<label for="inputPwCheck">비밀번호 확인 (CONFIRM)</label> <input class="input large"
-				type="password" id="inputPwCheck" name="pwCheck" onfocusout="isValidPw(this.value)"/>
+				type="password" id="inputPwCheck" name="pwCheck" onfocusout="validPw(this.value)"/>
 		</div>
 
 		<div class="formItem">
 			<label for="inputEmail">이메일 (EMAIL)</label>
-			<input type="button" id="emailAuthBtn" class="btn focus" style="width:18%; text-align : center; margin : 10px;" value="인증" onclick="ValidEmail($('#inputEmail').val());"/>
+			<input type="button" id="emailAuthBtn" class="btn focus" style="width:18%; text-align : center; margin : 10px;" value="인증" onclick="validEmail($('#inputEmail').val());"/>
 			<input class="input large"type="email" id="inputEmail" name="email" style="width:39%" onfocusout="validEmailOverlap(this.value)"/>
 		</div>
 		<div class="formItem"  style="margin:0px;" > 
@@ -91,17 +91,17 @@
 
 		<div class="formItem">
 			<label for="inputNick">닉네임 (NICK)</label> <input class="input large"
-				type="text" id="inputNick" name="nick" onfocus="$('#inputNick').poshytip('show');" onfocusout="isValidNick(this.value)"/>
+				type="text" id="inputNick" name="nick" onfocus="$('#inputNick').poshytip('show');" onfocusout="validNick(this.value)"/>
 		</div>
 
 		<div class="formItem">
 			<label for="inputPhone">연락처 (PHONE)</label> <input class="input large"
-				type="text" id="inputPhone" name="phone" onfocus="$('#inputPhone').poshytip('show');" onfocusout="isValidPhone(this.value)"/>
+				type="text" id="inputPhone" name="phone" onfocus="$('#inputPhone').poshytip('show');" onfocusout="validPhone(this.value)"/>
 		</div>
 
 		<div class="formItem">
 			<label for="inputBirth">생년월일 (BIRTH)</label> <input class="input large"
-				type="date" id="inputBirth" name="birth" style="width:48%;" onfocusout="isValidBirth(this.value)"/>
+				type="date" id="inputBirth" name="birth" style="width:48%;" onfocusout="validBirth(this.value)"/>
 		</div>
 		<div class="formItem">
 			<input type="button" class="btn large focus" onclick="checkInputForm()" value="submit"/>

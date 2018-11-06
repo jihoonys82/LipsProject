@@ -32,7 +32,7 @@
 </div>
 <div class="row">
 	<div class="col col-6 issueHeadline">
-		<div class="h3">데드라인이 가까운 이슈</div>
+		<div class="h3" style="margin-bottom:15px">데드라인이 가까운 이슈</div>
 		<table class="table classic stripeless">
 			<thead>
 				<tr>
@@ -65,7 +65,7 @@
 		</table>
 	</div>
 	<div class="col col-6 issueHeadline">
-		<div class="h3">가장 많이 팔로잉 한 이슈</div>
+		<div class="h3" style="margin-bottom:15px">가장 많이 팔로잉 한 이슈</div>
 		<table class="table classic stripeless">
 			<thead>
 				<tr>
@@ -124,7 +124,7 @@
 						</tr>
 					</c:if>
 					<c:forEach items="${issueAssigned }" var="issue">
-					<tr>
+					<tr class="issueLine">
 						<td>${issue.issueId }</td>
 						<td>${issue.issueTitle }</td>
 						<td>${issue.createUser }</td>
@@ -191,7 +191,11 @@
 	 </div>
 </div>
 <script>
-$(document).ready(function() {
+$(document).ready(function() {		
+		$(".issueLine").on('click',function(){
+			var issueId = $(this).children("td").eq(0).text();
+			$(location).attr("href", "/issue/detail?issueId=" + issueId);
+		});
 	//countDate("countDate");
 	var cdList = document.getElementsByClassName("countDate");
 

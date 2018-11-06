@@ -6,7 +6,7 @@ var completeBirth = false;
 var completeEmailOverlap = false;
 var completeEmailAuth = false;
 
-function checkId(idDom) {
+function validId(idDom) {
 	let regx = /^(?=.*[a-zA-Z0-9]).{4,20}$/;
 	if(!regx.test(idDom.value)){
 		$("#inputId").poshytip("update","아이디는 4글자 이상 20글자 미만의 영어/숫자만 사용 가능합니다.");
@@ -39,7 +39,7 @@ function checkId(idDom) {
 	});
 }
 
-function isValidPw(input) {
+function validPw(input) {
 	let regx = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{8,}$/;
 	var inputPw1 = $('#inputPw').val();
 	if (input != inputPw1 || !regx.test(input)) {
@@ -58,7 +58,7 @@ function isValidPw(input) {
 		completePw = true;
 	}
 }
-function isValidNick(input) {
+function validNick(input) {
 	let regx = /^(?=.*[a-zA-Z가-힣0-9]).{2,8}$/;
 	if (!regx.test(input)) {
 		$("#inputNick").css("border-color", "red");
@@ -69,7 +69,7 @@ function isValidNick(input) {
 	}
 	$("#inputNick").poshytip("hide");
 }
-function isValidPhone(input) {
+function validPhone(input) {
 	let regx = /^(?=.*[0-9]).{10,11}$/;
 	if (!regx.test(input)) {
 		$("#inputPhone").css("border-color", "red");
@@ -80,7 +80,7 @@ function isValidPhone(input) {
 	}
 	$("#inputPhone").poshytip("hide");
 }
-function isValidBirth(input) {
+function validBirth(input) {
 	var inputDate = new Date(input);
 	var date = new Date();
 	if (date > inputDate) {
@@ -94,7 +94,7 @@ function isValidBirth(input) {
 
 var emailAuthCode = null;// 이메일 인증코드
 
-function ValidEmail(input) {
+function validEmail(input) {
 	if (!completeEmailOverlap)return;
 	$('#emailAuthBtn').poshytip('show');
 	$.ajax({

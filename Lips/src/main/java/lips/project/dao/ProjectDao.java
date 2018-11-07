@@ -10,6 +10,9 @@ import lips.userinfo.dto.User;
 
 public interface ProjectDao {
 	
+	
+	
+	
 	/** 리더 위임
 	 * 
 	 * @param ProjectDto 

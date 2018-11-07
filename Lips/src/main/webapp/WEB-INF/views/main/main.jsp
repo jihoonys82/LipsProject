@@ -5,11 +5,108 @@
 	uri="http://www.springframework.org/security/tags"%>
 <sec:authentication property="principal.nick" var="usernick" />
 <style>
-.mainContents {
-border : 1px solid white;
-margin: 10px auto;
-height: 7em;
+
+td {
+line-height : 1.695em;
+
 }
+
+.mainContents {
+/* border : 1px solid white; */
+margin: 10px auto;
+
+padding : 1em;
+}
+
+.innerContents {
+/* border:1px solid white;  */
+margin :0.5em;
+border-radius: 5px;
+text-align: center;
+}
+
+
+
+/*   버튼 css*/
+
+
+.conta {
+    perspective: 800px;
+     --accent: #b694fe;
+    --border-width: 3px;
+    --border-radius: 55px;
+    --font-size: 15px;
+    
+    
+ 
+}
+
+.toggle {
+    position: relative;
+    border: solid var(--border-width) var(--accent);
+    border-radius: var(--border-radius);
+    transition: transform cubic-bezier(0, 0, 0.30, 2) .4s;
+    transform-style: preserve-3d;
+    perspective: 800px;
+}
+
+.toggle>input[type="radio"] {
+    display: none;
+}
+
+.toggle>#choice1:checked~#flap {
+    transform: rotateY(-180deg);
+}
+
+.toggle>#choice1:checked~#flap>.content {
+    transform: rotateY(-180deg);
+}
+
+.toggle>#choice2:checked~#flap {
+    transform: rotateY(0deg);
+}
+
+.toggle>label {
+    display: inline-block;
+/*     min-width: 170px; */
+    padding: 3px;
+    font-size: var(--font-size);
+    text-align: center;
+    color: var(--accent);
+    cursor: pointer;
+}
+
+.toggle>label,
+.toggle>#flap {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.toggle>#flap {
+    position: absolute;
+    top: calc( 0px - var(--border-width));
+    left: 50%;
+    height: calc(100% + var(--border-width) * 2);
+    width: 51%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--font-size);
+    background-color: var(--accent);
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    transform-style: preserve-3d;
+    transform-origin: left;
+    transition: transform cubic-bezier(0.4, 0, 0.2, 1) .5s;
+}
+
+.toggle>#flap>.content {
+    color: #333;
+    transition: transform 0s linear .25s;
+    transform-style: preserve-3d;
+}
+
+/* 버튼 cssend */
 </style>
 <script>
 $(document).ready(function() {
@@ -26,22 +123,213 @@ $(document).ready(function() {
 
 <div class="row">
 	<div class="col col-6 mainContents">
-		<div class="col col-6 mainContents">내가 속한 프로젝트 수ㅇㅇㅇ ${mainInfo.ProjectCount}</div>
-		<div class="col col-6 mainContents">나에게 할당된 이슈 ${mainInfo.IssueCount}    </div>
-	</div>
+			<div class="panel">
+			<div class="head">
+				<i class="icon-hierarchy"></i><strong> Lips info</strong>
+<!-- 	버튼   -->	
+	<div class="conta" style="
+	height: 10px;
+	width: 30%;
+   float: right;
+   position: relative;
+   line-height: 15px;
+   top:1.5px; ">
+        <form class="toggle" >
+            <input type="radio" id="choice1" name="choice" value="creative">
+            <label for="choice1" style="padding-left: 1.5em;">Issue</label>
+            <input type="radio" id="choice2" name="choice" value="productive">
+            <label for="choice2" style="padding-left: 1.5em;">Project</label>
+            <div id="flap"><span class="content">productive</span></div>
+        </form>
+    </div>
+<!-- 버튼 끝   -->
+
+			</div>
+			<div class="body" id="project">
+				<div class="row">
+					<div class="col col-4">
+						<div class="innerContents" style="padding:1em; background-image: -webkit-linear-gradient(top,#df1959 0,#bc467d 100%);">
+								<Strong>지금 Lips에서 </Strong>
+								<h1>${mainInfo.AllProjectCnt}개</h1>
+								<h5>프로젝트가 진행되고 있습니다.</h5>
+						</div>
+					
+					</div>
+					
+					<div class="col col-4">
+						<div class="innerContents" style="padding:1em;     background-image: -webkit-linear-gradient(top,#4cac4f 0,#205d36 100%);">
+								<Strong>지금 Lips에서 </Strong>
+								<h1>${mainInfo.OpenProjectCnt}개</h1>
+								<h5>프로젝트가 공개되어 있습니다.</h5>
+						</div>
+					
+					</div>
+					
+					
+					<div class="col col-4">
+						<div class="innerContents" style="padding:1em; background-image: -webkit-linear-gradient(top,#3583c6 0,#2825b8 100%);">
+								<Strong>당신은 지금 Lips에서 </Strong>
+								<h1>${mainInfo.MyProjectCount}개</h1>
+								<h5>프로젝트에 참가하고 있습니다.</h5>
+						</div>
+					
+					</div>
+				
+				</div>
+			</div>
+			
+			<div class="body" id="issue" hidden="true">
+				<div class="row">
+					<div class="col col-4">
+						<div class="innerContents" style="padding:1em; background-image: -webkit-linear-gradient(top,#df1959 0,#bc467d 100%);">
+								<Strong>지금 Lips에는 </Strong>
+								<h1>${mainInfo.AllIssueCnt}개</h1> 
+								<h5>이슈가 등록되어 있습니다.</h5>
+						</div>
+					
+					</div>
+					
+					<div class="col col-4">
+						<div class="innerContents" style="padding:1em;     background-image: -webkit-linear-gradient(top,#4cac4f 0,#205d36 100%);">
+								<Strong>당신이 소속된 프로젝트에는 </Strong>
+								<h1>${mainInfo.MyProjectIssueCnt}개</h1>
+								<h5>이슈가 등록되어 있습니다.</h5>
+						</div>
+					
+					</div>
+					
+					
+					<div class="col col-4">
+						<div class="innerContents" style="padding:1em; background-image: -webkit-linear-gradient(top,#3583c6 0,#2825b8 100%);">
+								<Strong>당신에게는 </Strong>
+								<h1>${mainInfo.AllcoateIssueCnt}개</h1>
+								<h5>이슈가 할당되어 있습니다.</h5>
+						</div>
+					
+					</div>
+				
+				</div>
+			</div>
+		</div>
+	
+
+    </div>
+	
+		
+
 	<div class="col col-6 mainContents">
-		<div class="col col-12 mainContents">공지사항 ${mainInfo.Notice}  </div>
-	</div>
+			<div class="panel">
+			<div class="head">
+				<i class="icon-info"></i><strong> Notice</strong>
+			</div>
+		<table class="table classic stripeless">
+			<thead>
+				<tr>
+					<th style="width:3em; text-align:center">#</th>
+					<th style="width:7em; text-align:center">유형</th>
+					<th style="text-align:center">내용</th>
+				</tr>
+			</thead>
+		 	<tbody>
+		 			<c:forEach items="${mainInfo.Notice}" var="noticeinfo" varStatus="a">
+		 				<tr>
+							<td style="text-align:center">${a.index +1 }</td>
+							<td style="text-align:center">${noticeinfo.noticeTitle}</td>	
+							<td>${noticeinfo.noticeContent}</td>		
+		 				</tr>
+		 			</c:forEach>
+		 		
+		 	</tbody>
+		</table>
+		</div>
+	
+
+    </div>
 </div>
 
 <div class="row">
 	<div class="col col-6 mainContents">
-		<div class="col col-12 mainContents">공개된 리스트 중 팔로워가 많은 순서 ${mainInfo.OpenProjectList} </div>
-	</div>
+			<div class="panel">
+			<div class="head">
+				<i class="icon-preview"></i><strong> Follower Top5</strong>
+			</div>
+		<table class="table classic stripeless">
+			<thead>
+				<tr>
+					<th style="width:3em; text-align:center">#</th>
+					<th style="width:7em; text-align:center">유형</th>
+					<th style="text-align:center">내용</th>
+				</tr>
+			</thead>
+			<tbody>
+		 			<c:forEach items="${mainInfo.OpenProjectList}" var="Prolist" varStatus="b">
+		 				<tr>
+							<td style="text-align:center">${b.index +1 }</td>
+							<td style="text-align:center">${Prolist.ProjectId}</td>	
+			
+		 				</tr>
+		 			</c:forEach>
+		 		
+		 	</tbody>
+		</table>
+		</div>
 	
-	<div class="col col-6 mainContents">
-	<div class="col col-12 mainContents">게시판 ${mainInfo.board} </div>
-	</div>
+
+    </div>
+	
+	
+		<div class="col col-6 mainContents" style="border : 1px solid white">
+		
+		안희민씨를 위한 게시판 자리
+		<img src="/resources/img/intro/donaplz.png"  >	
+		 ${mainInfo.board}
+
+		</div>
 </div>
 
 
+<script>
+
+const st = {};
+
+st.flap = document.querySelector('#flap');
+st.toggle = document.querySelector('.toggle');
+
+st.choice1 = document.querySelector('#choice1');
+st.choice2 = document.querySelector('#choice2');
+
+st.flap.addEventListener('transitionend', () => {
+
+    if (st.choice1.checked) {
+        st.toggle.style.transform = 'rotateY(-15deg)';
+        setTimeout(() => st.toggle.style.transform = '', 400);
+        console.log("나오니?");
+        $("#issue").show(300);
+        $("#project").hide(300);
+    } else {
+        st.toggle.style.transform = 'rotateY(15deg)';
+        setTimeout(() => st.toggle.style.transform = '', 400);
+        console.log("나오니2?");
+        $("#issue").hide(300);
+        $("#project").show(300);
+    }
+
+})
+
+st.clickHandler = (e) => {
+
+    if (e.target.tagName === 'LABEL') {
+        setTimeout(() => {
+            st.flap.children[0].textContent = e.target.textContent;
+        }, 250);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    st.flap.children[0].textContent = st.choice2.nextElementSibling.textContent;
+});
+
+document.addEventListener('click', (e) => st.clickHandler(e));
+
+
+</script>

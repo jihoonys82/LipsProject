@@ -23,14 +23,30 @@ public class MainServiceImpl implements MainService {
 	public Map mainPage(User user) {
 	
 		Map map = new HashMap();
-		map.put("ProjectCount", pdao.selPro(user).size());
+		
+		//나에게 할당된 이슈
+		map.put("AllcoateIssueCnt", dao.selAllocateIssue(user).size());
+		
+		//소속된 프로젝트의 이슈
+		map.put("MyProjectIssueCnt", dao.selAllMyIssue(user).size());
+		//모~든 프로젝트의 개수
+		map.put("AllProjectCnt", dao.selAllPro().size());
+		//오픈된 프로젝트의 개수
+		map.put("OpenProjectCnt", dao.selOpenPro().size());
+		// 내가 참여한 프로젝트의 개수	
+		map.put("MyProjectCount", dao.selMyPro(user).size());
+		
+		//모~ 든 이슈 
+		map.put("AllIssueCnt", dao.selAllIssue().size());
+		
+		
 		map.put("IssueCount", idao.selIssueByAssignee(user).size());
-		map.put("Notice",adao.selNInfo());
-//		noticeCategory = 1 한줄공지 2 = 타임라인 
+		map.put("Notice",dao. selTimelineInfo()); 
 		map.put("OpenProjectList", dao.selProIfOpen());
 		map.put("board","보드가아직 없지롱");
 		
-
+		//안나옴 20181107 모영호 여기까지함 
+		System.out.println("나오니"+dao.selProIfOpen().toString());
 		
 		return map;
 	}

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<div style="margin: 3px;">
+<div style="margin: 3px; display:flex; align-items:center;">
 	<div id="datepicker_4" class="calendar">
 	    <div class="head" style="hight:30px;">  
 	        <div class="prev"><i class="icon-chevron-left"></i></div>

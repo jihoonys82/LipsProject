@@ -1,5 +1,7 @@
 package lips.card.dto;
 
+import java.util.Date;
+
 public class CardDto {
 	//Dashboard_user_asset
 	private int dashboardId;
@@ -15,11 +17,32 @@ public class CardDto {
 	private String assetDescription;
 	private String assetView;
 	
+	//ProjectDate
+	private Date createDate;
+	private Date closeDate;
+	
+
 	@Override
 	public String toString() {
 		return "CardDto [dashboardId=" + dashboardId + ", positionX=" + positionX + ", positionY=" + positionY
 				+ ", assetValue=" + assetValue + ", projectId=" + projectId + ", assetId=" + assetId + ", assetName="
-				+ assetName + ", assetDescription=" + assetDescription + ", assetView=" + assetView + "]";
+				+ assetName + ", assetDescription=" + assetDescription + ", assetView=" + assetView + ", createDate="
+				+ createDate + ", closeDate=" + closeDate + "]";
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	
+	public Date getCloseDate() {
+		return closeDate;
+	}
+	
+	public void setCloseDate(Date closeDate) {
+		this.closeDate = closeDate;
 	}
 
 	public int getProjectId() {

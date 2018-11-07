@@ -23,8 +23,8 @@
 	ORDER BY assetid
 </select>
 
-<select id="selprojectDeadLinebyprojectId" parameterType="lips.card.dto.CardDto" resultType="Date">
-	SELECT closedate 
+<select id="selprojectDeadLinebyprojectId" parameterType="lips.card.dto.CardDto" resultType="lips.card.dto.CardDto">
+	SELECT createdate ,closedate
 	FROM projectinfo
 	WHERE projectid = #{projectId}
 </select>

@@ -71,12 +71,13 @@ public class CardServiceImpl implements CardService {
 	public ModelAndView setCard5ProjectEnddate(CardDto dto) {
 		ModelAndView mav = new ModelAndView();
 
-		Date date = dao.selprojectDeadLinebyprojectId(dto);
+		CardDto date = dao.selprojectDeadLinebyprojectId(dto);
 		SimpleDateFormat parseDate = new SimpleDateFormat("yyyy/MM/dd");
-		String deadLine = parseDate.format(date);
+		String deadLine = parseDate.format(date.getCloseDate());
+		String createLine = parseDate.format(date.getCreateDate());
 		
-		System.out.println("+++++++++++++++++++++++++++++++++++++++"+deadLine);
 		mav.addObject("deadLine", deadLine);
+		mav.addObject("createLine",createLine);
 		mav.setViewName("card/card5");
 		
 //		"May 9, 2017 06:00:00"

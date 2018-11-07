@@ -5,7 +5,7 @@
 
 
 
-<div style="height: 300px; margin: 3px;">
+<div style="height: 300px; margin: 3px; display:flex; align-items:center;">
 <div class="issueHeadline">
 		<h3 style="text-align: center;">데드라인이 가까운 이슈</h3> 
 		<table class="table classic stripeless">

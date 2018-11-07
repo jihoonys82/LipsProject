@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<link rel="stylesheet" href="/resources/css/tip-darkgray/tip-darkgray.css" />
+<script type="text/javascript" src="/resources/js/userinfo/jquery.poshytip.min.js?ver=1" ></script>
 <style>
 .panel-wrapper {
 	padding:	 	10px;
@@ -44,6 +47,7 @@
 	display:		block;
 	margin:			3px;
 }
+
 </style>
 
 <!-- 기존 스테이지 목록  -->
@@ -64,39 +68,26 @@
 				</tr>
 			</thead>
 			<tbody>
+			<c:forEach items="${presetList }" var="preset"  varStatus="presetStatus">
 				<tr>
-					<td>9999</td>
-					<td>사장님결재</td>
-					<td>김사장</td>
-					<td>
-						<div>
-							<span class="label success assetBlock">시작단계</span>
-							<span class="icon icon-arrow4" style="vertical-align:middle;"></span>
-							<span class="label success assetBlock">중간단계</span>
-							<span class="icon icon-arrow4 " style="vertical-align:middle;"></span>
-							<span class="label success assetBlock">작업완료</span>
-							<span class="icon icon-arrow4" style="vertical-align:middle;"></span>
-							<span class="label success assetBlock">끝났니?</span>
-							<span class="icon icon-arrow4" style="vertical-align:middle;"></span>
-							<span class="label success assetBlock">아니오.</span>
-							<span class="icon icon-arrow4" style="vertical-align:middle;"></span>
-							<span class="label success assetBlock">프론트가</span>
-							<span class="icon icon-arrow4 " style="vertical-align:middle;"></span>
-							<span class="label success assetBlock">시러시러</span>
-						</div>
-					</td>
-					<td>
-						<div class="alignCenter">
-							<button type="button" class="btn mini focus">편집</button>
-						</div>
-					</td>
+				<td>${preset.issuePresetId }</td>
+				<td>${preset.presetName }</td>
+				<td>${preset.userId }</td>
+				<td>
+					<c:forEach items="${presetAssetList[presetStatus.index]}" var="presetAsset" varStatus="assetStatus">
+						<span class="label success assetBlock">${presetAsset.stageName }</span>
+						<c:if test="${assetStatus.index ne fn:length(presetAssetList[presetStatus.index])-1}">
+							<span class="icon icon-arrow4" style="vertical-align:middle;"></span>							
+						</c:if> 
+					</c:forEach>
+				</td>
+				<td>
+					<div class="alignCenter">
+						<button type="button" class="btn mini focus">편집</button>
+					</div>
+				</td>
 				</tr>
-				<tr>
-					<td>A</td><td>B</td><td>C</td><td>D</td><td>E</td>
-				</tr>
-				<tr>
-					<td>A</td><td>B</td><td>C</td><td>D</td><td>E</td>
-				</tr>
+			</c:forEach>
 			</tbody>
 		</table>
 	</div>
@@ -124,10 +115,45 @@
 				<div class="col col-8">
 					<div class="stageCustomArea">
 						<!-- 스테이지 커스텀 영역 -->
-						<span class="label success assetBlock">업무시작</span>
-						<span class="icon icon-arrow4" style="vertical-align:middle;"></span>
-						
-						<button class="btn assetBlock"><span class="icon icon-more bounce"></span></button>					
+						<button id="presetAddBtn" class="btn assetBlock" onclick="addPreset()"><span class="icon icon-more bounce" ></span></button>
+						<script>
+							var isFocus = false;
+							function addPreset(){
+								if(isFocus){
+									$("#presetAddBtn").removeClass('focus');
+									isFocus=false;
+								}else{
+									$("#presetAddBtn").addClass('focus');
+									isFocus=true;
+								}
+							}
+							var customAssetIndex = 0;
+							var arrPoshy = [];
+							function addAsset(stageAssetId,stageName,assetDescription,index){
+								if(!isFocus) return;
+								$("<span value='"+stageAssetId+"' id='customAssetIndex"+customAssetIndex+"' class='label success assetBlock customAsset customAssetBlock' onmouseover=$('#customAssetIndex"+customAssetIndex+"').poshytip('show') onmouseout=$('#customAssetIndex"+customAssetIndex+"').poshytip('hide')>" +
+									stageName +
+								"</span><span class='icon icon-arrow4 customAsset' style='vertical-align:middle;'></span>").insertBefore('#presetAddBtn').hide().show(400);
+								createPoshy(assetDescription,customAssetIndex);
+								customAssetIndex++;
+							}
+							function createPoshy(assetDescription,index){
+								$('#customAssetIndex'+index).poshytip({
+									content: assetDescription,
+									className: 'tip-darkgray',
+									bgImageFrameSize: 11,
+									showOn: 'none',
+									alignTo: 'target',
+									alignX: 'inner-left',
+									offsetX: 0,
+									offsetY: 5
+									})
+							}
+							function resetAsset(){
+								customAssetIndex = 0;
+								$('.customAsset').hide(400,function(){$('.customAsset').remove()});
+							}
+						</script>					
 					</div>
 				</div>
 				<div class="col col-2 stageEdge">
@@ -137,8 +163,31 @@
 			</div>
 		</div>
 		<div class="foot alignCenter">
-			<button type="button" class="btn focus">저장</button>
-			<button type="button" class="btn">초기화</button>
+			<button type="button" class="btn focus" onclick="presetSave()">저장</button>
+			<script>
+			 function presetSave(){
+				 var assetList = [];
+				 jQuery.ajaxSettings.traditional = true;
+
+				 $('.customAssetBlock').each(function(){
+					assetList.push($(this).attr('value')); 
+				 });
+				 var parseData = {"presetName" : $('#presetName').val(),"projectId" : ${projectId},"assetIdList" : assetList}
+					$.ajax({
+						url : "/issue/presetSave",
+						type : "POST",
+						data : { 	
+							presetName 		: $('#presetName').val(),
+							projectId 		: ${projectId},
+							assetIdList 	: assetList 
+						},
+						success : function(responseData) {
+							window.location.reload();
+						}
+					});
+			 }
+			</script>
+			<button type="button" class="btn" onclick="resetAsset()">초기화</button>
 		</div>
 	</div>
 </div><!-- end of 신규/수정 스테이지 -->
@@ -162,7 +211,34 @@
 						<input type="text" class="input" id="assetDescription" name="assetDescription" />
 					</div>
 					<div class="input-row-wrap alignCenter">
-						<button type="button" class="btn focus">에셋 저장</button>
+						<button type="button" class="btn focus" onclick="assetSave()">에셋 저장</button>
+						<script>
+						 function assetSave(){
+								$.ajax({
+									url : "/issue/assetSave",
+									type : "POST",
+									data : {
+										stageName : $("#stageName").val(),
+										assetDescription : $("#assetDescription").val(),
+										projectId : ${projectId}
+									},
+									success : function(responseData) {
+										alert(responseData.data);
+										
+										reloadAssetList();
+									}
+								});
+						 }
+						 function reloadAssetList(){
+								$.ajax({
+									url : "/issue/reloadAssetList",
+									type : "POST",
+									success : function(responseData) {
+										
+									}
+								});
+						 }
+						</script>
 						<button type="button" class="btn">초기화</button>			
 					</div>
 				</div>
@@ -187,26 +263,18 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>9999</td>
-							<td>
-								<div class="alignCenter">
-									<span class="label mini success">업무시작</span>								
-								</div>
-							</td>
-							<td>업무 시작 단계입니다. 기본중의 기본!</td>
-							<td>
-								<div class="alignCenter">
-									<button type="button" class="btn mini focus">사용</button>								
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>A</td><td>B</td><td>C</td><td>D</td>
-						</tr>
-						<tr>
-							<td>A</td><td>B</td><td>C</td><td>D</td>
-						</tr>
+						<c:forEach items="${assetList }" var="asset" varStatus="status">
+							<tr id="assetList${status.index }">
+								<td>${asset.stageAssetId }</td>
+								<td>${asset.stageName }</td>
+								<td>${asset.assetDescription }</td>
+								<td>
+									<div class="alignCenter">
+										<button id="addAssetBtn${status.index }" type="button" class="btn mini focus" onclick="addAsset('${asset.stageAssetId }','${asset.stageName }','${asset.assetDescription }','${status.index }')">등록</button>
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>

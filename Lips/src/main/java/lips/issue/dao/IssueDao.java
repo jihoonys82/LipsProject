@@ -1,5 +1,6 @@
 package lips.issue.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,6 @@ import lips.issue.dto.IssueStagePresetDto;
 import lips.issue.dto.StageAssetDto;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
-import lips.utils.Paging;
 
 public interface IssueDao {
 	
@@ -97,11 +97,6 @@ public interface IssueDao {
 	 */
 	public List<IssueDto> selIssueByProject(ProjectDto projectDto);
 	
-	/**
-	 * get All stage asset 
-	 * @return
-	 */
-	public List<StageAssetDto> selStageAsset();
 
 	/**
 	 * get Total count of Following issue
@@ -212,5 +207,31 @@ public interface IssueDao {
 	 * @return
 	 */
 	public IssueCommentDto selCommentById(IssueCommentDto icId);
-	
+	/**
+	 * Add Stage Asset
+	 * @param stageAssetDto
+	 */
+	public void inStageAsset(StageAssetDto stageAssetDto);
+	/**
+	 * save Preset
+	 * @param issueStagePresetDto
+	 */
+	public void inStagePreset(IssueStagePresetDto issueStagePresetDto);
+	/**
+	 * save PresetMapper
+	 * @param assetIdList
+	 */
+	public void inStagePresetAsset(Map<String,List<Integer>> assetList);
+	/**
+	 * Get private/Default StageAsset for Project
+	 * @param user
+	 * @return
+	 */
+	public List<StageAssetDto> selStageAsset(int projectId);
+	/**
+	 * Get private/Default StagePreset for Project
+	 * @param projectId
+	 * @return
+	 */
+	public List<IssueStagePresetDto> selStagePreset(int projectId);
 }

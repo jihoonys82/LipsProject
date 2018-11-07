@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import lips.issue.dao.IssueDao;
 import lips.issue.dto.CategoryAssetDto;
-import lips.issue.dto.IssueCategoryDto;
 import lips.issue.dto.IssueCommentDto;
 import lips.issue.dto.IssueDto;
 import lips.issue.dto.IssueStagePresetDto;
@@ -66,7 +65,7 @@ public class IssueService {
 		mav.addObject("issueAssigned", issueDao.selIssueByAssignee(user));
 		mav.addObject("issueFollowing", issueDao.selIssueByFollowing(user));
 		
-		mav.addObject("issueStage", issueDao.selStageAsset());
+		mav.addObject("issueStage", issueDao.selStageAsset(0)); // default load
 		
 		return mav;
 	}
@@ -197,7 +196,7 @@ public class IssueService {
 		if(!issues.isEmpty()) {
 			mav.addObject("listType", listType);
 			mav.addObject("issues", issues);
-			mav.addObject("issueStage", issueDao.selStageAsset());
+			mav.addObject("issueStage", issueDao.selStageAsset(Integer.parseInt(projectId)));
 			mav.addObject("paging", paging);
 			mav.setViewName("issue/issueList");
 		} else {
@@ -321,5 +320,25 @@ public class IssueService {
 		
 		return mav;
 	}
+	public void assetSave(StageAssetDto stageAssetDto) {
+		issueDao.inStageAsset(stageAssetDto);
+	}
+	public void presetSave(IssueStagePresetDto issueStagePresetDto,String[] assetIdList) {
+		List<Integer> assetList = new ArrayList<Integer>();
+		Map<String,List<Integer>> map = new HashMap<String,List<Integer>>();
+		for(int i = 0 ; i<assetIdList.length;i++) {
+			assetList.add(Integer.parseInt(assetIdList[i]));
+		}
+		map.put("assetList", assetList);
+		issueDao.inStagePreset(issueStagePresetDto);
+		issueDao.inStagePresetAsset(map);
+	}
+	public List<StageAssetDto> getAssetList(int projectId){
+		return issueDao.selStageAsset(projectId);
+	} 
+	public List<IssueStagePresetDto> getPresetList(int projectId){
+		return issueDao.selStagePreset(projectId);
+	}
+//	public List<IssueStagePresetAssetDto> getPresetAssetList(List<IssueStagePresetDto> presetList){}
 	
 }

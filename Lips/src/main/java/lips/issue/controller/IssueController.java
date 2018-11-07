@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -220,12 +221,42 @@ public class IssueController {
 	}
 	
 	@RequestMapping(value="/setupIssueStage", method=RequestMethod.GET)
-	public void setupIssueStage(Model model) {
+	public void setupIssueStage(int projectId, Model model) {
+		List<IssueStagePresetDto> presetList = issueService.getPresetList(projectId);
+		List<StageAssetDto> assetList = issueService.getAssetList(projectId);
+		List<List<StageAssetDto>> presetAssetList = new ArrayList<List<StageAssetDto>>();
+		Iterator itr = presetList.iterator();
+		IssueStagePresetDto ispd = null;
+		while(itr.hasNext()) {
+			ispd = (IssueStagePresetDto)itr.next();
+			presetAssetList.add(issueService.getStageAssets(ispd));
+		}
+		
+		model.addAttribute("projectId", projectId);
+		model.addAttribute("presetAssetList", presetAssetList);
+		model.addAttribute("presetList", presetList);
+		model.addAttribute("assetList", assetList);
 		
 	}
 	
 	@RequestMapping(value="/setupIssueStage", method=RequestMethod.POST)
 	public void setIssueStageProc() {
-		//TODO: 
+		//TODO: 논의 예정(우선 별도의 ajax용 메소드 구현) 
+	}
+	@RequestMapping(value="/assetSave",method=RequestMethod.POST)
+	public ModelAndView assetSave(StageAssetDto stageAssetDto) {
+		ModelAndView mav = new ModelAndView();
+		issueService.assetSave(stageAssetDto);
+		mav.addObject("data","등록완료");
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	@RequestMapping(value="/presetSave",method=RequestMethod.POST)
+	public ModelAndView presetSave(IssueStagePresetDto issueStagePresetDto, @RequestParam(value="assetIdList") String[] assetIdList) {
+		ModelAndView mav = new ModelAndView();
+		issueStagePresetDto.setUserId(new UserByToken().getInstance().getUserId());
+		issueService.presetSave(issueStagePresetDto,assetIdList);
+		mav.setViewName("jsonView");
+		return mav;
 	}
 }

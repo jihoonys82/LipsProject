@@ -4,13 +4,19 @@ public class StageAssetDto {
 	private int stageAssetId;
 	private String stageName;
 	private String assetDescription;
+	private int projectId;
 	
 	@Override
 	public String toString() {
 		return "StageAssetDto [stageAssetId=" + stageAssetId + ", stageName=" + stageName + ", assetDescription="
-				+ assetDescription + "]";
+				+ assetDescription + ", projectId=" + projectId + "]";
 	}
-	
+	public int getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
+	}
 	public int getStageAssetId() {
 		return stageAssetId;
 	}

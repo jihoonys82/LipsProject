@@ -89,10 +89,7 @@
 		WHERE projectId = #{projectId}
 		ORDER BY issueStage, expectedEndDate, createDate
  	</select>
- 	
- 	<select id="selStageAsset" resultType="lips.issue.dto.StageAssetDto">
- 		SELECT * FROM stage_asset
- 	</select>
+
  	
  	<select id="selTotalCountByIssueFollowing" parameterType="lips.userinfo.dto.User" resultType="int">
  		SELECT COUNT(*)
@@ -176,7 +173,6 @@
  	<delete id="delComment" parameterType="lips.issue.dto.IssueCommentDto">
  		DELETE issue_comment WHERE commentId = #{commentId}
  	</delete>
- 	
  	<insert id="inComment" parameterType="lips.issue.dto.IssueCommentDto" >
 		<selectKey keyProperty="commentId" resultType="int" order="BEFORE">
 			SELECT issue_comment_SEQ.NEXTVAL FROM dual
@@ -188,4 +184,29 @@
  	<select id="selCommentById" parameterType="lips.issue.dto.IssueCommentDto" resultType="lips.issue.dto.IssueCommentDto">
  		SELECT * FROM issue_comment WHERE commentId = #{commentId}
  	</select>
+ 	
+ 	<insert id="inStageAsset" parameterType="lips.issue.dto.StageAssetDto">
+ 		INSERT INTO stage_asset VALUES (STAGE_ASSET_SEQ.nextVal,#{stageName }, #{assetDescription}, #{projectId})
+ 	</insert>
+ 	<select id="selStageAsset" parameterType="Integer" resultType="lips.issue.dto.StageAssetDto">	
+ 		SELECT * FROM stage_asset where projectId = #{value } or projectId = 0 order by stageAssetId
+ 	</select>
+ 	<select id="selStagePreset" parameterType="Integer" resultType="lips.issue.dto.IssueStagePresetDto">
+ 		SELECT * FROM Issue_stage_preset where projectId = #{value } or projectId = 0 order by issuePresetId
+ 	</select>
+ 	<insert id="inStagePreset" parameterType="lips.issue.dto.IssueStagePresetDto">
+ 		INSERT INTO Issue_stage_preset VALUES(ISSUE_STAGE_PRESET_SEQ.nextVal,#{presetName }, #{userId}, #{projectId})
+ 	</insert>
+ 	<insert id="inStagePresetAsset" parameterType="map">
+ 		<selectKey resultType="Integer" keyProperty="targetPreset" order="BEFORE">
+ 			  SELECT MAX(ISSUEPRESETID) FROM Issue_stage_preset  
+ 		</selectKey>
+ 		INSERT ALL  
+ 		<foreach collection="assetList" item="assetId" index="index">
+ 			 INTO Issue_stage_preset_asset VALUES (#{targetPreset}, #{assetId }, #{index })
+ 		</foreach>
+ 		SELECT * FROM dual
+ 	</insert>
+ 	
+ 	
  </mapper>  

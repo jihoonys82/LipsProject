@@ -47,7 +47,7 @@ public class CardServiceImpl implements CardService {
 		mav.addObject("watcherCloseDeadline", issueDao.selIssueWatcherCount(issueDeadline));
 		mav.addObject("commentCloseDeadline", issueDao.selIssueCommentCount(issueDeadline));
 	
-		mav.addObject("issueStage", issueDao.selStageAsset());
+		mav.addObject("issueStage", issueDao.selStageAsset(0));
 		mav.setViewName("card/card2");
 		return mav;
 
@@ -62,7 +62,7 @@ public class CardServiceImpl implements CardService {
 		mav.addObject("watcherMostFollowed", issueDao.selIssueWatcherCount(issueMostFollowed));
 		mav.addObject("commentMostFollowed", issueDao.selIssueWatcherCount(issueMostFollowed));
 		
-		mav.addObject("issueStage", issueDao.selStageAsset());
+		mav.addObject("issueStage", issueDao.selStageAsset(0));
 		mav.setViewName("card/card3");
 		return mav;
 	}
@@ -71,12 +71,13 @@ public class CardServiceImpl implements CardService {
 	public ModelAndView setCard5ProjectEnddate(CardDto dto) {
 		ModelAndView mav = new ModelAndView();
 
-		Date date = dao.selprojectDeadLinebyprojectId(dto);
+		CardDto date = dao.selprojectDeadLinebyprojectId(dto);
 		SimpleDateFormat parseDate = new SimpleDateFormat("yyyy/MM/dd");
-		String deadLine = parseDate.format(date);
+		String deadLine = parseDate.format(date.getCloseDate());
+		String createLine = parseDate.format(date.getCreateDate());
 		
-		System.out.println("+++++++++++++++++++++++++++++++++++++++"+deadLine);
 		mav.addObject("deadLine", deadLine);
+		mav.addObject("createLine",createLine);
 		mav.setViewName("card/card5");
 		
 //		"May 9, 2017 06:00:00"

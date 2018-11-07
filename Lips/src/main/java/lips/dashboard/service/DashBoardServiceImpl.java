@@ -57,6 +57,7 @@ public class DashBoardServiceImpl implements DashBoardService{
 		for(int j = 0 ; j<length; j++) {
 			String startreplace = splitList.get(j).split(":")[0].replace("[{", "");
 			String startre = startreplace.replace("\"", "");
+			System.out.println(startre);
 			String endreplace = splitList.get(j).split(":")[1].replace("}]", "");
 			String endre = endreplace.replace("\"", "");
 			splitMap.put(startre, endre) ;

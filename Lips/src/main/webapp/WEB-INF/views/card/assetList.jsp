@@ -46,7 +46,7 @@ body {
 			<div class="flip-box-inner">
 				<div class="flip-box-front">
 					<div>${Card.assetName}</div>
-					<div><img src="/resources/img${Card.assetView}.PNG" style="width: 100%; height: 150px;"></div>
+					<div><img src="/resources/img/card/${Card.assetView}.PNG" style="width: 100%; height: 150px;"></div>
 				</div>
 				<div class="flip-box-back">
 				<div>${Card.assetName}</div>

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<div style="height: 300px; margin: 3px;">
+<div style="height: 300px; margin: 3px; display:flex; align-items:center;">
 <div class="issueHeadline">
 		<h3 style="text-align: center;">가장 많이 팔로잉 한 이슈</h3>
 		<table class="table classic stripeless">

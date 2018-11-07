@@ -4,9 +4,63 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="lips.main.dao.MainDao">
  
+ 	<!-- 나에게 할당된 모든 이슈 종료/활성화 상태 가리지 않음..--> 
+ 	<select id="selAllocateIssue"  parameterType="lips.userinfo.dto.User" resultType="lips.issue.dto.IssueDto">
+	SELECT * FROM ISSUE WHERE ASSIGNEE=#{userId}
+	</select>
+ 
+ 
+ 
+ 
+ 	<!-- 내가 소속된 모든 프로젝트의 모든 이슈 -->
+ 	<select id="selAllMyIssue"  parameterType="lips.userinfo.dto.User" resultType="lips.issue.dto.IssueDto">
+	SELECT I.*
+FROM issue I,
+    (SELECT PM.projectId 
+    FROM project_member PM, projectinfo PI
+    WHERE PM.projectId = PI.projectId
+        AND PM.userId = #{userId}
+        AND PI.status = 'OPEN'
+    ) PID
+WHERE I.projectId = PID.projectId
+	</select>
+ 
+ 
+ 
+
+ 	<!-- Lips의 모든  이슈 가져오기  종료/활성화 가리지 않음..-->
+	<select id="selAllIssue" resultType="lips.issue.dto.IssueDto">
+	select * from issue
+	</select>
+ 
+ 	<!-- Lips의 공개/비공개 중 공개(오픈)상태의 모든 프로젝트 가져오기 -->
+	<select id="selOpenPro" resultType="lips.project.dto.ProjectDto">
+	SELECT * FROM projectinfo WHERE PROJECTOPEN = 1 AND STATUS='OPEN'
+	</select>
+
+
+	<select id="selMyPro" parameterType="lips.userinfo.dto.User" resultType="lips.project.dto.ProjectDto">
+ 		SELECT * FROM projectinfo pf, project_member pm
+	WHERE pf.PROJECTID = pm.PROJECTID AND USERID=#{userId} AND pm.USERLEVEL>=1 And STATUS='OPEN'
+ 	</select>
+
+
+
+ 	<!-- Lips의 모든 프로젝트 가져오기(일시정지 및 종료 제외) -->
+	<select id="selAllPro" resultType="lips.project.dto.ProjectDto">
+	SELECT * FROM projectinfo WHERE STATUS='OPEN'
+	</select>
+ 
+ 
+	 <!-- 타임라인 공지 가져오기  -->
+ 	<select id="selTimelineInfo" resultType="lips.admin.dto.NoticeDto" >
+ 		SELECT rownum, a.*
+	from(SELECT * FROM notice WHERE noticecategory =0 ORDER BY NOTICEID ASC)a
+	where rownum <![CDATA[<]]>6 
+
+ 	</select>
  	
- 	
- 	<!-- 몰라  -->
+ 	<!-- 팔로워 많은 이슈 가져오기  -->
  	<select id="selProIfOpen" resultType="lips.project.dto.ProjectDto">
 SELECT * FROM
     (SELECT projInf.*, projwatcher.projectwatcher 

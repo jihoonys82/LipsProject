@@ -18,37 +18,22 @@
 		
 	<div class="body forDisplay-body-first" >
 			<div class="forDisplay-body-second row">
-				<div class="blackBox inline-block w-5">
-					기간
+				<div class="blackBox inline-block w-5">기간</div>
+
+				<input id="startdate" type="date" class="color-date input w-15"/>
+				<input id="enddate" type="date" class="color-date input w-15"/>
+				
+				<div class="combo" style="margin-left: 10px;">
+					검색 옵션 : <select id="comboOption" class="btn small toggle ">
+						<option value="userid">userid</option>
+						<option value="usernick">usernick</option>
+					</select>
 				</div>
 
-				<input type="date" class="color-date input w-15"/>
-				<input type="date" class="color-date input w-15"/>
-				
-				<div class="inline-block w-15">
-					<a class="btn mini focus">
-						오늘
-					</a> 
-					<a class="btn mini focus">일주일</a> 
-					<a class="btn mini focus">한 달</a>				
-				</div>	
-
-				<div id="combo_1" class="combo inline-block w-20">
-					
-					<a class="btn small forSizing-btn-first">Select...</a>
-					<a class="btn small toggle"><i class="icon-arrow2"></i></a>
-					<ul>
-						<li value="1">유저 아이디</li>
-						<li value="2">유저 닉네임</li>
-					</ul>
-				
+				<div class="inline-block" id="ComboChangeInput">
+					<input id="comboInput" type="text" class="forSizing-input input" placeholder="입력하세용" />
 				</div>
-				<div class="inline-block w-20">
-					<input type="text" class="forSizing-input input"/>
-			
-					<button class="btn small focus"
-						onclick="alert(combo_1.getText())">검색</button>
-				</div>
+				<button class="btn small focus" onclick="index()" style="float: right;">검색</button>
 			</div>
 	</div>
 		
@@ -169,31 +154,49 @@
 	</div>
 		
 </div>	
-
+<form hidden="true" action="/admin/user/text" method="Post" id="indexform"></form>
 
 <script type="text/javascript">
+
+
+
  	$(document).ready(function(){ 
-  		
-  		$("table").on("click", "tr", function() { 
+ 		
+ 		$("#comboOption").on("change", function() {
+		});
+
+ 		$("table").on("click", "tr", function() { 
  			var userId = $(this).children("td").eq(0).text(); 
   			
  			$(location).attr("href","/admin/user/view?userId="+userId); 
    		}); 
-  		
-   	});
+  	});
  	
-	jui.ready([ "ui.combo" ], function(combo) {
-		combo_1 = combo("#combo_1",
-				{
-					index : 2,
-					event : {
-						change : function(data) {
-							alert("text(" + data.text + "), value("
-									+ data.value + ")");
-						}
-					}
-				});
-	});
+	//검색 버튼 function
+	var index =	function(){
+  		var $startdate = $("#startdate").val();
+		var $enddate = $("#enddate").val();
+		var $combodata = $("#comboOption").val();
+		var $inputValue = $("#comboInput").val(); 
+	
+		var dataCollection = new Object();
+		var indexList = new Array();
+		
+		dataCollection.startdate = $startdate;
+		dataCollection.enddate = $enddate;
+		dataCollection.combodata = $combodata;
+		dataCollection.inputValue = $inputValue;
+		
+		indexList.push(dataCollection);
+		
+		var indexData = JSON.stringify(indexList);
+		
+		var $indexInput = $("<input>").attr("name", "indexData").attr("value", indexData);
+		$("#indexform").append($indexInput);
+
+		$("#indexform").submit();
+			
+		}
 </script>
 
 </body>

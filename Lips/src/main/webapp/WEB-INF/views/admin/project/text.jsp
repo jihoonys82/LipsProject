@@ -16,38 +16,35 @@
 		
 	<div class="body forDisplay-body-first" >
 			<div class="forDisplay-body-second row">
-				<div class="blackBox inline-block w-5">
-					기간
+				<div class="blackBox inline-block w-5">기간</div>
+
+				<input id="startdate" type="date" class="color-date input w-15"/>
+				<input id="enddate" type="date" class="color-date input w-15"/>
+				
+				<div class="combo" style="margin-left: 10px;">
+					검색 옵션 : <select id="comboOption" class="btn small toggle ">
+						<option value="projectname">projectname</option>
+						<option value="projectkey">projectkey</option>
+						<option value="status">status</option>
+					</select>
 				</div>
 
-				<input type="date" class="color-date input w-15"/>
-				<input type="date" class="color-date input w-15"/>
-				
-				<div class="inline-block w-15">
-					<a class="btn mini focus">
-						오늘
-					</a> 
-					<a class="btn mini focus">일주일</a> 
-					<a class="btn mini focus">한 달</a>				
-				</div>	
+				<div class="inline-block" id="ComboChangeInput">
+					<div id="statusCombo" hidden="true">
+						<div class="combo"  style="margin-left: 10px;" >
+						<select id="statusOption" class="btn small toggle ">
+							<option value="OPEN">OPEN</option>
+							<option value="PENDING">PENDING</option>
+							<option value="CLOSE">CLOSE</option>
+						</select> 
+						</div>
+					</div>
 
-				<div id="combo_1" class="combo inline-block w-20">
-					
-					<a class="btn small forSizing-btn-first">Select...</a>
-					<a class="btn small toggle"><i class="icon-arrow2"></i></a>
-					<ul>
-						<li value="1">프로젝트 명</li>
-						<li value="2">프로젝트 key</li>
-						<li value="3">프로젝트 상태</li>
-					</ul>
-				
+					<div id="othersCombo" hidden="true">
+						<input id="comboInput" type="text" class="forSizing-input input" placeholder="입력하세용" />
+					</div>
 				</div>
-				<div class="inline-block w-20">
-					<input type="text" class="forSizing-input input"/>
-			
-					<button class="btn small focus"
-						onclick="alert(combo_1.getText())">검색</button>
-				</div>
+				<button class="btn small focus" onclick="index()" style="float: right;">검색</button>
 			</div>
 	</div>
 		
@@ -164,23 +161,86 @@
 
 		</div>	
 	</div>
-		 
-		
-		
-		
 </div>
+<form hidden="true" action="/admin/project/text" method="Post" id="indexform"></form>
 
 <script type="text/javascript">
+	var statusOption;
+	var comboOption;
+
+
  	$(document).ready(function(){ 
-  		
+ 		
+ 		$("#comboOption").on("change", function() {
+ 			comboOption = $("#comboOption").val();
+			combochangeF(comboOption);
+		});
+ 		
+ 		$("#statusOption").on("change", function() {
+ 			statusOption = $("#statusOption").val();
+		});
+ 	
+ 		var combochangeF = function(changedata){
+ 			if(changedata == "status"){
+ 				
+ 				$("#ComboChangeInput").children().hide();
+ 				$("#statusCombo").show()
+ 				
+ 			}else if(changedata == "projectname"){
+
+ 				$("#ComboChangeInput").children().hide();
+ 				$("#othersCombo").show()
+ 				
+ 			}else if(changedata == "projectkey"){
+ 			
+ 				$("#ComboChangeInput").children().hide();
+ 				$("#othersCombo").show()
+ 			}
+ 		}
+ 		
+ 		
   		$("table").on("click", "tr", function() { 
  			var projectId = $(this).children("td").eq(0).text(); 
   			
  			$(location).attr("href","/admin/project/view?projectId="+projectId); 
    		}); 
-  		
-   	});
+  	});
+ 	
+	//검색 버튼 function
+	var index =	function(){
+  		var $startdate = $("#startdate").val();
+		var $enddate = $("#enddate").val();
+		var $combodata = comboOption; 
 
+		if($combodata == "status"){
+		var	$inputValue = statusOption;
+		
+		}else{
+			
+		var $inputValue = $("#comboInput").val(); 
+		
+		}
+		console.log($inputValue);
+		
+		var dataCollection = new Object();
+		var indexList = new Array();
+		
+		dataCollection.startdate = $startdate;
+		dataCollection.enddate = $enddate;
+		dataCollection.combodata = $combodata;
+		dataCollection.inputValue = $inputValue;
+		
+		indexList.push(dataCollection);
+		
+		var indexData = JSON.stringify(indexList);
+		console.log(indexData);
+		
+		var $indexInput = $("<input>").attr("name", "indexData").attr("value", indexData);
+		$("#indexform").append($indexInput);
+
+		$("#indexform").submit();
+			
+		}
 </script>	
 
 					

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import lips.admin.dto.IndexDto;
 import lips.admin.dto.NoticeDto;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
@@ -280,5 +281,49 @@ public interface AdminDao {
 	 * @return int
 	 */
 	public int selUCntOnOpenP();
+	
+		//석호것
+		public int totalPageIndexPJname(IndexDto dto);
+		
+		public int totalPageIndexPJkey(IndexDto dto);
+		
+		public int totalPageIndexPJstatus(IndexDto dto);
+		
+		public List<ProjectDto> selProInfoIndexPJname(IndexDto dto);
+		
+		public List<ProjectDto> selProInfoIndexPJkey(IndexDto dto);
+		
+		public List<ProjectDto> selProInfoIndexPJstatus(IndexDto dto);
+		//모두 입력시 검색 끝
+		
+		public int totalPageIndexPJnameNodate(IndexDto dto);
+		
+		public int totalPageIndexPJkeyNodate(IndexDto dto);
+		
+		public int totalPageIndexPJstatusNodate(IndexDto dto);
+		
+		public List<ProjectDto> selProInfoIndexPJnameNodate(IndexDto dto);
+		
+		public List<ProjectDto> selProInfoIndexPJkeyNodate(IndexDto dto);
+		
+		public List<ProjectDto> selProInfoIndexPJstatusNodate(IndexDto dto);
+		//date 미 입력시 검색 끝
+		
+		public int totalPageIndexNoInput(IndexDto dto);
+		
+		public List<ProjectDto> selProInfoIndexNoInput(IndexDto dto);
+		
+		// input 미 입력시 끝
+		
+		public int totalPageIndexUserByUserid(IndexDto dto);
+		
+		public int totalPageIndexUserByUsernick(IndexDto dto);
+		
+		public List<User> seluserinfoIndexUserid(IndexDto dto);
+		
+		public List<User> seluserinfoIndexUsernick(IndexDto dto);
+		//user 검색 끝
+		
+		//석호것 끗
 	
 }

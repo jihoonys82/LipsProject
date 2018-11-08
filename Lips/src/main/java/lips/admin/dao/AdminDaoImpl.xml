@@ -175,4 +175,153 @@
 			SYSDATE > CLOSEDATE GROUP BY TO_CHAR(CLOSEDATE, 'YY-MM')) order By QUARTER
 	</select>
 	
+	<!--석호것  -->
+	<select id="totalPageIndexPJname" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM projectinfo 
+		WHERE projectname LIKE '%'||#{inputValue}||'%' 
+		AND  createdate BETWEEN #{startdate} AND #{enddate}
+	</select>
+	
+	<select id="totalPageIndexPJkey" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM projectinfo 
+		WHERE projectkey LIKE '%'||#{inputValue}||'%' 
+		AND  createdate BETWEEN #{startdate} AND #{enddate}
+	</select>
+	
+	<select id="totalPageIndexPJstatus" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM projectinfo 
+		WHERE status LIKE '%'||#{inputValue}||'%' 
+		AND  createdate BETWEEN #{startdate} AND #{enddate}
+	</select>
+	
+	<select id="selProInfoIndexPJname" parameterType="lips.admin.dto.IndexDto" resultType="lips.project.dto.ProjectDto">
+		SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM projectinfo 
+				WHERE projectname LIKE '%'||#{inputValue}||'%' 
+				AND  createdate BETWEEN #{startdate} AND #{enddate} 
+				ORDER BY PROJECTID DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
+	
+	<select id="selProInfoIndexPJkey" parameterType="lips.admin.dto.IndexDto" resultType="lips.project.dto.ProjectDto">
+		SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM projectinfo 
+				WHERE projectkey LIKE '%'||#{inputValue}||'%' 
+				AND  createdate BETWEEN #{startdate} AND #{enddate}
+				ORDER BY PROJECTID DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
+	
+	<select id="selProInfoIndexPJstatus" parameterType="lips.admin.dto.IndexDto" resultType="lips.project.dto.ProjectDto">
+		SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM projectinfo 
+				WHERE status LIKE '%'||#{inputValue}||'%' 
+				AND  createdate BETWEEN #{startdate} AND #{enddate}
+				ORDER BY PROJECTID DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
+	<!--#################### 모두 입력시 검색 끝 ###############################  -->
+	
+	<select id="totalPageIndexPJnameNodate" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM projectinfo 
+		WHERE projectname LIKE '%'||#{inputValue}||'%' 
+	</select>
+	
+	<select id="totalPageIndexPJkeyNodate" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM projectinfo 
+		WHERE projectkey LIKE '%'||#{inputValue}||'%' 
+	</select>
+	
+	<select id="totalPageIndexPJstatusNodate" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM projectinfo 
+		WHERE status LIKE '%'||#{inputValue}||'%' 
+	</select>
+	
+	<select id="selProInfoIndexPJnameNodate" parameterType="lips.admin.dto.IndexDto" resultType="lips.project.dto.ProjectDto">
+		SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM projectinfo 
+				WHERE projectname LIKE '%'||#{inputValue}||'%' 
+				ORDER BY PROJECTID DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
+	
+	<select id="selProInfoIndexPJkeyNodate" parameterType="lips.admin.dto.IndexDto" resultType="lips.project.dto.ProjectDto">
+		SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM projectinfo 
+				WHERE projectkey LIKE '%'||#{inputValue}||'%' 
+				ORDER BY PROJECTID DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
+	
+	<select id="selProInfoIndexPJstatusNodate" parameterType="lips.admin.dto.IndexDto" resultType="lips.project.dto.ProjectDto">
+		SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM projectinfo 
+				WHERE status LIKE '%'||#{inputValue}||'%' 
+				ORDER BY PROJECTID DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
+	
+	<!--#################### DATE 미 입력시 검색 끝 ###############################  -->
+	
+	<select id="totalPageIndexNoInput" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM projectinfo 
+		WHERE createdate BETWEEN #{startdate} AND #{enddate} 
+	</select>
+	
+	<select id="selProInfoIndexNoInput" parameterType="lips.admin.dto.IndexDto" resultType="lips.project.dto.ProjectDto">
+		SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM projectinfo 
+				WHERE createdate BETWEEN #{startdate} AND #{enddate}
+				ORDER BY PROJECTID DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
+	<!-- ###################NoInput 끝 ############################################## -->
+	
+	<select id="totalPageIndexUserByUserid" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM userinfo 
+		WHERE userid LIKE '%'||#{inputValue}||'%'  AND createdate BETWEEN #{startdate} AND #{enddate}
+	</select>
+	
+	<select id="totalPageIndexUserByUsernick" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM userinfo 
+		WHERE nick LIKE '%'||#{inputValue}||'%' AND createdate BETWEEN #{startdate} AND #{enddate}
+	</select>
+	
+	<select id="seluserinfoIndexUserid" parameterType="lips.admin.dto.IndexDto" resultType="lips.userinfo.dto.User">
+		SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM userinfo 
+				WHERE userid LIKE '%'||#{inputValue}||'%' 
+				AND createdate BETWEEN #{startdate} AND #{enddate}
+				ORDER BY userid DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
+	
+	<select id="seluserinfoIndexUsernick" parameterType="lips.admin.dto.IndexDto" resultType="lips.userinfo.dto.User">
+			SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM userinfo 
+				WHERE nick LIKE '%'||#{inputValue}||'%' 
+				AND createdate BETWEEN #{startdate} AND #{enddate}
+				ORDER BY userid DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
+		<!--석호것 끝  -->
+	
  </mapper>  

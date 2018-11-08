@@ -1,6 +1,7 @@
 package lips.admin.controller;
  import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import lips.admin.dto.NoticeDto;
 import lips.admin.service.AdminService;
+import lips.admin.service.IndexService;
 import lips.project.dto.ProjectDto;
 import lips.project.service.ProjectService;
 import lips.userinfo.dto.User;
@@ -29,6 +31,7 @@ public class AdminController {
    @Autowired AdminService adminService;
    @Autowired ProjectService projectService;
    @Autowired UserTracker userTracker;
+   @Autowired IndexService isvc;
    
    @RequestMapping(value="/main", method=RequestMethod.GET)
    public void main(Model model) {
@@ -255,5 +258,67 @@ public class AdminController {
 		mav.setViewName("jsonView");
 		return mav;
    }
+   
+   //석호것
+   @RequestMapping(value="/project/text", method=RequestMethod.POST)
+   public ModelAndView proTextIndexing(
+		   @RequestParam(defaultValue="0", required=false)int curPage,
+		   String indexData
+		   ) {
+	   
+	  ModelAndView mav = new ModelAndView();
+	  
+	  Map<String, String> index = new HashMap<>();
+	  
+	  index = isvc.splitData(indexData);
+
+	  if(index.get("startdate").equals("")||index.get("enddate").equals("")) {
+		 
+		  mav = isvc.getProListIndexnoDate(curPage, index);
+		  
+	  }else if(index.get("inputValue").equals("")|| index.get("combodata").equals("")) {
+		  
+		  mav = isvc.getProListIndexnoinputvalue(curPage, index);
+		  
+	  }else{
+
+		  mav = isvc.getProListIndex(curPage, index);
+	  }
+	  
+	  
+	  List<Integer> cntList = adminService.getNumOfPro();
+	  
+	  mav.addObject("cntList", cntList);
+	  
+	  mav.setViewName("admin/project/text");
+
+	  return mav;
+   }
+   
+   @RequestMapping(value="/user/text", method=RequestMethod.POST)
+   public ModelAndView userTextIndexing(
+		   @RequestParam(defaultValue="0", required=false)int curPage,
+		   String indexData
+		   ) {
+	   
+	  ModelAndView mav = new ModelAndView();
+	  
+	  Map<String, String> index = new HashMap<>();
+	  
+	  index = isvc.splitData(indexData);
+	  
+//	  System.out.println("#############################################"+ index);
+
+	  mav = isvc.getUserList(index, curPage);
+	
+	  List<Integer> cntList = adminService.getNumOfUser();
+	  
+	  mav.addObject("cntList", cntList);
+	  
+	  mav.setViewName("admin/user/text");
+
+	  return mav;
+   }
+   //석호것 끝
    
 }

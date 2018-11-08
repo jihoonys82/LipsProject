@@ -145,7 +145,8 @@ $(document).ready(function() {
 <!-- 버튼 끝   -->
 
 			</div>
-			<div class="body" id="project">
+			<div class="body"  style="height :12.5em; overflow: hidden;">
+			<div id="project">
 				<div class="row">
 					<div class="col col-4">
 						<div class="innerContents" style="padding:1em; background-image: -webkit-linear-gradient(top,#df1959 0,#bc467d 100%);">
@@ -178,7 +179,7 @@ $(document).ready(function() {
 				</div>
 			</div>
 			
-			<div class="body" id="issue" hidden="true">
+			<div id="issue" hidden="true">
 				<div class="row">
 					<div class="col col-4">
 						<div class="innerContents" style="padding:1em; background-image: -webkit-linear-gradient(top,#df1959 0,#bc467d 100%);">
@@ -191,7 +192,7 @@ $(document).ready(function() {
 					
 					<div class="col col-4">
 						<div class="innerContents" style="padding:1em;     background-image: -webkit-linear-gradient(top,#4cac4f 0,#205d36 100%);">
-								<Strong>당신이 소속된 프로젝트에는 </Strong>
+								<Strong>당신이 소속된 프로젝트에 </Strong>
 								<h1>${mainInfo.MyProjectIssueCnt}개</h1>
 								<h5>이슈가 등록되어 있습니다.</h5>
 						</div>
@@ -211,6 +212,7 @@ $(document).ready(function() {
 				</div>
 			</div>
 		</div>
+		</div>
 	
 
     </div>
@@ -222,7 +224,7 @@ $(document).ready(function() {
 			<div class="head">
 				<i class="icon-info"></i><strong> Notice</strong>
 			</div>
-		<table class="table classic stripeless">
+		<table class="table classic stripeless" style="height :12.5em; overflow: hidden;">
 			<thead>
 				<tr>
 					<th style="width:3em; text-align:center">#</th>
@@ -262,7 +264,7 @@ $(document).ready(function() {
 				</tr>
 			</thead>
 			<tbody>
-		 			<c:forEach items="${mainInfo.OpenProjectList}" var="Prolist" varStatus="b">
+		 			<c:forEach items="${mainInfo.IssueTopPro}" var="Prolist" varStatus="b">
 		 				<tr>
 							<td style="text-align:center">${b.index +1 }</td>
 							<td style="text-align:center">${Prolist.ProjectId}</td>

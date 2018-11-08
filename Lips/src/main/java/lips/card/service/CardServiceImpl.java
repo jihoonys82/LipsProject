@@ -38,7 +38,7 @@ public class CardServiceImpl implements CardService {
 	}
 
 	@Override
-	public ModelAndView setIssueDeadLine(User user) {
+	public ModelAndView setIssueDeadLine(User user , int projectId) {
 		ModelAndView mav = new ModelAndView();
 		
 		IssueDto issueDeadline = issueDao.selIssueByDealine(user);
@@ -47,14 +47,14 @@ public class CardServiceImpl implements CardService {
 		mav.addObject("watcherCloseDeadline", issueDao.selIssueWatcherCount(issueDeadline));
 		mav.addObject("commentCloseDeadline", issueDao.selIssueCommentCount(issueDeadline));
 	
-		mav.addObject("issueStage", issueDao.selStageAsset(0));
+		mav.addObject("issueStage", issueDao.selStageAsset(projectId));
 		mav.setViewName("card/card2");
 		return mav;
 
 	}
 	
 	@Override
-	public ModelAndView setIssueMostFollowed(User user) {
+	public ModelAndView setIssueMostFollowed(User user  , int projectId) {
 		ModelAndView mav = new ModelAndView();
 		
 		IssueDto issueMostFollowed = issueDao.selIssueByFollower(user);
@@ -62,7 +62,7 @@ public class CardServiceImpl implements CardService {
 		mav.addObject("watcherMostFollowed", issueDao.selIssueWatcherCount(issueMostFollowed));
 		mav.addObject("commentMostFollowed", issueDao.selIssueWatcherCount(issueMostFollowed));
 		
-		mav.addObject("issueStage", issueDao.selStageAsset(0));
+		mav.addObject("issueStage", issueDao.selStageAsset(projectId));
 		mav.setViewName("card/card3");
 		return mav;
 	}

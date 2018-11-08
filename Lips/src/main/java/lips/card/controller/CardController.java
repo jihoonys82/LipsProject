@@ -108,7 +108,7 @@ public class CardController {
 		ModelAndView mav = new ModelAndView();
 		User user = new UserByToken().getInstance();
 			
-		mav = csvc.setIssueDeadLine(user);
+		mav = csvc.setIssueDeadLine(user , projectId);
 		
 		return mav;
 	}
@@ -124,7 +124,7 @@ public class CardController {
 		ModelAndView mav = new ModelAndView();
 		User user = new UserByToken().getInstance();
 			
-		mav = csvc.setIssueMostFollowed(user);
+		mav = csvc.setIssueMostFollowed(user , projectId);
 		
 		return mav;
 	}

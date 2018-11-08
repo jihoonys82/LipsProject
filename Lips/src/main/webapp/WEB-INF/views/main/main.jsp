@@ -257,15 +257,16 @@ $(document).ready(function() {
 			<thead>
 				<tr>
 					<th style="width:3em; text-align:center">#</th>
-					<th style="width:7em; text-align:center">유형</th>
-					<th style="text-align:center">내용</th>
+					<th style="width:7em; text-align:center">프로젝트 명</th>
+					<th style="text-align:center">프로젝트 설명</th>
 				</tr>
 			</thead>
 			<tbody>
 		 			<c:forEach items="${mainInfo.OpenProjectList}" var="Prolist" varStatus="b">
 		 				<tr>
 							<td style="text-align:center">${b.index +1 }</td>
-							<td style="text-align:center">${Prolist.ProjectId}</td>	
+							<td style="text-align:center">${Prolist.ProjectId}</td>
+							<td style="text-align:center">${Prolist.ProjectDesc}</td>	
 			
 		 				</tr>
 		 			</c:forEach>
@@ -303,13 +304,11 @@ st.flap.addEventListener('transitionend', () => {
     if (st.choice1.checked) {
         st.toggle.style.transform = 'rotateY(-15deg)';
         setTimeout(() => st.toggle.style.transform = '', 400);
-        console.log("나오니?");
         $("#issue").show(300);
         $("#project").hide(300);
     } else {
         st.toggle.style.transform = 'rotateY(15deg)';
         setTimeout(() => st.toggle.style.transform = '', 400);
-        console.log("나오니2?");
         $("#issue").hide(300);
         $("#project").show(300);
     }

@@ -56,10 +56,10 @@ public interface MainDao {
 	
 	/**
 	 * 
-	 * @NoticeDto(노티스카테코기라 0=타임라인일때)
+	 * 
 	 */
 	
-	public List selProIfOpen();
+	public List selProIssueTop();
 	
 	
 	/** 타임라인 공지 가져오기

@@ -42,11 +42,11 @@ public class MainServiceImpl implements MainService {
 		
 		map.put("IssueCount", idao.selIssueByAssignee(user).size());
 		map.put("Notice",dao. selTimelineInfo()); 
-		map.put("OpenProjectList", dao.selProIfOpen());
+		map.put("IssueTopPro", dao.selProIssueTop());
 		map.put("board","보드가아직 없지롱");
 		
 		//안나옴 20181107 모영호 여기까지함 
-		System.out.println("나오니"+dao.selProIfOpen().toString());
+		System.out.println("나오니"+dao.selProIssueTop().toString());
 		
 		return map;
 	}

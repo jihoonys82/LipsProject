@@ -61,7 +61,7 @@ WHERE I.projectId = PID.projectId
  	</select>
  	
  	<!-- 팔로워 많은 이슈 가져오기  -->
- 	<select id="selProIfOpen" resultType="lips.project.dto.ProjectDto">
+ 	<select id="selProIssueTop" resultType="lips.project.dto.ProjectDto">
 SELECT * FROM
     (SELECT projInf.*, projwatcher.projectwatcher 
     FROM projectInfo projInf,

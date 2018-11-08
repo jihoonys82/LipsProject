@@ -1,5 +1,6 @@
 package lips.admin.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,6 +10,16 @@ import lips.userinfo.dto.User;
 import lips.utils.Paging;
 
 public interface AdminService {
+	
+	// 차트 
+	public ArrayList<HashMap<String,String>> getOverduePByMonth();
+
+	public ArrayList<HashMap<String,String>> getClosedPByMonth();
+
+	public ArrayList<HashMap<String,String>> getNewPByMonth();
+	
+	public ArrayList<HashMap<String,String>> getNewUByMonth();
+	
 
 	// Notice 등록
 	

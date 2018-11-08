@@ -80,6 +80,10 @@
 		UPDATE PROJECTINFO SET STATUS = 'CLOSE' WHERE STATUS = 'PENDING' AND PROJECTID = #{projectId}	
 	</update>
 	
+	<update id="upPCloseDate" parameterType="lips.project.dto.ProjectDto">
+		UPDATE PROJECTINFO SET CLOSEDATE = sysdate WHERE PROJECTID = #{projectId}
+	</update>
+	
 	<select id="selNewPCnt" resultType="int">
 		SELECT COUNT(*) FROM PROJECTINFO WHERE CREATEDATE > SYSDATE-30
 	</select>
@@ -151,6 +155,24 @@
 	
 	<select id="selMoreOneLineN" resultType="lips.admin.dto.NoticeDto">
 		SELECT * FROM NOTICE WHERE NOTICECATEGORY = 1 OR NOTICECATEGORY = 4 ORDER BY noticeId DESC
+	</select>
+	
+	<select id="selNewUByMonth" resultType="java.util.HashMap">
+		SELECT * FROM (SELECT COUNT(*) AS NEWUSER, TO_CHAR(CREATEDATE, 'YY-MM') AS QUARTER FROM USERINFO GROUP BY TO_CHAR(CREATEDATE, 'YY-MM')) order By QUARTER
+	</select>
+	
+	<select id="selNewPByMonth" resultType="java.util.HashMap">
+		SELECT * FROM (SELECT COUNT(*) AS NEWPROJECT, TO_CHAR(CREATEDATE, 'YY-MM') AS QUARTER FROM PROJECTINFO GROUP BY TO_CHAR(CREATEDATE, 'YY-MM')) order By QUARTER
+	</select>
+	
+	<select id="selClosedPByMonth" resultType="java.util.HashMap">
+		SELECT * FROM (SELECT COUNT(*) AS CLOSEPROJECT, TO_CHAR(CLOSEDATE, 'YY-MM') AS QUARTER FROM PROJECTINFO WHERE STATUS = 'CLOSE'
+			GROUP BY TO_CHAR(CLOSEDATE, 'YY-MM')) order By QUARTER	
+	</select>
+	
+	<select id="selOverduePByMonth" resultType="java.util.HashMap">
+		SELECT * FROM (SELECT COUNT(*) AS OVERDUEPROJECT, TO_CHAR(CLOSEDATE, 'YY-MM') AS QUARTER FROM PROJECTINFO WHERE STATUS = 'OPEN' AND 
+			SYSDATE > CLOSEDATE GROUP BY TO_CHAR(CLOSEDATE, 'YY-MM')) order By QUARTER
 	</select>
 	
  </mapper>  

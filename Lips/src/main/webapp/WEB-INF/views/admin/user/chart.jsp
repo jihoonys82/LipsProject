@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+     
 <div class="panel">
 	<div class="body">
 		<div class="infomationWith col col-9">사용자</div>
-		<div class=infomation colcol-3">
+		<div class= infomation col col-3">
 			<ul id="tab_1" class="tab top">
 				<li><a href="/admin/user/chart">차트</a></li>
 				<li><a href="/admin/user/text">텍스트</a></li>
@@ -12,41 +12,41 @@
 		</div>
 	</div>
 		
-	<div class="body forDisplay-body-first" >
-			<div class="forDisplay-body-second row">
-				<div class="blackBox inline-block w-5">
-					기간
-				</div>
+<!-- 	<div class="body forDisplay-body-first" > -->
+<!-- 			<div class="forDisplay-body-second row"> -->
+<!-- 				<div class="blackBox inline-block w-5"> -->
+<!-- 					기간 -->
+<!-- 				</div> -->
 
-				<input type="date" class="color-date input w-15"/>
-				<input type="date" class="color-date input w-15"/>
+<!-- 				<input type="date" class="color-date input w-15"/> -->
+<!-- 				<input type="date" class="color-date input w-15"/> -->
 				
-				<div class="inline-block w-15">
-					<a class="btn mini focus">
-						오늘
-					</a> 
-					<a class="btn mini focus">일주일</a> 
-					<a class="btn mini focus">한 달</a>				
-				</div>	
+<!-- 				<div class="inline-block w-15"> -->
+<!-- 					<a class="btn mini focus"> -->
+<!-- 						오늘 -->
+<!-- 					</a>  -->
+<!-- 					<a class="btn mini focus">일주일</a>  -->
+<!-- 					<a class="btn mini focus">한 달</a>				 -->
+<!-- 				</div>	 -->
 
-				<div id="combo_1" class="combo inline-block w-20">
+<!-- 				<div id="combo_1" class="combo inline-block w-20"> -->
 					
-					<a class="btn small forSizing-btn-first">Select...</a>
-					<a class="btn small toggle"><i class="icon-arrow2"></i></a>
-					<ul>
-						<li value="1">유저 아이디</li>
-						<li value="2">유저 닉네임</li>
-					</ul>
+<!-- 					<a class="btn small forSizing-btn-first">Select...</a> -->
+<!-- 					<a class="btn small toggle"><i class="icon-arrow2"></i></a> -->
+<!-- 					<ul> -->
+<!-- 						<li value="1">유저 아이디</li> -->
+<!-- 						<li value="2">유저 닉네임</li> -->
+<!-- 					</ul> -->
 				
-				</div>
-				<div class="inline-block w-20">
-					<input type="text" class="forSizing-input input"/>
+<!-- 				</div> -->
+<!-- 				<div class="inline-block w-20"> -->
+<!-- 					<input type="text" class="forSizing-input input"/> -->
 			
-					<button class="btn small focus"
-						onclick="alert(combo_1.getText())">검색</button>
-				</div>
-			</div>
-	</div>
+<!-- 					<button class="btn small focus" -->
+<!-- 						onclick="alert(combo_1.getText())">검색</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 	</div> -->
 		
 		<div class="body">
 			<div class="row">
@@ -99,22 +99,24 @@
 		</div>	<!-- body 끝 -->
 		
 		<div class="body forSizing-chart">
-			<div class="row">
+		<div class="row">
 			<div class="test col col-12">
-			<div class="chartBox col col-5" id="result">
-				
-			</div>
-			<div class="chartBox col col-5">
-				chart
-			</div>
-			</div>
+				<div class="chartBox col col-5" id="multi"></div>
+				<div class="chartBox col col-5" id="pie"></div>
 			</div>
 		</div>
+	</div>
 		
 		
 	</div>	
 
 <script>
+	
+   	var arr = ${chart.data};
+   	var multiNames = {
+   			NEWUSER : "신규 가입자"
+   	};
+   	
 	jui.ready([ "ui.combo" ], function(combo) {
 		combo_1 = combo("#combo_1",
 				{
@@ -128,40 +130,96 @@
 				});
 	});
 	
-	var chart = jui.include("chart.builder");
-
-	chart("#result", {
+	var multiChart = jui.include("chart.builder");
+	var data = [];
+	
+	for(var i = arr.length-5 ; i<arr.length; i++){
+		data.push(arr[i]); 
+	}
+	
+	multiChart("#multi", {
 		width : 500,
 		height : 400,
-	    axis : {
+	    axis : [{
 	        x : {
 	            type : "block",
-	            domain : "quarter",
+	            domain : "QUARTER",
 	            line : true
 	        },
 	        y : {
 	            type : "range",
-	            domain : function(d) { return [d.sales, d.profit ]; },
-	            step : 10,
+	            domain : function(d) { return [d.NEWUSER]; },
+	            step : 5,
 	            line : true,
-	            orient : "right"
+	            orient : "left",
 	        },
-	        data : [
-	            { quarter : "8월", sales : '${cntList[1]}', profit : '${cntList[2]}' },
-	            { quarter : "9월", sales : '${cntList[3]}', profit : -30 },
-	            { quarter : "10월", sales : 10, profit : -5 },
-	            { quarter : "11월", sales : 30, profit : 25 }
-	        ]
-	    },
+	        data :  data
+	    }],
 	    brush : {
 	        type : "column",
-	        target : [ "sales", "profit" ]
+	        target : [ "NEWUSER" ]
 	    },
 	    widget : [
 	    	{ type : "title", text : "Column Sample" },
-	        { type : "tooltip" },
-	    	{ type : "legend" }
+	        { type : "tooltip", 
+	          format : function(data, k) {
+		           return {
+		                key: multiNames[k],
+		                value: data[k]
+		            }
+		        }	
+	        },
+	    	{ type : "legend",
+		      format : function(k) {
+		          return multiNames[k];
+		       }	
+	    	}
 	    ]
+	});
+	
+	var pieChart = jui.include("chart.builder");
+	var pieNames = {
+	    closedAcc : "탈퇴한 사용자",
+	    newAcc: "신규 사용자",
+	    pCreater: "프로젝트 생성자"
+	};
+
+	pieChart("#pie", {
+	    padding : 150,
+		width : 500,
+		height : 400,
+	    axis : {
+	        data : [
+	            { closedAcc : 40,
+	            	newAcc : '${cntList[1]}', 
+	            	pCreater : 6 }
+	        ]
+	    },
+	    brush : {
+	        type : "pie",
+	        showText : "inside",
+	        format : function(k, v) {
+	            return v + "%";
+	        }
+	    },
+	    widget : [{
+	        type : "title",
+	        text : "Pie Sample"
+	    }, {
+	        type : "tooltip",
+	        orient : "left",
+	        format : function(data, k) {
+	            return {
+	                key: pieNames[k],
+	                value: data[k]
+	            }
+	        }
+	    }, {
+	        type : "legend",
+	        format : function(k) {
+	            return pieNames[k];
+	        }
+	    }]
 	});
 	
 </script>

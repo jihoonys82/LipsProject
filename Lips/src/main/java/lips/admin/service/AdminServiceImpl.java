@@ -17,7 +17,27 @@ import lips.utils.Paging;
 public class AdminServiceImpl implements AdminService{
 
 	@Autowired AdminDao adminDao;
+	
+	@Override
+	public ArrayList<HashMap<String, String>> getOverduePByMonth() {
+		return adminDao.selOverduePByMonth();
+	}
+	
+	@Override
+	public ArrayList<HashMap<String, String>> getClosedPByMonth() {
+		return adminDao.selClosedPByMonth();
+	}
+	
+	@Override
+	public ArrayList<HashMap<String, String>> getNewPByMonth() {
+		return adminDao.selNewPByMonth();
+	}
 
+	@Override
+	public ArrayList<HashMap<String,String>> getNewUByMonth() {
+		return adminDao.selNewUByMonth();
+	}
+	
 	@Override
 	public List<NoticeDto> getNinfo() {
 		return adminDao.selNInfo();
@@ -81,6 +101,7 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void finishProject(ProjectDto project) {
 		adminDao.upProFinish(project);
+		adminDao.upPCloseDate(project);
 	}	
 
 	@Override

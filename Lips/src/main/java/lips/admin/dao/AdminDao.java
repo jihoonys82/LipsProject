@@ -1,5 +1,6 @@
 package lips.admin.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,6 +10,28 @@ import lips.userinfo.dto.User;
 import lips.utils.Paging;
 
 public interface AdminDao {
+	
+	/**
+	 *  종료일자가 지난 프로젝트 select 
+	 * @return
+	 */
+	public ArrayList<HashMap<String,String>> selOverduePByMonth();
+	/**
+	 *  월별로 클로즈된 프로젝트 select 
+	 * @return
+	 */
+	public ArrayList<HashMap<String,String>> selClosedPByMonth();
+	
+	/**
+	 *  월별로 신규 프로젝트 select
+	 * @return
+	 */
+	public ArrayList<HashMap<String,String>> selNewPByMonth();
+	
+	/**
+	 *  월별로 신규 가입자 select
+	 */
+	public ArrayList<HashMap<String,String>> selNewUByMonth();
 	
 	/**
 	 * 	공지사항 정보 가져오기 
@@ -90,6 +113,12 @@ public interface AdminDao {
 	 * @param project
 	 */
 	public void upProFinish(ProjectDto project);
+	
+	/**
+	 *  프로젝트 closeDate 업데이트
+	 * @param project
+	 */
+	public void upPCloseDate(ProjectDto project);
 	
 	/**
 	 *   프로젝트의 closeDate, status 변경

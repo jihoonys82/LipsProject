@@ -1,5 +1,6 @@
 package lips.admin.controller;
- import java.util.List;
+ import java.util.HashMap;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import lips.project.service.ProjectService;
 import lips.userinfo.dto.User;
 import lips.userinfo.dto.UserTracker;
 import lips.utils.Paging;
+import net.sf.json.JSONObject;
  @Controller
  @RequestMapping(value="/admin")
 public class AdminController {
@@ -77,12 +79,26 @@ public class AdminController {
    }
   
    @RequestMapping(value="/project/chart", method=RequestMethod.GET)
-   public void proChart(Model model) {
+   public ModelAndView proChart(Model model) {
 	   logger.info("프로젝트 차트 페이지");
-	   
+
+	   ModelAndView mav = new ModelAndView();
+
 	   List<Integer> cntList = adminService.getNumOfPro();
+	   List<HashMap<String,String>> newPChart = adminService.getNewPByMonth();
+	   List<HashMap<String,String>> closedPChart = adminService.getClosedPByMonth();
+	   List<HashMap<String,String>> overduePChart = adminService.getOverduePByMonth();
+	      
+	   JSONObject obj = new JSONObject();	   
+	   obj.accumulate("newP", newPChart);
+	   obj.accumulate("closedP", closedPChart);
+	   obj.accumulate("overP", overduePChart);
 	   
-	   model.addAttribute("cntList",cntList);
+	   mav.addObject("chart",obj);
+	   mav.addObject("cntList",cntList);
+	   
+	   mav.setViewName("admin/project/chart"); 
+	   return mav;
 
    }
    
@@ -103,14 +119,22 @@ public class AdminController {
    }
    
    @RequestMapping(value="/user/chart", method=RequestMethod.GET)
-   public void userChart(Model model) {
+   public ModelAndView userChart(Model model) {
 	   logger.info("유저 차트 페이지");
 	   
+	   ModelAndView mav = new ModelAndView();
 	   int allUserCnt =  userTracker.getAllUserTrack();
 	   List<Integer> cntList = adminService.getNumOfUser();
+	   List<HashMap<String,String>> newUChart = adminService.getNewUByMonth();
+	   JSONObject obj = new JSONObject();	   
+	   obj.accumulate("data", newUChart);
 	   
-	   model.addAttribute("allUserCnt",allUserCnt);
-	   model.addAttribute("cntList",cntList);
+	   mav.addObject("chart",obj);
+	   mav.addObject("allUserCnt",allUserCnt);
+	   mav.addObject("cntList",cntList);
+	   
+	   mav.setViewName("admin/user/chart"); 
+	   return mav;
    }
    
    @RequestMapping(value="/user/text", method=RequestMethod.GET)

@@ -226,7 +226,7 @@ $(document).ready(function() {
 			</div>
 		<table class="table classic stripeless" style="height :12.5em; overflow: hidden;">
 			<thead>
-				<tr>
+				<tr >
 					<th style="width:3em; text-align:center">#</th>
 					<th style="width:7em; text-align:center">유형</th>
 					<th style="text-align:center">내용</th>
@@ -234,10 +234,11 @@ $(document).ready(function() {
 			</thead>
 		 	<tbody>
 		 			<c:forEach items="${mainInfo.Notice}" var="noticeinfo" varStatus="a">
-		 				<tr>
-							<td style="text-align:center">${a.index +1 }</td>
-							<td style="text-align:center">${noticeinfo.noticeTitle}</td>	
-							<td>${noticeinfo.noticeContent}</td>		
+		 				
+		 				<tr onclick="notice(this)" value="${noticeinfo.noticeId}">
+							<td id="Nindex" style="text-align:center">${a.index +1 }</td>
+							<td id="Ntitle" style="text-align:center">${noticeinfo.noticeTitle}</td>	
+							<td id="NContent">${noticeinfo.noticeContent}</td>		
 		 				</tr>
 		 			</c:forEach>
 		 		
@@ -265,10 +266,11 @@ $(document).ready(function() {
 			</thead>
 			<tbody>
 		 			<c:forEach items="${mainInfo.IssueTopPro}" var="Prolist" varStatus="b">
+		 				
 		 				<tr>
-							<td style="text-align:center">${b.index +1 }</td>
-							<td style="text-align:center">${Prolist.ProjectId}</td>
-							<td style="text-align:center">${Prolist.ProjectDesc}</td>	
+							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.ProjectId}">${b.index +1 }</a></td>
+							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.ProjectId}">${Prolist.ProjectId}</a></td>
+							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.ProjectId}">${Prolist.ProjectDesc}</a></td>	
 			
 		 				</tr>
 		 			</c:forEach>
@@ -288,10 +290,50 @@ $(document).ready(function() {
 		 ${mainInfo.board}
 
 		</div>
+		
+		
+<div id="modal_1" class="msgbox" style="display: none;">
+    <div class="head">
+    	<div id="nnTitle"></div>
+        
+    </div>
+    <div class="body">
+        <div id="nnContents"></div>
+   
+
+        <div style="text-align: center; margin-top: 45px;">
+            
+            <a class="btn focus small" id="modalOk">확인</a>
+        </div>
+    </div>
+</div>		
 </div>
 
 
+
 <script>
+
+jui.ready([ "ui.modal" ], function(modal) {
+    $("#modal_1").appendTo("body");
+
+    modal_1 = modal("#modal_1", {
+        color: "black"
+    });
+});
+
+function notice(dom){
+	 $("#nnTitle").html($(dom).find("#Ntitle").html());
+	 $("#nnContents").html($(dom).find("#NContent").html());
+	
+	modal_1.show();
+}
+
+$("#modalOk").click(function(){
+	modal_1.hide();
+});
+
+
+
 
 const st = {};
 

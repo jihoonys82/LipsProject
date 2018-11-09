@@ -262,16 +262,16 @@ $(document).ready(function() {
 					<th style="width:3em; text-align:center">#</th>
 					<th style="width:7em; text-align:center">프로젝트 명</th>
 					<th style="text-align:center">프로젝트 설명</th>
+					<th style="width:5em; text-align:center">팔로워</th>
 				</tr>
 			</thead>
 			<tbody>
 		 			<c:forEach items="${mainInfo.IssueTopPro}" var="Prolist" varStatus="b">
-		 				
-		 				<tr>
-							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.ProjectId}">${b.index +1 }</a></td>
-							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.ProjectId}">${Prolist.ProjectId}</a></td>
-							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.ProjectId}">${Prolist.ProjectDesc}</a></td>	
-			
+		 				<tr onclick="viewProject(${Prolist.projectId});">
+							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.projectId}">${b.index +1 }</a></td>
+							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.projectId}">${Prolist.projectId}</a></td>
+							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.projectId}">${Prolist.projectDesc}</a></td>	
+							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.projectId}">${Prolist.projectWatcher}</a></td>
 		 				</tr>
 		 			</c:forEach>
 		 		

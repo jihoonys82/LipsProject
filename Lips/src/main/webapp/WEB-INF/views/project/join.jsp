@@ -39,11 +39,11 @@
 
 	
 	
-	<form method="POST" class="joinfrom">
+<!-- 	<form method="POST" class="joinfrom"> -->
 	<input type="text" name="invitecode" id="invitecode" class="input joininput">
 
 	
-	</form>
+<!-- 	</form> -->
 	<button id="ProjectJoin" name="ProjectJoin" class="btn focus joinbtn">Join</button>
 
 </div>

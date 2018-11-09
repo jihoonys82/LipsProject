@@ -104,10 +104,10 @@ input[name=fileName] {
 						<span class="followerCount">${followerCount }</span>
 					</div>
 					<c:if test="${amIFollowing eq true }">
-						<button class="btn focus">관심 해제</button>
+						<button class="btn focus" id="removeFollower">관심 해제</button>
 					</c:if>
 					<c:if test="${amIFollowing ne true }">
-						<button class="btn">관심 등록</button>
+						<button class="btn" id="addFollower">관심 등록</button>
 					</c:if>
 				</div>
 			</c:if>
@@ -418,6 +418,50 @@ $(document).ready(function(){
 			, success: function(data){
 				console.log(data.result);
 				commentDOM.parent().remove();
+			}
+			, error : function(e){
+				console.log("----error----");
+				console.log(e.responseText);
+			}
+		});
+	});
+	
+	
+	//add Follower
+	$("#addFollower").on('click', function(){
+		// 1. ajax로 사용자 등록 
+		$.ajax({
+			type:"post"
+			, url: "/issue/addWatcher"
+			, data: { "projectId" : ${projectDto.projectId} , "userId" : "${userId}" }
+			, dataType: "json"
+			, success: function(data){
+				console.log(data.result);
+				// 2. 버튼 바꿔주기 
+				
+				// 3. 팔로워 목록 업데이트 
+				
+			}
+			, error : function(e){
+				console.log("----error----");
+				console.log(e.responseText);
+			}
+		});
+	});
+	//remove Follower
+	$("#removeFollower").on('clcik', function(){
+		// 1. ajax로 사용자 등록 
+		$.ajax({
+			type:"post"
+			, url: "/issue/removeWatcher"
+			, data: { "projectId" : ${projectDto.projectId} , "userId" : "${userId}" }
+			, dataType: "json"
+			, success: function(data){
+				console.log(data.result);
+				// 2. 버튼 바꿔주기 
+				
+				// 3. 팔로워 목록 업데이트 
+				
 			}
 			, error : function(e){
 				console.log("----error----");

@@ -224,8 +224,8 @@
 									},
 									success : function(responseData) {
 										alert(responseData.data);
-										
-										reloadAssetList();
+										window.location.reload();
+// 										reloadAssetList();
 									}
 								});
 						 }

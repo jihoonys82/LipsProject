@@ -160,7 +160,7 @@ public class CardController {
 		
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/card6", method = RequestMethod.GET)
 	public ModelAndView card6(
 			@RequestParam(required=false,defaultValue="0") int dashboardId,
@@ -170,11 +170,8 @@ public class CardController {
 			CardDto dto
 			) {
 		ModelAndView mav = new ModelAndView();
-		String CardValue = csvc.CardValue(dto);
-		mav.addObject("cardvalue", CardValue);
-		
-		mav.setViewName("card/card6");
-		
+		mav = csvc.setCard6PJissueList(projectId);
+
 		return mav;
 	}
 	

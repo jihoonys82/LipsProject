@@ -29,4 +29,35 @@
 	WHERE projectid = #{projectId}
 </select>
 
+<select id="selIssueByProject" parameterType="lips.card.dto.CardDto" resultType="lips.issue.dto.IssueDto">
+	SELECT R.* FROM
+		(SELECT * FROM issue
+		WHERE projectId = #{projectId} ORDER BY expectedEndDate)R
+	WHERE ROWNUM <![CDATA[<]]>=5
+</select>
+
+<select id="selIssueByDealine" parameterType="lips.card.dto.CardDto" resultType="lips.issue.dto.IssueDto">
+ 		SELECT * FROM issue 
+ 		WHERE assignee=#{userId} AND projectid=#{projectId} AND ROWNUM=1 
+ 		ORDER BY expectedEndDate
+ 	</select>
+ 	
+ 	<select id="selIssueByFollower" parameterType="lips.card.dto.CardDto" resultType="lips.issue.dto.IssueDto">
+ 		SELECT T.* 
+		FROM 
+		    (SELECT A.*, B.Watcher
+		        FROM issue A, 
+		            (SELECT issueid, COUNT(userId) Watcher 
+		                FROM issue_watcher 
+		                GROUP BY issueId 
+		                ORDER BY Watcher DESC
+		            ) B
+		        WHERE A.issueId = B.issueId 
+		            AND A.assignee=#{userId} AND A.projectId=#{projectId}
+		        ORDER BY B.Watcher DESC
+		    ) T
+		WHERE ROWNUM=1
+ 	</select>
+
+ 	
 </mapper>

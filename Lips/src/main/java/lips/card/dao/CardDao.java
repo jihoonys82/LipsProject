@@ -2,8 +2,11 @@ package lips.card.dao;
 
 
 import java.util.List;
+import java.util.Map;
 
 import lips.card.dto.CardDto;
+import lips.issue.dto.IssueDto;
+import lips.userinfo.dto.User;
 
 public interface CardDao {
 	/**
@@ -33,6 +36,11 @@ public interface CardDao {
 	 * */
 	public CardDto selprojectDeadLinebyprojectId(CardDto dto);
 	
+	public List<IssueDto> selIssueByProject(CardDto dto);
+	
+	public IssueDto selIssueByDealine(CardDto dto);
+	
+	public IssueDto selIssueByFollower(CardDto dto);
 	
 	
 }

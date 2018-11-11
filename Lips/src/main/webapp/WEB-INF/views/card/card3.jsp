@@ -5,39 +5,53 @@
 
 
 <div style="height: 300px; margin: 3px; display:flex; align-items:center;">
-<div class="issueHeadline">
-		<h3 style="text-align: center;">가장 많이 팔로잉 한 이슈</h3>
-		<table class="table classic stripeless">
-			<thead>
-				<tr>
-					<th class="twidth">이슈 제목</th>
-					<th>${issueMostFollowed.issueTitle }</th>
-				</tr>
-			</thead>
-		 	<tbody>
-		 		<tr>
-					<td>남은 기간</td>
-					<td><span class="countDate"><fmt:formatDate value="${issueMostFollowed.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>		
-		 		</tr>
-		 		<tr>
-					<td>이슈 내용</td>
-					<td>${issueMostFollowed.issueContent }</td>		
-		 		</tr>
-		 		<tr>
-					<td>이슈진행단계</td>
-					<td><span class="label success mini issueStage">${issueMostFollowed.issueStage }</span></td>		
-		 		</tr>
-		 		<tr>
-					<td>이슈댓글 수</td>
-					<td>${commentMostFollowed }</td>		
-		 		</tr>
-		 		<tr>
-					<td>팔로워 수</td>
-					<td>${watcherMostFollowed }</td>		
-		 		</tr>
-		 	</tbody>
-		</table>
-	</div>
+	<c:if test="${issueMostFollowed eq null }">
+		<div class="navbar" style="width: 100%">
+			<h2 style="margin: 10px; text-align: center;"> 
+				이슈가 없습니다 <br>
+				이슈를 생성해 주세요<br>
+			</h2>
+				<a style="float: right;" class="btn focus" href="/issue/create">이슈 생성</a>
+		</div>
+	</c:if>
+	<c:if test="${issueMostFollowed ne null }">
+	
+	
+		<div class="issueHeadline">
+			<h3 style="text-align: center;">가장 많이 팔로잉 한 이슈</h3>
+			
+			<table class="table classic stripeless">
+				<thead>
+					<tr>
+						<th class="twidth">이슈 제목</th>
+						<th>${issueMostFollowed.issueTitle }</th>
+					</tr>
+				</thead>
+			 	<tbody>
+			 		<tr>
+						<td>남은 기간</td>
+						<td><span class="countDate"><fmt:formatDate value="${issueMostFollowed.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>		
+			 		</tr>
+			 		<tr>
+						<td>이슈 내용</td>
+						<td>${issueMostFollowed.issueContent }</td>		
+			 		</tr>
+			 		<tr>
+						<td>이슈진행단계</td>
+						<td><span class="label success mini issueStage">${issueMostFollowed.issueStage }</span></td>		
+			 		</tr>
+			 		<tr>
+						<td>이슈댓글 수</td>
+						<td>${commentMostFollowed }</td>		
+			 		</tr>
+			 		<tr>
+						<td>팔로워 수</td>
+						<td>${watcherMostFollowed }</td>		
+			 		</tr>
+			 	</tbody>
+			</table>
+		</div>
+	</c:if>
 </div>
 
 <script>

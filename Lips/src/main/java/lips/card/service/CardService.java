@@ -19,5 +19,7 @@ public interface CardService {
 	public ModelAndView setIssueMostFollowed(User user , int projectId);
 	
 	public ModelAndView setCard5ProjectEnddate(CardDto dto);
+	
+	public ModelAndView setCard6PJissueList(int projectId);
 
 }

@@ -351,6 +351,25 @@ public class IssueService {
 		issueDao.inStagePreset(issueStagePresetDto);
 		issueDao.inStagePresetAsset(map);
 	}
+	public void presetModify(IssueStagePresetDto issueStagePresetDto,String[] assetIdList) {
+		List<Integer> assetList = new ArrayList<Integer>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		for(int i = 0 ; i<assetIdList.length;i++) {
+			assetList.add(Integer.parseInt(assetIdList[i]));
+		}
+		map.put("assetList", assetList);
+		map.put("issuePresetId", issueStagePresetDto.getIssuePresetId());
+		issueDao.upStagePreset(issueStagePresetDto);
+		issueDao.delStagePresetAsset(issueStagePresetDto.getIssuePresetId());
+		issueDao.inModifyPreset(map);
+	}
+	public void assetDelete(StageAssetDto stageAssetDto) {
+		issueDao.delStageAsset(stageAssetDto);
+	}
+	public void presetDelete(IssueStagePresetDto issueStagePresetDto) {
+		issueDao.delPreset(issueStagePresetDto.getIssuePresetId());
+		issueDao.delStagePresetAsset(issueStagePresetDto.getIssuePresetId());
+	}
 	public List<StageAssetDto> getAssetList(int projectId){
 		return issueDao.selStageAsset(projectId);
 	} 

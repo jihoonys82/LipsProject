@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <sec:authentication property="principal.userId" var="userId"/>
 <script>
+//global varialble 
+var test; 
 //assignee autocomplete
 jui.ready([ "ui.autocomplete" ], function(autocomplete) {
 	assign = autocomplete("#assign", {
@@ -40,7 +42,8 @@ jui.ready([ "ui.autocomplete" ], function(autocomplete) {
 	});
 });
 
-$(document).ready(function() { 
+$(document).ready(function() {
+
 	// set Category for change projectId
 	$("#projectId").change(function() {
 		var projectId = $("#projectId").val();
@@ -49,8 +52,11 @@ $(document).ready(function() {
 			, url: "/issue/getCategory"
 			, data: { "projectId" : projectId }
 			, dataType: "json"
+			, beforeSend: function () {
+   				$("#stage_accordion div.content").empty();
+   			}
 			, success: function(data){
-				//console.log(data);
+				// set category
 				$("#categoryId").empty();
 				for(var i=0;i<data.category.length;i++) {
 					$("#categoryId").append("<option value='" 
@@ -60,6 +66,87 @@ $(document).ready(function() {
 						+ "</option>"
 					);
 				};
+				// set preset
+				$("tbody#presetList").empty();
+				var $preset = "";
+				for(var i=0;i<data.ispDtos.length;i++){
+					$preset += "<tr>"
+							+ "<td>"
+								+ "<button class='btn focus selectTo'>선택</button> "
+								+ "<strong>"
+								+ data.ispDtos[i].presetName
+								+ "</strong>"
+								+ "<input type='hidden' value='" 
+								+ data.ispDtos[i].issuePresetId 
+								+ "'/>"
+							+ "</td>"
+							+ "<td>"
+								+ "<button class='btn selectedPreset'>상세보기<span class='icon icon-left'></span></button>"
+							+ "</td>"
+							+ "</tr>";
+				}
+				$("tbody#presetList").append($preset);
+				
+				// button click event for select the preset 
+				$("button.selectTo").on('click', function(){
+					var ipId = $(this).siblings("input[type=hidden]").val();
+					//console.log(ipId);
+					$.ajax({
+						type:"post"
+						, url: "/issue/getStageAssets"
+						, async : false
+						, data: { "issuePresetId" : ipId }
+						, dataType: "json"
+						, beforeSend: function () {
+							$("#selectedStage").empty();
+						}
+						, success: function(data){	
+							var $content ="";
+							for(var i=0;i<data.stageAssets.length;i++) {
+								$content += "<span class='label mini success'>"+ data.stageAssets[i].stageName + "</span>";
+								if(i<data.stageAssets.length-1) {
+									$content += "<span class='icon icon-arrow4' style='vertical-align:middle;'></span>"
+								}
+							}
+							$("#selectedStage").html($content);
+							setStageModal.hide();
+						}
+						, error : function(e){
+							console.log("----error----");
+							console.log(e.responseText);
+						}
+					}); // end of ajax
+				});
+				
+				// button click event for newly added button. 
+				$("button.selectedPreset").on('click', function(){
+					var ipId = $(this).parent().parent().find("input[type=hidden]").val();
+					var target = $(this).parent();
+					$.ajax({
+						type:"post"
+						, url: "/issue/getStageAssets"
+						, data: { "issuePresetId" : ipId }
+						, dataType: "json"
+						, beforeSend: function () {
+							target.empty();
+						}
+						, success: function(data){	
+							var $content ="";
+							for(var i=0;i<data.stageAssets.length;i++) {
+								$content += "<span class='label mini success'>"+ data.stageAssets[i].stageName + "</span>";
+								if(i<data.stageAssets.length-1) {
+									$content += "<span class='icon icon-arrow4' style='vertical-align:middle;'></span>"
+								}
+							}
+							target.html($content);
+						}
+						, error : function(e){
+							console.log("----error----");
+							console.log(e.responseText);
+						}
+					}); // end of ajax
+				});
+				
 			}
 			, error : function(e){
 				console.log("----error----");
@@ -73,8 +160,7 @@ $(document).ready(function() {
 		$("#assignee").val('${userId}');
 	});
 
-	//selectPreset setting
-	
+	//selectPreset setting - deprecated
 	$("div.title button").on('click', function(){
 		var issuePresetId = $(this).attr('id');
 		$("#stagePresetId").val(issuePresetId);
@@ -391,34 +477,21 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 		<div class="row mt-1">
 			<div class="col col-1"></div> <!-- column spacing -->
 			<div class="col col-10">
-				<div id="stage_accordion" class="accordion">
-					<c:set var="startNo" value="1"/>
-					<c:set var="endNo" value="99"/>
-					<c:forEach items="${issueStagePreset}" var="preset">
-						<c:if test="${preset.issuePresetId eq startNo}">
-							<div class="title active">
-								<button type="button" class="btn focus mini" id="${preset.issuePresetId }">선택</button>
-								${preset.presetName } 
-								<i class="icon-arrow3"></i>
-							</div>
-							<div class="content">
-								<c:forEach items="${defaultAssets }" var="asset">
-									<span class="label success">${asset.stageName }</span>
-									<c:if test="${asset.stageAssetId ne endNo }">
-										<span class="icon icon-arrow4" style="vertical-align:middle;"></span>							
-									</c:if> 
-								</c:forEach>
-							</div>
-						</c:if>
-						<c:if test="${preset.issuePresetId ne startNo}">
-							<div class="title">
-								<button type="button" class="btn focus mini" id="${preset.issuePresetId }">선택</button>
-								${preset.presetName } 
-								<i class="icon-arrow1"></i>
-							</div>
-						</c:if>
-					</c:forEach>	
-				</div><!-- end of stage_accordion -->
+				<c:set var="startNo" value="1"/>
+				<c:set var="endNo" value="99"/>
+				<table class="table hover classic" >
+					<thead>
+						<tr>
+							<th style="width:20%; text-align:center;">프리셋명</th>
+							<th style="text-align:center;">단계</th>
+						</tr>
+					</thead>
+					<tbody id="presetList">
+						<tr>
+							<td colspan="2">프로젝트를 먼전 선택해 주세요. </td>
+						</tr>
+					</tbody>
+				</table>
 			</div><!-- end of col-10 -->
 		</div><!-- end of row -->
 		<div style="text-align: center; margin-top: 30px;">

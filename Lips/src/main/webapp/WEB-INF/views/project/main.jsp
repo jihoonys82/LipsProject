@@ -118,7 +118,7 @@ font-size:2em;
 
 
 	<div class="ProjectBoxing row">
-	<div style="width:100%"><a class="btn focus" href="/project/main">All Project</a></div>
+	<div style="width:100%"><a class="btn focus" href="/project/main/all">All Project</a></div>
 		<!--   프로젝트 성공/실패에 따른 모달처리하기! -->
 
 		<!--  프로젝트 생성/참가 - 고정 -->

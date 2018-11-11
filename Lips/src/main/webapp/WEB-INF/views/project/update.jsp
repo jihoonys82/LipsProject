@@ -242,8 +242,8 @@
 			<th> 관리</th>
 		</tr>
 	</thead>
-	
-	<tbody>
+						<!-- 스크롤바 지우기 기능은 남아있음 -->
+	<tbody style="::-webkit-scrollbar{width:0px;"}>
 		
 		<c:forEach items="${updatePageinfo.projectUserinfo}" var="pminfo" varStatus="a">
 		
@@ -301,11 +301,14 @@
 
 				<div class="viewProBtn" id="closemama">
 			
+						
+	 
 				<c:choose>
 						<c:when test="${updatePageinfo.projectinfo.status eq 'CLOSE'}"> 
 						</c:when>
 					
 						<c:otherwise>
+						<a href="/issue/setupIssueStage?projectId=${updatePageinfo.projectinfo.projectId}"><button class="btn normal focus" id="Custom" style="bottom: 2em;">이슈 진행단계 커스텀</button></a>
 						<button class="btn normal focus" id="ProjectClose" style="bottom: 2em;">프로젝트 종료</button>
 						</c:otherwise>
 					</c:choose>

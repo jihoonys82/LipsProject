@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lips.admin.dao.AdminDao;
+import lips.main.dao.MainDao;
 import lips.project.dao.ProjectDao;
 import lips.project.dto.ProjectDto;
 import lips.project.dto.ProjectMemberDto;
@@ -20,6 +21,7 @@ import lips.userinfo.dto.User;
 public class ProjectServiceImpl implements ProjectService {
 @Autowired ProjectDao dao;
 @Autowired AdminDao adao;
+@Autowired MainDao mdao;
 
 	String invitecode;
 	@Override
@@ -188,6 +190,13 @@ public class ProjectServiceImpl implements ProjectService {
 	public void leaderAuthorize(ProjectDto dto) {
 		dao.upProLeader(dto);
 		
+	}
+
+
+	@Override
+	public List AllOpenProject() {
+
+		return mdao.selOpenPro();
 	}
 
 

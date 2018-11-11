@@ -21,5 +21,5 @@ public interface ProjectService {
 	public Map updatepage(ProjectDto dto,User user);
 	public ProjectDto projectUpdate(ProjectDto dto,String invitecode);
 	public void leaderAuthorize(ProjectDto dto);
-
+	public List AllOpenProject();
 }

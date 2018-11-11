@@ -272,20 +272,8 @@ public class AdminController {
 	  
 	  index = isvc.splitData(indexData);
 
-	  if(index.get("startdate").equals("")||index.get("enddate").equals("")) {
-		 
-		  mav = isvc.getProListIndexnoDate(curPage, index);
-		  
-	  }else if(index.get("inputValue").equals("")|| index.get("combodata").equals("")) {
-		  
-		  mav = isvc.getProListIndexnoinputvalue(curPage, index);
-		  
-	  }else{
-
-		  mav = isvc.getProListIndex(curPage, index);
-	  }
-	  
-	  
+	  mav = isvc.getProListIndex(curPage, index);
+	
 	  List<Integer> cntList = adminService.getNumOfPro();
 	  
 	  mav.addObject("cntList", cntList);
@@ -309,7 +297,7 @@ public class AdminController {
 	  
 //	  System.out.println("#############################################"+ index);
 
-	  mav = isvc.getUserList(index, curPage);
+		  mav = isvc.getUserList(index, curPage); 
 	
 	  List<Integer> cntList = adminService.getNumOfUser();
 	  

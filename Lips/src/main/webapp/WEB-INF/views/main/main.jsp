@@ -268,10 +268,10 @@ $(document).ready(function() {
 			<tbody>
 		 			<c:forEach items="${mainInfo.IssueTopPro}" var="Prolist" varStatus="b">
 		 				<tr onclick="viewProject(${Prolist.projectId});">
-							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.projectId}">${b.index +1 }</a></td>
-							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.projectId}">${Prolist.projectId}</a></td>
-							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.projectId}">${Prolist.projectDesc}</a></td>	
-							<td style="text-align:center"><a href="/dashboard/dashview?projectId=${Prolist.projectId}">${Prolist.projectWatcher}</a></td>
+							<td style="text-align:center">${b.index +1 }</td>
+							<td style="text-align:center">${Prolist.projectId}</td>
+							<td style="text-align:center">${Prolist.projectDesc}</td>	
+							<td style="text-align:center">${Prolist.projectWatcher}</td>
 		 				</tr>
 		 			</c:forEach>
 		 		
@@ -283,13 +283,31 @@ $(document).ready(function() {
     </div>
 	
 	
-		<div class="col col-6 mainContents" style="border : 1px solid white">
-		
-		안희민씨를 위한 게시판 자리
-		<img src="/resources/img/intro/donaplz.png"  >	
-		 ${mainInfo.board}
-
+	<div class="col col-6 mainContents">
+			<div class="panel">
+			<div class="head">
+				<i class="icon-template"></i><strong> Board</strong>
+			</div>
+		<table class="table classic stripeless">
+			<thead>
+				<tr>
+					<th style="width:3em; text-align:center">#</th>
+					<th style="width:7em; text-align:center">Title</th>
+					<th style="text-align:center">Contents</th>
+				</tr>
+			</thead>
+			<tbody>
+		 				<tr onclick="viewBoard(${Prolist.projectId});">
+							<td style="text-align:center">번호</td>
+							<td style="text-align:center">제목</td>
+							<td style="text-align:center">내용</td>	
+			 				</tr>	 		
+		 	</tbody>
+		</table>
 		</div>
+	
+
+    </div>
 		
 		
 <div id="modal_1" class="msgbox" style="display: none;">
@@ -312,6 +330,15 @@ $(document).ready(function() {
 
 
 <script>
+
+
+function viewProject(projectId){
+	
+	location.href ="/issue/issuelist?listType=ProjectIssue&projectId="+projectId;
+	
+
+
+}
 
 jui.ready([ "ui.modal" ], function(modal) {
     $("#modal_1").appendTo("body");

@@ -74,7 +74,7 @@ public interface IssueDao {
 	 * get All Issue stage presets.
 	 * @return
 	 */
-	public List<IssueStagePresetDto> selIssueStagePreset();
+	public List<IssueStagePresetDto> selIssueStagePreset(ProjectDto projectDto);
 
 	/**
 	 * get Stage asset from issuePresetId 

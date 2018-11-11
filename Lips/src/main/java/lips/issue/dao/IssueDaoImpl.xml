@@ -64,9 +64,10 @@
 			AND pm.userID LIKE '%'||#{name}||'%'
  	</select>
  	
- 	<select id="selIssueStagePreset" resultType="lips.issue.dto.IssueStagePresetDto">
- 		SELECT issuePresetId, presetName, userId 
+ 	<select id="selIssueStagePreset" parameterType="lips.project.dto.ProjectDto" resultType="lips.issue.dto.IssueStagePresetDto">
+ 		SELECT issuePresetId, presetName, userId, projectId 
  		FROM issue_stage_preset
+ 		WHERE projectId = #{projectId} or projectId = 0
  	</select>
  	
  	<select id="selStageAssetByPresetId" parameterType="lips.issue.dto.IssueStagePresetDto" resultType="lips.issue.dto.StageAssetDto">

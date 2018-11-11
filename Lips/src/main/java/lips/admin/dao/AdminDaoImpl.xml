@@ -289,6 +289,19 @@
 			P ORDER BY rnum)
 	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
 	</select>
+	
+	<select id="totalPagePJindexAll" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM projectinfo 
+	</select>
+	
+	<select id="selProInfoIndexAll" parameterType="lips.admin.dto.IndexDto" resultType="lips.project.dto.ProjectDto">
+		SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM projectinfo
+				ORDER BY PROJECTID DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
 	<!-- ###################NoInput 끝 ############################################## -->
 	
 	<select id="totalPageIndexUserByUserid" parameterType="lips.admin.dto.IndexDto" resultType="int">
@@ -322,6 +335,68 @@
 			P ORDER BY rnum)
 	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
 	</select>
+	
+	<!--  -->
+	<select id="totalPageIndexUserByUseridNodate" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM userinfo 
+		WHERE userid LIKE '%'||#{inputValue}||'%'
+	</select>
+	
+	<select id="totalPageIndexUserByUsernickNodate" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM userinfo 
+		WHERE nick LIKE '%'||#{inputValue}||'%'
+	</select>
+	
+	<select id="seluserinfoIndexUseridNodate" parameterType="lips.admin.dto.IndexDto" resultType="lips.userinfo.dto.User">
+		SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM userinfo 
+				WHERE userid LIKE '%'||#{inputValue}||'%' 
+				ORDER BY userid DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
+	
+	<select id="seluserinfoIndexUsernickNodate" parameterType="lips.admin.dto.IndexDto" resultType="lips.userinfo.dto.User">
+			SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM userinfo 
+				WHERE nick LIKE '%'||#{inputValue}||'%' 
+				ORDER BY userid DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
+	<!--  -->
+	
+	<select id="totalPageIndexUserByDate" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM userinfo 
+		WHERE createdate BETWEEN #{startdate} AND #{enddate}
+	</select>
+	
+	
+	<select id="seluserinfoIndexAll" parameterType="lips.admin.dto.IndexDto" resultType="lips.userinfo.dto.User">
+		SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM userinfo
+				ORDER BY userid DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
+	
+	<select id="totalPageIndexUserAll" parameterType="lips.admin.dto.IndexDto" resultType="int">
+		SELECT COUNT(*) FROM userinfo
+	</select>
+	
+	<select id="seluserinfoINdexDate" parameterType="lips.admin.dto.IndexDto" resultType="lips.userinfo.dto.User">
+		SELECT * FROM
+	 		(SELECT rownum rnum, P.* FROM
+			 	(SELECT * FROM userinfo 
+				ORDER BY userid DESC) 
+			P ORDER BY rnum)
+	 	WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+	</select>
+	
+
 		<!--석호것 끝  -->
 	
  </mapper>  

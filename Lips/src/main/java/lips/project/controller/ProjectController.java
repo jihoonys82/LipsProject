@@ -63,6 +63,16 @@ public class ProjectController {
 		mav.setViewName("project/main");
 		return mav;
 	}
+	
+	// 모든 프로젝트 보여주는 페이지
+	@RequestMapping(value = "/main/all", method = RequestMethod.GET)
+	public ModelAndView project(ModelAndView mav) {
+		User user = new UserByToken().getInstance();
+		mav.addObject("user",user);
+		mav.addObject("projectInfo", service.AllOpenProject());
+		mav.setViewName("project/allProjectmain");
+		return mav;
+	}
 
 	// 프로젝트 생성페이지
 	@RequestMapping(value = "/create", method = RequestMethod.GET)

@@ -313,6 +313,10 @@ public interface AdminDao {
 		
 		public List<ProjectDto> selProInfoIndexNoInput(IndexDto dto);
 		
+		public int totalPagePJindexAll(IndexDto dto);
+		
+		public List<ProjectDto> selProInfoIndexAll(IndexDto dto);
+		
 		// input 미 입력시 끝
 		
 		public int totalPageIndexUserByUserid(IndexDto dto);
@@ -322,6 +326,24 @@ public interface AdminDao {
 		public List<User> seluserinfoIndexUserid(IndexDto dto);
 		
 		public List<User> seluserinfoIndexUsernick(IndexDto dto);
+		
+		/////////
+		
+		public int totalPageIndexUserByDate(IndexDto dto);
+		
+		public List<User> seluserinfoINdexDate(IndexDto dto);
+		
+		public int totalPageIndexUserByUseridNodate(IndexDto dto);
+		
+		public int totalPageIndexUserByUsernickNodate(IndexDto dto);
+		
+		public List<User> seluserinfoIndexUseridNodate(IndexDto dto);
+		
+		public List<User> seluserinfoIndexUsernickNodate(IndexDto dto);
+		
+		public int totalPageIndexUserAll(IndexDto dto);
+		
+		public List<User> seluserinfoIndexAll(IndexDto dto);
 		//user 검색 끝
 		
 		//석호것 끗

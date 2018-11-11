@@ -50,126 +50,129 @@ public class IndexService {
 		dto.setEnddate(indexData.get("enddate"));
 		dto.setInputValue(indexData.get("inputValue"));
 		dto.setCombodata(indexData.get("combodata"));
-		
-		if(dto.getCombodata().equals("projectkey")) {
-			//선택 콤보박스가 프로젝트 key 일때
+
+		//data null checker 
+		if(!(indexData.get("startdate").equals("")&&indexData.get("enddate").equals("")&&indexData.get("inputValue").equals(""))) {
 			
-			int totalCount = adao.totalPageIndexPJkey(dto);
+			//date 가 없을때
+		if((indexData.get("startdate").equals("")||indexData.get("enddate").equals(""))&&(indexData.get("inputValue")!="")) {
+			if(dto.getCombodata().equals("projectkey")) {
+				//선택 콤보박스가 프로젝트 key 일때
+				
+				int totalCount = adao.totalPageIndexPJkeyNodate(dto);
+				Paging paging = new Paging(totalCount, curPage);
+				
+				dto.setStartNo(paging.getStartNo());
+				dto.setEndNo(paging.getEndNo());
+				
+				pList = adao.selProInfoIndexPJkeyNodate(dto);
+				
+				mav.addObject("paging",paging);
+				mav.addObject("pList",pList);
+				
+			}else if(dto.getCombodata().equals("projectname")) {
+				//선택 콤보박스가 프로젝트 명일때
+				
+				int totalCount = adao.totalPageIndexPJnameNodate(dto);
+				Paging paging = new Paging(totalCount, curPage);
+				
+				dto.setStartNo(paging.getStartNo());
+				dto.setEndNo(paging.getEndNo());
+				
+				pList = adao.selProInfoIndexPJnameNodate(dto);
+				
+				mav.addObject("paging",paging);
+				mav.addObject("pList",pList);
+				
+			}else if(dto.getCombodata().equals("status")) {
+				//선택 콤보박스가 프로젝트 상태일때
+				
+				int totalCount = adao.totalPageIndexPJstatusNodate(dto);
+				Paging paging = new Paging(totalCount, curPage);
+				
+				dto.setStartNo(paging.getStartNo());
+				dto.setEndNo(paging.getEndNo());
+				
+				pList = adao.selProInfoIndexPJstatusNodate(dto);
+				
+				mav.addObject("paging",paging);
+				mav.addObject("pList",pList);
+			}
+			
+		//inputvalue 가 null 일때
+		  }else if(indexData.get("inputValue").equals("")) {
+				int totalCount = adao.totalPageIndexNoInput(dto);
+				Paging paging = new Paging(totalCount, curPage);
+				
+				dto.setStartNo(paging.getStartNo());
+				dto.setEndNo(paging.getEndNo());
+				
+				pList = adao.selProInfoIndexNoInput(dto);
+				
+				mav.addObject("paging",paging);
+				mav.addObject("pList",pList);
+		// 모든 입력정보가 입력되었을때		
+		  }else{
+			  if(dto.getCombodata().equals("projectkey")) {
+					//선택 콤보박스가 프로젝트 key 일때
+					
+					int totalCount = adao.totalPageIndexPJkey(dto);
+					Paging paging = new Paging(totalCount, curPage);
+					
+					dto.setStartNo(paging.getStartNo());
+					dto.setEndNo(paging.getEndNo());
+					
+					pList = adao.selProInfoIndexPJkey(dto);
+					
+					mav.addObject("paging",paging);
+					mav.addObject("pList",pList);
+					
+				}else if(dto.getCombodata().equals("projectname")) {
+					//선택 콤보박스가 프로젝트 명일때
+					
+					int totalCount = adao.totalPageIndexPJname(dto);
+					Paging paging = new Paging(totalCount, curPage);
+					
+					dto.setStartNo(paging.getStartNo());
+					dto.setEndNo(paging.getEndNo());
+					
+					pList = adao.selProInfoIndexPJname(dto);
+					
+					mav.addObject("paging",paging);
+					mav.addObject("pList",pList);
+					
+				}else if(dto.getCombodata().equals("status")) {
+					//선택 콤보박스가 프로젝트 상태일때
+					
+					int totalCount = adao.totalPageIndexPJstatus(dto);
+					Paging paging = new Paging(totalCount, curPage);
+					
+					dto.setStartNo(paging.getStartNo());
+					dto.setEndNo(paging.getEndNo());
+					
+					pList = adao.selProInfoIndexPJstatus(dto);
+					
+					mav.addObject("paging",paging);
+					mav.addObject("pList",pList);
+				}
+		  }
+		//입력을 안받았을때
+		}else {
+			
+			int totalCount = adao.totalPagePJindexAll(dto);
 			Paging paging = new Paging(totalCount, curPage);
 			
 			dto.setStartNo(paging.getStartNo());
 			dto.setEndNo(paging.getEndNo());
 			
-			pList = adao.selProInfoIndexPJkey(dto);
-			
-			mav.addObject("paging",paging);
-			mav.addObject("pList",pList);
-			
-		}else if(dto.getCombodata().equals("projectname")) {
-			//선택 콤보박스가 프로젝트 명일때
-			
-			int totalCount = adao.totalPageIndexPJname(dto);
-			Paging paging = new Paging(totalCount, curPage);
-			
-			dto.setStartNo(paging.getStartNo());
-			dto.setEndNo(paging.getEndNo());
-			
-			pList = adao.selProInfoIndexPJname(dto);
-			
-			mav.addObject("paging",paging);
-			mav.addObject("pList",pList);
-			
-		}else if(dto.getCombodata().equals("status")) {
-			//선택 콤보박스가 프로젝트 상태일때
-			
-			int totalCount = adao.totalPageIndexPJstatus(dto);
-			Paging paging = new Paging(totalCount, curPage);
-			
-			dto.setStartNo(paging.getStartNo());
-			dto.setEndNo(paging.getEndNo());
-			
-			pList = adao.selProInfoIndexPJstatus(dto);
+			pList = adao.selProInfoIndexAll(dto);
 			
 			mav.addObject("paging",paging);
 			mav.addObject("pList",pList);
 		}
-		
 		return mav;
 	}
 	
-	public ModelAndView getProListIndexnoDate(int curPage, Map<String, String> indexData) {
-		ModelAndView mav = new ModelAndView();
-		IndexDto dto = new IndexDto();
-		List<ProjectDto> pList = new ArrayList<>();
-		dto.setInputValue(indexData.get("inputValue"));
-		dto.setCombodata(indexData.get("combodata"));
-		
-		if(dto.getCombodata().equals("projectkey")) {
-			//선택 콤보박스가 프로젝트 key 일때
-			
-			int totalCount = adao.totalPageIndexPJkeyNodate(dto);
-			Paging paging = new Paging(totalCount, curPage);
-			
-			dto.setStartNo(paging.getStartNo());
-			dto.setEndNo(paging.getEndNo());
-			
-			pList = adao.selProInfoIndexPJkeyNodate(dto);
-			
-			mav.addObject("paging",paging);
-			mav.addObject("pList",pList);
-			
-		}else if(dto.getCombodata().equals("projectname")) {
-			//선택 콤보박스가 프로젝트 명일때
-			
-			int totalCount = adao.totalPageIndexPJnameNodate(dto);
-			Paging paging = new Paging(totalCount, curPage);
-			
-			dto.setStartNo(paging.getStartNo());
-			dto.setEndNo(paging.getEndNo());
-			
-			pList = adao.selProInfoIndexPJnameNodate(dto);
-			
-			mav.addObject("paging",paging);
-			mav.addObject("pList",pList);
-			
-		}else if(dto.getCombodata().equals("status")) {
-			//선택 콤보박스가 프로젝트 상태일때
-			
-			int totalCount = adao.totalPageIndexPJstatusNodate(dto);
-			Paging paging = new Paging(totalCount, curPage);
-			
-			dto.setStartNo(paging.getStartNo());
-			dto.setEndNo(paging.getEndNo());
-			
-			pList = adao.selProInfoIndexPJstatusNodate(dto);
-			
-			mav.addObject("paging",paging);
-			mav.addObject("pList",pList);
-		}
-		
-		return mav;
-	}
-	
-	public ModelAndView getProListIndexnoinputvalue(int curPage, Map<String, String> indexData) {
-		ModelAndView mav = new ModelAndView();
-		IndexDto dto = new IndexDto();
-		List<ProjectDto> pList = new ArrayList<>();
-		dto.setStartdate(indexData.get("startdate"));
-		dto.setEnddate(indexData.get("enddate"));
-		
-		int totalCount = adao.totalPageIndexPJkeyNodate(dto);
-		Paging paging = new Paging(totalCount, curPage);
-		
-		dto.setStartNo(paging.getStartNo());
-		dto.setEndNo(paging.getEndNo());
-		
-		pList = adao.selProInfoIndexPJkeyNodate(dto);
-		
-		mav.addObject("paging",paging);
-		mav.addObject("pList",pList);
-	
-		return mav;
-	}
 	
 	public ModelAndView getUserList(Map<String, String> indexData, int curPage) {
 		ModelAndView mav = new ModelAndView();
@@ -182,27 +185,66 @@ public class IndexService {
 		dto.setInputValue(indexData.get("inputValue"));
 		dto.setCombodata(indexData.get("combodata"));
 		
-		
-		if(dto.getCombodata().equals("userid")) {
-			totalCount = adao.totalPageIndexUserByUserid(dto);
-			Paging paging  = new Paging(totalCount, curPage);
-			dto.setStartNo(paging.getStartNo());
-			dto.setEndNo(paging.getEndNo());
-			
-			userList = adao.seluserinfoIndexUserid(dto);
-			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@#############"+userList);
-			mav.addObject("paging",paging);
-			
-		}else if(dto.getCombodata().equals("usernick")) {
-			totalCount = adao.totalPageIndexUserByUsernick(dto);
-			Paging paging  = new Paging(totalCount, curPage);
-			dto.setStartNo(paging.getStartNo());
-			dto.setEndNo(paging.getEndNo());
-			
-			userList = adao.seluserinfoIndexUsernick(dto);
-			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@#############"+userList);
-			mav.addObject("paging",paging);
-		}
+		//date 입력 안했을때
+		  if(indexData.get("startdate").equals("")||indexData.get("enddate").equals("")) {
+			  if(dto.getCombodata().equals("userid")) {
+					totalCount = adao.totalPageIndexUserByUseridNodate(dto);
+					Paging paging  = new Paging(totalCount, curPage);
+					dto.setStartNo(paging.getStartNo());
+					dto.setEndNo(paging.getEndNo());
+					
+					userList = adao.seluserinfoIndexUseridNodate(dto);
+					mav.addObject("paging",paging);
+					
+				}else if(dto.getCombodata().equals("usernick")) {
+					totalCount = adao.totalPageIndexUserByUsernickNodate(dto);
+					Paging paging  = new Paging(totalCount, curPage);
+					dto.setStartNo(paging.getStartNo());
+					dto.setEndNo(paging.getEndNo());
+					
+					userList = adao.seluserinfoIndexUsernickNodate(dto);
+					mav.addObject("paging",paging);
+				}
+		//inputvalue 입력 안했을때
+		  }else if(indexData.get("inputValue").equals("")) {
+			  totalCount = adao.totalPageIndexUserByDate(dto);
+			  Paging paging = new Paging(totalCount, curPage);
+			  dto.setStartNo(paging.getStartNo());
+			  dto.setEndNo(paging.getEndNo());
+			  
+			  userList = adao.seluserinfoINdexDate(dto);
+			  mav.addObject("paging",paging);
+		 //데이터 입력을 안했을때
+		  }else if(indexData.get("inputValue").equals("")&&indexData.get("combodata").equals("")&&
+				  indexData.get("startdate").equals("")&&indexData.get("enddate").equals("")){
+			  totalCount = adao.totalPageIndexUserAll(dto);
+				Paging paging  = new Paging(totalCount, curPage);
+				dto.setStartNo(paging.getStartNo());
+				dto.setEndNo(paging.getEndNo());
+				
+				userList = adao.seluserinfoIndexAll(dto);
+				mav.addObject("paging",paging);
+		//모든 데이터를 입력했을때
+		  }else {
+			  if(dto.getCombodata().equals("userid")) {
+					totalCount = adao.totalPageIndexUserByUserid(dto);
+					Paging paging  = new Paging(totalCount, curPage);
+					dto.setStartNo(paging.getStartNo());
+					dto.setEndNo(paging.getEndNo());
+					
+					userList = adao.seluserinfoIndexUserid(dto);
+					mav.addObject("paging",paging);
+					
+				}else if(dto.getCombodata().equals("usernick")) {
+					totalCount = adao.totalPageIndexUserByUsernick(dto);
+					Paging paging  = new Paging(totalCount, curPage);
+					dto.setStartNo(paging.getStartNo());
+					dto.setEndNo(paging.getEndNo());
+					
+					userList = adao.seluserinfoIndexUsernick(dto);
+					mav.addObject("paging",paging);
+				}
+		  }
 		
 		List<Boolean> userIsLeaderList = new ArrayList<Boolean>();
 		java.util.Iterator<User> itr = userList.iterator();
@@ -215,7 +257,6 @@ public class IndexService {
 				userIsLeaderList.add(false);
 			}
 		}
-		
 		
 		mav.addObject("uLeaderList", userIsLeaderList);
 		mav.addObject("uList", userList);

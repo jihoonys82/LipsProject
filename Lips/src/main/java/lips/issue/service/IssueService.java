@@ -79,7 +79,7 @@ public class IssueService {
 		}
 		
 		// 1.Issue_stage_preset 리스트 가져오기
-		List<IssueStagePresetDto> ispDtos =  issueDao.selIssueStagePreset();
+		List<IssueStagePresetDto> ispDtos =  issueDao.selIssueStagePreset(projectDto);
 		
 		// 2.리스트의 첫번째 (default) preset 가져오기
 		IssueStagePresetDto defaultISP = ispDtos.get(0);
@@ -97,8 +97,10 @@ public class IssueService {
 		ModelAndView mav = new ModelAndView();
 		User user = new UserByToken().getInstance();
 		
+		ProjectDto bulk = new ProjectDto(); //bulk projectId for evade null pointer exception
+		bulk.setProjectId(0);
 		// 1.Issue_stage_preset 리스트 가져오기
-		List<IssueStagePresetDto> ispDtos =  issueDao.selIssueStagePreset();
+		List<IssueStagePresetDto> ispDtos =  issueDao.selIssueStagePreset(bulk);
 		
 		// 2.리스트의 첫번째 (default) preset 가져오기
 		IssueStagePresetDto defaultISP = ispDtos.get(0);
@@ -121,12 +123,28 @@ public class IssueService {
 		return users;
 	}
 	
+	/**
+	 * getCategory via AJAX when selected project is changed 
+	 * get IssueStage Preset as well. 
+	 * @param projectDto
+	 * @return
+	 */
 	public ModelAndView getCategory(ProjectDto projectDto) {
 		ModelAndView mav = new ModelAndView();
 		
+		// 1. get Category
 		List<CategoryAssetDto> cat = issueDao.selCatByProjId(projectDto);
+		// 2. get Issue_stage_preset list
+		List<IssueStagePresetDto> ispDtos =  issueDao.selIssueStagePreset(projectDto);
+		
+		// 3. get the first(default) preset
+		IssueStagePresetDto defaultISP = ispDtos.get(0);
+		List<StageAssetDto> defaultAssets = issueDao.selStageAssetByPresetId(defaultISP);
+		
 		mav.setViewName("jsonView");
 		mav.addObject("category", cat);
+		mav.addObject("ispDtos", ispDtos);
+		mav.addObject("defaultAsset", defaultAssets);
 		
 		return mav;
 	}
@@ -332,6 +350,25 @@ public class IssueService {
 		map.put("assetList", assetList);
 		issueDao.inStagePreset(issueStagePresetDto);
 		issueDao.inStagePresetAsset(map);
+	}
+	public void presetModify(IssueStagePresetDto issueStagePresetDto,String[] assetIdList) {
+		List<Integer> assetList = new ArrayList<Integer>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		for(int i = 0 ; i<assetIdList.length;i++) {
+			assetList.add(Integer.parseInt(assetIdList[i]));
+		}
+		map.put("assetList", assetList);
+		map.put("issuePresetId", issueStagePresetDto.getIssuePresetId());
+		issueDao.upStagePreset(issueStagePresetDto);
+		issueDao.delStagePresetAsset(issueStagePresetDto.getIssuePresetId());
+		issueDao.inModifyPreset(map);
+	}
+	public void assetDelete(StageAssetDto stageAssetDto) {
+		issueDao.delStageAsset(stageAssetDto);
+	}
+	public void presetDelete(IssueStagePresetDto issueStagePresetDto) {
+		issueDao.delPreset(issueStagePresetDto.getIssuePresetId());
+		issueDao.delStagePresetAsset(issueStagePresetDto.getIssuePresetId());
 	}
 	public List<StageAssetDto> getAssetList(int projectId){
 		return issueDao.selStageAsset(projectId);

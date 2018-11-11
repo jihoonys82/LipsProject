@@ -64,13 +64,14 @@
 			AND pm.userID LIKE '%'||#{name}||'%'
  	</select>
  	
- 	<select id="selIssueStagePreset" resultType="lips.issue.dto.IssueStagePresetDto">
- 		SELECT issuePresetId, presetName, userId 
+ 	<select id="selIssueStagePreset" parameterType="lips.project.dto.ProjectDto" resultType="lips.issue.dto.IssueStagePresetDto">
+ 		SELECT issuePresetId, presetName, userId, projectId 
  		FROM issue_stage_preset
+ 		WHERE projectId = #{projectId} or projectId = 0
  	</select>
  	
  	<select id="selStageAssetByPresetId" parameterType="lips.issue.dto.IssueStagePresetDto" resultType="lips.issue.dto.StageAssetDto">
- 		SELECT A.stageassetId, A.stageName, A.assetDescription
+ 		SELECT A.stageassetId, A.stageName, A.assetDescription 
 	    FROM issue_stage_preset_asset P, stage_asset A 
 	    WHERE P.stageassetId = A.stageassetId
 	    	AND P.issuePresetId = #{issuePresetId}
@@ -207,6 +208,23 @@
  		</foreach>
  		SELECT * FROM dual
  	</insert>
- 	
- 	
+ 	<delete id="delStagePresetAsset" parameterType="Integer">
+ 		delete from Issue_stage_preset_asset where issuePresetId = #{value }
+ 	</delete>
+ 	<update id="upStagePreset" parameterType="lips.issue.dto.IssueStagePresetDto">
+ 		update Issue_stage_preset set presetName=#{presetName},userId=#{userId} where issuePresetId = #{issuePresetId}
+ 	</update>
+ 	<insert id="inModifyPreset" parameterType="map">
+ 		INSERT ALL  
+ 		<foreach collection="assetList" item="assetId" index="index">
+ 			 INTO Issue_stage_preset_asset VALUES (#{issuePresetId.value}, #{assetId }, #{index })
+ 		</foreach>
+ 		SELECT * from dual
+ 	</insert>
+ 	<delete id="delPreset" parameterType="Integer">
+ 		DELETE from Issue_stage_preset where issuePresetId = #{value }  
+ 	</delete>
+  	<delete id="delStageAsset" parameterType="lips.issue.dto.StageAssetDto">
+  		DELETE from stage_asset where stageAssetId=#{stageAssetId } and projectId != 0
+  	</delete>
  </mapper>  

@@ -74,7 +74,7 @@ public interface IssueDao {
 	 * get All Issue stage presets.
 	 * @return
 	 */
-	public List<IssueStagePresetDto> selIssueStagePreset();
+	public List<IssueStagePresetDto> selIssueStagePreset(ProjectDto projectDto);
 
 	/**
 	 * get Stage asset from issuePresetId 
@@ -222,6 +222,30 @@ public interface IssueDao {
 	 * @param assetIdList
 	 */
 	public void inStagePresetAsset(Map<String,List<Integer>> assetList);
+	/**
+	 * delete preset
+	 * @param issuePresetId
+	 */
+	public void delPreset(int issuePresetId);
+	/**
+	 * delete asset
+	 * @param stageAssetId
+	 */
+	public void delStageAsset(StageAssetDto stageAssetDto);
+	
+	/**
+	 * modify presetAssetList
+	 * @param assetList
+	 */
+	public void inModifyPreset(Map<String,Object> assetList);
+	
+	public void upStagePreset(IssueStagePresetDto issueStagePresetDto);
+	/**
+	 * delete maaper table
+	 * @param issuePresetId
+	 */
+	public void delStagePresetAsset(int issuePresetId);
+	
 	/**
 	 * Get private/Default StageAsset for Project
 	 * @param user

@@ -5,6 +5,9 @@
 <link rel="stylesheet" href="/resources/css/tip-darkgray/tip-darkgray.css" />
 <script type="text/javascript" src="/resources/js/userinfo/jquery.poshytip.min.js?ver=1" ></script>
 <style>
+::-webkit-scrollbar{
+	width:0px;
+}
 .panel-wrapper {
 	padding:	 	10px;
 }
@@ -51,13 +54,13 @@
 </style>
 
 <!-- 기존 스테이지 목록  -->
-<div class="panel-wrapper">
+<div class="panel-wrapper" style="overflow-y: scroll; max-height: 250px;">
 	<div class="panel">
 		<div class="head">
 			<strong>프리셋 목록</strong>
-			<button type="button" class="btn focus right-item">새 프리셋 추가</button>
+			<button type="button" class="btn focus right-item" onclick="addPreset()">새 프리셋 추가</button>
 		</div>
-		<table class="table classic hover">
+		<table class="table classic hover" id="proPresetList" >
 			<thead>
 				<tr>
 					<th class="w-5">#</th>
@@ -69,13 +72,18 @@
 			</thead>
 			<tbody>
 			<c:forEach items="${presetList }" var="preset"  varStatus="presetStatus">
+				<c:if test="${preset.projectId eq 0 }" >
+				<tr style="background-color:#8f7ff266">
+				</c:if>
+				<c:if test="${preset.projectId ne 0 }" >
 				<tr>
+				</c:if>
 				<td>${preset.issuePresetId }</td>
 				<td>${preset.presetName }</td>
 				<td>${preset.userId }</td>
-				<td>
+				<td id="assetListTr${presetStatus.index}">
 					<c:forEach items="${presetAssetList[presetStatus.index]}" var="presetAsset" varStatus="assetStatus">
-						<span class="label success assetBlock">${presetAsset.stageName }</span>
+						<span value="${presetAsset.stageAssetId}"class="label success assetBlock">${presetAsset.stageName }</span>
 						<c:if test="${assetStatus.index ne fn:length(presetAssetList[presetStatus.index])-1}">
 							<span class="icon icon-arrow4" style="vertical-align:middle;"></span>							
 						</c:if> 
@@ -83,7 +91,7 @@
 				</td>
 				<td>
 					<div class="alignCenter">
-						<button type="button" class="btn mini focus">편집</button>
+						<button type="button" class="btn mini focus" onclick="modifyPreset(${preset.issuePresetId},'${preset.presetName }',$('#assetListTr'+${presetStatus.index }),${preset.projectId })">편집</button>
 					</div>
 				</td>
 				</tr>
@@ -93,10 +101,10 @@
 	</div>
 </div>
 <!-- 신규 / 수정 스테이지  (show/hide)-->
-<div class="panel-wrapper">
+<div class="panel-wrapper" id="addAndModify">
 	<div class="panel">
-		<div class="head">
-			<strong>새 프리셋 추가/수정</strong>
+		<div class="head" >
+			<strong>새 프리셋 추가</strong>
 		</div>
 		<div class="body">
 			<div class="input-row-wrap">
@@ -109,16 +117,95 @@
 		<div class="body">
 			<div class="row">
 				<div class="col col-2 stageEdge" style="text-align:right;">
-					<span class="label success">시작단계</span>
+					<span class="label success">시작대기</span>
 					<span class="icon icon-arrow4" style="vertical-align:middle;"></span>
 				</div>
 				<div class="col col-8">
 					<div class="stageCustomArea">
 						<!-- 스테이지 커스텀 영역 -->
-						<button id="presetAddBtn" class="btn assetBlock" onclick="addPreset()"><span class="icon icon-more bounce" ></span></button>
+						<button id="presetAddBtn" class="btn assetBlock" onclick="addPresetFocus()"><span class="icon icon-more bounce" ></span></button>
 						<script>
-							var isFocus = false;
+							var modifyPresetId = null;
+							var modifyStatus = false;
+							var modifyFlag = false;
+							function presetDelete(){
+								if(modifyFlag)return;
+								modifyFlag = true;
+								$.ajax({
+									url : "/issue/presetDelete",
+									type : "POST",
+									data : { 	
+										issuePresetId 	: modifyPresetId,
+										projectId		: ${projectId}
+									},
+									success : function(responseData) {
+										window.location.reload();
+									}
+								});
+							}
+							function presetModify(){
+								console.log(modifyPresetId);// 수정할 프리셋 id
+								
+								 var assetList = [];
+								 jQuery.ajaxSettings.traditional = true;
+									assetList.push(1);
+								 $('.customAssetBlock').each(function(){
+									assetList.push($(this).attr('value')); 
+								 });
+								 	assetList.push(99);
+								 	if(modifyFlag) return;
+								 	modifyFlag = true;
+								$.ajax({
+									url : "/issue/presetModify",
+									type : "POST",
+									data : { 	
+										presetName 		: $('#presetName').val(),
+										issuePresetId 	: modifyPresetId,
+										projectId		: ${projectId},
+										assetIdList 	: assetList 
+									},
+									success : function(responseData) {
+										window.location.reload();
+									}
+								});
+							}
 							function addPreset(){
+								modifyStats = false;
+								$('#addAndModify').hide().show(400);
+								$('#addAndModify strong').html('새 프리셋 추가');
+								$('#presetSaveBtn').show();
+								$('#presetModifyBtn').hide();
+								$('#presetDeleteBtn').hide();
+								$('#presetName').val('');
+								$('.customAsset').remove();
+							}
+							function modifyPreset(presetId,presetName,assetList,projectId){
+								if(projectId == 0){
+									alert('기본 프리셋은 수정할 수 없습니다.');
+									return;
+								}
+								
+								modifyPresetId = presetId;
+								modifyStatus = true;
+								
+								customAssetIndex = 2;
+								$('#addAndModify').hide().show(400);
+								$('#presetSaveBtn').hide();
+								$('#presetModifyBtn').show();
+								$('#presetDeleteBtn').show();
+								$('#addAndModify strong').html("["+presetName+'] 프리셋 수정');
+								$('.customAsset').remove();
+								$('#presetName').val(presetName);
+								var assetList = assetList.children('.assetBlock').clone();
+								for (var i = 1 ; i<assetList.length-1;i++){
+									var value = assetList[i].value;
+									$('#presetAddBtn').before($(assetList[i]).addClass("customAssetBlock").addClass("customAsset").attr('id','modifyAsset'+customAssetIndex).attr('value',value));
+									$('#modifyAsset'+customAssetIndex).after('<span class="icon icon-arrow4 customAsset" style="vertical-align:middle;"></span>');
+									customAssetIndex++;
+								}
+							}
+							var isFocus = false;
+							function addPresetFocus(){
 								if(isFocus){
 									$("#presetAddBtn").removeClass('focus');
 									isFocus=false;
@@ -127,7 +214,7 @@
 									isFocus=true;
 								}
 							}
-							var customAssetIndex = 0;
+							var customAssetIndex = 2;
 							var arrPoshy = [];
 							function addAsset(stageAssetId,stageName,assetDescription,index){
 								if(!isFocus) return;
@@ -150,7 +237,7 @@
 									})
 							}
 							function resetAsset(){
-								customAssetIndex = 0;
+								customAssetIndex = 2;
 								$('.customAsset').hide(400,function(){$('.customAsset').remove()});
 							}
 						</script>					
@@ -163,16 +250,18 @@
 			</div>
 		</div>
 		<div class="foot alignCenter">
-			<button type="button" class="btn focus" onclick="presetSave()">저장</button>
+			<button type="button" class="btn focus" id="presetSaveBtn" onclick="presetSave()">저장</button>
+			<button type="button" class="btn focus" id="presetModifyBtn" onclick="presetModify()" style="display:none">수정</button>
+			<button type="button" class="btn focus" id="presetDeleteBtn" onclick="presetDelete()" style="display:none">삭제</button>
 			<script>
 			 function presetSave(){
 				 var assetList = [];
 				 jQuery.ajaxSettings.traditional = true;
-
+					assetList.push(1);
 				 $('.customAssetBlock').each(function(){
 					assetList.push($(this).attr('value')); 
 				 });
-				 var parseData = {"presetName" : $('#presetName').val(),"projectId" : ${projectId},"assetIdList" : assetList}
+				 	assetList.push(99);
 					$.ajax({
 						url : "/issue/presetSave",
 						type : "POST",
@@ -223,20 +312,29 @@
 										projectId : ${projectId}
 									},
 									success : function(responseData) {
-										alert(responseData.data);
 										window.location.reload();
-// 										reloadAssetList();
 									}
 								});
 						 }
-						 function reloadAssetList(){
-								$.ajax({
-									url : "/issue/reloadAssetList",
-									type : "POST",
-									success : function(responseData) {
-										
-									}
-								});
+						 var delFlag = false;
+						 function delAsset(stageAssetId,projectId){
+							 if(delFlag) return;
+								 if(projectId == 0){
+								 alert("기본 애셋은 삭제할 수 없습니다.")
+								 return;
+							 }
+							 delFlag = true;
+							 $.ajax({
+								 url : "/issue/delAsset",
+								 type : "POST",
+								 data : {
+									 stageAssetId : stageAssetId,
+									 projectId : projectId
+								 },
+								success : function(responseData){
+									window.location.reload();
+								} 
+							 });
 						 }
 						</script>
 						<button type="button" class="btn">초기화</button>			
@@ -248,7 +346,7 @@
 
 	<!-- 기존 에셋 목록 -->
 	<div class="col col-8">
-		<div class="panel-wrapper">
+		<div class="panel-wrapper" style="overflow-y: scroll; max-height: 200px;">
 			<div class="panel">
 				<div class="head">
 					<strong>에셋 목록</strong>
@@ -260,12 +358,19 @@
 							<th class="w-20">에셋 이름</th>
 							<th>에셋 설명</th>
 							<th class="w-10"></th>
+							<th class="w-10"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${assetList }" var="asset" varStatus="status">
-							<tr id="assetList${status.index }">
-								<td>${asset.stageAssetId }</td>
+
+							<c:if test="${asset.projectId eq 0 }">
+								<tr id="assetList${status.index }" style="background-color: #8f7ff266">
+							</c:if>
+							<c:if test="${asset.projectId ne 0 }">
+								<tr id="assetList${status.index }">
+							</c:if>
+							<td>${asset.stageAssetId }</td>
 								<td>${asset.stageName }</td>
 								<td>${asset.assetDescription }</td>
 								<td>
@@ -273,6 +378,13 @@
 										<button id="addAssetBtn${status.index }" type="button" class="btn mini focus" onclick="addAsset('${asset.stageAssetId }','${asset.stageName }','${asset.assetDescription }','${status.index }')">등록</button>
 									</div>
 								</td>
+								<td>
+									<div class="alignCenter">
+										<button id="delAssetBtn${status.index }" type="button" class="btn mini focus" onclick="delAsset('${asset.stageAssetId }','${asset.projectId }')">삭제</button>
+									</div>
+								</td>
+								
+								
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -281,3 +393,4 @@
 		</div>
 	</div><!-- end of 기존 에셋 목록 -->
 </div> <!-- end of row -->
+<br><br><br><br><br><br><br>

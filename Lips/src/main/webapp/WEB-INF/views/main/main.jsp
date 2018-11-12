@@ -192,7 +192,7 @@ $(document).ready(function() {
 					
 					<div class="col col-4">
 						<div class="innerContents" style="padding:1em;     background-image: -webkit-linear-gradient(top,#4cac4f 0,#205d36 100%);">
-								<Strong>당신이 소속된 프로젝트에 </Strong>
+								<Strong>소속된 프로젝트에 </Strong>
 								<h1>${mainInfo.MyProjectIssueCnt}개</h1>
 								<h5>이슈가 등록되어 있습니다.</h5>
 						</div>
@@ -334,7 +334,7 @@ $(document).ready(function() {
 
 function viewProject(projectId){
 	
-	location.href ="/issue/issuelist?listType=ProjectIssue&projectId="+projectId;
+	location.href ="/issue/issueList?listType=ProjectIssue&projectId="+projectId;
 	
 
 

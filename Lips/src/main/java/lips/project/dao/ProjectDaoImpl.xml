@@ -3,6 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="lips.project.dao.ProjectDao">
+ 
+ 
+	 <!--  모든 카테고리 에셋 불러오기-->
+	 <select id ="selAllcate" resultType="lips.issue.dto.CategoryAssetDto">
+	 select * from category_asset order by categoryAssetId
+	 </select>
+ 	
+ 	<!--  나의 카테고리에셋 불러오기-->
+ 	<select id="selIssueCateAs" parameterType="lips.project.dto.ProjectDto" resultType="lips.issue.dto.CategoryAssetDto">
+ 	select Ca.CATEGORYASSETID, Ca.ASSETNAME, Ca.ASSETCODE, Ca.ASSETDESCRIPTION, Ic.CATEGORYORDER FROM category_asset Ca, issue_category Ic 
+WHERE Ca.categoryassetid = Ic.categoryassetid and Ic.projectId=#{projectId} ORDER BY categoryorder
+
+ 	</select>
+ 	
  	
  	<!-- 리더위임 -->
  	<update id ="upProLeader"  parameterType="lips.project.dto.ProjectDto" >

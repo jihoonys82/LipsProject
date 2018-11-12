@@ -46,10 +46,12 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		//프로젝트 참여멤버 테이블 인서트
 		dao.inProMember(map);
-		
-		//프로젝트 카테고리 테이블 인서트
+
+
+		//이슈 카테고리 테이블 인서트
 		dao.inProct(dto);
 		
+
 		
 		//프로젝트 초대코드 인서트
 		invitecode = UUID.randomUUID().toString().split("-")[4]+"_"+dto.getProjectKey();
@@ -147,7 +149,12 @@ public class ProjectServiceImpl implements ProjectService {
 		map.put("userinfo", user);
 		map.put("projectUserinfo", dao.selProOnlyMember(dto));
 		map.put("invitecode", dao.selInvitebyProid(dto));
-		System.out.println("테스트+++"+adao.selUOnP(dto).toString());
+		//카테고리 추가
+		map.put("issueCategory", dao.selIssueCateAs(dto));
+		
+		//모든 카테고리 에셋  불러오기
+		map.put("allCategory", dao.selAllcate());
+		
 	
 		return map;
 	}

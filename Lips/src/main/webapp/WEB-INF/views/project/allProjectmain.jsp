@@ -227,7 +227,7 @@
 								<a href="/dashboard/dashview?projectId=${projectinfo.projectId}">프로젝트 바로가기</a>
 							</c:when>
 							<c:when test="${projectinfo.projectLeader ne id}">
-								<a href="/issue/issuelist?listType=ProjectIssue&projectId=${projectinfo.projectId}">프로젝트 정보 보기</a>
+								<a href="/issue/issueList?listType=ProjectIssue&projectId=${projectinfo.projectId}">프로젝트 정보 보기</a>
 							</c:when>
 						</c:choose>
 							

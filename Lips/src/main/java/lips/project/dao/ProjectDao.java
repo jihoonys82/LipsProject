@@ -3,6 +3,7 @@ package lips.project.dao;
 import java.util.List;
 import java.util.Map;
 
+import lips.issue.dto.IssueCategoryDto;
 import lips.project.dto.ProjectDto;
 import lips.project.dto.ProjectMemberDto;
 import lips.project.dto.ProjectinvitecodeDto;
@@ -11,6 +12,18 @@ import lips.userinfo.dto.User;
 public interface ProjectDao {
 	
 	
+	/** 모든 카테고리 에셋 불러오기
+	 * 
+	 * @return CategoryAssetDto
+	 */
+	public List selAllcate();
+	
+
+	/** 프로젝트 카테고리 조회
+	 * 
+	 * @param Projectdto
+	 */
+	public List selIssueCateAs(ProjectDto dto);
 	
 	
 	/** 리더 위임

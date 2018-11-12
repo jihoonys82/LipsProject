@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import lips.userinfo.dto.User;
@@ -21,6 +22,7 @@ public class CustomeAuthenticationProvider implements AuthenticationProvider{
 	
 	@Autowired CustomeUserDetailsService service;
 	@Autowired UserTracker userTracker;
+	@Autowired BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -34,7 +36,7 @@ public class CustomeAuthenticationProvider implements AuthenticationProvider{
 			throw new UsernameNotFoundException(authToken.getName());
 		}
 
-		if (!matchPassword(userInfo.getPassword(), authToken.getCredentials())) {
+		if (!matchPassword(userInfo.getPassword(), passwordEncoder.encode(authToken.getCredentials().toString()))) {
 			throw new BadCredentialsException("not matching username or password");
 		}
 

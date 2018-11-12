@@ -97,19 +97,17 @@ input[name=fileName] {
 	<div class="panel ">
 		<div class="body">
 			<button class="btn focus">목록 보기</button>
-			<c:if test="${userId ne issue.assignee }">
-				<div class="group">
-					<div class="btn focus">
-						<span class="icon icon-happy"></span>
-						<span class="followerCount">${followerCount }</span>
-					</div>
+			<c:if test="${userId ne issue.assignee }">			
+				<button class="btn focus" id="removeFollower"><span class="icon icon-happy"></span>관심 해제</button>
+				<button class="btn" id="addFollower"><span class="icon icon-happy"></span>관심 등록</button>
+				<script>
 					<c:if test="${amIFollowing eq true }">
-						<button class="btn focus" id="removeFollower">관심 해제</button>
+						$("#addFollower").hide();
 					</c:if>
 					<c:if test="${amIFollowing ne true }">
-						<button class="btn" id="addFollower">관심 등록</button>
+						$("#removeFollower").hide();
 					</c:if>
-				</div>
+				</script>
 			</c:if>
 			<c:if test="${userId eq issue.assignee }">
 				<button class="btn">업무시작</button>
@@ -206,9 +204,14 @@ input[name=fileName] {
 			</div>
 			<div class="issueItem-2">
 				<span class="issueItem-label">팔로워(<span class="followerCount">${followerCount }</span>)</span>
-				<div class="issueItem-value input issueDiv" style="overflow:auto;">
+				<div class="issueItem-value input issueDiv followerList" style="overflow:auto;">
 					<c:forEach items="${follower }" var="user">
-						<div class="label follower">${user.nick }(${user.userId })</div>
+						<c:if test="${user.userId eq userId }">
+							<div class="label follower me">${user.nick }(${user.userId })</div>
+						</c:if>
+						<c:if test="${user.userId ne userId }">
+							<div class="label follower">${user.nick }(${user.userId })</div>					
+						</c:if>
 					</c:forEach>
 				</div>
 			</div>
@@ -315,24 +318,25 @@ input[name=fileName] {
 	</div>
 	<div class="body" style="min-height: 100px;">
 		<div class="row">
-			<div id="assign" class="group">
-				<label class="label"><i class="icon-search"></i></label>
-				<input type="text" name="assignee" id="assignee" class="input" />
-				<input type="hidden" id="selectedAssignee" /> 
-			</div>
-			<script data-jui="#assign" data-tpl="words" type="text/template">
-				<div class="dropdown">
-  		 			<ul>
-       					<! for(var i = 0; i < words.length; i++) { !>
-      					<li><!= words[i] !></li>
-      					<! } !>
-   					</ul>
-				</div>
-			</script>
+			담당자를 ${nick }(${userId })님으로 변경 하시겠습니까?
+<!-- 			<div id="assign" class="group" > -->
+<!-- 				<label class="label"><i class="icon-search"></i></label> -->
+<!-- 				<input type="text" name="assignee" id="assignee" class="input" /> -->
+<!-- 				<input type="hidden" id="selectedAssignee" />  -->
+<!-- 			</div> -->
+<!-- 			<script data-jui="#assign" data-tpl="words" type="text/template"> -->
+<!-- 				<div class="dropdown" style="z-index:9999;"> -->
+<!-- 				 	<ul> -->
+<!--        					<! for(var i = 0; i < words.length; i++) { !> -->
+<!--       					<li><!= words[i] !></li> -->
+<!--       					<! } !> -->
+<!-- 	  				</ul> -->
+<!-- 				</div> -->
+<!-- 			</script> -->
 		</div><!-- end of row -->
 		<div style="text-align: center; margin-top: 30px;">
-			<button type="button" id="submitAssign" class="btn focus">선택</button>
-			<button type="button" id="cancelAssign" class="btn">Close</button>
+			<button type="button" id="submitAssign" class="btn focus">확인</button>
+			<button type="button" id="cancelAssign" class="btn">취소</button>
 		</div>
 	</div>
 </div><!-- end of modal -->
@@ -433,14 +437,16 @@ $(document).ready(function(){
 		$.ajax({
 			type:"post"
 			, url: "/issue/addWatcher"
-			, data: { "projectId" : ${projectDto.projectId} , "userId" : "${userId}" }
+			, data: { "issueId" : ${issue.issueId } , "userId" : "${userId}" }
 			, dataType: "json"
 			, success: function(data){
-				console.log(data.result);
+				//console.log(data.result);
 				// 2. 버튼 바꿔주기 
-				
+				$(".followerCount").text(data.result);
+				$("#addFollower").hide();
+				$("#removeFollower").show();
 				// 3. 팔로워 목록 업데이트 
-				
+				$(".followerList").append("<div class='label follower me'>${userId }(${nick})</div>");
 			}
 			, error : function(e){
 				console.log("----error----");
@@ -449,19 +455,21 @@ $(document).ready(function(){
 		});
 	});
 	//remove Follower
-	$("#removeFollower").on('clcik', function(){
+	$("#removeFollower").on('click', function(){
 		// 1. ajax로 사용자 등록 
 		$.ajax({
 			type:"post"
 			, url: "/issue/removeWatcher"
-			, data: { "projectId" : ${projectDto.projectId} , "userId" : "${userId}" }
+			, data: { "issueId" : ${issue.issueId } , "userId" : "${userId}" }
 			, dataType: "json"
 			, success: function(data){
-				console.log(data.result);
+				//console.log(data.result);
 				// 2. 버튼 바꿔주기 
-				
+				$(".followerCount").text(data.result);
+				$("#removeFollower").hide();
+				$("#addFollower").show();
 				// 3. 팔로워 목록 업데이트 
-				
+				$("div.follower.me").remove();
 			}
 			, error : function(e){
 				console.log("----error----");
@@ -473,37 +481,39 @@ $(document).ready(function(){
 });
 
 //assignee autocomplete
-jui.ready([ "ui.autocomplete" ], function(autocomplete) {
-	assign = autocomplete("#assign", {
-      target: "input#assignee"
-      , words: ["2글자 이상 입력하세요."]
-	});
+// jui.ready([ "ui.autocomplete" ], function(autocomplete) {
+// 	assign = autocomplete("#assign", {
+//       target: "input#assignee"
+//       , words: ["2글자 이상 입력하세요."]
+// // 	  , dx : 300
+// // 	  , dy : 300
+// 	});
 	
-	$("#assignee").keyup(function() {
-		var name = document.getElementById("assignee").value;
-		console.log(name);
-		if(name.length>0) {
-			//var projId = $("#projectId").val();
-			var projId = ${issue.projectId};
+// 	$("#assignee").keyup(function() {
+// 		var name = document.getElementById("assignee").value;
+// 		console.log(name);
+// 		if(name.length>0) {
+// 			//var projId = $("#projectId").val();
+// 			var projId = ${issue.projectId};
 			
-			$.ajax({
-				type:"post"
-				, url: "/issue/getMembers"
-				, data: { "name" : name ,"projectId" : projId }
-				, dataType: "json"
-				, success: function(data){
-					console.log(data);
-					assign.update(data.name);
-					$("#selectedAssignee").val(data.name);
-				}
-				, error : function(e){
-					console.log("----error----");
-					console.log(e.responseText);
-				}
-			});
-		}
-	});
-});
+// 			$.ajax({
+// 				type:"post"
+// 				, url: "/issue/getMembers"
+// 				, data: { "name" : name ,"projectId" : projId }
+// 				, dataType: "json"
+// 				, success: function(data){
+// 					console.log(data);
+// 					//assign.update(data.name);
+// 					$("#selectedAssignee").val(data.name);
+// 				}
+// 				, error : function(e){
+// 					console.log("----error----");
+// 					console.log(e.responseText);
+// 				}
+// 			});
+// 		}
+// 	});
+// });
 
 //Modal setup
 jui.ready([ "ui.modal" ], function(modal) {
@@ -515,12 +525,10 @@ jui.ready([ "ui.modal" ], function(modal) {
     
     $("#submitAssign").click(function(){
     	var issueId = ${issue.issueId};
-    	var userId = $("#selectedAssignee").val();
-//     	console.log("issueId:" + issueId);
-//     	console.log("userId:" + userId);
-//     	console.log($("#assignTo").text());
-    	
+    	var userId = "${userId}";
+
     	if($("#assignTo").text() == userId) {
+    		changeAssignee.hide();
     		return false;
     	}
     	
@@ -531,7 +539,7 @@ jui.ready([ "ui.modal" ], function(modal) {
 			, success: function(){
 				//console.log(data);
 				$("#assignTo").text(userId);
-				$("#selectedAssignee").val("");
+				//$("#selectedAssignee").val("");
 			}
 			, error : function(e){
 				console.log("----error----");
@@ -544,8 +552,8 @@ jui.ready([ "ui.modal" ], function(modal) {
     //close button event
     $("#cancelAssign").click(function(){
     	changeAssignee.hide();
-    	$("#selectedAssignee").val("");
-    	$("#assignee").val("");
+    	//$("#selectedAssignee").val("");
+    	//$("#assignee").val("");
 	});
 });
 

@@ -4,13 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <sec:authentication property="principal.userId" var="userId"/>
 <script>
-//global varialble 
-var test; 
 //assignee autocomplete
 jui.ready([ "ui.autocomplete" ], function(autocomplete) {
 	assign = autocomplete("#assign", {
         target: "#assignee"
         , words: ["2글자 이상 입력하세요."]
+		, dx : 175
+		, dy : 470
     });
 	
 	$("#assignee").keyup(function() {
@@ -30,7 +30,7 @@ jui.ready([ "ui.autocomplete" ], function(autocomplete) {
 				, data: { "name" : name ,"projectId" : projId }
 				, dataType: "json"
 				, success: function(data){
-// 					console.log(data);
+					console.log(data);
 					assign.update(data.name);
 				}
 				, error : function(e){
@@ -160,7 +160,7 @@ $(document).ready(function() {
 		$("#assignee").val('${userId}');
 	});
 
-	//selectPreset setting - deprecated
+	//selectPreset setting 
 	$("div.title button").on('click', function(){
 		var issuePresetId = $(this).attr('id');
 		$("#stagePresetId").val(issuePresetId);

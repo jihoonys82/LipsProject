@@ -156,7 +156,10 @@
  	</select>
  	
  	<select id="selFollowerByIssue" parameterType="lips.issue.dto.IssueDto" resultType="lips.userinfo.dto.User">
- 		SELECT userId FROM issue_watcher WHERE issueId = #{issueId}
+ 		SELECT U.userId, U.nick 
+		FROM userInfo U, issue_watcher W 
+		WHERE U.userId = W.userId
+		AND W.issueId = #{issueId}
  	</select>
  	
  	<select id="selCommentByIssue" parameterType="lips.issue.dto.IssueDto" resultType="lips.issue.dto.IssueCommentDto">
@@ -227,4 +230,16 @@
   	<delete id="delStageAsset" parameterType="lips.issue.dto.StageAssetDto">
   		DELETE from stage_asset where stageAssetId=#{stageAssetId } and projectId != 0
   	</delete>
+  	
+  	<insert id="inWatcherByIssue" parameterType="lips.issue.dto.IssueWatcherDto">
+  		INSERT INTO issue_watcher VALUES (#{issueId}, #{userId})
+  	</insert>
+  	
+  	<delete id="delWatcherByIssue" parameterType="lips.issue.dto.IssueWatcherDto">
+  		DELETE FROM issue_watcher WHERE issueId = #{issueId} AND userId=#{userId} 
+  	</delete>
+  	
+  	<select id="selCntIssueWatcher" parameterType="lips.issue.dto.IssueWatcherDto">
+  		SELECT COUNT(*) FROM issue_watcher WHERE issueId=#{issueId} AND userId=#{userId}
+  	</select>
  </mapper>  

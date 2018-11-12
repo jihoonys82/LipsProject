@@ -8,6 +8,7 @@ import lips.issue.dto.CategoryAssetDto;
 import lips.issue.dto.IssueCommentDto;
 import lips.issue.dto.IssueDto;
 import lips.issue.dto.IssueStagePresetDto;
+import lips.issue.dto.IssueWatcherDto;
 import lips.issue.dto.StageAssetDto;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
@@ -258,4 +259,23 @@ public interface IssueDao {
 	 * @return
 	 */
 	public List<IssueStagePresetDto> selStagePreset(int projectId);
+	
+	/**
+	 * Insert new issue watcher
+	 * @param issueWatcherDto
+	 */
+	public void inWatcherByIssue(IssueWatcherDto issueWatcherDto);
+	
+	/**
+	 * Delete issue watcher
+	 * @param issueWatcherDto
+	 */
+	public void delWatcherByIssue(IssueWatcherDto issueWatcherDto);
+
+	/**
+	 * Get count watcher (for check whether the new assignee is following the issue or not).
+	 * @param iWatcher
+	 * @return
+	 */
+	public int selCntIssueWatcher(IssueWatcherDto iWatcher);
 }

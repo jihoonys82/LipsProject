@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import lips.issue.dto.IssueCommentDto;
 import lips.issue.dto.IssueDto;
 import lips.issue.dto.IssueStagePresetDto;
+import lips.issue.dto.IssueWatcherDto;
 import lips.issue.dto.StageAssetDto;
 import lips.issue.service.IssueService;
 import lips.project.dto.ProjectDto;
@@ -209,15 +210,31 @@ public class IssueController {
 	/**
 	 * Add watcher via Ajax
 	 */
-	public void addWatcher() {
+	@RequestMapping(value="/addWatcher", method=RequestMethod.POST)
+	public void addWatcher(IssueWatcherDto issueWatcherDto, Writer writer) {
+		int numFollower = issueService.addWatcher(issueWatcherDto);
 		
+		try {
+			writer.append("{ \"result\" : " + numFollower + "}");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Delete watcher via Ajax
 	 */
-	public void removeWatcher() {
+	@RequestMapping(value="/removeWatcher", method=RequestMethod.POST)
+	public void removeWatcher(IssueWatcherDto issueWatcherDto, Writer writer) {
+		int numFollower = issueService.removeWatcher(issueWatcherDto);
 		
+		try {
+			writer.append("{ \"result\" : " + numFollower + "}");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping(value="/setupIssueStage", method=RequestMethod.GET)

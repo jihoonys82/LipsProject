@@ -16,6 +16,7 @@ import lips.issue.dto.CategoryAssetDto;
 import lips.issue.dto.IssueCommentDto;
 import lips.issue.dto.IssueDto;
 import lips.issue.dto.IssueStagePresetDto;
+import lips.issue.dto.IssueWatcherDto;
 import lips.issue.dto.StageAssetDto;
 import lips.project.dao.ProjectDao;
 import lips.project.dto.ProjectDto;
@@ -268,7 +269,9 @@ public class IssueService {
 		List<User> follower = issueDao.selFollowerByIssue(issue);
 		boolean amIFollowing = false;
 		for(User u : follower) {
-			if(u.getUserId() == user.getUserId()) amIFollowing = true;
+			if(u.getUserId().equals(user.getUserId())) {
+				amIFollowing = true;
+			}
 		}
 		// 5. 프로젝트 정보 가져오기
 		ProjectDto projectDto = projectDao.selProbyProId(((Integer)issue.getProjectId()).toString());
@@ -307,6 +310,18 @@ public class IssueService {
 	 */
 	public void changeAssignee(Map<String, String> map) {
 		issueDao.upIssueAssignee(map);
+		
+		// if new assingee was issue follower remove from the table.
+		IssueWatcherDto iWatcher = new IssueWatcherDto();
+		iWatcher.setIssueId(Integer.parseInt(map.get("issueId")));
+		iWatcher.setUserId(map.get("userId"));
+		
+		int cntWatcher = issueDao.selCntIssueWatcher(iWatcher);
+		
+		if(cntWatcher > 0) {
+			issueDao.delWatcherByIssue(iWatcher);
+		}
+		
 	}
 
 	/**
@@ -377,5 +392,28 @@ public class IssueService {
 		return issueDao.selStagePreset(projectId);
 	}
 //	public List<IssueStagePresetAssetDto> getPresetAssetList(List<IssueStagePresetDto> presetList){}
+
+	/**
+	 * add issue watcher(follower) and return total watcher count
+	 * @param issueWatcherDto
+	 * @return
+	 */
+	public int addWatcher(IssueWatcherDto issueWatcherDto) {
+		issueDao.inWatcherByIssue(issueWatcherDto);
+		IssueDto issue = new IssueDto();
+		issue.setIssueId(issueWatcherDto.getIssueId());
+		int numWatcher = issueDao.selCountIssueFollowingByIssue(issue);
+		
+		return numWatcher;
+	}
+
+	public int removeWatcher(IssueWatcherDto issueWatcherDto) {
+		issueDao.delWatcherByIssue(issueWatcherDto);
+		IssueDto issue = new IssueDto();
+		issue.setIssueId(issueWatcherDto.getIssueId());
+		int numWatcher = issueDao.selCountIssueFollowingByIssue(issue);
+		
+		return numWatcher;
+	}
 	
 }

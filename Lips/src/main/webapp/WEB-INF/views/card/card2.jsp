@@ -3,42 +3,51 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
-
 <div style="height: 300px; margin: 3px; display:flex; align-items:center;">
-<div class="issueHeadline">
-		<h3 style="text-align: center;">데드라인이 가까운 이슈</h3> 
-		<table class="table classic stripeless">
-			<thead>
-				<tr>
-					<th class="twidth">이슈 제목</th>
-					<th>${issueCloseDeadline.issueTitle }</th>
-				</tr>
-			</thead>
-		 	<tbody>
-		 		<tr>
-					<td>남은 기간 </td>	
-					<td><span class="countDateDeadLine"><fmt:formatDate value="${issueCloseDeadline.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>		
-		 		</tr>
-		 		<tr>
-					<td>이슈 내용</td>
-					<td>${issueCloseDeadline.issueContent }</td>		
-		 		</tr>
-		 		<tr>
-					<td>이슈진행단계</td>
-					<td><span class="label success mini issueStageDeadLine">${issueCloseDeadline.issueStage }</span></td>		
-		 		</tr>
-		 		<tr>
-					<td>이슈댓글 수</td>
-					<td>${commentCloseDeadline }</td>		
-		 		</tr>
-		 		<tr>
-					<td>팔로워 수</td>
-					<td>${watcherCloseDeadline }</td>		
-		 		</tr>
-		 	</tbody>
-		</table>
-	</div>
+	<c:if test="${issueCloseDeadline eq null }">
+		<div class="navbar" style="width: 100%">
+			<h2 style="margin: 10px; text-align: center;"> 
+				이슈가 없습니다 <br>
+				이슈를 생성해 주세요<br>
+			</h2>
+				<a style="float: right;" class="btn focus" href="/issue/create">이슈 생성</a>
+		</div>
+	</c:if>
+	<c:if test="${issueCloseDeadline ne null }">
+		<div class="issueHeadline">
+			<h3 style="text-align: center;">데드라인이 가까운 이슈</h3> 
+				<table class="table classic stripeless">
+					<thead>
+						<tr>
+							<th class="twidth">이슈 제목</th>
+							<th>${issueCloseDeadline.issueTitle }</th>
+						</tr>
+					</thead>
+				 	<tbody>
+				 		<tr>
+							<td>남은 기간 </td>	
+							<td><span class="countDateDeadLine"><fmt:formatDate value="${issueCloseDeadline.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>		
+				 		</tr>
+				 		<tr>
+							<td>이슈 내용</td>
+							<td>${issueCloseDeadline.issueContent }</td>		
+				 		</tr>
+				 		<tr>
+							<td>이슈진행단계</td>
+							<td><span class="label success mini issueStageDeadLine">${issueCloseDeadline.issueStage }</span></td>		
+				 		</tr>
+				 		<tr>
+							<td>이슈댓글 수</td>
+							<td>${commentCloseDeadline }</td>		
+				 		</tr>
+				 		<tr>
+							<td>팔로워 수</td>
+							<td>${watcherCloseDeadline }</td>		
+				 		</tr>
+				 	</tbody>
+				</table>
+			</div>
+	</c:if>
 </div>
 
 <script>

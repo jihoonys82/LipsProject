@@ -14,6 +14,7 @@
 	<interceptors>
 		<interceptor>
 		<mapping path="/project/update/**"/>
+		<mapping path="/issue/setupIssueStage/**"/>		
 			<beans:bean class="lips.project.inteceptor.ProjectInterceptor" />
 		</interceptor>
 	</interceptors>

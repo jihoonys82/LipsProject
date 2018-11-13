@@ -8,6 +8,7 @@ import lips.issue.dto.CategoryAssetDto;
 import lips.issue.dto.IssueCommentDto;
 import lips.issue.dto.IssueDto;
 import lips.issue.dto.IssueStagePresetDto;
+import lips.issue.dto.IssueWatcherDto;
 import lips.issue.dto.StageAssetDto;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
@@ -74,7 +75,7 @@ public interface IssueDao {
 	 * get All Issue stage presets.
 	 * @return
 	 */
-	public List<IssueStagePresetDto> selIssueStagePreset();
+	public List<IssueStagePresetDto> selIssueStagePreset(ProjectDto projectDto);
 
 	/**
 	 * get Stage asset from issuePresetId 
@@ -223,6 +224,30 @@ public interface IssueDao {
 	 */
 	public void inStagePresetAsset(Map<String,List<Integer>> assetList);
 	/**
+	 * delete preset
+	 * @param issuePresetId
+	 */
+	public void delPreset(int issuePresetId);
+	/**
+	 * delete asset
+	 * @param stageAssetId
+	 */
+	public void delStageAsset(StageAssetDto stageAssetDto);
+	
+	/**
+	 * modify presetAssetList
+	 * @param assetList
+	 */
+	public void inModifyPreset(Map<String,Object> assetList);
+	
+	public void upStagePreset(IssueStagePresetDto issueStagePresetDto);
+	/**
+	 * delete maaper table
+	 * @param issuePresetId
+	 */
+	public void delStagePresetAsset(int issuePresetId);
+	
+	/**
 	 * Get private/Default StageAsset for Project
 	 * @param user
 	 * @return
@@ -234,4 +259,23 @@ public interface IssueDao {
 	 * @return
 	 */
 	public List<IssueStagePresetDto> selStagePreset(int projectId);
+	
+	/**
+	 * Insert new issue watcher
+	 * @param issueWatcherDto
+	 */
+	public void inWatcherByIssue(IssueWatcherDto issueWatcherDto);
+	
+	/**
+	 * Delete issue watcher
+	 * @param issueWatcherDto
+	 */
+	public void delWatcherByIssue(IssueWatcherDto issueWatcherDto);
+
+	/**
+	 * Get count watcher (for check whether the new assignee is following the issue or not).
+	 * @param iWatcher
+	 * @return
+	 */
+	public int selCntIssueWatcher(IssueWatcherDto iWatcher);
 }

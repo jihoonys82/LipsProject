@@ -23,7 +23,7 @@
 				
 				<div class="combo" style="margin-left: 10px;">
 					검색 옵션 : <select id="comboOption" class="btn small toggle ">
-						<option value="projectname">projectname</option>
+						<option value="projectname" >projectname</option>
 						<option value="projectkey">projectkey</option>
 						<option value="status">status</option>
 					</select>
@@ -40,7 +40,7 @@
 						</div>
 					</div>
 
-					<div id="othersCombo" hidden="true">
+					<div id="othersCombo">
 						<input id="comboInput" type="text" class="forSizing-input input" placeholder="입력하세용" />
 					</div>
 				</div>
@@ -104,14 +104,15 @@
 			<table class="table classic stripe hover">
 			<thead>
 				<tr>
-					<th>프로젝트 No.</th><th>프로젝트 이름</th><th>진행 상황</th><th>공개 여부</th><th>프로젝트 리더</th>
+					<th>프로젝트 No.</th><th>프로젝트 이름</th><th>프로젝트 키</th><th>진행 상황</th><th>공개 여부</th><th>프로젝트 리더</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${pList }" var="pList">
 					<tr class="text-center">
-						<td>${pList.projectId }</td>
-						<td>${pList.projectName }</td>
+						<td>${pList.projectId}</td>
+						<td>${pList.projectName}</td>
+						<td>${pList.projectKey}</td>
 						<c:choose>
 							<c:when test="${pList.status eq 'OPEN'}">
 								<td>진행 중</td>
@@ -165,8 +166,8 @@
 <form hidden="true" action="/admin/project/text" method="Post" id="indexform"></form>
 
 <script type="text/javascript">
-	var statusOption;
-	var comboOption;
+	var statusOption = "OPEN";
+	var comboOption = "projectname";
 
 
  	$(document).ready(function(){ 
@@ -233,7 +234,7 @@
 		indexList.push(dataCollection);
 		
 		var indexData = JSON.stringify(indexList);
-		console.log(indexData);
+// 		console.log(indexData);
 		
 		var $indexInput = $("<input>").attr("name", "indexData").attr("value", indexData);
 		$("#indexform").append($indexInput);

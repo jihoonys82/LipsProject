@@ -21,13 +21,21 @@ public class CardDto {
 	private Date createDate;
 	private Date closeDate;
 	
-
+	private String userId;
+	
 	@Override
 	public String toString() {
 		return "CardDto [dashboardId=" + dashboardId + ", positionX=" + positionX + ", positionY=" + positionY
 				+ ", assetValue=" + assetValue + ", projectId=" + projectId + ", assetId=" + assetId + ", assetName="
 				+ assetName + ", assetDescription=" + assetDescription + ", assetView=" + assetView + ", createDate="
-				+ createDate + ", closeDate=" + closeDate + "]";
+				+ createDate + ", closeDate=" + closeDate + ", userId=" + userId + "]";
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public Date getCreateDate() {
 		return createDate;

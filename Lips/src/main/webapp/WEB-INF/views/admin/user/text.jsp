@@ -190,7 +190,7 @@
 		indexList.push(dataCollection);
 		
 		var indexData = JSON.stringify(indexList);
-		
+// 		console.log(indexData);
 		var $indexInput = $("<input>").attr("name", "indexData").attr("value", indexData);
 		$("#indexform").append($indexInput);
 

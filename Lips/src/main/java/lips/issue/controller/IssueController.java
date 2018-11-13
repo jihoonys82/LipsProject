@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import lips.issue.dto.IssueCommentDto;
 import lips.issue.dto.IssueDto;
 import lips.issue.dto.IssueStagePresetDto;
+import lips.issue.dto.IssueWatcherDto;
 import lips.issue.dto.StageAssetDto;
 import lips.issue.service.IssueService;
 import lips.project.dto.ProjectDto;
@@ -209,15 +210,31 @@ public class IssueController {
 	/**
 	 * Add watcher via Ajax
 	 */
-	public void addWatcher() {
+	@RequestMapping(value="/addWatcher", method=RequestMethod.POST)
+	public void addWatcher(IssueWatcherDto issueWatcherDto, Writer writer) {
+		int numFollower = issueService.addWatcher(issueWatcherDto);
 		
+		try {
+			writer.append("{ \"result\" : " + numFollower + "}");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Delete watcher via Ajax
 	 */
-	public void removeWatcher() {
+	@RequestMapping(value="/removeWatcher", method=RequestMethod.POST)
+	public void removeWatcher(IssueWatcherDto issueWatcherDto, Writer writer) {
+		int numFollower = issueService.removeWatcher(issueWatcherDto);
 		
+		try {
+			writer.append("{ \"result\" : " + numFollower + "}");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping(value="/setupIssueStage", method=RequestMethod.GET)
@@ -225,7 +242,7 @@ public class IssueController {
 		List<IssueStagePresetDto> presetList = issueService.getPresetList(projectId);
 		List<StageAssetDto> assetList = issueService.getAssetList(projectId);
 		List<List<StageAssetDto>> presetAssetList = new ArrayList<List<StageAssetDto>>();
-		Iterator itr = presetList.iterator();
+		Iterator<IssueStagePresetDto> itr = presetList.iterator();
 		IssueStagePresetDto ispd = null;
 		while(itr.hasNext()) {
 			ispd = (IssueStagePresetDto)itr.next();
@@ -256,6 +273,31 @@ public class IssueController {
 		ModelAndView mav = new ModelAndView();
 		issueStagePresetDto.setUserId(new UserByToken().getInstance().getUserId());
 		issueService.presetSave(issueStagePresetDto,assetIdList);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	@RequestMapping(value="/presetModify",method=RequestMethod.POST)
+	public ModelAndView presetModify(IssueStagePresetDto issueStagePresetDto, @RequestParam(value="assetIdList") String[] assetIdList) {
+		ModelAndView mav = new ModelAndView();
+		issueStagePresetDto.setUserId(new UserByToken().getInstance().getUserId());
+		issueService.presetModify(issueStagePresetDto,assetIdList);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	@RequestMapping(value="/presetDelete",method=RequestMethod.POST)
+	public ModelAndView presetDelete(IssueStagePresetDto issueStagePresetDto) {
+		ModelAndView mav = new ModelAndView();
+		issueStagePresetDto.setUserId(new UserByToken().getInstance().getUserId());
+		issueService.presetDelete(issueStagePresetDto);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	@RequestMapping(value="/delAsset",method=RequestMethod.POST)
+	public ModelAndView assetDelete(StageAssetDto stageAssetDto) {
+		System.out.println("---------------------------------");
+		System.out.println(stageAssetDto);
+		ModelAndView mav = new ModelAndView();
+		issueService.assetDelete(stageAssetDto);
 		mav.setViewName("jsonView");
 		return mav;
 	}

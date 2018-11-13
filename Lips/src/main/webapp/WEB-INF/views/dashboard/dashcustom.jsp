@@ -257,22 +257,21 @@
 
 				$("#comboLineX").on("change", function() {
 					lineX = $("#comboLineX").val();
-					
+					$("div.activityLog").children("#assetlist").children("div").show();
 					for ( var key in dataCollection) {
 						delete dataCollection[key];
 					}
 					
-					$("div.activityLog").children("div").show();
 					drawLayout();
 				});
 				$("#comboLineY").on("change", function() {
 					lineY = $("#comboLineY").val();
+					$("div.activityLog").children("#assetlist").children("div").show();
 					
 					for ( var key in dataCollection) {
-							delete dataCollection[key];
+							delete dataCollection[key];	
 					}
 					
-					$("div.activityLog").children("div").show();
 					drawLayout();
 				});
 
@@ -293,6 +292,8 @@
 
 	//3. 카드 로드.
 	var insertCard = function(obj) {
+		if(selectedLocation!=null){
+			
 		for ( var key in dataCollection) {
 			if (key == selectedLocation.attr("id")) {
 				$("#assetlist").children("#"+dataCollection[key]).css("display", "block");
@@ -333,7 +334,12 @@
 			$(obj).hide();
 
 			dataCollector(selectedLocation, obj.id);
+		}}
+		else if (selectedLocation==null){
+			alert("입력할 카드를 선택하여 주세요");
+			
 		}
+		
 	}
 
 	//저장시 사용할 데이터 콜렉터 value 값 추가 해야 됨 카드 생성후

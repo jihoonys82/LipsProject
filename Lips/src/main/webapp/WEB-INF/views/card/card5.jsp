@@ -38,7 +38,7 @@
 								setInterval()
 							} else {
 								var h1tag = $(
-										'<h1 style="text-align : center; ">')
+										'<h2 style="text-align : center; ">')
 										.text("프로젝트가 종료되었습니다");
 								$(".basediv").empty().append(h1tag);
 

@@ -122,12 +122,27 @@
 										class="input view-form-input" 
 										value="${updatePageinfo.projectinfo.projectKey }" />
 								</div>
+								
 
 								<div class="view-form-row">
 									<label for="proNum" class="view-form-label">참여인원</label> <input
 										type="text" name="proNum" id="proNum"
 										class="input view-form-input" readonly="readonly"
 										value="${updatePageinfo.usercount } 명" />
+								</div>
+								
+								<div class="view-form-row">
+								
+								
+									<label for="proNum" class="view-form-label">프로젝트 카테고리</label>
+									
+								
+									<c:forEach items="${updatePageinfo.issueCategory}" var="is" >
+										<span class="label small danger">${is.assetName}</span>
+										</c:forEach>
+										<button type="button" class="btn small focus" id="CateShow"><i class="icon-gear"></i></button>
+										
+										
 								</div>
 
 								<div class="view-form-row">
@@ -242,8 +257,8 @@
 			<th> 관리</th>
 		</tr>
 	</thead>
-	
-	<tbody>
+						<!-- 스크롤바 지우기 기능은 남아있음 -->
+	<tbody style="::-webkit-scrollbar{width:0px;"}>
 		
 		<c:forEach items="${updatePageinfo.projectUserinfo}" var="pminfo" varStatus="a">
 		
@@ -301,11 +316,14 @@
 
 				<div class="viewProBtn" id="closemama">
 			
+						
+	 
 				<c:choose>
 						<c:when test="${updatePageinfo.projectinfo.status eq 'CLOSE'}"> 
 						</c:when>
 					
 						<c:otherwise>
+						<a href="/issue/setupIssueStage?projectId=${updatePageinfo.projectinfo.projectId}"><button class="btn normal focus" id="Custom" style="bottom: 2em;">이슈 진행단계 커스텀</button></a>
 						<button class="btn normal focus" id="ProjectClose" style="bottom: 2em;">프로젝트 종료</button>
 						</c:otherwise>
 					</c:choose>
@@ -372,19 +390,74 @@
 </div>
 	<!-- 윈도우 모달 끝  -->
 
+	<!-- 카테고리 윈도우모달 -->	
+	<div id="win_4" class="window">
+    <div class="head">
+        <div class="left"><span>변경할 테이블을 드래그하세요</span></div>
+        <div class="right">
+            <a href="#" class="close"><i class="icon-exit"></i></a>
+        </div>
+    </div>
+    <div class="body" style="text-align:center; font-size :1.5em" >
+   <table id="table_20" class="table classic">
+    <thead>
+    <tr>
+    	<th style="text-align:center; width: 15%">Id</th>
+        <th style="text-align:center; width: 15%">Code</th>
+        <th style="text-align:center; width: 20%">Name</th>
+        <th style="text-align:center">Desc</th>
+    </tr>
+    </thead>
+    <tbody id="20body"></tbody>
+	</table>
+	
+	
+	 <table id="table_21" class="table classic" style="margin-top:30px; margin-bottom:80px">
+    <thead>
+    <tr>
+    	<th style="text-align:center; width: 10%">Id</th>
+        <th style="text-align:center; width: 15%">Name</th>
+        <th style="text-align:center; width: 15%">Code</th>
+        <th style="text-align:center">Desc</th>
+    </tr>
+    </thead>
+    
+    <tbody id="21body">
+    <c:forEach items="${updatePageinfo.allCategory}" var="c" >									
+    	<tr class="catItem" >
+    		<td class="itemId">${c.categoryAssetId }</td>
+    		<td class="itemName">${c.assetName}</td>
+    		<td class="itemCode">${c.assetCode}</td>
+    		<td><span class="itemDesc">${c.assetDescription}</span> <span value="${c.assetName}"style="background-color: #966ee5;float: right;border-radius: 3px; width: 15px;"><i class="icon-plus"></i></span></td>
+    	</tr>
+    </c:forEach>
+    </tbody>
+	</table>
+	  
+	  
+	  <!--  2018 11 12 모영호 여기까지함 에이잭스로 저장 처리하기-->
+	<a href="#" class="btn focus" id="CateSave">카테고리 저장</a>
+   <a href="#" class="btn" id="CateClose">닫기</a>
 
 
+    </div>
+    <script data-jui="#table_20" data-tpl="row" type="text/template">
+    <tr>
+		<td class="catId"><!= id !></td>
+        <td><!= code !></td>
+        <td><!= name !></td>
+		<td>
+			<!= desc !>
+			<span class="deleteCat" style="background-color: #966ee5;float: right;border-radius: 3px; width: 15px;"><input class="hiddenCate"type="text" value="<!= id !>" style="visibility: hidden; display: contents"> <i class="icon-minus"></i></span>
+		</td>
+    </tr>
+</script>
+</div>
+	<!-- 윈도우 모달 끝  -->
 
-
-
-
-
-
-
-
-
-
-
+	
+   <!-- 카테고리 윈도우모달 속 윈도우모달  -->
+<!-- 끝  -->
 
 <script type="text/javascript">
 var status = "${updatePageinfo.projectinfo.status}";
@@ -393,12 +466,27 @@ var userId;
 
 	$(document).ready(function() {
 		
+		$("#newCate").click(function(){
+			
+			console.log("눌린다");
+		});
+		
+		
 		$("#jucancel").click(function(){
 			win_2.hide();
 		});
 		
 		$("#ProjectClose").click(function() {
 			   win_2.show();
+			});
+		
+		$("#CateShow").click(function() {
+			   win_4.show();
+			   
+			   
+			});
+		$("#CateClose").click(function() {
+			   win_4.hide();
 			});
       
 		$(".leader").click(function(){
@@ -587,6 +675,8 @@ type : "post"
 						
 					});
 
+	
+
 	function ban(dom){
 		var projectId = '${updatePageinfo.projectinfo.projectId}';
 		var userId = '${pminfo.userId}';
@@ -705,8 +795,98 @@ type : "post"
 	        height: 300,
 	        modal: true
 	    });
+	    
+	    win_4 = win("#win_4", {
+	        width: 700,
+	        height: 400,
+	        modal: true
+	    });
+	    
 	});
 
 	
+	
+
 </script>
 
+<script>
+jui.ready([ "grid.table" ], function(table) {
+		
+		var arr =new Array();
+	    	<c:forEach items="${updatePageinfo.issueCategory}" var="cat" varStatus="a">
+	    		var obj = {};
+	    		obj["id"] = "${cat.categoryAssetId}";
+    			obj["code"] = "${cat.assetCode}";
+    			obj["name"] = "${cat.assetName}";
+    			obj["desc"] = "${cat.assetDescription}";
+    			arr.push(obj);
+	    	</c:forEach>
+// 	   var val = JSON.stringify(arr);
+	   
+		table_20 = table("#table_20", {
+
+	    	fields: ["id","code", "name", "desc" ],
+	    	 data: arr,
+	        moveRow: true,
+	        event: {
+	            move: function(row, e) {
+	                return null;
+//	                confirm("Do you want to change the row position?");
+	            },
+	            moveend: function(row, e) {
+	                console.log("Completed.");
+	            }
+	        }
+	    });
+		
+	
+		$("tr.catItem").on('click', function(){
+		
+			var id = $(this).find("td.itemId").text();
+			var code = $(this).find("td.itemCode").text();
+			var name = $(this).find("td.itemName").text();
+			var desc = $(this).find("span.itemDesc").text();
+			
+	
+			var ret = false;
+			//#table_20인 애들 의 자식 중에서  td 인 애들  하나씩 찾아서
+													//i를 넣으면 몇번째 회차인지 알 수있음
+			$("#table_20 tr td.catId").each(function(i) {
+			// 조건문을 건다 찾은애들의 text가  '버그리포트인가'
+				if( $(this).text() == id) {
+// 					console.log(i);
+					ret = true;
+			    }
+			});
+			//존재한다면 콘솔로그 출력
+			if( ret ) {
+				alert("이미 존재하는 카테고리 입니다.");
+				
+			} else if(!ret) {
+				
+				table_20.append({"id" : id, "code": code, "name" : name, "desc": desc});
+			}	
+		});
+		
+		
+		
+// 		$("span.deleteCat").on('click', function(){
+// 			console.log(this);
+// 				table_20.remove(0);
+// 		});
+
+		//동적객체에 이벤트 걸기
+		$(document).on("click","span.deleteCat",function(){ 
+		
+			var num=$(this).find("input.hiddenCate").val();
+			$("#table_20 tr td.catId").each(function(i) {
+			
+				if( $(this).text() == num) {
+					table_20.remove(i);
+					
+			    }
+				
+			});
+// 				
+		});
+	});</script>

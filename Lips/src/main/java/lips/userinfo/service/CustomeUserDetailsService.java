@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lips.userinfo.dao.UserDao;
@@ -15,8 +16,9 @@ import lips.utils.MailSender;
 
 @Service
 public class CustomeUserDetailsService implements UserDetailsService {
-	@Autowired
-	UserDao dao;
+	@Autowired	UserDao dao;
+	
+	@Autowired BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public User loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -31,6 +33,8 @@ public class CustomeUserDetailsService implements UserDetailsService {
 	}
 
 	public void join(User user) {
+		String bCryptPw = passwordEncoder.encode(user.getPw());
+		user.setPw(bCryptPw);
 		dao.inUser(user);
 		dao.inUserAlarm(user);
 	}
@@ -72,7 +76,8 @@ public class CustomeUserDetailsService implements UserDetailsService {
 		if(searchUser.getUserId().equals(user.getUserId())) {
 			UUID uid = UUID.randomUUID();
 			String newPw = uid.toString().split("-")[0];
-			searchUser.setPw(newPw);
+			String bCryptPw = passwordEncoder.encode(newPw);
+			searchUser.setPw(bCryptPw);
 			dao.upUserData(searchUser);
 			String title = "Lips 비밀번호 찾기 안내";
 			String body = "안녕하세요 Lips 입니다. \r\n"+

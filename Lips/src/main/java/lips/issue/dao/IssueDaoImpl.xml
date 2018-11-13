@@ -174,7 +174,7 @@
  	<delete id="delComment" parameterType="lips.issue.dto.IssueCommentDto">
  		DELETE issue_comment WHERE commentId = #{commentId}
  	</delete>
- 	<insert id="inComment" parameterType="lips.issue.dto.IssueCommentDto" >
+ 	<insert id="inComment" parameterType="lips.issue.dto.IssueCommentDto">
 		<selectKey keyProperty="commentId" resultType="int" order="BEFORE">
 			SELECT issue_comment_SEQ.NEXTVAL FROM dual
 		</selectKey>

@@ -344,12 +344,12 @@ public class IssueService {
 		
 		//TODO: file upload 처리 
 		 
-		int commentId = issueDao.inComment(issueCommentDto); 
-		logger.info("test : " + commentId + "");
-		IssueCommentDto idDto = new IssueCommentDto();
-		idDto.setCommentId(commentId);
-		IssueCommentDto icDto = issueDao.selCommentById(idDto);
-		System.out.println(icDto);
+		issueDao.inComment(issueCommentDto); 
+//		logger.info("test : " + commentId + "");
+//		IssueCommentDto idDto = new IssueCommentDto();
+//		idDto.setCommentId(commentId);
+		IssueCommentDto icDto = issueDao.selCommentById(issueCommentDto);
+//		System.out.println(icDto);
 		mav.addObject("comment", icDto);
 		mav.setViewName("issue/commentBody");
 		

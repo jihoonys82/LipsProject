@@ -200,7 +200,7 @@ public interface IssueDao {
 	 * @param issueCommentDto
 	 * @return commentId 
 	 */
-	public int inComment(IssueCommentDto issueCommentDto);
+	public void inComment(IssueCommentDto issueCommentDto);
 
 	/**
 	 * Get single issueComment by commentId

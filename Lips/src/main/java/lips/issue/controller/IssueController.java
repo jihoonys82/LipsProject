@@ -301,4 +301,14 @@ public class IssueController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
+	@RequestMapping(value="/changeStage", method=RequestMethod.POST, produces="application/json; charset=utf-8")
+	public @ResponseBody Map<String, String> change(String issueId , String change) {
+		//issue/changeStage
+		Map<String,String> map = new HashMap<String,String>();
+
+		//Service issueId, stageId, change 를 기반으로 데이터 처리
+		map = issueService.getStageChangeMap(issueId, change);
+		
+		return map;
+	}
 }

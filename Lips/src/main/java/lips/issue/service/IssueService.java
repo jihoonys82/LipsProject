@@ -1,5 +1,6 @@
 package lips.issue.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import lips.issue.dao.IssueDao;
 import lips.issue.dto.CategoryAssetDto;
 import lips.issue.dto.IssueCommentDto;
 import lips.issue.dto.IssueDto;
+import lips.issue.dto.IssueStagePresetAssetDto;
 import lips.issue.dto.IssueStagePresetDto;
 import lips.issue.dto.IssueWatcherDto;
 import lips.issue.dto.StageAssetDto;
@@ -414,6 +416,81 @@ public class IssueService {
 		int numWatcher = issueDao.selCountIssueFollowingByIssue(issue);
 		
 		return numWatcher;
+	}
+	
+	public Map<String , String> getStageChangeMap(String issueId , String change){
+		Map<String, String> map = new HashMap<>();
+		
+		IssueDto dto = new IssueDto();
+		IssueStagePresetAssetDto stagedto = new IssueStagePresetAssetDto();
+		StageAssetDto assetdto = new StageAssetDto();
+		
+		dto.setIssueId(Integer.parseInt(issueId));
+		
+		dto = issueDao.selIssueByIssueId(dto);
+		
+		int stagePresetId = dto.getStagePresetId();
+		
+		int issueStage = dto.getIssueStage();
+		
+		stagedto.setIssuePresetId(stagePresetId);
+		stagedto.setStageAssetId(issueStage);
+//		System.out.println("#####dto " +dto);
+//		System.out.println("@@@@@stagedto"+ stagedto);
+		
+		//change 가 up 일때 if
+		if(change.equals("up")) {
+			//Order 가 99 (끝값 ) 일때
+			if(stagedto.getStageAssetId()==99) {
+				assetdto.setStageAssetId(99);
+				assetdto = issueDao.selStageAssetStageId(assetdto);
+			//기본 up 
+			}else {
+
+				stagedto = issueDao.selStageAssetPressetUpStageId(stagedto);
+				dto.setIssueStage(stagedto.getStageAssetId());
+				if(dto.getIssueStage()==99) {
+					issueDao.updateIssueIssueStageEnddate(dto);
+					dto = issueDao.selIssueEnddate(dto);
+					SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+					
+					map.put("actualenddate", date.format(dto.getActualEndDate()));
+				}
+				else {
+				issueDao.updateIssueIssueStage(dto);
+				}
+				
+				
+				assetdto.setStageAssetId(dto.getIssueStage());
+				assetdto= issueDao.selStageAssetStageId(assetdto);
+			}
+		
+		//change 가 down 일때 if
+		}else if(change.equals("down")) {
+			//Order 가 1 (처음값 ) 일때
+			if(stagedto.getStageAssetId()==1) {
+				assetdto.setStageAssetId(1);
+				assetdto = issueDao.selStageAssetStageId(assetdto);
+			//기본 down
+			}else {
+				if(stagedto.getStageAssetId()==99) {
+					issueDao.deleteEnddate(dto);
+				}
+				
+				stagedto = issueDao.selStageAssetPressetDownStageId(stagedto);
+				
+				dto.setIssueStage(stagedto.getStageAssetId());
+				issueDao.updateIssueIssueStage(dto );
+				
+				assetdto.setStageAssetId(dto.getIssueStage());
+				assetdto = issueDao.selStageAssetStageId(assetdto);
+			}
+		}
+		
+		map.put("stageId",Integer.toString(assetdto.getStageAssetId()));
+		map.put("stageName", assetdto.getStageName());
+		
+		return map ;
 	}
 	
 }

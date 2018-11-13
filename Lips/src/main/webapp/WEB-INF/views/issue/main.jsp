@@ -124,17 +124,18 @@
 						</tr>
 					</c:if>
 					<c:forEach items="${issueAssigned }" var="issue">
-					<tr class="issueLine">
-						<td>${issue.issueId }</td>
-						<td>${issue.issueTitle }</td>
-						<td>${issue.createUser }</td>
-						<td><span class="countDate"><fmt:formatDate value="${issue.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>
+					<tr >
+						<td class="issueLine">${issue.issueId }</td>
+						<td class="issueLine" >${issue.issueTitle }</td>
+						<td class="issueLine">${issue.createUser }</td>
+						<td class="issueLine"><span class="countDate"><fmt:formatDate value="${issue.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>
 						<td>
 							<div class="myIssueStage">
-								<button class="btn mini myIssueStageBtn"><span class="icon icon-chevron-left"></span></button>
-								<span class="label mini success issueStage">${issue.issueStage }</span>
+								<button class="btn mini myIssueStageBtn stageDown"><span class="icon icon-chevron-left"></span></button>
+								<span class="label mini success issueStage">${issue.issueStage}</span>
 								<input type="hidden" value="${issue.issueStage }" />
-								<button class="btn mini myIssueStageBtn"><span class="icon icon-chevron-right"></span></button>							
+								<input type="hidden" value="${issue.issueId }" />
+								<button class="btn mini myIssueStageBtn stageUP"><span class="icon icon-chevron-right"></span></button>							
 							</div>
 						</td>
 					</tr>
@@ -193,9 +194,18 @@
 <script>
 $(document).ready(function() {		
 		$(".issueLine").on('click',function(){
-			var issueId = $(this).children("td").eq(0).text();
+			var issueId = $(this).parent().children("td").eq(0).text();
 			$(location).attr("href", "/issue/detail?issueId=" + issueId);
 		});
+		//stage Down
+		$(".stageDown").on('click',function(){
+			stageChange(this , 'down');
+		});
+		//stage Up
+		$(".stageUP").on('click',function(){
+			stageChange(this , 'up');
+		});
+		
 	//countDate("countDate");
 	var cdList = document.getElementsByClassName("countDate");
 
@@ -237,6 +247,27 @@ $(document).ready(function() {
 			}
 		} 	
 	</c:forEach>
+	
+	var stageChange = function(obj , changes) {
+		var change = changes ;
+		var issueId = $(obj).parent().children("input").eq(1).val();
+// 		console.log(issueId);
+// 		console.log(change);
+		var allData = { "change": change, "issueId": issueId };
+		
+		$.ajax({
+            type : 'post',
+            url : '/issue/changeStage',
+            dataType : 'JSON',
+            data : allData,
+            success : function(data){
+                var stageId = data.stageId;
+                var stageName = data.stageName;
+                $(obj).parent().children("input").eq(0).val(stageId);
+                $(obj).parent().children("span").text(stageName);
+            }
+        });
 
+	}
 });
 </script>

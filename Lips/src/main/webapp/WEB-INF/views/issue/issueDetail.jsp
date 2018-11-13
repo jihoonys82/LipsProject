@@ -110,8 +110,8 @@ input[name=fileName] {
 				</script>
 			</c:if>
 			<c:if test="${userId eq issue.assignee }">
-				<button class="btn">업무시작</button>
-				<button class="btn">업무완료</button>
+				<button class="btn stageDown">이전단계</button>
+				<button class="btn stageUp">다음단계</button>
 				<button class="btn">수정</button>
 				<button class="btn">삭제</button>
 			</c:if>
@@ -155,7 +155,7 @@ input[name=fileName] {
 				</div>
 				<div class="issueItem-1">
 					<span class="issueItem-label">실제종료일</span>
-					<span class="issueItem-value input">
+					<span class="issueItem-value input acualEndDateInput">
 						<c:if test="${issue.actualEndDate eq null }">
 							아직 프로젝트가 종료되지 않았습니다.
 						</c:if>
@@ -344,6 +344,15 @@ input[name=fileName] {
 
 <script>
 $(document).ready(function(){
+	//stage Down
+	$(".stageDown").on('click',function(){
+		stageChange('down');
+	});
+	//stage Up
+	$(".stageUp").on('click',function(){
+		stageChange('up');
+	});
+	
 	// comment file upload (not action)
 	$("input:file").on('change',function(){
 		var $fname= $("input:file").val();
@@ -478,6 +487,42 @@ $(document).ready(function(){
 		});
 	});
 	
+	var stageChange = function(changes) {
+		var change = changes ;
+		var issueId = "${issue.issueId}";
+		var allData = { "change": change, "issueId": issueId };
+
+		
+		$.ajax({
+	        type : 'post',
+	        url : '/issue/changeStage',
+	        dataType : 'JSON',
+	        data : allData,
+	        success : function(data){
+	            var stageId = data.stageId;
+	            var stageName = data.stageName;
+	            var stagechecker = $(".content").children("span").length;
+	            
+	            for(var i = 0; i<stagechecker; i++){
+	            	var check = $(".content").children("span").eq(i).text();
+	            	if(check==stageName){
+	            		$(".content").children("span").eq(i).css("border","2px solid red");
+	            	}else{
+	            		$(".content").children("span").eq(i).css("border","");
+	            	}
+	            }
+	            
+	            if(stageId == 99){
+	            	$(".acualEndDateInput").empty().text(data.actualenddate);
+	            }else{
+	            	$(".acualEndDateInput").empty().text("아직 프로젝트가 종료되지 않았습니다.");
+	            }
+	            
+	            
+	        }
+	    });
+
+	}
 });
 
 //assignee autocomplete

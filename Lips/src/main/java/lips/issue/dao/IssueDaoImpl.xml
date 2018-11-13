@@ -156,10 +156,7 @@
  	</select>
  	
  	<select id="selFollowerByIssue" parameterType="lips.issue.dto.IssueDto" resultType="lips.userinfo.dto.User">
- 		SELECT U.userId, U.nick 
-		FROM userInfo U, issue_watcher W 
-		WHERE U.userId = W.userId
-		AND W.issueId = #{issueId}
+ 		SELECT userId FROM issue_watcher WHERE issueId = #{issueId}
  	</select>
  	
  	<select id="selCommentByIssue" parameterType="lips.issue.dto.IssueDto" resultType="lips.issue.dto.IssueCommentDto">
@@ -230,16 +227,45 @@
   	<delete id="delStageAsset" parameterType="lips.issue.dto.StageAssetDto">
   		DELETE from stage_asset where stageAssetId=#{stageAssetId } and projectId != 0
   	</delete>
-  	
-  	<insert id="inWatcherByIssue" parameterType="lips.issue.dto.IssueWatcherDto">
-  		INSERT INTO issue_watcher VALUES (#{issueId}, #{userId})
-  	</insert>
-  	
-  	<delete id="delWatcherByIssue" parameterType="lips.issue.dto.IssueWatcherDto">
-  		DELETE FROM issue_watcher WHERE issueId = #{issueId} AND userId=#{userId} 
-  	</delete>
-  	
-  	<select id="selCntIssueWatcher" parameterType="lips.issue.dto.IssueWatcherDto">
-  		SELECT COUNT(*) FROM issue_watcher WHERE issueId=#{issueId} AND userId=#{userId}
+  	<select id="selStageAssetPressetUpStageId" parameterType="lips.issue.dto.IssueStagePresetAssetDto" resultType="lips.issue.dto.IssueStagePresetAssetDto">
+	  	SELECT *FROM
+	  		(SELECT stageassetid 
+	  		FROM issue_stage_preset_asset
+	  		WHERE issuepresetid = #{issuePresetId} 
+	  		AND stageassetid <![CDATA[>]]> #{stageAssetId}
+	  		ORDER BY assetorder)
+  		WHERE rownum= '1'
+  	</select>
+  	<select id="selStageAssetPressetDownStageId" parameterType="lips.issue.dto.IssueStagePresetAssetDto" resultType="lips.issue.dto.IssueStagePresetAssetDto">
+	  	SELECT *FROM
+	  		(SELECT stageassetid 
+	  		FROM issue_stage_preset_asset
+	  		WHERE issuepresetid = #{issuePresetId} 
+	  		AND stageassetid <![CDATA[<]]> #{stageAssetId}
+	  		ORDER BY assetorder DESC)
+  		WHERE rownum= '1'
+  	</select>
+  	<update id="updateIssueIssueStage" parameterType="lips.issue.dto.IssueDto">
+  		UPDATE issue 
+		SET issuestage = #{issueStage}
+		WHERE issueid = #{issueId}
+  	</update>
+  	<update id="updateIssueIssueStageEnddate" parameterType="lips.issue.dto.IssueDto" >
+  		UPDATE issue 
+		SET issuestage = #{issueStage} ,actualenddate = SYSDATE
+		WHERE issueid = #{issueId}
+  	</update>
+  	<select id="selIssueEnddate" parameterType="lips.issue.dto.IssueDto" resultType="lips.issue.dto.IssueDto">
+  		SELECT * FROM issue
+  		WHERE issueid = #{issueId}
+  	</select>
+  	<update id="deleteEnddate" parameterType="lips.issue.dto.IssueDto">
+  		UPDATE issue 
+		SET actualenddate = null
+		WHERE issueid = #{issueId}
+  	</update>
+  	<select id="selStageAssetStageId" parameterType="lips.issue.dto.StageAssetDto" resultType="lips.issue.dto.StageAssetDto">
+  		SELECT*FROM stage_asset
+		WHERE stageassetid = #{stageAssetId}
   	</select>
  </mapper>  

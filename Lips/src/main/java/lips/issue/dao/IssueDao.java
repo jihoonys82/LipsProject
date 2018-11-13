@@ -1,12 +1,12 @@
 package lips.issue.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import lips.issue.dto.CategoryAssetDto;
 import lips.issue.dto.IssueCommentDto;
 import lips.issue.dto.IssueDto;
+import lips.issue.dto.IssueStagePresetAssetDto;
 import lips.issue.dto.IssueStagePresetDto;
 import lips.issue.dto.IssueWatcherDto;
 import lips.issue.dto.StageAssetDto;
@@ -278,4 +278,44 @@ public interface IssueDao {
 	 * @return
 	 */
 	public int selCntIssueWatcher(IssueWatcherDto iWatcher);
+	/**
+	 * Get StageAssetPresset for issueStage Up StageId
+	 * @param stagePresetId , issueStage
+	 * @return Up StageId
+	 */
+	public IssueStagePresetAssetDto selStageAssetPressetUpStageId(IssueStagePresetAssetDto dto);
+	/**
+	 * Get StageAssetPresset for issueStage Down StageId
+	 * @param stagePresetId , issueStage
+	 * @return Down StageId
+	 */
+	public IssueStagePresetAssetDto selStageAssetPressetDownStageId(IssueStagePresetAssetDto dto);
+	/**
+	 * Update Issue for IssueStage
+	 * @param issueStage
+	 */
+	public void updateIssueIssueStage(IssueDto dto);
+	/**
+	 * Update Issue for IssueStageEnddate
+	 * @param issueStage , actualenddate
+	 * @return actualenddate
+	 */
+	public void updateIssueIssueStageEnddate(IssueDto dto);
+	/**
+	 * sel Issue for actualenddate
+	 * @param IssueDto
+	 * @return actualenddate
+	 */
+	public IssueDto selIssueEnddate(IssueDto dto);
+	/**
+	 * update Issue for actualenddate
+	 * @param IssueDto issueId
+	 */
+	public void deleteEnddate(IssueDto dto);
+	/**
+	 * Get StageAsset for StageId
+	 * @param IssueStagePresetAssetDto
+	 * @return StageAssetDto
+	 */
+	public StageAssetDto selStageAssetStageId(StageAssetDto dto);
 }

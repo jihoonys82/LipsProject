@@ -104,8 +104,19 @@ jui.ready([ "ui.modal" ], function(modal) {
 		}
 		, dataType: "json"
 		, success: function( res ) {
-			console.log("성공");
-			
+			//console.log("성공");
+			var targetRow = "<tr>"
+				+ "<td>" + res.fileName + "</td>"
+				+ "<td>" + (res.fileSize/1024).toFixed(0) + "</td>"
+				+ "<td>" + moment().format("YYYY-MM-DD HH:mm:ss") + "</td>"
+				+ "<td>" 
+					+ "<input type='hidden' name='fileId' value='" + res.fileId + "' />" 
+					+ "<a href='/file/downloadFile?fileId="+res.fileId+"' class='btn mini focus downFile'>다운</a> "
+					+ "<button class='btn mini delFile'>삭제</button>"
+				+ "</td>"
+				+ "</tr>";
+			$("#fList").append(targetRow);
+			$("#fileUp").find("input").val("");
 		}
 		, error: function() {
 			console.log("실패");

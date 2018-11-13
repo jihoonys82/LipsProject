@@ -10,9 +10,8 @@ public interface FileDao {
 	/**
 	 * Insert uploaded file data
 	 * @param attachFileDto
-	 * @return 
 	 */
-	AttachFileDto inUploadFile(AttachFileDto attachFileDto);
+	void inUploadFile(AttachFileDto attachFileDto);
 
 	/**
 	 * Select attach file list by User

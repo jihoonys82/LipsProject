@@ -44,7 +44,7 @@ public class FileService {
 			attachFileDto.setFileSize(uploadFile.getSize());
 			attachFileDto.setUserId(user.getUserId());
 			
-			attachFileDto = fileDao.inUploadFile(attachFileDto);
+			fileDao.inUploadFile(attachFileDto);
 			attachFileDto = fileDao.selFileByFileId(attachFileDto);
 			result = "업로드성공";
 		} catch (IllegalStateException e) {
@@ -60,7 +60,7 @@ public class FileService {
 		map.put("fileId", attachFileDto.getFileId()+"");
 		map.put("fileName", attachFileDto.getOriginName());
 		map.put("fileSize", attachFileDto.getFileSize()+"");
-		map.put("uploadDate", attachFileDto.getUploadDate().toString());
+		map.put("uploadDate", attachFileDto.getUploadDate().getTime()+"");
 		
 		return map; 
 	}

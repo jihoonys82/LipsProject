@@ -90,7 +90,7 @@
 		<div class="body">
 			<div class="forSizing-uTable">
 
-			<table class="table classic stripe">
+			<table class="table classic stripe hover">
 				<thead>
 					<tr>
 						<th>ID</th>

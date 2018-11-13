@@ -101,7 +101,7 @@
 		<div class="body">
 			<div class="forSizing-uTable">
 				
-			<table class="table classic stripe">
+			<table class="table classic stripe hover">
 			<thead>
 				<tr>
 					<th>프로젝트 No.</th><th>프로젝트 이름</th><th>진행 상황</th><th>공개 여부</th><th>프로젝트 리더</th>

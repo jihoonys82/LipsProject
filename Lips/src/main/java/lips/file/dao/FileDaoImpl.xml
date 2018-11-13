@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lips.file.dao.FileDao">
+	
+	<insert id="inUploadFile" parameterType="lips.file.dto.AttachFileDto">
+		INSERT INTO attachFile(fileId, originName, storedName, fileSize, userId)
+		VALUES (attachFile_SEQ.NEXTVAL, #{originName}, #{storedName}, #{fileSize}, #{userId})
+		<selectKey keyProperty="fileId" resultType="int" order="AFTER">
+			SELECT attachFile_SEQ.CURRVAL FROM dual
+		</selectKey> 
+	</insert>
+	
+	<select id="selFilesByUser" parameterType="lips.userinfo.dto.User" resultType="lips.file.dto.AttachFileDto" >
+		SELECT * FROM attachFile WHERE userId=#{userId}
+	</select>
+	
+	<select id="selFileByFileId" parameterType="lips.file.dto.AttachFileDto" resultType="lips.file.dto.AttachFileDto">
+		SELECT * FROM attachFile WHERE fileId=#{fileId}
+	</select>
+	
+	<delete id="delFile" parameterType="lips.file.dto.AttachFileDto">
+		DELETE FROM attachFile WHERE fileId=#{fileId}
+	</delete>
+</mapper>

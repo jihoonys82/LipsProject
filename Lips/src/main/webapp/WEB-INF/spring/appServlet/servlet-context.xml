@@ -49,7 +49,7 @@
 		<beans:property name="order" value="0" />
 	</beans:bean>
 	
-	<beans:bean id="download" class="lips.view.DownloadView" />
+	<beans:bean id="download" class="lips.file.view.DownloadView" />
 	
 	<beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView" />
 	

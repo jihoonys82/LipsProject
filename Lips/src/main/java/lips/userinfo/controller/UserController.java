@@ -1,5 +1,9 @@
 package lips.userinfo.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import lips.userinfo.dto.User;
@@ -91,5 +96,14 @@ public class UserController {
 	@RequestMapping(value="/access_denied",method=RequestMethod.GET)
 	public void denied() {}
 	
-
+	/**
+	 * Deactivate user Account (회원탈퇴)
+	 * @param password
+	 */
+	@RequestMapping(value="/mypage/deactivate", method=RequestMethod.POST)
+	public void deactivate(String password) {
+		//TODO: 탈퇴처리
+	}
+	
+	
 }

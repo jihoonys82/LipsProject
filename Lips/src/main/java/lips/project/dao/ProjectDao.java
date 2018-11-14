@@ -11,6 +11,18 @@ import lips.userinfo.dto.User;
 
 public interface ProjectDao {
 	
+	/** 카테고리 업데이트
+	 * 
+	 * @param IssueCategoryDto List
+	 */
+	
+	public void inCate(IssueCategoryDto dto);
+	
+	/** 카테고리 지우기
+	 * 
+	 * @param ProjectId
+	 */
+	public void delCate(int ProjectId);
 	
 	/** 모든 카테고리 에셋 불러오기
 	 * 

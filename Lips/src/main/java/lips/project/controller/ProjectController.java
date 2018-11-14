@@ -2,6 +2,7 @@ package lips.project.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
+import lips.issue.dto.IssueCategoryDto;
+import lips.project.dao.ProjectDao;
 import lips.project.dto.ProjectDto;
 import lips.project.dto.ProjectMemberDto;
 import lips.project.service.ProjectService;
@@ -31,6 +36,7 @@ public class ProjectController {
 	
 	@Autowired
 	ProjectService service;
+	@Autowired ProjectDao dao;
 	String invitecode; 
 	private static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
@@ -280,6 +286,42 @@ public class ProjectController {
 		
 				e.printStackTrace();
 			}
+		
+	}
+	
+	@RequestMapping(value="/update/category", method=RequestMethod.POST)
+	public ModelAndView uPCate (String arrlist, int projectId) {
+		//제이슨 객체 배열 받기
+		//01. 제이슨 객체를 문자열로받음 ( 리스트로 받으니까 , 기준으로 짤라버림)
+
+		//02. gson 객체 생성
+		Gson gson = new Gson();
+		
+		//03. 리스트 생성하기 
+		List<IssueCategoryDto> icDtos = new ArrayList<>();
+		
+		//04. 문자열을              지슨을 사용해서 제이슨 형식에 맞춰 잘라주기 ,   뉴 어레이리스트 해서 클래스 가져오기
+		List<String> dtos = gson.fromJson(arrlist, new ArrayList<>().getClass());
+		
+		//05. 포이치 돌려서 자른 문자열을  dto객체형식그로 변환하기
+		for(String s : dtos) {
+			IssueCategoryDto dto = new IssueCategoryDto();
+			
+			dto = gson.fromJson(s, IssueCategoryDto.class);
+			// 디티오 리스트에 저장
+			icDtos.add(dto);
+		}
+		
+	
+		service.categoryUp(icDtos,projectId);
+		ProjectDto a = new ProjectDto();
+		a.setProjectId(projectId);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", dao.selIssueCateAs(a));
+		mav.setViewName("jsonView");
+		return mav;
+		
 		
 	}
 	

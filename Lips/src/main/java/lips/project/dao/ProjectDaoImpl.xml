@@ -4,7 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="lips.project.dao.ProjectDao">
  
- 
+ 	<!-- 카테고리 인서트 -->
+ 	<insert id="inCate" parameterType="lips.issue.dto.IssueCategoryDto">
+ 	INSERT INTO issue_category 
+ 	VALUES (#{projectId},#{categoryAssetId},#{categoryOrder})
+ 	
+ 	
+ 	
+ 	</insert>
+
+	
+	<!-- 카테고리 지우기  -->
+	<delete id ="delCate" parameterType="int">
+	delete issue_category WHERE projectId=#{value}
+	
+	</delete>
+
 	 <!--  모든 카테고리 에셋 불러오기-->
 	 <select id ="selAllcate" resultType="lips.issue.dto.CategoryAssetDto">
 	 select * from category_asset order by categoryAssetId

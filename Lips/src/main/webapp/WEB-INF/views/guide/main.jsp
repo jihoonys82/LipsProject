@@ -18,10 +18,10 @@
 			<div class="head">
 				<strong>User guide</strong>
 			</div>
-			<div>
+			<div class="topguidebar">
 			<br>
-				<a class="btn" onclick="">GuideMain</a>
-				<a class="btn" onclick="">MainView</a>
+				<a class="btn">GuideMain</a>
+				<a class="btn">MainView</a>
 				<a class="btn">Issue</a>
 				<a class="btn">Project</a>
     		</div>
@@ -93,16 +93,13 @@
 	</div><!-- end of row -->
 	
 <script>
-$(document).ready(function(){
-	var clickfunc = function(){
-		
-	}
+
+$("a").click(function(){
+	var text = $(this).text();
+	console.log(text);
+	$(".guideList").children("div").hide();
+	$("."+text).show();
 	
-	$("li").on(click , function (){
-		var getLiId = $(this).attr("Id");
-		$(".guideList").children("div").hide();
-		$(".guideList").children("."+getLiId).show();
-	})
 });
 </script>
 

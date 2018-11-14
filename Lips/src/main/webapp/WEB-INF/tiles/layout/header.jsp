@@ -17,7 +17,7 @@
 			<li><a href="/project/main">프로젝트</a></li>
 			<li><a href="/issue/main">이슈</a></li>
 			<li><a href="/user/mypage">마이페이지</a></li>
-			<li><a href="#">가이드</a></li>
+			<li><a href="/guide/main">가이드</a></li>
 		</ul>
 	</div>
 	<div class="inline right menu-right">

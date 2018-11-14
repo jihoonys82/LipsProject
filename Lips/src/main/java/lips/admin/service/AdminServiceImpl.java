@@ -18,13 +18,24 @@ public class AdminServiceImpl implements AdminService{
 
 	@Autowired AdminDao adminDao;
 	
+
 	@Override
-	public ArrayList<HashMap<String, String>> getOverduePByMonth() {
+	public List<Integer> getTotalUChart() {
+		return adminDao.selTotalUChart();
+	}
+	
+	@Override
+	public List<Integer> getTotalPChart() {
+		return adminDao.selTotalPChart();
+	}
+	
+	@Override
+	public List<Integer> getOverduePByMonth() {
 		return adminDao.selOverduePByMonth();
 	}
 	
 	@Override
-	public ArrayList<HashMap<String, String>> getClosedPByMonth() {
+	public List<Integer> getClosedPByMonth() {
 		return adminDao.selClosedPByMonth();
 	}
 	
@@ -42,7 +53,22 @@ public class AdminServiceImpl implements AdminService{
 	public List<NoticeDto> getNinfo() {
 		return adminDao.selNInfo();
 	}
+	
+	@Override
+	public List<Integer> getPPieChart(){
+		return adminDao.selPPieChart();
+	}
+	
+	@Override
+	public List<Integer> getUPieChart(){
+		return adminDao.selUPieChart();
+	}
 
+	@Override
+	public List<Integer> getClosedUChart() {
+		return adminDao.selClosedUChart();
+	}
+	
 	@Override
 	public void oneLineNotice(String content) {
 		adminDao.inOneLineNotice(content);
@@ -62,6 +88,11 @@ public class AdminServiceImpl implements AdminService{
 	public void upOneLineHeader() {
 		adminDao.upOneLineHeader();
 	}
+	@Override
+	public void timeLineDelete(int noticeId) {
+		adminDao.upTimeLineDelete(noticeId);
+	}
+
 	
 	@Override
 	public List<NoticeDto> getMoreOneLineN() {
@@ -214,6 +245,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		list.add(0, adminDao.selUCntOnOpenP());
 		list.add(1, adminDao.selOpenPCnt());
+		list.add(2, adminDao.selUTotalCnt());
 		
 		return list;
 	}

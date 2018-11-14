@@ -13,15 +13,43 @@ import lips.utils.Paging;
 public interface AdminDao {
 	
 	/**
+	 *  총유저수_차트용 
+	 * @return
+	 */
+	public List<Integer> selTotalUChart();
+	/**
+	 *  총프로젝트 수 _ 차트용 
+	 * @return
+	 */
+	public List<Integer> selTotalPChart();
+	
+	/**
+	 *  탈퇴회원 수 cnt _ 차트용 
+	 * @return
+	 */
+	public List<Integer> selClosedUChart();
+	
+	/**
+	 *  유저_파이 차트 정보
+	 */
+	public List<Integer> selUPieChart();
+	
+	/**
+	 *  프로젝트_파이 차트 정보
+	 * @return
+	 */
+	public List<Integer> selPPieChart();
+	
+	/**
 	 *  종료일자가 지난 프로젝트 select 
 	 * @return
 	 */
-	public ArrayList<HashMap<String,String>> selOverduePByMonth();
+	public List<Integer> selOverduePByMonth();
 	/**
 	 *  월별로 클로즈된 프로젝트 select 
 	 * @return
 	 */
-	public ArrayList<HashMap<String,String>> selClosedPByMonth();
+	public List<Integer> selClosedPByMonth();
 	
 	/**
 	 *  월별로 신규 프로젝트 select
@@ -46,7 +74,7 @@ public interface AdminDao {
 	 * 
 	 */
 	public void inNotice(NoticeDto notice);
-	
+	public void upTimeLineDelete(int noticeId);
 	/**
 	 * 	1 : 한 줄 공지 DB에 저장
 	 * @param content

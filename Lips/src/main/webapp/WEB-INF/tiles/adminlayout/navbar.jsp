@@ -25,9 +25,6 @@
 		<div class="body">
 		     <a href="/admin/user/chart"><span class="nav-label">사용자</span></a>
 		</div>
-		<div class="body">
-		    <a href="#"><span class="nav-label">서비스</span></a>
-		</div>
-		<div class="body" style="min-height:30em;"></div>
+		<div class="body" style="min-height:33.8em;"></div>
 	</div>
 </nav>

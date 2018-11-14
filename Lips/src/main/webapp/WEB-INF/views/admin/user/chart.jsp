@@ -11,47 +11,11 @@
 			</ul>
 		</div>
 	</div>
-		
-<!-- 	<div class="body forDisplay-body-first" > -->
-<!-- 			<div class="forDisplay-body-second row"> -->
-<!-- 				<div class="blackBox inline-block w-5"> -->
-<!-- 					기간 -->
-<!-- 				</div> -->
 
-<!-- 				<input type="date" class="color-date input w-15"/> -->
-<!-- 				<input type="date" class="color-date input w-15"/> -->
-				
-<!-- 				<div class="inline-block w-15"> -->
-<!-- 					<a class="btn mini focus"> -->
-<!-- 						오늘 -->
-<!-- 					</a>  -->
-<!-- 					<a class="btn mini focus">일주일</a>  -->
-<!-- 					<a class="btn mini focus">한 달</a>				 -->
-<!-- 				</div>	 -->
-
-<!-- 				<div id="combo_1" class="combo inline-block w-20"> -->
-					
-<!-- 					<a class="btn small forSizing-btn-first">Select...</a> -->
-<!-- 					<a class="btn small toggle"><i class="icon-arrow2"></i></a> -->
-<!-- 					<ul> -->
-<!-- 						<li value="1">유저 아이디</li> -->
-<!-- 						<li value="2">유저 닉네임</li> -->
-<!-- 					</ul> -->
-				
-<!-- 				</div> -->
-<!-- 				<div class="inline-block w-20"> -->
-<!-- 					<input type="text" class="forSizing-input input"/> -->
-			
-<!-- 					<button class="btn small focus" -->
-<!-- 						onclick="alert(combo_1.getText())">검색</button> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 	</div> -->
-		
 		<div class="body">
 			<div class="row">
 				<div class="col col-12">
-					<div class="infoBox col col-3">
+					<div class="infoBox col col-4">
 						<div class="boxWrapper">
 							<div class="numBox">
 								${cntList[0] }
@@ -62,7 +26,7 @@
 						</div>
 					</div>
 					
-					<div class="infoBox col col-3">
+					<div class="infoBox col col-4">
 						<div class="boxWrapper">
 							<div class="numBox">
 								${cntList[1] }
@@ -73,7 +37,7 @@
 						</div>
 					</div>
 			
-					<div class="infoBox col col-3">
+					<div class="infoBox col col-4">
 						<div class="boxWrapper">
 							<div class="numBox">
 								${cntList[2] }
@@ -83,17 +47,7 @@
 						</div>
 						</div>
 					</div>
-			
-					<div class="infoBox col col-3">
-						<div class="boxWrapper">
-							<div class="numBox">
-								${allUserCnt }
-							</div>
-						<div>
-								접속 중인 사용자
-						</div>
-						</div>
-					</div>	
+				
 				</div>	
 			</div> <!-- row 끝 -->
 		</div>	<!-- body 끝 -->
@@ -101,8 +55,8 @@
 		<div class="body forSizing-chart">
 		<div class="row">
 			<div class="test col col-12">
-				<div class="chartBox col col-5" id="multi"></div>
-				<div class="chartBox col col-5" id="pie"></div>
+				<div class="chartBox col col-5" id="multi" style="width: 50%;border: none;"></div>
+				<div class="chartBox col col-5" id="pie" style="width: 50%;border: none;"></div>
 			</div>
 		</div>
 	</div>
@@ -113,8 +67,18 @@
 <script>
 	
    	var arr = ${chart.data};
-   	var multiNames = {
-   			NEWUSER : "신규 가입자"
+   	var closeArr = ${chart.closeData};
+   	
+   	//-------------아래는 테스트용 배열 생성------------
+// 	var closeArr = [];
+//    	for (var i = 0 ; i<arr.length;i++){
+//    		closeArr.push(i);
+//    	}
+//-----------------------------------------------
+
+	var multiNames = {
+   			NEWUSER : "신규  유저",
+   			CLOSEUSER	: "탈퇴 유저"
    	};
    	
 	jui.ready([ "ui.combo" ], function(combo) {
@@ -133,8 +97,9 @@
 	var multiChart = jui.include("chart.builder");
 	var data = [];
 	
-	for(var i = arr.length-5 ; i<arr.length; i++){
-		data.push(arr[i]); 
+	for(var i = 0 ; i<arr.length; i++){
+		arr[i]["CLOSEUSER"] = closeArr[i].CLOSEUSER;
+		data.push(arr[i]);
 	}
 	
 	multiChart("#multi", {
@@ -143,12 +108,12 @@
 	    axis : [{
 	        x : {
 	            type : "block",
-	            domain : "QUARTER",
+	            domain : "DMONTH",
 	            line : true
 	        },
 	        y : {
 	            type : "range",
-	            domain : function(d) { return [d.NEWUSER]; },
+	            domain : function(d) { return [d.NEWUSER, d.CLOSEUSER]; },
 	            step : 5,
 	            line : true,
 	            orient : "left",
@@ -157,10 +122,11 @@
 	    }],
 	    brush : {
 	        type : "column",
-	        target : [ "NEWUSER" ]
+	        target : [ "NEWUSER","CLOSEUSER" ],
+			colors : ["#881600","#CBFF8C"]
 	    },
 	    widget : [
-	    	{ type : "title", text : "Column Sample" },
+	    	{ type : "title", text : "월별 사용자 변동사항" },
 	        { type : "tooltip", 
 	          format : function(data, k) {
 		           return {
@@ -178,46 +144,55 @@
 	});
 	
 	var pieChart = jui.include("chart.builder");
-	var pieNames = {
+	var pieArr = ${chart.pieChart};
+	var pieData = {};
+	var pieName = [{name : "newAcc"},{name : "closedAcc"}];
+	var pieArrData = [];
+	var pieSum = 0;
+	for(var i = 0;i<pieArr.length;i++){
+		pieSum +=pieArr[i];
+	}
+	for(var i = 0;i<pieArr.length;i++){
+		pieData[pieName[i].name] = Math.round((pieArr[i]/pieSum)*100);
+	}
+		pieArrData.push(pieData);
+	
+	var names = {
 	    closedAcc : "탈퇴한 사용자",
-	    newAcc: "신규 사용자",
-	    pCreater: "프로젝트 생성자"
+	    newAcc: "신규 사용자"
 	};
 
 	pieChart("#pie", {
-	    padding : 150,
+	    padding : 50,
 		width : 500,
 		height : 400,
 	    axis : {
-	        data : [
-	            { closedAcc : 40,
-	            	newAcc : '${cntList[1]}', 
-	            	pCreater : 6 }
-	        ]
+	        data : pieArrData
 	    },
 	    brush : {
 	        type : "pie",
 	        showText : "inside",
 	        format : function(k, v) {
 	            return v + "%";
-	        }
+	        },
+			colors : ["#96648F","#FF9896"]
 	    },
 	    widget : [{
 	        type : "title",
-	        text : "Pie Sample"
+	        text : "이번 달 사용자 현황"
 	    }, {
 	        type : "tooltip",
 	        orient : "left",
 	        format : function(data, k) {
 	            return {
-	                key: pieNames[k],
+	                key: names[k],
 	                value: data[k]
 	            }
 	        }
 	    }, {
 	        type : "legend",
 	        format : function(k) {
-	            return pieNames[k];
+	            return names[k];
 	        }
 	    }]
 	});

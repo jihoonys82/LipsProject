@@ -19,7 +19,6 @@ import lips.admin.service.IndexService;
 import lips.project.dto.ProjectDto;
 import lips.project.service.ProjectService;
 import lips.userinfo.dto.User;
-import lips.userinfo.dto.UserTracker;
 import lips.utils.Paging;
 import net.sf.json.JSONObject;
  @Controller
@@ -30,19 +29,26 @@ public class AdminController {
    
    @Autowired AdminService adminService;
    @Autowired ProjectService projectService;
-   @Autowired UserTracker userTracker;
    @Autowired IndexService isvc;
    
    @RequestMapping(value="/main", method=RequestMethod.GET)
-   public void main(Model model) {
+   public ModelAndView main(Model model) {
       logger.info("메인 페이지");
-      
-	  int allUserCnt =  userTracker.getAllUserTrack();
-	  List<Integer> cntList = adminService.getNumOfDash();
-	   
-	  model.addAttribute("allUserCnt",allUserCnt);
-	  model.addAttribute("cntList",cntList);
 
+      ModelAndView mav = new ModelAndView();
+	  List<Integer> cntList = adminService.getNumOfDash();
+	  List<Integer> pChart = adminService.getTotalPChart(); 
+	  List<Integer> uChart = adminService.getTotalUChart();
+	  
+	  JSONObject obj = new JSONObject();	   
+	  obj.accumulate("pChart", pChart);
+	  obj.accumulate("uChart", uChart);
+	  
+	  mav.addObject("chart",obj);
+	  mav.addObject("cntList",cntList);
+	   
+	  mav.setViewName("admin/main"); 
+	  return mav;
    }
    
    @RequestMapping(value="/notice", method=RequestMethod.GET)
@@ -80,6 +86,14 @@ public class AdminController {
 	   mav.setViewName("jsonView");
 	   return mav;
    }
+   @RequestMapping(value="/notice/delete",method=RequestMethod.POST)
+   public ModelAndView timeLineDelete(int noticeId) {
+	   ModelAndView mav = new ModelAndView();
+	   adminService.timeLineDelete(noticeId);
+	   
+	   mav.setViewName("jsonView");
+	   return mav;
+   }
   
    @RequestMapping(value="/project/chart", method=RequestMethod.GET)
    public ModelAndView proChart(Model model) {
@@ -89,13 +103,16 @@ public class AdminController {
 
 	   List<Integer> cntList = adminService.getNumOfPro();
 	   List<HashMap<String,String>> newPChart = adminService.getNewPByMonth();
-	   List<HashMap<String,String>> closedPChart = adminService.getClosedPByMonth();
-	   List<HashMap<String,String>> overduePChart = adminService.getOverduePByMonth();
-	      
+	   List<Integer> closedPChart = adminService.getClosedPByMonth();
+
+	   List<Integer> overduePChart = adminService.getOverduePByMonth();
+	   List<Integer> pieChart = adminService.getPPieChart();
+	  
 	   JSONObject obj = new JSONObject();	   
 	   obj.accumulate("newP", newPChart);
 	   obj.accumulate("closedP", closedPChart);
 	   obj.accumulate("overP", overduePChart);
+	   obj.accumulate("pieChart", pieChart);
 	   
 	   mav.addObject("chart",obj);
 	   mav.addObject("cntList",cntList);
@@ -126,14 +143,17 @@ public class AdminController {
 	   logger.info("유저 차트 페이지");
 	   
 	   ModelAndView mav = new ModelAndView();
-	   int allUserCnt =  userTracker.getAllUserTrack();
 	   List<Integer> cntList = adminService.getNumOfUser();
 	   List<HashMap<String,String>> newUChart = adminService.getNewUByMonth();
+	   List<Integer> pieChart = adminService.getUPieChart();
+	   List<Integer> closedUCnt = adminService.getClosedUChart();
+	      
 	   JSONObject obj = new JSONObject();	   
 	   obj.accumulate("data", newUChart);
+	   obj.accumulate("pieChart", pieChart);
+	   obj.accumulate("closeData", closedUCnt);
 	   
 	   mav.addObject("chart",obj);
-	   mav.addObject("allUserCnt",allUserCnt);
 	   mav.addObject("cntList",cntList);
 	   
 	   mav.setViewName("admin/user/chart"); 

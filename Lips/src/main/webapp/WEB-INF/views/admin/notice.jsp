@@ -56,7 +56,7 @@
 		
 		<div class="body forSize-second">
 			<div class="view-form-row">
-				<label class="view-form-label">타임라인 공지사항</label>
+				<label class="view-form-label">메인 공지사항</label>
 			</div>
 			
 			<div class="div-scroll">
@@ -71,7 +71,7 @@
 				</thead>
 				<tbody id="noticeTable">
 					<c:forEach items="${nInfo }" var="nInfo">
-					<c:if test="${nInfo.noticeCategory eq 0}">
+					<c:if test="${nInfo.noticeCategory eq 0 or nInfo.noticeCategory eq 5}">
 						<tr class="text-center">
 							<td name="noticeId">
 								${nInfo.noticeId}
@@ -83,7 +83,12 @@
 								${nInfo.noticeContent}
 							</td>
 							<td name="noticeDelete">
-								<a class="btn mini">delete</a>
+							<c:if test="${nInfo.noticeCategory eq 0 }">
+								<a class="btn mini" onclick="timeLineDelete(${nInfo.noticeId})">delete</a>
+							</c:if>
+							<c:if test="${nInfo.noticeCategory eq 5 }">
+								삭제됨
+							</c:if>
 							</td>
 						</tr>
 					</c:if>							
@@ -162,13 +167,6 @@ jui.ready([ "ui.window" ], function(win) {
     });
 });
 
-jui.ready([ "grid.table" ], function(table) {
-    moreTable = table("#moreTable", {
-        scroll: true
-        
-    });
-});
-
 
 $(document).ready(function() {
 	
@@ -193,17 +191,11 @@ $(document).ready(function() {
 					"noticeTitle" : $("div").children("select").val(),
 					"noticeContent" : $("div").children("textarea").val()
 			},success : function(responseData){
-				console.log("test");
-				
-// 				$('#id').html($("div").children("select").val());
-// 				$('#content').html($("div").children("textarea").val());				
-				
-				$("div").children("select").val('');
-				$("div").children("textarea").val('');
-
-// 				updateNoticeList();
-				modalNotice.hide();
-				
+								
+// 				$("div").children("select").val('');
+// 				$("div").children("textarea").val('');
+// 				modalNotice.hide();
+				window.location.reload();
 			} 
 		})
 	});
@@ -227,8 +219,19 @@ $(document).ready(function() {
 			}
 		})
 	});
-	
+		
 });
+function timeLineDelete(noticeId){
+	$.ajax({
+		type: "post"
+			, url: "/admin/notice/delete"
+			, dataType: "json"
+			, data: {"noticeId" : noticeId }
+			, success: function(responseData) {
+				window.location.reload();
+			}
+		});
+}
 
 function updateOneLineNotice() {
 	$.ajax({
@@ -334,13 +337,6 @@ function moreList() {
 	modalMore.show();
 }
 
-
-function showDate() {
-    var d = new Date();
-    var n = d.getFullYear();
-    document.getElementById("tdDate").text(n);
-
-}
 
 </script>	
 	

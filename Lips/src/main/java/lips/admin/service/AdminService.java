@@ -12,16 +12,26 @@ import lips.utils.Paging;
 public interface AdminService {
 	
 	// 차트 
-	public ArrayList<HashMap<String,String>> getOverduePByMonth();
+	public List<Integer> getOverduePByMonth();
 
-	public ArrayList<HashMap<String,String>> getClosedPByMonth();
+	public List<Integer> getClosedPByMonth();
 
 	public ArrayList<HashMap<String,String>> getNewPByMonth();
 	
 	public ArrayList<HashMap<String,String>> getNewUByMonth();
 	
+	public List<Integer> getPPieChart();
+	
+	public List<Integer> getUPieChart();
+	
+	public List<Integer> getClosedUChart();
+	
+	public List<Integer> getTotalPChart();
 
+	public List<Integer> getTotalUChart();
 	// Notice 등록
+	
+	public void timeLineDelete(int noticeId);
 	
 	public List<NoticeDto> getNinfo();
 	

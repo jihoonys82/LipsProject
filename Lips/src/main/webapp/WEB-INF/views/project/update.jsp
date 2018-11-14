@@ -6,29 +6,55 @@
 	uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
 <style>
-
 .active {
-    background: #835acc;
+	background: #835acc;
 }
-.scrolltbody {
-    display: block;
-    width: 320px;
-    border-collapse: collapse;
-}
-.scrolltbody th { border: 1px solid #000; background: pink; }
-.scrolltbody td { border: 1px solid #000; border-top: 0; }
-.scrolltbody tbody {
-    display: block;
-    height: 200px;
-    overflow: auto;
-}
-.scrolltbody th:nth-of-type(1), .scrolltbody td:nth-of-type(1) { width: 40px; }
-.scrolltbody th:nth-of-type(2), .scrolltbody td:nth-of-type(2) { width: 40px; }
-.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) { width: 70px; }
-.scrolltbody th:nth-of-type(4), .scrolltbody td:nth-of-type(4) { width: 70px; }
-.scrolltbody th:last-child { width: 100px }
-.scrolltbody td:last-child { width: calc( 100px - 19px );  }
 
+.scrolltbody {
+	display: block;
+	width: 320px;
+	border-collapse: collapse;
+}
+
+.scrolltbody th {
+	border: 1px solid #000;
+	background: pink;
+}
+
+.scrolltbody td {
+	border: 1px solid #000;
+	border-top: 0;
+}
+
+.scrolltbody tbody {
+	display: block;
+	height: 200px;
+	overflow: auto;
+}
+
+.scrolltbody th:nth-of-type(1), .scrolltbody td:nth-of-type(1) {
+	width: 20px;
+}
+
+.scrolltbody th:nth-of-type(2), .scrolltbody td:nth-of-type(2) {
+	width: 40px;
+}
+
+.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) {
+	width: 70px;
+}
+
+.scrolltbody th:nth-of-type(4), .scrolltbody td:nth-of-type(4) {
+	width: 90px;
+}
+
+.scrolltbody th:last-child {
+	width: 100px
+}
+
+.scrolltbody td:last-child {
+	width: calc(100px - 19px);
+}
 
 /* project_view */
 .usertable {
@@ -55,8 +81,8 @@
 	color: black;
 	/* 	margin-left: 3em; */
 	/* 	margin-right: 3em; */
-	height: 39.5em;
-		line-height: 2.6em;
+	height: 41em;
+	line-height: 2.6em;
 }
 
 .forPaging {
@@ -107,22 +133,24 @@
 								style="float: left; left: 3.5em;">
 
 								<div>
-									<strong class="btn">Project Info</strong> <button class="btn focus" id="projectUpdate" style="float: right;" >변경사항 저장</button>
+									<strong class="btn">Project Info</strong>
+									<button class="btn focus" id="projectUpdate"
+										style="float: right;">변경사항 저장</button>
 								</div>
 								<div class="view-form-row">
 									<label for="proName" class="view-form-label">프로젝트 명</label> <input
 										type="text" name="proName" id="proName"
-										class="input view-form-input" 
+										class="input view-form-input"
 										value="${updatePageinfo.projectinfo.projectName }" />
 								</div>
 
 								<div class="view-form-row">
 									<label for="proName" class="view-form-label">프로젝트 Key</label> <input
 										type="text" name="proKey" id="proKey"
-										class="input view-form-input" 
+										class="input view-form-input"
 										value="${updatePageinfo.projectinfo.projectKey }" />
 								</div>
-								
+
 
 								<div class="view-form-row">
 									<label for="proNum" class="view-form-label">참여인원</label> <input
@@ -130,60 +158,64 @@
 										class="input view-form-input" readonly="readonly"
 										value="${updatePageinfo.usercount } 명" />
 								</div>
-								
+
 								<div class="view-form-row">
-								
-								
+
+
 									<label for="proNum" class="view-form-label">프로젝트 카테고리</label>
-									
-								
-									<c:forEach items="${updatePageinfo.issueCategory}" var="is" >
+
+									<div id="catecate" style="display: inline;">
+									<c:forEach items="${updatePageinfo.issueCategory}" var="is">
 										<span class="label small danger">${is.assetName}</span>
-										</c:forEach>
-										<button type="button" class="btn small focus" id="CateShow"><i class="icon-gear"></i></button>
-										
-										
+									</c:forEach>
+									</div>
+									<button type="button" class="btn small focus" id="CateShow">
+										<i class="icon-gear"></i>
+									</button>
+
+
 								</div>
 
 								<div class="view-form-row">
-								
+
 									<label for="button_2" class="view-form-label">진행상황</label>
 									<div id="button_2" class="group">
 										<c:if test="${updatePageinfo.projectinfo.status eq 'PENDING'}">
 											<a class="btn small  focus" value="true">일시 정지</a>
 											<a class="btn small" value="false">진행 중</a>
-										 </c:if>
-										
-										<c:if test="${updatePageinfo.projectinfo.status eq 'OPEN'}">
-									
-										<a class="btn small" value="true" >일시 정지</a>
-										<a class="btn small focus" value="false">진행 중</a>
 										</c:if>
-										
-										
-											<c:if test="${updatePageinfo.projectinfo.status eq 'CLOSE'}">
-									
-										<span>프로젝트 종료</span>
+
+										<c:if test="${updatePageinfo.projectinfo.status eq 'OPEN'}">
+
+											<a class="btn small" value="true">일시 정지</a>
+											<a class="btn small focus" value="false">진행 중</a>
+										</c:if>
+
+
+										<c:if test="${updatePageinfo.projectinfo.status eq 'CLOSE'}">
+
+											<span>프로젝트 종료</span>
 										</c:if>
 									</div>
-									
-								
-									
-					
+
+
+
+
 								</div>
 
 								<div class="view-form-row">
-								<label for="button_1" class="view-form-label">프로젝트 공개 여부</label>
+									<label for="button_1" class="view-form-label">프로젝트 공개
+										여부</label>
 									<div id="button_1" class="group">
 										<c:if test="${updatePageinfo.projectinfo.projectOpen eq 0}">
 											<a class="btn small  focus" value="true">비공개</a>
 											<a class="btn small" value="false">공개</a>
-										 </c:if>
-										
+										</c:if>
+
 										<c:if test="${updatePageinfo.projectinfo.projectOpen eq 1}">
-									
-										<a class="btn small" value="true">비공개</a>
-										<a class="btn small focus" value="false">공개</a>
+
+											<a class="btn small" value="true">비공개</a>
+											<a class="btn small focus" value="false">공개</a>
 										</c:if>
 									</div>
 
@@ -208,22 +240,24 @@
 										진행일</label> <input type="text" name="proProDate" id="proProDate"
 										class="input view-form-input" readonly="readonly" />
 								</div>
-								
-								
-								
-								
+
+
+
+
 								<div class="view-form-row">
-									<label for="proProInviteCode" class="view-form-label">프로젝트 초대 코드</label> 
+									<label for="proProInviteCode" class="view-form-label">프로젝트
+										초대 코드</label>
 									<div id="combo_2" class="combo">
 										<a class="btn" id="invitecode"
 											style="width: 20em; border-color: #4f4f4f; background: #2a2a2a; color: white !important;">
-											${updatePageinfo.invitecode.inviteCode }</a> <a class="btn toggle" id="inviteRefresh"><i
-										class="icon-refresh"></i></a>
-						
+											${updatePageinfo.invitecode.inviteCode }</a> <a
+											class="btn toggle" id="inviteRefresh"><i
+											class="icon-refresh"></i></a>
+
+									</div>
 								</div>
-								</div>
-								
-									
+
+
 							</div>
 
 							<div class="viewTwinBox col col-5"
@@ -241,59 +275,70 @@
 
 								<div class="view-form-row">
 									<label for="userMember" class="view-form-label">프로젝트 멤버</label>
-									<div class="usertable">
-									</div>
+									<div class="usertable"></div>
 								</div>
 
 
 
-<table class='scrolltbody table classic'>
-	<thead>
-		<tr>
-			<th>#</th>
-			<th> 아이디 </th>
-			<th> 상태 </th>
-			<th> 관리</th>
-			<th> 관리</th>
-		</tr>
-	</thead>
-						<!-- 스크롤바 지우기 기능은 남아있음 -->
-	<tbody style="::-webkit-scrollbar{width:0px;"}>
-		
-		<c:forEach items="${updatePageinfo.projectUserinfo}" var="pminfo" varStatus="a">
-		
-			<tr id="${pminfo.userId }">
-				<td>${a.index +1 }</td>
-				<td>${pminfo.userId}</td>
-				<td>
-					<c:if test="${pminfo.userLevel eq '-1'}">프로젝트 탈퇴</c:if>
-					<c:if test="${pminfo.userLevel eq '0'}">이용 정지</c:if>
-					<c:if test="${pminfo.userLevel eq '1'}">참여중</c:if>
-					<c:if test="${pminfo.userLevel eq '2'}">프로젝트리더</c:if>
-				</td>
-				<td>
-					<c:set var="usercheck" value="${updatePageinfo.projectinfo.projectLeader }" />
-					<c:choose>
-						<c:when test="${pminfo.userId eq usercheck }"> <button id ="itsme=" class="btn focus">Leader</button></c:when>
-						<c:when test="${pminfo.userLevel eq '0'}"> <button id ="pardon" class="btn focus" onclick="pardon(this)" value="${pminfo.userId}"> 정지 해제</button></c:when>
-						<c:when test="${pminfo.userLevel eq '1'}"> <button id = "ban" class="btn" onclick="ban(this)" value="${pminfo.userId}"> 이용 정지</button></c:when>
-		
-						<c:otherwise>
-							<button class="btn"> 메롱롱</button>
-						</c:otherwise>
-					</c:choose>
-						<!-- 20181029 1.버튼 -유저레벨 변경 에이잭스로 처리  -->
-				</td>
-				<td>
-				<button class="btn focus leader" onclick="leader(this)" value="${pminfo.userId}">리더 위임</button>
-				</td>
-			
-			</tr>
-		</c:forEach>
+								<table class='scrolltbody table classic'>
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>아이디</th>
+											<th>상태</th>
+											<th>유저 관리</th>
+											<th>리더 변경</th>
+										</tr>
+									</thead>
+									<!-- 스크롤바 지우기 기능은 남아있음 -->
+									<tbody style="-webkit-scrollbar {width: 0px;"}>
 
-	</tbody>
-</table>
-								
+										<c:forEach items="${updatePageinfo.projectUserinfo}"
+											var="pminfo" varStatus="a">
+
+											<tr id="${pminfo.userId }">
+												<td>${a.index +1 }</td>
+												<td>${pminfo.userId}</td>
+												<td><c:if test="${pminfo.userLevel eq '-1'}">프로젝트 탈퇴</c:if>
+													<c:if test="${pminfo.userLevel eq '0'}">이용 정지</c:if> <c:if
+														test="${pminfo.userLevel eq '1'}">참여중</c:if> <c:if
+														test="${pminfo.userLevel eq '2'}">프로젝트리더</c:if></td>
+												<td><c:set var="usercheck"
+														value="${updatePageinfo.projectinfo.projectLeader }" /> <c:choose>
+														<c:when test="${pminfo.userId eq usercheck }">
+															<button id="itsme=" class="btn focus">Leader</button>
+														</c:when>
+														<c:when test="${pminfo.userLevel eq '0'}">
+															<button id="pardon" class="btn focus"
+																onclick="pardon(this)" value="${pminfo.userId}">
+																정지 해제</button>
+														</c:when>
+														<c:when test="${pminfo.userLevel eq '1'}">
+															<button id="ban" class="btn" onclick="ban(this)"
+																value="${pminfo.userId}">이용 정지</button>
+														</c:when>
+
+														<c:otherwise>
+															<button class="btn">메롱롱</button>	
+														</c:otherwise>
+													</c:choose> </td>
+													<td><c:set var="usercheck"
+														value="${updatePageinfo.projectinfo.projectLeader }" /> <c:choose>
+														<c:when test="${pminfo.userId eq usercheck }">
+															<button class="btn focus">Leader</button>
+														</c:when>
+														<c:otherwise>
+															<button class="btn focus leader" onclick="leader(this)" value="${pminfo.userId}">리더 위임</button>
+														</c:otherwise>
+													</c:choose> </td>
+													
+
+											</tr>
+										</c:forEach>
+
+									</tbody>
+								</table>
+
 
 
 							</div>
@@ -315,28 +360,32 @@
 				</div>
 
 				<div class="viewProBtn" id="closemama">
-			
-						
-	 
-				<c:choose>
-						<c:when test="${updatePageinfo.projectinfo.status eq 'CLOSE'}"> 
+
+
+
+					<c:choose>
+						<c:when test="${updatePageinfo.projectinfo.status eq 'CLOSE'}">
 						</c:when>
-					
+
 						<c:otherwise>
-						<a href="/issue/setupIssueStage?projectId=${updatePageinfo.projectinfo.projectId}"><button class="btn normal focus" id="Custom" style="bottom: 2em;">이슈 진행단계 커스텀</button></a>
-						<button class="btn normal focus" id="ProjectClose" style="bottom: 2em;">프로젝트 종료</button>
+							<a
+								href="/issue/setupIssueStage?projectId=${updatePageinfo.projectinfo.projectId}"><button
+									class="btn normal focus" id="Custom" style="bottom: 2em;">이슈
+									진행단계 커스텀</button></a>
+							<button class="btn normal focus" id="ProjectClose"
+								style="bottom: 2em;">프로젝트 종료</button>
 						</c:otherwise>
 					</c:choose>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+
+
+
+
+
+
+
+
+
+
 				</div>
 			</div>
 
@@ -352,96 +401,109 @@
 
 
 
-  <!-- 윈도우모달  종료처리 -->
-   
+<!-- 윈도우모달  종료처리 -->
+
 <div id="win_2" class="window">
-    <div class="head">
-        <div class="left">ProjectClose</div>
-        <div class="right">
-            <a href="#" class="close"><i class="icon-exit"></i></a>
-        </div>
-    </div>
-    <div class="body" style="text-align:center; font-size :1.5em" >
-        <br><h5>정말 해당 프로젝트를 종료처리 하시겠습니까? </h5><h5>프로젝트를 종료처리하시면 다시는 되돌릴 수 없습니다.</h5>
-    </div>
-    <div class="foot" align="center">
-        <a href="#" class="btn focus" id="modalProjectClose">예 종료처리하겠습니다.</a> <a href="#" class="btn" id="jucancel">아니오 취소할게요.</a>
-    </div>
+	<div class="head">
+		<div class="left">ProjectClose</div>
+		<div class="right">
+			<a href="#" class="close"><i class="icon-exit"></i></a>
+		</div>
+	</div>
+	<div class="body" style="text-align: center; font-size: 1.5em">
+		<br>
+		<h5>정말 해당 프로젝트를 종료처리 하시겠습니까?</h5>
+		<h5>프로젝트를 종료처리하시면 다시는 되돌릴 수 없습니다.</h5>
+	</div>
+	<div class="foot" align="center">
+		<a href="#" class="btn focus" id="modalProjectClose">예 종료처리하겠습니다.</a>
+		<a href="#" class="btn" id="jucancel">아니오 취소할게요.</a>
+	</div>
 </div>
-	<!-- 윈도우 모달 끝  -->
+<!-- 윈도우 모달 끝  -->
 
-  <!-- 윈도우모달 프로젝트리더넘기기 -->
-   
+<!-- 윈도우모달 프로젝트리더넘기기 -->
+
 <div id="win_3" class="window">
-    <div class="head">
-        <div class="left"><span>경고</span></div>
-        <div class="right">
-            <a href="#" class="close"><i class="icon-exit"></i></a>
-        </div>
-    </div>
-    <div class="body" style="text-align:center; font-size :1.5em" >
-        <br><h5>프로젝트 리더를 변경하시겠습니까? </h5><h5>
-        프로젝트 리더를 위임하시면 더 이상 프로젝트 관리페이지를 확인할 수 없습니다.</h5>
-    </div>
-    <div class="foot" align="center">
-        <a href="#" class="btn focus" id="modalProjectLeader">예 새로운 프로젝트 리더가 필요합니다.</a> 
-        <a href="#" class="btn" id="leadercancel">아니오 취소할게요.</a>
-    </div>
+	<div class="head">
+		<div class="left">
+			<span>경고</span>
+		</div>
+		<div class="right">
+			<a href="#" class="close"><i class="icon-exit"></i></a>
+		</div>
+	</div>
+	<div class="body" style="text-align: center; font-size: 1.5em">
+		<br>
+		<h5>프로젝트 리더를 변경하시겠습니까?</h5>
+		<h5>프로젝트 리더를 위임하시면 더 이상 프로젝트 관리페이지를 확인할 수 없습니다.</h5>
+	</div>
+	<div class="foot" align="center">
+		<a href="#" class="btn focus" id="modalProjectLeader">예 새로운 프로젝트
+			리더가 필요합니다.</a> <a href="#" class="btn" id="leadercancel">아니오 취소할게요.</a>
+	</div>
 </div>
-	<!-- 윈도우 모달 끝  -->
+<!-- 윈도우 모달 끝  -->
 
-	<!-- 카테고리 윈도우모달 -->	
-	<div id="win_4" class="window">
-    <div class="head">
-        <div class="left"><span>변경할 테이블을 드래그하세요</span></div>
-        <div class="right">
-            <a href="#" class="close"><i class="icon-exit"></i></a>
-        </div>
-    </div>
-    <div class="body" style="text-align:center; font-size :1.5em" >
-   <table id="table_20" class="table classic">
-    <thead>
-    <tr>
-    	<th style="text-align:center; width: 15%">Id</th>
-        <th style="text-align:center; width: 15%">Code</th>
-        <th style="text-align:center; width: 20%">Name</th>
-        <th style="text-align:center">Desc</th>
-    </tr>
-    </thead>
-    <tbody id="20body"></tbody>
-	</table>
-	
-	
-	 <table id="table_21" class="table classic" style="margin-top:30px; margin-bottom:80px">
-    <thead>
-    <tr>
-    	<th style="text-align:center; width: 10%">Id</th>
-        <th style="text-align:center; width: 15%">Name</th>
-        <th style="text-align:center; width: 15%">Code</th>
-        <th style="text-align:center">Desc</th>
-    </tr>
-    </thead>
-    
-    <tbody id="21body">
-    <c:forEach items="${updatePageinfo.allCategory}" var="c" >									
-    	<tr class="catItem" >
-    		<td class="itemId">${c.categoryAssetId }</td>
-    		<td class="itemName">${c.assetName}</td>
-    		<td class="itemCode">${c.assetCode}</td>
-    		<td><span class="itemDesc">${c.assetDescription}</span> <span value="${c.assetName}"style="background-color: #966ee5;float: right;border-radius: 3px; width: 15px;"><i class="icon-plus"></i></span></td>
-    	</tr>
-    </c:forEach>
-    </tbody>
-	</table>
-	  
-	  
-	  <!--  2018 11 12 모영호 여기까지함 에이잭스로 저장 처리하기-->
-	<a href="#" class="btn focus" id="CateSave">카테고리 저장</a>
-   <a href="#" class="btn" id="CateClose">닫기</a>
+<!-- 카테고리 윈도우모달 -->
+<div id="win_4" class="window">
+	<div class="head">
+		<div class="left">
+			<span>변경할 테이블을 드래그하세요</span>
+		</div>
+		<div class="right">
+			<a href="#" class="close"><i class="icon-exit"></i></a>
+		</div>
+	</div>
+	<div class="body" style="text-align: center; font-size: 1.5em">
+		<table id="table_20" class="table classic">
+			<thead>
+				<tr>
+					<th style="text-align: center; width: 15%">Id</th>
+					<th style="text-align: center; width: 15%">Code</th>
+					<th style="text-align: center; width: 20%">Name</th>
+					<th style="text-align: center">Desc</th>
+				</tr>
+			</thead>
+			<tbody id="20body"></tbody>
+		</table>
 
 
-    </div>
-    <script data-jui="#table_20" data-tpl="row" type="text/template">
+		<table id="table_21" class="table classic"
+			style="margin-top: 30px; margin-bottom: 80px">
+			<thead>
+				<tr>
+					<th style="text-align: center; width: 10%">Id</th>
+					<th style="text-align: center; width: 15%">Name</th>
+					<th style="text-align: center; width: 15%">Code</th>
+					<th style="text-align: center">Desc</th>
+				</tr>
+			</thead>
+
+			<tbody id="21body">
+				<c:forEach items="${updatePageinfo.allCategory}" var="c">
+					<tr class="catItem">
+						<td class="itemId">${c.categoryAssetId }</td>
+						<td class="itemName">${c.assetName}</td>
+						<td class="itemCode">${c.assetCode}</td>
+						<td><span class="itemDesc">${c.assetDescription}</span> <span
+							value="${c.assetName}"
+							style="background-color: #966ee5; float: right; border-radius: 3px; width: 15px;"><i
+								class="icon-plus"></i></span></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+
+
+		<!--  2018 11 12 모영호 여기까지함 에이잭스로 저장 처리하기-->
+		<button type="button" class="btn focus" id="CateSave">카테고리 저장</button>
+		<button type="button" class="btn focus" id="CateClose">닫기</button>
+
+
+
+	</div>
+	<script data-jui="#table_20" data-tpl="row" type="text/template">
     <tr>
 		<td class="catId"><!= id !></td>
         <td><!= code !></td>
@@ -453,10 +515,10 @@
     </tr>
 </script>
 </div>
-	<!-- 윈도우 모달 끝  -->
+<!-- 윈도우 모달 끝  -->
 
-	
-   <!-- 카테고리 윈도우모달 속 윈도우모달  -->
+
+<!-- 카테고리 윈도우모달 속 윈도우모달  -->
 <!-- 끝  -->
 
 <script type="text/javascript">
@@ -504,6 +566,64 @@ var userId;
 		$("#leadercancel").click(function(){
 			win_3.hide();
 		});
+		
+		//카테고리 세이브
+	$("#CateSave").click(function() {
+		console.log("#cateSave click");
+		
+		if(!($("#20body tr").length >0)){
+			alert("최소 1개 이상의 카테고리를 저장해야 합니다.");
+			return false;
+		}
+		
+		var projectId = '${param.projectId}';
+		//제이슨 객체 배열 받기
+		//01. 자바 배열을 만든다
+		var arr = [];		
+	$("#20body tr").each(function(i) {
+		//02. 제이슨 객체를 만든다.
+		var obj = {};
+		 jQuery.ajaxSettings.traditional = true;//jsonObject를 controller의 형식에 맞춰 받기 위함
+		obj["categoryOrder"] = i+1;
+		obj["categoryAssetId"] = Number($(this).find("td.catId").text());
+		obj["projectId"] = projectId;
+		//03. 제이슨 객체를 넣을때 스트링파이 해서 제이슨 문자열을 넣는다.
+		arr.push(JSON.stringify(obj));
+	});
+	
+
+	$.ajax({
+		type : "post"
+			, url : "/project/update/category"
+			, beforesend: function(){
+				
+			}
+// 			, data : { "arrlist" : JSON.stringify(arr),
+			// 04. 자바 배열을 제이슨 타입으로 해서 보낸다
+			// 05. 컨트롤러로 
+			, data : { "arrlist" : JSON.stringify(arr),
+					   "projectId" : projectId	
+			}
+			, success : function(data) {
+				console.log("하하");
+				//console.log(data.result[0].assetDescription);
+				$("#catecate").html("");
+					  for(var i=0;i<data.result.length;i++){
+	                	 {
+	                		 
+	                		 $("#catecate").append("<span class='label small danger'>"+data.result[i].assetName+"</span> ");
+	                		 
+	                	}
+	                }
+					  win_4.hide();
+					  alert("프로젝트 카테고리가 변경되었습니다.");
+				
+			}
+			, error : function() {console.log("카테고리 저장 실패");}
+		  })
+	
+		});	
+		
 		
 		//////////////
 
@@ -607,7 +727,6 @@ type : "post"
 		
 		$("#projectUpdate").click(function() {
 		var projectId = '${param.projectId}';
-		 
 			$.ajax({
 				type : "post"
 					, url : "/project/update/project"

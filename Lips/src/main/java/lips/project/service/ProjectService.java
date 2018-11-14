@@ -3,6 +3,7 @@ package lips.project.service;
 import java.util.List;
 import java.util.Map;
 
+import lips.issue.dto.IssueCategoryDto;
 import lips.project.dto.ProjectDto;
 import lips.project.dto.ProjectMemberDto;
 import lips.userinfo.dto.User;
@@ -22,4 +23,5 @@ public interface ProjectService {
 	public ProjectDto projectUpdate(ProjectDto dto,String invitecode);
 	public void leaderAuthorize(ProjectDto dto);
 	public List AllOpenProject();
+	public void categoryUp(List<IssueCategoryDto> catelist,int projectId);  
 }

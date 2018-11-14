@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lips.admin.dao.AdminDao;
+import lips.issue.dto.IssueCategoryDto;
 import lips.main.dao.MainDao;
 import lips.project.dao.ProjectDao;
 import lips.project.dto.ProjectDto;
@@ -149,7 +150,7 @@ public class ProjectServiceImpl implements ProjectService {
 		map.put("userinfo", user);
 		map.put("projectUserinfo", dao.selProOnlyMember(dto));
 		map.put("invitecode", dao.selInvitebyProid(dto));
-		//카테고리 추가
+		//카테고리 
 		map.put("issueCategory", dao.selIssueCateAs(dto));
 		
 		//모든 카테고리 에셋  불러오기
@@ -207,15 +208,15 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 
-
-
+	@Override
+	public void categoryUp(List<IssueCategoryDto> catelist,int projectId ) {
+	
+		dao.delCate(projectId);
+	
+		for(int i =0; i<catelist.size(); i++) {
+		dao.inCate(catelist.get(i));
+		}
 		
+	}
 
-
-
-	
-
-
-
-	
 }

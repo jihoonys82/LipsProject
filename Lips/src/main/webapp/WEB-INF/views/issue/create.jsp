@@ -216,6 +216,35 @@ $(document).ready(function() {
 		// 2. form submit
 		$("form[action='/issue/create']").submit();
 	});
+	
+	// set Default value of expectedEndDate - tomorrow
+	var tomorrow = moment().add(1,"days").format("YYYY-MM-DD")
+	$("#expectedEndDate").val(tomorrow).attr("min", moment().format("YYYY-MM-DD"));
+	
+	$("#subDay").on('click', function(){
+		var eDate = $("#expectedEndDate");
+		eDate.val(moment(eDate.val()).subtract(1,"days").format("YYYY-MM-DD"));
+		var diff = moment(eDate.val() + " 00:00:00").diff(moment());
+		if(diff<0) {
+			eDate.val(moment().format("YYYY-MM-DD"));
+		}
+	})
+	$("#addDay").on('click', function(){
+		var eDate = $("#expectedEndDate");
+		eDate.val(moment(eDate.val()).add(1,"days").format("YYYY-MM-DD"));
+	})
+	$("#subWeek").on('click', function(){
+		var eDate = $("#expectedEndDate");
+		eDate.val(moment(eDate.val()).subtract(1,"weeks").format("YYYY-MM-DD"));
+		var diff = moment(eDate.val() + " 00:00:00").diff(moment());
+		if(diff<0) {
+			eDate.val(moment().format("YYYY-MM-DD"));
+		}
+	})
+	$("#addWeek").on('click', function(){
+		var eDate = $("#expectedEndDate");
+		eDate.val(moment(eDate.val()).add(1,"weeks").format("YYYY-MM-DD"));
+	})
 });
 
 // Modal setup
@@ -506,6 +535,10 @@ input[name=fileName] {
 				<div class="issue-form-row">
 					<label for="expectedEndDate" class="issue-form-label">종료(예정)일</label>
 					<input type="date" name="expectedEndDate" id="expectedEndDate" class=" input issue-form-input" />
+					<button type="button" id="subDay" class="btn mini" style="width:40px;">D-1</button>
+					<button type="button" id="addDay" class="btn mini" style="width:40px;">D+1</button>
+					<button type="button" id="subWeek" class="btn mini" style="width:40px;">W-1</button>
+					<button type="button" id="addWeek" class="btn mini" style="width:40px;">W+1</button>
 				</div>
 				<div id="assign" class="issue-form-row">
 					<label for="assignee" class="issue-form-label">담당자</label>

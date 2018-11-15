@@ -5,7 +5,9 @@
  <mapper namespace="lips.issue.dao.IssueDao">
  	<select id="selIssueByDealine" parameterType="lips.userinfo.dto.User" resultType="lips.issue.dto.IssueDto">
  		SELECT * FROM issue 
- 		WHERE assignee=#{userId} AND ROWNUM=1 
+ 		WHERE assignee=#{userId} 
+ 		AND issueStage!=99
+ 		AND ROWNUM=1 
  		ORDER BY expectedEndDate
  	</select>
  	
@@ -27,17 +29,21 @@
  	</select>
  	
  	<select id="selIssueByAssignee" parameterType="lips.userinfo.dto.User" resultType="lips.issue.dto.IssueDto">
- 		SELECT * FROM issue
-		WHERE assignee = #{userId}
-		ORDER BY issueStage, expectedEndDate, createDate
+ 		SELECT * FROM 
+ 			(SELECT * FROM issue
+			WHERE assignee = #{userId}
+			ORDER BY issueStage, expectedEndDate, createDate)
+		WHERE rownum <![CDATA[<]]>11
  	</select>
  	
  	<select id="selIssueByFollowing" parameterType="lips.userinfo.dto.User" resultType="lips.issue.dto.IssueDto">
- 		SELECT *
-		FROM issue 
-		WHERE issueId IN (
-		    SELECT issueId FROM issue_watcher WHERE userId=#{userId}
-		)
+ 		SELECT * FROM
+	 		(SELECT *
+			FROM issue 
+			WHERE issueId IN 
+				(SELECT issueId FROM issue_watcher WHERE userId=#{userId})
+			ORDER BY issueStage, expectedEndDate, createDate)
+		WHERE rownum <![CDATA[<]]>11
  	</select>
 
  	<select id="selIssueWatcherCount" parameterType="lips.issue.dto.IssueDto" resultType="int">

@@ -112,7 +112,7 @@
 	<div class="col col-12 myIssue">
 		<div class="panel">
 			<div class="head">
-				<strong>내게 할당된 이슈</strong>
+				<strong>내게 할당된 이슈 TOP 10</strong>
 				<c:if test="${issueAssigned.size() ne 0 }">					
 					<a href="/issue/issueList?listType=AssignedIssue" class="btn focus small btnMore">더보기</a>
 				</c:if>
@@ -171,7 +171,7 @@
 	<div class="col col-12 myIssue">
 		<div class="panel">
 			<div class="head">
-				<strong>내가 팔로잉한 이슈</strong>
+				<strong>내가 팔로잉한 이슈 TOP 10</strong>
 				<c:if test="${issueFollowing.size() ne 0 }">
 					<a href="/issue/issueList?listType=FollowingIssue" class="btn focus small btnMore">더보기</a>						
 				</c:if>

@@ -97,7 +97,7 @@ for(var i = 0; i<overArr.length; i++) {
 
 multiChart("#multi", {
 	width : 500,
-	height : 400,
+	height : 385,
     axis : [{
         x : {
             type : "block",
@@ -174,7 +174,7 @@ var names = {
 
 pieChart("#pie", {
 	width : 500,
-	height : 400,
+	height : 385,
     padding : 50,
     axis : {
         data : pieArrData

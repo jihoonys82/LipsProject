@@ -17,7 +17,7 @@
 		SELECT count(*) from userinfo where email= #{email }
 	</select>
  	<insert id="inUser" parameterType="lips.userinfo.dto.User">
- 		INSERT INTO userinfo VALUES(#{userId }, #{email},#{pw }, sysdate, #{nick }, 0, 1, #{phone }, #{birth } ) 		
+ 		INSERT INTO userinfo VALUES(#{userId }, #{email},#{pw }, sysdate, #{nick }, 0, 1, #{phone }, #{birth },null ) 		
  	</insert>
  	<insert id="inUserAlarm" parameterType="lips.userinfo.dto.User">
  		INSERT INTO alarm values(#{userId}, sysdate)

@@ -104,7 +104,7 @@
 	
 	multiChart("#multi", {
 		width : 500,
-		height : 400,
+		height : 385,
 	    axis : [{
 	        x : {
 	            type : "block",
@@ -165,7 +165,7 @@
 	pieChart("#pie", {
 	    padding : 50,
 		width : 500,
-		height : 400,
+		height : 385,
 	    axis : {
 	        data : pieArrData
 	    },

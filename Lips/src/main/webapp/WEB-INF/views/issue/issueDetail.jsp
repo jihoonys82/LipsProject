@@ -302,7 +302,7 @@ input[name=fileName] {
 <!-- 							<input type="file" name="myfile"/> -->
 <!-- 						</div>			 -->
 <!-- 					</div> -->
-<!-- 				</div> -->
+				</div>
 				<div class="col col-2">
 					<button class="btn focus commentAdd">등록 </button>
 				</div>			

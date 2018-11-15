@@ -523,8 +523,10 @@ $(document).ready(function(){
 	            
 	            if(stageId == 99){
 	            	$(".acualEndDateInput").empty().text(data.actualenddate);
+	            	$(".countDate").hide();
 	            }else{
 	            	$(".acualEndDateInput").empty().text("아직 프로젝트가 종료되지 않았습니다.");
+	            	$(".countDate").show();
 	            }
 	            
 	            

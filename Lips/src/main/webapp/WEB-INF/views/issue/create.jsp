@@ -468,12 +468,6 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 		이슈 단계 설정하기
 	</div>
 	<div class="body">
-		<div class="row">
-			<div class="newStage" style="margin: 10px;float:right;">
-				<span class="label danger mini">주의!</span>이슈단계를 추가/수정하면 작성 내용이 사라집니다!
-				<button type="button" class="btn" onclick="location.href='/issue/setupIssueStage'">이슈단계 추가/수정</button>			
-			</div>
-		</div>
 		<div class="row mt-1">
 			<div class="col col-1"></div> <!-- column spacing -->
 			<div class="col col-10">

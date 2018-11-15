@@ -695,18 +695,26 @@ type : "post"
 		
 		//초대코드 다시만들기
 			$("#inviteRefresh").click(function() {
- 
+		var projectKey ='${updatePageinfo.projectinfo.projectKey}';
+		 
 			$.ajax({
 				type : "post"
 					, url : "/project/reinvitecode"
 					, beforesend: function(){}
 					, data : {
-							"projectKey" : '${updatePageinfo.projectinfo.projectKey}',
-							"projectId"	 : ${updatePageinfo.projectinfo.projectId}
+							"projectKey" : projectKey 
 					}
 					, dataType: "json"
 					, success : function(data) {
+						
+// 						 $("#invitecode").html(data.result);
 						 $("#invitecode").text(data.result);
+							 
+						
+// 						alert(data.result+"초대코드를 재생성하였습니다.");
+						
+						
+					
 					}
 					, error : function() {console.log("초대코드 재생성 실패");}
 				  })

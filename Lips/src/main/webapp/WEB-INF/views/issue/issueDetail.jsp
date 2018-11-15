@@ -198,7 +198,14 @@ input[name=fileName] {
 			</div>
 			<div class="issueItem-2">
 				<span class="issueItem-label">첨부 파일</span>
-				<div class="issueItem-value input issueDiv"></div>
+				<div class="issueItem-value input issueDiv">
+					<c:forEach items="${attachFile }" var="file">
+						<a href="/file/downloadFile?fileId=${file.fileId }">
+							${file.originName }
+							(<fmt:formatNumber value="${file.fileSize / 1024 }" pattern=".00" /> KB)
+						</a> 
+					</c:forEach>
+				</div>
 			</div>
 			<div class="issueItem-2">
 				<span class="issueItem-label">내용</span>

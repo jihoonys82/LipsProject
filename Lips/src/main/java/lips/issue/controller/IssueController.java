@@ -128,6 +128,15 @@ public class IssueController {
 		issueService.setNewIssue(issueDto);
 		return "redirect:/issue/main";
 	}
+	@RequestMapping(value="/issueUpdate",method=RequestMethod.GET)
+	public void issueUpdate(Model model,int issueId) {
+		IssueDto issueDto = new IssueDto();
+		issueDto.setIssueId(issueId);
+		issueDto = issueService.getIssueById(issueDto);
+		String projectName = issueService.getProjectName(issueDto);
+		model.addAttribute("issue",issueDto);
+		model.addAttribute("projectName", projectName);
+	}
 	
 	/**
 	 * Issue list page
@@ -137,7 +146,7 @@ public class IssueController {
 	 */
 	@RequestMapping(value="/issueList", method=RequestMethod.GET)
 	public ModelAndView issueList(@RequestParam(required=false, defaultValue="AssignedIssue") String listType,
-			@RequestParam(required=false) String projectId,
+			@RequestParam(required=false, defaultValue="0") String projectId,
 			@RequestParam(required=false) User issueOwner,
 			@RequestParam(required=false, defaultValue="0") int curPage) {
 		

@@ -83,8 +83,11 @@ public interface IssueDao {
 	 * @return
 	 */
 	public List<StageAssetDto> selStageAssetByPresetId(IssueStagePresetDto ispDto);
-	
-	
+	/*
+	 * select ProjectName
+	 * @param issueDto
+	 */
+	public String selProjectName(IssueDto issueDto);
 	/**
 	 * Insert new Issue
 	 * @param issueDto
@@ -294,6 +297,7 @@ public interface IssueDao {
 	 * Update Issue for IssueStage
 	 * @param issueStage
 	 */
+	public int selAssetOrder(IssueStagePresetAssetDto dto);
 	public void updateIssueIssueStage(IssueDto dto);
 	/**
 	 * Update Issue for IssueStageEnddate

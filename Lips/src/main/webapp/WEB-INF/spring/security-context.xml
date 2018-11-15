@@ -10,6 +10,7 @@
         			<security:concurrency-control max-sessions="1"></security:concurrency-control>
     		</security:session-management>
 			<security:intercept-url pattern="/main" access="hasAuthority('USER')" />
+			<security:intercept-url pattern="/user/mypage/**" access="hasAuthority('USER')" />
 			<security:intercept-url pattern="/issue/**" access="hasAuthority('USER')" />
 			<security:intercept-url pattern="/project/**" access="hasAuthority('USER')" />
 			<security:intercept-url pattern="/admin/**" access="hasAuthority('ADMIN')" />

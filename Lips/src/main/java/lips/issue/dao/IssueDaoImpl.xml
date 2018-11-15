@@ -77,7 +77,9 @@
 	    	AND P.issuePresetId = #{issuePresetId}
 	    ORDER BY P.assetOrder ASC
  	</select>
- 	
+ 	<select id="selProjectName" parameterType="lips.issue.dto.IssueDto" resultType="String">
+ 		SELECT PROJECTNAME FROM Projectinfo where projectId=#{projectId }
+ 	</select>
  	<insert id="inIssue" parameterType='lips.issue.dto.IssueDto'>
  		INSERT INTO issue
 		    (issueId, projectId, issueTitle, categoryId, createUser, assignee, expectedEndDate, issueContent, customValues, stagePresetId)
@@ -202,7 +204,7 @@
  		<selectKey resultType="Integer" keyProperty="targetPreset" order="BEFORE">
  			  SELECT MAX(ISSUEPRESETID) FROM Issue_stage_preset  
  		</selectKey>
- 		INSERT ALL  
+ 		INSERT ALL
  		<foreach collection="assetList" item="assetId" index="index">
  			 INTO Issue_stage_preset_asset VALUES (#{targetPreset}, #{assetId }, #{index })
  		</foreach>
@@ -227,12 +229,15 @@
   	<delete id="delStageAsset" parameterType="lips.issue.dto.StageAssetDto">
   		DELETE from stage_asset where stageAssetId=#{stageAssetId } and projectId != 0
   	</delete>
+  	<select id="selAssetOrder" parameterType="lips.issue.dto.IssueStagePresetAssetDto" resultType="Integer">
+  		Select assetOrder from issue_stage_preset_asset where issuePresetid = #{issuePresetId } And stageAssetId=#{stageAssetId }
+  	</select>
   	<select id="selStageAssetPressetUpStageId" parameterType="lips.issue.dto.IssueStagePresetAssetDto" resultType="lips.issue.dto.IssueStagePresetAssetDto">
-	  	SELECT *FROM
+	  	SELECT * FROM
 	  		(SELECT stageassetid 
 	  		FROM issue_stage_preset_asset
 	  		WHERE issuepresetid = #{issuePresetId} 
-	  		AND stageassetid <![CDATA[>]]> #{stageAssetId}
+	  		AND assetOrder <![CDATA[>]]> #{assetOrder}
 	  		ORDER BY assetorder)
   		WHERE rownum= '1'
   	</select>
@@ -241,7 +246,7 @@
 	  		(SELECT stageassetid 
 	  		FROM issue_stage_preset_asset
 	  		WHERE issuepresetid = #{issuePresetId} 
-	  		AND stageassetid <![CDATA[<]]> #{stageAssetId}
+	  		AND assetOrder <![CDATA[<]]> #{assetOrder}
 	  		ORDER BY assetorder DESC)
   		WHERE rownum= '1'
   	</select>

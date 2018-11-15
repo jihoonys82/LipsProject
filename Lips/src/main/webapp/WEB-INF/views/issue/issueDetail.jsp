@@ -96,7 +96,7 @@ input[name=fileName] {
 <div class="row issueDetail issueBtnGroup">
 	<div class="panel ">
 		<div class="body">
-			<button class="btn focus">목록 보기</button>
+			<a href="/issue/main" class="btn focus">목록 보기</a>
 			<c:if test="${userId ne issue.assignee }">			
 				<button class="btn focus" id="removeFollower"><span class="icon icon-happy"></span>관심 해제</button>
 				<button class="btn" id="addFollower"><span class="icon icon-happy"></span>관심 등록</button>
@@ -112,8 +112,10 @@ input[name=fileName] {
 			<c:if test="${userId eq issue.assignee }">
 				<button class="btn stageDown">이전단계</button>
 				<button class="btn stageUp">다음단계</button>
-				<button class="btn">수정</button>
-				<button class="btn">삭제</button>
+			</c:if>	
+			<c:if test="${userId eq issue.createUser }">
+				<a href="/issue/issueUpdate?issueId=${issue.issueId }" class="btn" >수정</a>
+				<a href="/issue/issueDelete?issueId=${issue.issueId }" class="btn">삭제</a>
 			</c:if>
 		</div>
 	</div>
@@ -492,7 +494,7 @@ $(document).ready(function(){
 		var issueId = "${issue.issueId}";
 		var allData = { "change": change, "issueId": issueId };
 
-		
+		console.log(change);
 		$.ajax({
 	        type : 'post',
 	        url : '/issue/changeStage',

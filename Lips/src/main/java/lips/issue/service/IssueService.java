@@ -233,6 +233,12 @@ public class IssueService {
 		
 		return mav;
 	}
+	public String getProjectName(IssueDto issueDto) {
+		return issueDao.selProjectName(issueDto);
+	}
+	public IssueDto getIssueById(IssueDto issueDto) {
+		return issueDao.selIssueByIssueId(issueDto);
+	}
 	
 	/**
 	 * get issue detail data
@@ -435,6 +441,7 @@ public class IssueService {
 		
 		stagedto.setIssuePresetId(stagePresetId);
 		stagedto.setStageAssetId(issueStage);
+		stagedto.setAssetOrder(issueDao.selAssetOrder(stagedto));
 //		System.out.println("#####dto " +dto);
 //		System.out.println("@@@@@stagedto"+ stagedto);
 		

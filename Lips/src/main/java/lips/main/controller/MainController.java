@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import lips.freeboard.service.FreeboardService;
 import lips.main.service.MainService;
-import lips.project.service.ProjectService;
 import lips.userinfo.dto.User;
 import lips.userinfo.dto.UserByToken;
 import lips.userinfo.dto.UserTracker;
@@ -19,6 +19,7 @@ public class MainController {
 	
 	@Autowired
 	MainService service;
+	@Autowired FreeboardService fbsvc;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	@Autowired UserTracker userTrack;
@@ -35,7 +36,7 @@ public class MainController {
 	public ModelAndView main(ModelAndView mav) {
 		
 		User user = new UserByToken().getInstance();
-		
+		mav = fbsvc.mainView();
 		
 		mav.addObject("mainInfo",service.mainPage(user));
 		mav.setViewName("main/main");

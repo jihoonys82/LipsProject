@@ -117,7 +117,7 @@
 	<div class="col col-12" style="margin-top: 10px; margin-bottom: 10px;"
 		id="headNav">
 
-		<div class="navbar" style="float: left; width: 90%; height: 30px;">
+		<div class="navbar xylocationselector" style="float: left; width: 95%; height: 30px;">
 			<strong>Line Select</strong>
 			<div style="float: right;">
 				<div class="combo">
@@ -141,7 +141,7 @@
 		</div>
 		<!-- end of layout selector -->
 		<!--save button  -->
-		<div style="float: left; margin-left: 10px;">
+		<div class="savebtndiv" style="float: left; margin-left: 10px;" hidden="true">
 			<button class="btn" style="height: 40px;" type="button"
 				onclick="dashSaveModal.show()">저장</button>
 		</div>
@@ -261,7 +261,8 @@
 					for ( var key in dataCollection) {
 						delete dataCollection[key];
 					}
-					
+					$(".xylocationselector").css("width","90%");
+					$(".savebtndiv").show();
 					drawLayout();
 				});
 				$("#comboLineY").on("change", function() {
@@ -271,7 +272,8 @@
 					for ( var key in dataCollection) {
 							delete dataCollection[key];	
 					}
-					
+					$(".xylocationselector").css("width","90%");
+					$(".savebtndiv").show();
 					drawLayout();
 				});
 
@@ -390,5 +392,11 @@
 		$("#saveform").submit();
 
 	}
-	
+	var nullchecker = function(){
+		if(dataCollection = null){
+			console.log("AAA");
+		}else{
+			
+		}
+	}
 </script>

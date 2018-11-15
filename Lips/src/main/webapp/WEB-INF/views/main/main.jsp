@@ -1,3 +1,4 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" session="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -224,7 +225,7 @@ $(document).ready(function() {
 			<div class="head">
 				<i class="icon-info"></i><strong> Notice</strong>
 			</div>
-		<table class="table classic stripeless" style="height :12.5em; overflow: hidden;">
+		<table class="table classic hover" style="height :12.5em; overflow: hidden;">
 			<thead>
 				<tr >
 					<th style="width:3em; text-align:center">#</th>
@@ -245,8 +246,6 @@ $(document).ready(function() {
 		 	</tbody>
 		</table>
 		</div>
-	
-
     </div>
 </div>
 
@@ -256,7 +255,7 @@ $(document).ready(function() {
 			<div class="head">
 				<i class="icon-preview"></i><strong> Follower Top5</strong>
 			</div>
-		<table class="table classic stripeless">
+		<table class="table classic hover">
 			<thead>
 				<tr>
 					<th style="width:3em; text-align:center">#</th>
@@ -283,30 +282,35 @@ $(document).ready(function() {
     </div>
 	
 	
-	<div class="col col-6 mainContents">
-			<div class="panel">
+	<div class="col col-6 mainContents mainview">
+		   
+	<div class="panel">
 			<div class="head">
 				<i class="icon-template"></i><strong> Board</strong>
+				<a href="/freeboard/list" style="float: right; "><button class="btn focus">세부 리스트</button></a>
 			</div>
-		<table class="table classic stripeless">
+		<table class="table classic hover">
 			<thead>
 				<tr>
-					<th style="width:3em; text-align:center">#</th>
-					<th style="width:7em; text-align:center">Title</th>
-					<th style="text-align:center">Contents</th>
+					<th style="width:3em; text-align:center;">#</th>
+					<th style="width:5em; text-align:center;">작성자</th>
+					<th style="text-align: center;">제목</th>
+					<th style="width: 3em; text-align: center;">조회</th>
+					
 				</tr>
 			</thead>
 			<tbody>
-		 				<tr onclick="viewBoard(${Prolist.projectId});">
-							<td style="text-align:center">번호</td>
-							<td style="text-align:center">제목</td>
-							<td style="text-align:center">내용</td>	
-			 				</tr>	 		
+				<c:forEach items="${list}" var="item">
+	 				<tr onclick="viewBoard(${item.fboardId })">
+						<td class="freeboardId" style="text-align:center;">${item.fboardId }</td>
+						<td style="text-align:center;">${item.fboardWriter }</td>
+						<td style="text-align:center;">${item.fboardTitle }</td>	
+						<td style="text-align:center;">${item.readcnt }</td>	
+					<tr>
+				</c:forEach> 		
 		 	</tbody>
 		</table>
 		</div>
-	
-
     </div>
 		
 		
@@ -327,6 +331,13 @@ $(document).ready(function() {
 </div>		
 </div>
 
+<div hidden="true">
+<form id="freeboardform"  hidden="true" action="/freeboard/detail" method="get">
+	<input name="fboardId" value="">
+</form>
+<input >
+
+</div>
 
 
 <script>
@@ -401,5 +412,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('click', (e) => st.clickHandler(e));
 
+var viewBoard = function(freeboardId){
 
+	var freeboardform = $("#freeboardform");
+	freeboardform.children("input").val(freeboardId);
+	freeboardform.submit();
+	
+}
 </script>

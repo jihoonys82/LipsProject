@@ -111,16 +111,16 @@ public class CustomeUserDetailsService implements UserDetailsService {
 	 * @param password
 	 * @return
 	 */
-	public int deactivate(String confirmPw) {
-		//TODO: 패스워드체크 구현 필요.
-		String bCryptPw = passwordEncoder.encode(confirmPw);
+	public boolean deactivate(String confirmPw) {
+		//TODO: 패스워드체크 컨펌 필요
 		User user = new UserByToken().getInstance();
-		user.setPw(bCryptPw);
+		String cryptedPw = dao.selPasswordByUser(user);
+		boolean isMatched = passwordEncoder.matches(confirmPw, cryptedPw);
 		
-		dao.upUserDeactivate(user);
+		if(isMatched) {
+			dao.upUserDeactivate(user);
+		}
 		
-		int userCnt = dao.selCntUserId(user);
-		
-		return userCnt;
+		return isMatched;
 	}
 }

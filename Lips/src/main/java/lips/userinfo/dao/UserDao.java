@@ -49,4 +49,11 @@ public interface UserDao {
 	 * @param user
 	 */
 	public void upUserDeactivate(User user);
+	
+	/**
+	 * Get Crypted Password (패스워드 값 조회)
+	 * @param user
+	 * @return
+	 */
+	public String selPasswordByUser(User user);
 }

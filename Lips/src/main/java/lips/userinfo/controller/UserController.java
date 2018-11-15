@@ -102,9 +102,9 @@ public class UserController {
 	 */
 	@RequestMapping(value="/mypage/deactivate", method=RequestMethod.POST)
 	public String deactivate(String confirmPw) {
-		int result = service.deactivate(confirmPw);
-		logger.info("[RESULT!!!!!]" + result);
-		if(result>0) {
+		boolean result = service.deactivate(confirmPw);
+		//logger.info("[RESULT!!!!!]" + result);
+		if(!result) {
 			return "redirect:/user/mypage?deactivate=fail";
 		}
 		return "redirect:/logout";

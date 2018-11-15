@@ -27,6 +27,10 @@
  	</update>
 	
 	<update id="upUserDeactivate" parameterType="lips.userinfo.dto.User">
-		UPDATE userinfo SET blocked = 0, userLevel = 0, deactivateDate = sysdate WHERE userId = #{userId} AND pw = #{pw}
+		UPDATE userinfo SET blocked = 0, userLevel = 0, deactivateDate = sysdate WHERE userId = #{userId}
 	</update>
+	
+	<select id="selPasswordByUser" parameterType="lips.userinfo.dto.User" resultType="String">
+		SELECT pw FROM userinfo WHERE userId = #{userId}
+	</select>
  </mapper>

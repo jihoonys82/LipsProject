@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import lips.file.dto.AttachFileDto;
+import lips.file.service.FileService;
 import lips.issue.dao.IssueDao;
 import lips.issue.dto.CategoryAssetDto;
+import lips.issue.dto.IssueAttachFileDto;
 import lips.issue.dto.IssueCommentDto;
 import lips.issue.dto.IssueDto;
 import lips.issue.dto.IssueStagePresetAssetDto;
@@ -35,6 +38,7 @@ public class IssueService {
 	@Autowired IssueDao issueDao;
 	@Autowired ProjectDao projectDao;
 	@Autowired UserDao userDao;
+	@Autowired FileService fileService;
 	
 	public ModelAndView setIssueMain(User user) {
 		
@@ -157,11 +161,12 @@ public class IssueService {
 		return issueDao.selStageAssetByPresetId(ispDto);
 	}
 	
-	public void setNewIssue(IssueDto issueDto) {
+	public IssueDto setNewIssue(IssueDto issueDto) {
 		User user = new UserByToken().getInstance();
 		issueDto.setCreateUser(user.getUserId());
-		logger.info(issueDto.toString());
 		issueDao.inIssue(issueDto);
+		
+		return issueDto;
 	}
 	
 	public ModelAndView getIssueList(String listType, String projectId, User issueOwner, int curPage) {
@@ -292,7 +297,8 @@ public class IssueService {
 				categoryName = catAsset.getAssetName();
 			}
 		}
-		// TODO 7. 첨부파일 가져오기 
+		// 7. 첨부파일 가져오기 
+		List<AttachFileDto> iafDtos = issueDao.selIssueFile(issueDto);
 		
 		// 8. 댓글 가져오기 
 		List<IssueCommentDto> comments = issueDao.selCommentByIssue(issue);
@@ -304,6 +310,7 @@ public class IssueService {
 		mav.addObject("follower", follower);
 		mav.addObject("amIFollowing", amIFollowing);
 		mav.addObject("projectDto", projectDto);
+		mav.addObject("attachFile", iafDtos);
 		
 		mav.addObject("comments", comments);
 		mav.addObject("catName", categoryName);
@@ -346,17 +353,17 @@ public class IssueService {
 	 * @return
 	 */
 	public ModelAndView addComment(IssueCommentDto issueCommentDto) {
+
 		ModelAndView mav = new ModelAndView();
 		
-		//TODO: file upload 처리 
-		 
+//		Map<String, String> map = fileService.uploadFile(uploadFile);
+//		issueCommentDto.setAttachFile(Integer.parseInt(map.get("fileId")));
+		
 		issueDao.inComment(issueCommentDto); 
-//		logger.info("test : " + commentId + "");
-//		IssueCommentDto idDto = new IssueCommentDto();
-//		idDto.setCommentId(commentId);
 		IssueCommentDto icDto = issueDao.selCommentById(issueCommentDto);
-//		System.out.println(icDto);
+		
 		mav.addObject("comment", icDto);
+//		mav.addObject("file", map);
 		mav.setViewName("issue/commentBody");
 		
 		return mav;
@@ -498,6 +505,26 @@ public class IssueService {
 		map.put("stageName", assetdto.getStageName());
 		
 		return map ;
+	}
+
+	/**
+	 * Issue_AttachFile Insert
+	 * @param iDto
+	 * @param filesArr
+	 */
+	public void setIssueAttachFile(IssueDto iDto, String[] filesArr) {
+		List<IssueAttachFileDto> iafDtos = new ArrayList<>();
+		IssueAttachFileDto iafDto;
+		for(String s : filesArr) {
+			iafDto = new IssueAttachFileDto();
+			iafDto.setIssueId(iDto.getIssueId());
+			iafDto.setFileId(Integer.parseInt(s));
+			
+			iafDtos.add(iafDto);
+		}
+		Map<String,List<IssueAttachFileDto>> map = new HashMap<>();
+		map.put("fileList", iafDtos);
+		issueDao.inIssueAttachFile(map);
 	}
 	
 }

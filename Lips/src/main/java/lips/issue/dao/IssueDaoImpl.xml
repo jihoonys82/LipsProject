@@ -273,4 +273,19 @@
   		SELECT*FROM stage_asset
 		WHERE stageassetid = #{stageAssetId}
   	</select>
+  	
+  	<insert id="inIssueAttachFile" parameterType="map">
+  		INSERT ALL
+  			<foreach collection="fileList" item="list" index="index">
+  				INTO issue_attachFile(issueId, fileId) VALUES (#{list.issueId}, #{list.fileId})
+  			</foreach> 
+  		SELECT * FROM dual
+  	</insert>
+  	
+  	<select id="selIssueFile" parameterType="lips.issue.dto.IssueDto" resultType="lips.file.dto.AttachFileDto">
+  		SELECT AF.* 
+  		FROM issue_attachFile IA, attachFile AF
+  		WHERE IA.fileId = AF.fileId
+  			AND IA.issueId = #{issueId}
+  	</select>
  </mapper>  

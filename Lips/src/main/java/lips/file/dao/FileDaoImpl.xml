@@ -11,7 +11,7 @@
 	</insert>
 	
 	<select id="selFilesByUser" parameterType="lips.userinfo.dto.User" resultType="lips.file.dto.AttachFileDto" >
-		SELECT * FROM attachFile WHERE userId=#{userId}
+		SELECT * FROM attachFile WHERE userId=#{userId} ORDER BY uploadDate
 	</select>
 	
 	<select id="selFileByFileId" parameterType="lips.file.dto.AttachFileDto" resultType="lips.file.dto.AttachFileDto">

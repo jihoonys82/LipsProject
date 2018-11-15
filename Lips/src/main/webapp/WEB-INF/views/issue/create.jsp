@@ -3,6 +3,12 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <sec:authentication property="principal.userId" var="userId"/>
+
+<script src="http://malsup.github.com/min/jquery.form.min.js"></script> 
+<script type="text/javascript" src="/resources/js/moment.min.js"></script>
+
+<c:set var="startNo" value="1"/>
+<c:set var="endNo" value="99"/>
 <script>
 //assignee autocomplete
 jui.ready([ "ui.autocomplete" ], function(autocomplete) {
@@ -89,7 +95,7 @@ $(document).ready(function() {
 				
 				// button click event for select the preset 
 				$("button.selectTo").on('click', function(){
-					var ipId = $(this).siblings("input[type=hidden]").val();
+					var ipId = $(this).parent().find("input").val();
 					//console.log(ipId);
 					$.ajax({
 						type:"post"
@@ -109,6 +115,7 @@ $(document).ready(function() {
 								}
 							}
 							$("#selectedStage").html($content);
+							$("#stagePresetId").val(ipId);
 							setStageModal.hide();
 						}
 						, error : function(e){
@@ -161,43 +168,52 @@ $(document).ready(function() {
 	});
 
 	//selectPreset setting 
-	$("div.title button").on('click', function(){
-		var issuePresetId = $(this).attr('id');
-		$("#stagePresetId").val(issuePresetId);
-		$.ajax({
-			type:"post"
-			, url: "/issue/getStageAssets"
-			, async : false
-			, data: { "issuePresetId" : issuePresetId }
-			, dataType: "json"
-			, beforeSend: function () {
-				$("#selectedStage").empty();
-			}
-			, success: function(data){	
-				var $content ="";
-				for(var i=0;i<data.stageAssets.length;i++) {
-					$content += "<span class='label mini success'>"+ data.stageAssets[i].stageName + "</span>";
-					if(i<data.stageAssets.length-1) {
-						$content += "<span class='icon icon-arrow4' style='vertical-align:middle;'></span>"
-					}
-				}
-				$("#selectedStage").html($content);
-				setStageModal.hide();
-			}
-			, error : function(e){
-				console.log("----error----");
-				console.log(e.responseText);
-			}
-		}); // end of ajax
-	}); //end of selectPreset setting
+// 	$("div.title button").on('click', function(){
+// 		var issuePresetId = $(this).attr('id');
+// 		$("#stagePresetId").val(issuePresetId);
+// 		$.ajax({
+// 			type:"post"
+// 			, url: "/issue/getStageAssets"
+// 			, async : false
+// 			, data: { "issuePresetId" : issuePresetId }
+// 			, dataType: "json"
+// 			, beforeSend: function () {
+// 				$("#selectedStage").empty();
+// 			}
+// 			, success: function(data){	
+// 				var $content ="";
+// 				for(var i=0;i<data.stageAssets.length;i++) {
+// 					$content += "<span class='label mini success'>"+ data.stageAssets[i].stageName + "</span>";
+// 					if(i<data.stageAssets.length-1) {
+// 						$content += "<span class='icon icon-arrow4' style='vertical-align:middle;'></span>"
+// 					}
+// 				}
+// 				$("#selectedStage").html($content);
+// 				setStageModal.hide();
+// 			}
+// 			, error : function(e){
+// 				console.log("----error----");
+// 				console.log(e.responseText);
+// 			}
+// 		}); // end of ajax
+// 	}); //end of selectPreset setting
 	
 	// submit button ckick
 	$("#issueFormSubmit").on("click", function() {
-		// 1. file upload via ajax. TODO!!
+		// 1. file upload
+		var fileDOMs = $("#ufList").find("input[name=fileId]");
+		var files = [];
+		for(var i=0;i<fileDOMs.length;i++){
+			files[i] = fileDOMs.eq(i).val();
+		}
+		console.log(files);
+		var inputFiles = $("<input>")
+			.attr("type","hidden")
+			.attr("name","files").val(files);
 		
-		// 2. custom field data to json. TODO!!  
+		$("form[action='/issue/create']").append(inputFiles);
 		
-		// 3. form submit
+		// 2. form submit
 		$("form[action='/issue/create']").submit();
 	});
 });
@@ -213,6 +229,133 @@ jui.ready([ "ui.modal" ], function(modal) {
     //close button event
     $("#cancelStage").click(function(){
 		setStageModal.hide();
+	});
+    
+  //selectFileModal
+    $("#selectFileModal").appendTo("body");
+
+    selectFileModal = modal("#selectFileModal", {
+        color: "gray"
+    });
+ 
+    //close button event
+    $("#cancelFile").click(function(){
+    	selectFileModal.hide();
+	});
+    
+    //open selectFileModal 
+    $(".openMyFile").on('click', function(){
+    	$.ajax({
+			type:"post"
+			, url: "/file/myFile"
+			, dataType: "json"
+			, success: function(data){
+				console.log("hi");
+				console.log(data.files.length);
+				var tbody="";
+				for(var i=0;i<data.files.length;i++){
+					var f = data.files[i];
+					tbody += "<tr>"
+						+ "<td>" + f.originName + "</td>"
+						+ "<td>" + (f.fileSize/1024).toFixed(0) + "</td>"
+						+ "<td>" + moment(f.uploadDate).format("YYYY-MM-DD HH:mm:ss") + "</td>"
+						+ "<td>" 
+							+ "<input type='hidden' name='fileId' value='" + f.fileId + "' />" 
+							+ "<button class='btn mini focus addFile'>선택</button>"
+						+ "</td>"
+						+ "</tr>";
+				}
+				$("#mfList").html(tbody);
+				
+				// add file
+				$("button.addFile").on('click', function(){
+					console.log("??");
+					var noticeRow = $("tbody#ufList").find("td[colspan='4']");
+					if(noticeRow.length>0){
+						noticeRow.parent().remove();
+					}
+					var targetRow = $(this).parent().parent();
+					if(targetRow.parent().attr("id")=="mfList"){
+						$("#ufList").append(targetRow);						
+					} else{
+						$("#mfList").append(targetRow);
+					}
+				});
+				
+				selectFileModal.show();
+			}
+			, error : function(e){
+				console.log("----error----");
+				console.log(e.responseText);
+			}
+		});// end of ajax
+    }); //end of .openMyFile click event
+    
+    //fileUpload Ajax
+	$("#fileUp").ajaxForm({
+		data: {
+		}
+		, dataType: "json"
+		, success: function( res ) {
+			//console.log("성공");
+			var targetRow = "<tr>"
+				+ "<td>" + res.fileName + "</td>"
+				+ "<td>" + (res.fileSize/1024).toFixed(0) + "</td>"
+				+ "<td>" + moment().format("YYYY-MM-DD HH:mm:ss") + "</td>"
+				+ "<td>" 
+					+ "<input type='hidden' name='fileId' value='" + res.fileId + "' />"
+					+ "<button class='btn mini focus addFile'>선택</button> "
+				+ "</td>"
+				+ "</tr>";
+				
+			//$("#mfList").append(targetRow);
+			
+			var noticeRow = $("tbody#ufList").find("td[colspan='4']");
+			if(noticeRow.length>0){
+				noticeRow.parent().remove();
+			}
+			$("#ufList").append(targetRow);
+			
+			// add file
+			$("button.addFile").on('click', function(){
+				var noticeRow = $("tbody#ufList").find("td[colspan='4']");
+				if(noticeRow.length>0){
+					noticeRow.parent().remove();
+				}
+				var targetRow = $(this).parent().parent();
+				if(targetRow.parent().attr("id")=="mfList"){
+					$("#ufList").append(targetRow);						
+				} else{
+					$("#mfList").append(targetRow);
+				}
+			});
+			
+			// empty input values
+			$("#fileUp").find("input").val("");
+			
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+    
+	// comment file upload (not action)
+	$("input:file").on('change',function(){
+		var $fname= $("input:file").val();
+		$("input[name='fileName']").val($fname);
+	});
+	
+	// submit file
+	$("#submitFile").on('click', function(){
+		var rows = $("#ufList").find("tr");
+		for(var i=0;i<rows.length;i++){
+			var tds = rows.eq(i).find("td");
+			var fileId = tds.eq(3).find("input").val();
+			var fileLink = $("<a>").attr("href","/file/downloadFile?fileId="+ fileId ).text(tds.eq(0).text());
+			$("#issueFile").append(fileLink);
+			$("#issueFile").append($("<br>"));
+		}
+		selectFileModal.hide();
 	});
     
 });
@@ -292,6 +435,33 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 	width: 80%;
 	height: 50em;
 }
+#selectFileModal {
+	width: 80%;
+/* 	height: 50em; */
+}
+.tableWrap {
+	padding: 10px;
+}
+/*  css for file upload */
+.upload-group {
+	margin-top: 5px;
+}
+input[name=fileName] {
+	width : 100%;
+}
+.upload-btn-wrapper {
+	padding-left: 5px;
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+}
+.upload-btn-wrapper input[type=file] {
+	font-size: 100px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+} /*  end of css for file upload */
 </style>
 
 <div class="row">
@@ -368,8 +538,9 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 			
 			<div class="issue-form-row">
 				<label for="issueFile" class="issue-form-label">파일 업로드</label>
-				추가예정
-
+				<div id="issueFile" class="input issue-form-input" style="height:5em; overflow:auto;">
+				</div>
+				<button type="button" class="btn openMyFile">파일선택</button>
 			</div>
 			<div class="hr mt-1 mb-1"></div>
 			<div class="h4 mt-1 mb-1" >추가항목</div>
@@ -462,18 +633,11 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 </div>
 
 <!-- set Stage Modal -->
-
 <div id="setStageModal" class="msgbox" style="display: none;">
 	<div class="head">
 		이슈 단계 설정하기
 	</div>
 	<div class="body">
-		<div class="row">
-			<div class="newStage" style="margin: 10px;float:right;">
-				<span class="label danger mini">주의!</span>이슈단계를 추가/수정하면 작성 내용이 사라집니다!
-				<button type="button" class="btn" onclick="location.href='/issue/setupIssueStage'">이슈단계 추가/수정</button>			
-			</div>
-		</div>
 		<div class="row mt-1">
 			<div class="col col-1"></div> <!-- column spacing -->
 			<div class="col col-10">
@@ -488,7 +652,7 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 					</thead>
 					<tbody id="presetList">
 						<tr>
-							<td colspan="2">프로젝트를 먼전 선택해 주세요. </td>
+							<td colspan="2">프로젝트를 먼저 선택해 주세요. </td>
 						</tr>
 					</tbody>
 				</table>
@@ -499,5 +663,81 @@ jui.ready([ "ui.accordion" ], function(accordion) {
 		</div>
 	</div>
 </div>
+
+<!-- set file Modal -->
+<div id="selectFileModal" class="msgbox" style="display: none;">
+	<div class="head">
+		파일 등록
+	</div>
+	<div class="body" style="height:42em; overflow:auto;">
+		<div class="row">
+			<div class="col col-6">
+				<div class="panel upFileList tableWrap">
+					<div class="head">
+						<strong>업로드할 파일 목록</strong>
+					</div>
+					<table class="table classic hover" >
+						<thead>
+							<tr>
+								<th>파일명</th>
+								<th style="width:15%;">용량(KB)</th>
+								<th>업로드일시</th>
+								<th style="width:15%;">빼기</th>
+							</tr>
+						</thead>
+						<tbody id="ufList">
+							<tr>
+								<td colspan="4">업로드할 파일을 선택해 주세요.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- end of upload file list panel -->
+			</div><!-- end of 1st col-6 -->
+			<div class="col col-6">
+				<div class="panel myFileList tableWrap">
+					<div class="head">
+						<strong>내 파일 목록</strong>
+					</div>
+					<table class="table classic hover" >
+						<thead>
+							<tr>
+								<th>파일명</th>
+								<th style="width:15%;">용량(KB)</th>
+								<th>업로드일시</th>
+								<th style="width:15%;">선택</th>
+							</tr>
+						</thead>
+						<tbody id="mfList"></tbody>
+					</table>
+				</div><!-- end of file list panel -->
+			</div><!-- end of 2nd col-6 -->
+		</div><!-- end of first row -->
+		<div class="row mt-1">
+			<div class="panel fileUpload tableWrap">
+				<div class="head">
+					<strong>새 파일 등록</strong>
+				</div>
+				<div class="body">
+					<form id="fileUp" action="/file/uploadFile" method="post" enctype="multipart/form-data">
+						<div class="row" style="text-align:center;width:80%;">
+							<div class="col col-8">
+								<input class="input disabled" type="text" name="fileName"/>		
+							</div>
+							<div class="col col-3 upload-btn-wrapper">
+								<button class="btn">파일 찾기</button>
+								<input type="file" name="uploadFile"/>
+								<button id="btnFileUp" class="btn focus">업로드</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div><!-- end of file upload panel -->
+		</div><!-- end of 2nd row -->
+		<div style="text-align: center; padding: 5px;">
+			<button type="button" id="submitFile" class="btn focus">선택 완료</button>
+			<button type="button" id="cancelFile" class="btn">Close</button>
+		</div>
+	</div><!-- end of modal body -->
+</div><!-- end of modal -->
 
 

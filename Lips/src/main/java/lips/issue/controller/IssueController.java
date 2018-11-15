@@ -124,10 +124,20 @@ public class IssueController {
 	 * Issue Create process
 	 */
 	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public String issueCreateProc(IssueDto issueDto) {
-		issueService.setNewIssue(issueDto);
+	public String issueCreateProc(IssueDto issueDto, String files) {
+		String[] filesArr = files.split(",");
+		
+		IssueDto iDto = issueService.setNewIssue(issueDto);
+		issueService.setIssueAttachFile(iDto, filesArr);
+		
 		return "redirect:/issue/main";
 	}
+	
+	/**
+	 * Issue update view
+	 * @param model
+	 * @param issueId
+	 */
 	@RequestMapping(value="/issueUpdate",method=RequestMethod.GET)
 	public void issueUpdate(Model model,int issueId) {
 		IssueDto issueDto = new IssueDto();
@@ -226,7 +236,6 @@ public class IssueController {
 		try {
 			writer.append("{ \"result\" : " + numFollower + "}");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -241,7 +250,6 @@ public class IssueController {
 		try {
 			writer.append("{ \"result\" : " + numFollower + "}");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

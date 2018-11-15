@@ -293,16 +293,16 @@ input[name=fileName] {
 					<div class="row">
 						<textArea id="replyText" class="input"></textArea>
 					</div>
-					<div class="row upload-group">
-						<div class="col col-10">
-							<input class="input disabled" type="text" name="fileName"/>		
-						</div>
-						<div class="col col-2 upload-btn-wrapper">
-							<button class="btn">파일 첨부</button>
-							<input type="file" name="myfile"/>
-						</div>			
-					</div>
-				</div>
+<!-- 					<div class="row upload-group"> -->
+<!-- 						<div class="col col-10"> -->
+<!-- 							<input class="input disabled" type="text" name="fileName"/>		 -->
+<!-- 						</div> -->
+<!-- 						<div class="col col-2 upload-btn-wrapper"> -->
+<!-- 							<button class="btn">파일 첨부</button> -->
+<!-- 							<input type="file" name="myfile"/> -->
+<!-- 						</div>			 -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 				<div class="col col-2">
 					<button class="btn focus commentAdd">등록 </button>
 				</div>			

@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
+<c:set var="startNo" value="1"/>
+<c:set var="endNo" value="99"/>
 <style> 
 .w-5 {
 	width: 5%;
@@ -43,7 +45,11 @@
 		 	<tbody>
 		 		<tr>
 					<td>남은 기간 </td>	
-					<td><span class="countDate"><fmt:formatDate value="${issueCloseDeadline.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>		
+					<td><span class="countDate">
+						<c:if test="${issueCloseDeadline.issueStage ne endNo }">
+							<fmt:formatDate value="${issueCloseDeadline.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/>
+						</c:if>
+					</span></td>		
 		 		</tr>
 		 		<tr>
 					<td>이슈 내용</td>
@@ -76,7 +82,11 @@
 		 	<tbody>
 		 		<tr>
 					<td>남은 기간</td>
-					<td><span class="countDate"><fmt:formatDate value="${issueMostFollowed.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>		
+					<td><span class="countDate">
+						<c:if test="${issueMostFollowed.issueStage ne endNo }">
+							<fmt:formatDate value="${issueMostFollowed.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/>
+						</c:if>
+					</span></td>		
 		 		</tr>
 		 		<tr>
 					<td>이슈 내용</td>
@@ -128,7 +138,18 @@
 						<td class="issueLine">${issue.issueId }</td>
 						<td class="issueLine" >${issue.issueTitle }</td>
 						<td class="issueLine">${issue.createUser }</td>
-						<td class="issueLine"><span class="countDate"><fmt:formatDate value="${issue.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>
+						<td class="issueLine">
+							<c:if test="${issue.issueStage ne endNo }">
+								<span class="countDate">
+									<fmt:formatDate value="${issue.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/>
+								</span>
+							</c:if>
+							<c:if test="${issue.issueStage eq endNo }">
+								<span class="countDate" style="display:none;">
+									<fmt:formatDate value="${issue.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/>
+								</span>
+							</c:if>
+						</td>
 						<td>
 							<div class="myIssueStage">
 								<button class="btn mini myIssueStageBtn stageDown"><span class="icon icon-chevron-left"></span></button>
@@ -178,7 +199,11 @@
 							<td>${folIssue.issueTitle }</td>
 							<td>${folIssue.createUser }</td>
 							<td>${folIssue.assignee }</td>
-							<td><span class="countDate"><fmt:formatDate value="${folIssue.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span></td>
+							<td>
+								<c:if test="${folIssue.issueStage ne endNo }">
+									<fmt:formatDate value="${folIssue.expectedEndDate}" pattern="yyyy/MM/dd HH:mm:ss"/>
+								</c:if>
+							</td>
 							<td>
 								<div class="myIssueStage">
 									<span class="label success mini issueStage">${folIssue.issueStage }</span>								
@@ -261,10 +286,16 @@ $(document).ready(function() {
             dataType : 'JSON',
             data : allData,
             success : function(data){
-                var stageId = data.stageId;
+            	var stageId = data.stageId;
                 var stageName = data.stageName;
                 $(obj).parent().children("input").eq(0).val(stageId);
                 $(obj).parent().children("span").text(stageName);
+                if(stageId == 99) {
+                	//console.log("hi");
+                	$(obj).parent().parent().parent().find(".countDate").css("display","none");
+                } else {
+                	$(obj).parent().parent().parent().find(".countDate").css("display","inherit");
+                }
             }
         });
 

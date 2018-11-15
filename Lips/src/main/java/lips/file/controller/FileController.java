@@ -56,7 +56,7 @@ public class FileController {
 		fileService.deleteFile(attachFileDto);
 		
 		try {
-			writer.write("{ \"result\" : \"test\"}");
+			writer.write("{ \"result\" : \"deleted\"}");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

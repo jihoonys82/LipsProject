@@ -3,7 +3,9 @@ package lips.issue.dao;
 import java.util.List;
 import java.util.Map;
 
+import lips.file.dto.AttachFileDto;
 import lips.issue.dto.CategoryAssetDto;
+import lips.issue.dto.IssueAttachFileDto;
 import lips.issue.dto.IssueCommentDto;
 import lips.issue.dto.IssueDto;
 import lips.issue.dto.IssueStagePresetAssetDto;
@@ -322,4 +324,17 @@ public interface IssueDao {
 	 * @return StageAssetDto
 	 */
 	public StageAssetDto selStageAssetStageId(StageAssetDto dto);
+
+	/**
+	 * Insert IssueAttachFile
+	 * @param iafDtos
+	 */
+	public void inIssueAttachFile(Map<String,List<IssueAttachFileDto>> map);
+	
+	/**
+	 * Get Issue AttachFiles
+	 * @param issueDto
+	 * @return
+	 */
+	public List<AttachFileDto> selIssueFile(IssueDto issueDto);
 }

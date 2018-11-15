@@ -8,14 +8,15 @@
 	uri="http://www.springframework.org/security/tags"%>
 <link rel="stylesheet" href="/resources/css/userinfo/mypage.css?ver=2" />
 <jsp:include page="./joinposhy.jsp" />
-<script type="text/javascript"
-	src="/resources/js/userinfo/inputValid.js?ver=1"></script>
 
 <script src="http://malsup.github.com/min/jquery.form.min.js"></script> 
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
-
+<script type="text/javascript"	src="/resources/js/userinfo/inputValid.js?ver=1"></script>
 <script type="text/javascript">
 function checkUpdateForm(){
+	validNick($('#inputNick').val());
+	validPhone($('#inputPhone').val());
+	validBirth($('#inputBirth').val());
 	if(!completePw||!completeNick||!completePhone||!completeBirth){
 	
 		console.log(completePw);
@@ -183,7 +184,7 @@ input[name=fileName] {
 		<div class="formItem">
 			<label for="inputPwCheck">비밀번호 확인 (CONFIRM)</label> <input
 				class="input large" type="password" id="inputPwCheck" name="pwCheck"
-				onfocusout="isValidPw(this.value)" />
+				onfocusout="validPw(this.value)" />
 		</div>
 
 		<div class="formItem">
@@ -205,7 +206,7 @@ input[name=fileName] {
 			<label for="inputPhone">연락처 (PHONE)</label> <input
 				class="input large" type="text" id="inputPhone" name="phone"
 				onfocus="$('#inputPhone').poshytip('show');"
-				onfocusout="isValidPhone(this.value)"
+				onfocusout="validPhone(this.value)"
 				value="<sec:authentication property='principal.phone' />" />
 		</div>
 
@@ -214,7 +215,7 @@ input[name=fileName] {
 				value="<%=new UserByToken().getInstance().getBirth()%>" var='birth' />
 			<label for="inputBirth">생년월일 (BIRTH)</label> <input
 				class="input large" type="date" id="inputBirth" name="birth"
-				style="width: 48%;" onfocusout="isValidBirth(this.value)"
+				style="width: 48%;" onfocusout="validBirth(this.value)"
 				value='${birth }' />
 
 		</div>

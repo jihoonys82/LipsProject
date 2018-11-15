@@ -226,6 +226,16 @@ public class ProjectController {
 		resp.setContentType("application/json; charset=utf-8");
 		 PrintWriter out;
 		String result = UUID.randomUUID().toString().split("-")[4]+"_"+dto.getProjectKey();
+		//--------공사중 YJ 1035-----------
+		
+		Map map = new HashMap();
+		map.put("projectId", dto.getProjectId());
+		map.put("invitecode", result);
+		//초대코드 업데이트
+		dao.upProinvite(map);
+		
+		
+		//----------------------
 		try {
 			
 			out = resp.getWriter();

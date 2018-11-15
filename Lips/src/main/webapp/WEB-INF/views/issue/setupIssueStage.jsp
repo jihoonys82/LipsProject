@@ -336,8 +336,12 @@
 								} 
 							 });
 						 }
+						 function assetReset(){
+							 $('#stageName').val('');
+							 $('#assetDescription').val('');
+						 }
 						</script>
-						<button type="button" class="btn">초기화</button>			
+						<button type="button" class="btn" onclick="assetReset();">초기화</button>		
 					</div>
 				</div>
 			</div>

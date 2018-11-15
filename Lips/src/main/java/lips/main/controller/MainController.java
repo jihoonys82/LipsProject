@@ -24,7 +24,7 @@ public class MainController {
 	@Autowired UserTracker userTrack;
 	
 	//인트로
-	@RequestMapping(value = "/intro", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String intro() {
 		return "intro";
 	}

@@ -230,7 +230,7 @@ margin-top: -3em;
 
 
 		<!-- 버튼 start -->
-		<a href="/user/login">
+		<a href="/main">
 		<button class="btn btn-outline-danger introbutton">get Started</button>
 		</a>
 		 <a href="/donation">

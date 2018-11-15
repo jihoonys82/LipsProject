@@ -54,6 +54,8 @@ public class CustomeUserDetailsService implements UserDetailsService {
 		}
 	}
 	public void updateInfo(User user) {
+		String bCryptPw = passwordEncoder.encode(user.getPw());
+		user.setPw(bCryptPw);
 		dao.upUserData(user);
 	}
 	public boolean searchId(User user,HttpServletRequest request) {
@@ -83,6 +85,7 @@ public class CustomeUserDetailsService implements UserDetailsService {
 			String body = "안녕하세요 Lips 입니다. \r\n"+
 							"등록된 고객님의 Lips 계정 새로운 PW는 \r\n" +
 							newPw + " 입니다. \r\n"+
+							"반드시 상단 메뉴바 -> 마이페이지에서 새로운 비밀번호를 등록해주시기 바랍니다. \r\n"+
 							"감사합니다.";
 			new MailSender(searchUser,request,title,body);
 			return true;

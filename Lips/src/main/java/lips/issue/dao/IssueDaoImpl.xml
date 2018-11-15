@@ -77,9 +77,19 @@
 	    	AND P.issuePresetId = #{issuePresetId}
 	    ORDER BY P.assetOrder ASC
  	</select>
+ 	
+ 	<insert id="inWatcherByIssue" parameterType="lips.issue.dto.IssueWatcherDto">
+ 		INSERT INTO issue_watcher(issueId, userId) VALUES (#{issueId},#{userId})
+ 	</insert>
+ 	
+ 	<delete id="delWatcherByIssue" parameterType="lips.issue.dto.IssueWatcherDto">
+ 		DELETE FROM issue_watcher WHERE issueId = #{issueId} AND userId = #{userId}
+ 	</delete>
+ 	
  	<select id="selProjectName" parameterType="lips.issue.dto.IssueDto" resultType="String">
  		SELECT PROJECTNAME FROM Projectinfo where projectId=#{projectId }
  	</select>
+ 	
  	<insert id="inIssue" parameterType='lips.issue.dto.IssueDto'>
  		INSERT INTO issue
 		    (issueId, projectId, issueTitle, categoryId, createUser, assignee, expectedEndDate, issueContent, customValues, stagePresetId)
@@ -161,7 +171,10 @@
  	</select>
  	
  	<select id="selFollowerByIssue" parameterType="lips.issue.dto.IssueDto" resultType="lips.userinfo.dto.User">
- 		SELECT userId FROM issue_watcher WHERE issueId = #{issueId}
+ 		SELECT U.userId, U.nick 
+ 		FROM userInfo U, issue_watcher W 
+ 		WHERE U.userId = W.userId 
+ 		AND issueId = #{issueId}
  	</select>
  	
  	<select id="selCommentByIssue" parameterType="lips.issue.dto.IssueDto" resultType="lips.issue.dto.IssueCommentDto">

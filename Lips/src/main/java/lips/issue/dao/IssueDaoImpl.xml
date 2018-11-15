@@ -85,6 +85,9 @@
 		    (issueId, projectId, issueTitle, categoryId, createUser, assignee, expectedEndDate, issueContent, customValues, stagePresetId)
 		VALUES 
 		    (ISSUE_SEQ.nextval, #{projectId}, #{issueTitle}, #{categoryId}, #{createUser}, #{assignee}, #{expectedEndDate}, #{issueContent}, #{customValues}, #{stagePresetId})
+		<selectKey keyProperty="issueId" resultType="int" order="AFTER">
+			SELECT ISSUE_SEQ.CURRVAL FROM dual
+		</selectKey>
  	</insert>
  	
  	<select id="selIssueByProject" parameterType="lips.project.dto.ProjectDto" resultType="lips.issue.dto.IssueDto">

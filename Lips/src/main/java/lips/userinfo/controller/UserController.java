@@ -101,8 +101,13 @@ public class UserController {
 	 * @param password
 	 */
 	@RequestMapping(value="/mypage/deactivate", method=RequestMethod.POST)
-	public void deactivate(String password) {
-		//TODO: 탈퇴처리
+	public String deactivate(String confirmPw) {
+		int result = service.deactivate(confirmPw);
+		logger.info("[RESULT!!!!!]" + result);
+		if(result>0) {
+			return "redirect:/user/mypage?deactivate=fail";
+		}
+		return "redirect:/logout";
 	}
 	
 	

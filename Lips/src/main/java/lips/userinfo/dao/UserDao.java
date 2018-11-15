@@ -43,4 +43,10 @@ public interface UserDao {
 	 * @param user
 	 */
 	public void upUserData(User user);
+	
+	/**
+	 * Deactivate User (회원 탈퇴)
+	 * @param user
+	 */
+	public void upUserDeactivate(User user);
 }

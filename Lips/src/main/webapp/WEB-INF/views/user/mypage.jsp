@@ -73,7 +73,7 @@ jui.ready([ "ui.modal" ], function(modal) {
 						return false;
 					}
 					var fileId = $(this).parent().find("input[name=fileId]").val();
-					var delTarget = $(this).parent().parent()
+					var delTarget = $(this).parent().parent();
 					$.ajax({
 						type:"post"
 						, url: "/file/deleteFile"
@@ -118,6 +118,29 @@ jui.ready([ "ui.modal" ], function(modal) {
 				+ "</tr>";
 			$("#fList").append(targetRow);
 			$("#fileUp").find("input").val("");
+			
+			$("#fList").find("input[value="+res.fileId+"]").parent().find("button").on('click',function(){
+				if(!confirm("파일을 정말로 삭제하시겠습니까?")){
+					return false;
+				}
+				var fileId = $(this).parent().find("input[name=fileId]").val();
+				var delTarget = $(this).parent().parent();
+				$.ajax({
+					type:"post"
+					, url: "/file/deleteFile"
+					, data: { "fileId" : fileId }
+					, dataType: "json"
+					, success: function(data){
+						console.log(data.result);
+						delTarget.remove();
+					}
+					, error : function(e){
+						console.log("----error----");
+						console.log(e.responseText);
+					}
+				}); // end of ajax
+			});
+			
 		}
 		, error: function() {
 			console.log("실패");
@@ -132,6 +155,16 @@ $(document).ready(function(){
 	$("input:file").on('change',function(){
 		var $fname= $("input:file").val();
 		$("input[name='fileName']").val($fname);
+	});
+	
+	$("#deactivateME").on('click', function(){
+		if($("#confirmPw").val() ==""){
+			alert("패스워드를 입력해주세요.");
+			return;
+		}
+		if(confirm("정말 탈퇴하시겠습니까?")) {
+			$("#deactivate_modal").find("form").submit();
+		}
 	});
 });
 </script>
@@ -164,6 +197,9 @@ input[name=fileName] {
 	<div class="head clearfix">
 		<div class="h1" style="display:block; width: 50%;">마이페이지</div>
 		<div style="display:block; float:right;">
+			<c:if test='${param.deactivate eq "fail" }'>
+				<span style="color:#ff0000;">탈퇴실패</span> 
+			</c:if>
 			<button class="btn large focus openMyFile" >내 파일 보관함</button>
 		</div>
 	</div>
@@ -238,14 +274,14 @@ input[name=fileName] {
     <div class="body">
 		정말로 회원 탈퇴를 원하시면 패스워드를 한번 더 입력하고 탈퇴버튼을 클릭해 주세요.<br/>
 		탈퇴 후에는 같은 이메일로 재가입이 불가합니다. <br/>
-		<form action="/mypage/deactivate" method="post">
+		<form action="/user/mypage/deactivate" method="post">
 			<div style="text-align:center; margin:5px;">
 				<label for="confirmPw">패스워드 입력</label>
 				<input type="password" id="confirmPw" name="confirmPw" class="input mini" placeholder="한번더 신중히 .."/>
 			</div>
         </form>
         <div style="text-align: center; margin-top: 45px;">
-            <button type="button" class="btn focus mini">회원탈퇴</button>
+            <button type="button" class="btn focus mini" id="deactivateME">회원탈퇴</button>
             <button class="btn small close" onclick="deactivate_modal.hide();">닫기</button>
         </div>
     </div>

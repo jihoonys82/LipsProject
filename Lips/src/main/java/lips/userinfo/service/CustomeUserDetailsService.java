@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import lips.userinfo.dao.UserDao;
 import lips.userinfo.dto.User;
+import lips.userinfo.dto.UserByToken;
 import lips.utils.MailSender;
 
 @Service
@@ -102,5 +103,24 @@ public class CustomeUserDetailsService implements UserDetailsService {
 					"이메일 인증란에 " + code + " 를 입력해 주세요.";
 		new MailSender(user,request,subject,body);		
 		return code;
+	}
+	
+	/**
+	 * Deactivate (current) user (회원탈퇴)
+	 * @author Jihoon Jeong 
+	 * @param password
+	 * @return
+	 */
+	public int deactivate(String confirmPw) {
+		//TODO: 패스워드체크 구현 필요.
+		String bCryptPw = passwordEncoder.encode(confirmPw);
+		User user = new UserByToken().getInstance();
+		user.setPw(bCryptPw);
+		
+		dao.upUserDeactivate(user);
+		
+		int userCnt = dao.selCntUserId(user);
+		
+		return userCnt;
 	}
 }

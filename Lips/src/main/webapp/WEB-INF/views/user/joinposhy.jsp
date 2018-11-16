@@ -16,7 +16,7 @@ $(document).ready(function() {
 		offsetY: 5
 		});
 	$("#inputPw").poshytip({
-		content: '비밀번호는  최소한 하나의 숫자또는 문자를 포함하여 8 자 이상이어야 하며 대문자와 특수 문자 모두 사용할 수 있습니다 (예 : # ) ? , ! .',
+		content: '비밀번호는  최소한 하나의 숫자와 문자를 포함하여 8 자 이상이어야 하며 대문자와 특수 문자 모두 사용할 수 있습니다 (예 : # ) ? , ! .',
 		className: 'tip-darkgray',
 		bgImageFrameSize: 11,
 		showOn: 'none',

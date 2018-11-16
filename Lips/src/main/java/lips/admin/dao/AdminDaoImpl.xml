@@ -202,8 +202,8 @@
 	<insert id="inNoticeToStop"
 		parameterType="lips.admin.dto.NoticeDto">
 		INSERT INTO notice (noticeid, noticeTitle,
-		noticeContent, createDate, noticeCategory) VALUES
-		(NOTICE_SEQ.nextval, #{noticeTitle}, #{noticeContent}, sysdate, 3)
+		noticeContent, createDate, noticeCategory, userId) VALUES
+		(NOTICE_SEQ.nextval, #{noticeTitle}, #{noticeContent}, sysdate, 3, #{userId})
 	</insert>
 
 	<update id="upOneLineHeader">

@@ -21,11 +21,12 @@
 		</ul>
 	</div>
 	<div class="inline right menu-right">
-		<div class="combo">
-			<input type="text" class="input" />
-			<a class="btn">Search</a>
-		</div>
+<!-- 		<div class="combo"> -->
+<!-- 			<input type="text" class="input" /> -->
+<!-- 			<a class="btn">Search</a> -->
+<!-- 		</div> -->
 		<sec:authorize access="hasAuthority('USER')">
+			<a class="btn focus" href="/issue/create">새이슈</a>
 			<a class="btn" href="<c:url value='/logout' />">logout</a>
 		</sec:authorize>
 		<sec:authorize access="!hasAuthority('USER')">
@@ -76,32 +77,16 @@ var alarmManager = new function(){
 		});
 		
 	}
-	this.showTimeLine = function(){//show timeLine
-		
-	}
-	this.showOneLineNotice = function(){//show oneLine
-		
-	}
 	this.showNotify = function(data){//show windowNotify
-		var notifyTitle="Lips 알림 서비스";
-		var option = null;
-		if(data.content=="new"){
-			 options = {body	: "새롭게 할당된 이슈가 있습니다." }
-		}else if(data.content=="update"){
-			options = {body	: "진행중인 이슈에 대한 새로운 변경사항이 있습니다."}
-		}else if(data.content=="comment"){
-			options = {body	: "진행중인 이슈에 새로운 댓글이 달렸습니다."}
-		}else if(data.content=="updateFollow"){
-			options = {body	: "팔로잉한 이슈에 대한 새로운 변경사항이 있습니다."}
-		}else if(data.content=="commentFollow"){
-			options = {body	: "팔로잉한 이슈에 새로운 댓글이 달렸습니다."}
+		var notifyTitle=data.title;
+		var options = { body	: data.content }
+		if(data.type=="notice"){
+			notify(notifyTitle,options,null);
 		}else{
-			
-		}
-		function callback(){
-			location.href='/issue/detail?issueId='+data.issueId;
-		}
-		 notify(notifyTitle,options,callback);
+			notify(notifyTitle,options,function(){
+				location.href='/issue/detail?issueId='+data.issueId;	
+			});
+		}		
 	}
 	setInterval(this.proc,interval);
 }

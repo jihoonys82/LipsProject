@@ -48,6 +48,7 @@
 						<th>이름</th>
 						<th>코드</th>
 						<th>des.</th>
+						<th>state</th>
 					</tr>
 				</thead>
 				<tbody id="noticeTable">
@@ -65,6 +66,16 @@
 							<td name="cateDes">
 								${cateList.assetDescription}
 							</td>
+								<c:if test="${cateList.categoryAssetId < 999 }">
+								<td name="cateDel" style="color: rebeccapurple;">
+									Default
+								</td >
+								</c:if>
+								<c:if test="${cateList.categoryAssetId > 999 }">
+								<td name="cateDel">
+									Added
+								</td>
+								</c:if>
 						</tr>						
 					</c:forEach>
 				</tbody>

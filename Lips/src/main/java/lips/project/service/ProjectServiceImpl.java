@@ -17,6 +17,7 @@ import lips.project.dto.ProjectDto;
 import lips.project.dto.ProjectMemberDto;
 import lips.project.dto.ProjectinvitecodeDto;
 import lips.userinfo.dto.User;
+import lips.utils.Paging;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -202,9 +203,9 @@ public class ProjectServiceImpl implements ProjectService {
 
 
 	@Override
-	public List AllOpenProject() {
-
-		return mdao.selOpenPro();
+	public List AllOpenProject(Paging paging) {
+		System.out.println("####################"+ paging.toString());
+		return dao.allProjectPage(paging);
 	}
 
 
@@ -217,6 +218,13 @@ public class ProjectServiceImpl implements ProjectService {
 		dao.inCate(catelist.get(i));
 		}
 		
+	}
+
+
+	@Override
+	public int totalcnt() {
+		
+		return dao.totalCount();
 	}
 
 }

@@ -8,6 +8,7 @@ import lips.project.dto.ProjectDto;
 import lips.project.dto.ProjectMemberDto;
 import lips.project.dto.ProjectinvitecodeDto;
 import lips.userinfo.dto.User;
+import lips.utils.Paging;
 
 public interface ProjectDao {
 	
@@ -135,4 +136,8 @@ public interface ProjectDao {
 	
 	
 	public void UpProStatus(ProjectDto dto);
+	// total project 조회 카운트 ㅅㅎ
+	public int totalCount();
+	//paging allProList
+	public List allProjectPage(Paging paging);
 }

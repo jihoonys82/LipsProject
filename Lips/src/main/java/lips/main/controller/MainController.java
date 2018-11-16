@@ -33,8 +33,8 @@ public class MainController {
 
 	//메인페이지 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public ModelAndView main(ModelAndView mav) {
-		
+	public ModelAndView main() {
+		ModelAndView mav = new ModelAndView();
 		User user = new UserByToken().getInstance();
 		mav = fbsvc.mainView();
 		

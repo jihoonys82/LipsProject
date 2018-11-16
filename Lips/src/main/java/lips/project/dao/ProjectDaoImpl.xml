@@ -205,9 +205,20 @@ WHERE Ca.categoryassetid = Ic.categoryassetid and Ic.projectId=#{projectId} ORDE
  	</select>
  	
  
+ 	<select id="totalCount" resultType="int">
+ 		SELECT COUNT(*) FROM projectinfo
+ 	</select>
  	
- 	
-
+	<select id="allProjectPage" parameterType="lips.utils.Paging" resultType="lips.project.dto.ProjectDto">
+	
+		SELECT * FROM
+		(SELECT rownum rnum, P.* FROM
+		(SELECT * FROM projectinfo 
+		WHERE PROJECTOPEN = 1 AND STATUS='OPEN' 
+		ORDER BY projectid DESC)
+		P ORDER BY rnum)
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
  	
  	
  </mapper>

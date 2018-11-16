@@ -105,10 +105,15 @@
 </style>
 
 <div>
-	<div class="ProjectBoxing row">
-		<div style="width: 100%">
-			<a class="btn focus" href="/project/main">My Project</a>
-		</div>
+	<div style="margin-bottom: 0px;">
+			<ul id="tab_1" class="tab top" style="margin-bottom: 0px; margin-right: 10px; ">
+				    <li  style="cursor:pointer"><a href="/project/main">My Project</a></li>
+				    <li class="active" style="cursor:pointer"><a href="/project/main/all?curPage=">All Project</a></li>
+			</ul>
+	</div>
+	<div class="ProjectBoxing row" style="margin-top: 0px;">
+	
+	
 		<!--   프로젝트 성공/실패에 따른 모달처리하기! -->
 
 		<!--  프로젝트 생성/참가 - 고정 -->
@@ -226,6 +231,39 @@
 			</div><!-- end of col -->
 		</c:forEach><!-- end of project List -->
 	</div> <!-- end of project boxing -->
+</div>
+
+<div class="forSizing-pPaging">
+	<div style="display: block; text-align: center;">
+		<div class="paging" style="width: 350px;">
+		<c:if test="${paging.curPage ne paging.startPage}">
+			<a href="/project/main/all?curPage=${paging.curPage-1}"  class="prev"style="display: block;">Prev</a>
+		</c:if>
+		<c:if test="${paging.curPage eq paging.startPage}">
+			<a href="/project/main/all?curPage=${paging.curPage}"  class="prev"style="display: block;">Prev</a>
+		</c:if>
+			
+			<div class="list">
+				<c:forEach begin="${paging.startPage }" end="${paging.endPage}"
+					var="page">
+					<c:if test="${paging.curPage eq page}">
+						<a href="/project/main/all?curPage=${page}" class="active">${page }</a>
+					</c:if>
+					<c:if test="${paging.curPage ne page}">
+						<a href="/project/main/all?curPage=${page}">${page }</a>
+					</c:if>
+					
+				</c:forEach>
+			</div>
+			<c:if test="${paging.curPage eq paging.endPage}">
+				<a href="/project/main/all?curPage=${paging.curPage}" class="next">Next</a>
+			</c:if>
+			<c:if test="${paging.curPage ne paging.endPage}">
+				<a href="/project/main/all?curPage=${paging.curPage+1}" class="next">Next</a>
+			</c:if>
+			</div>
+			
+	</div>
 </div>
 
 <script>

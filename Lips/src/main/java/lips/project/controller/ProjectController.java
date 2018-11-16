@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,6 +29,7 @@ import lips.project.dto.ProjectMemberDto;
 import lips.project.service.ProjectService;
 import lips.userinfo.dto.User;
 import lips.userinfo.dto.UserByToken;
+import lips.utils.Paging;
 
 @Controller
 @RequestMapping(value = "/project")
@@ -72,10 +74,16 @@ public class ProjectController {
 	
 	// 모든 프로젝트 보여주는 페이지
 	@RequestMapping(value = "/main/all", method = RequestMethod.GET)
-	public ModelAndView project(ModelAndView mav) {
+	public ModelAndView project(@RequestParam(required=false,defaultValue="0")int curPage) {
+		ModelAndView mav = new ModelAndView();
+		int totalCount = service.totalcnt();
+		Paging paging = new Paging(totalCount, curPage, 5);
 		User user = new UserByToken().getInstance();
+	
+		
 		mav.addObject("user",user);
-		mav.addObject("projectInfo", service.AllOpenProject());
+		mav.addObject("projectInfo", service.AllOpenProject(paging));
+		mav.addObject("paging",paging);
 		mav.setViewName("project/allProjectmain");
 		return mav;
 	}

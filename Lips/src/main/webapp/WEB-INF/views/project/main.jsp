@@ -115,10 +115,15 @@ font-size:2em;
 </style>
 
 <div>
+	<div style="margin-bottom: 0px;">
+			<ul id="tab_1" class="tab top" style="margin-bottom: 0px; margin-right: 10px; ">
+				    <li class="active" style="cursor:pointer"><a href="/project/main">My Project</a></li>
+				    <li style="cursor:pointer"><a href="/project/main/all?curPage=">All Project</a></li>
+			</ul>
+	</div>
 
-
-	<div class="ProjectBoxing row">
-	<div style="width:100%"><a class="btn focus" href="/project/main/all">All Project</a></div>
+	<div class="ProjectBoxing row" style="margin-top: 0px;">
+	
 		<!--   프로젝트 성공/실패에 따른 모달처리하기! -->
 
 		<!--  프로젝트 생성/참가 - 고정 -->

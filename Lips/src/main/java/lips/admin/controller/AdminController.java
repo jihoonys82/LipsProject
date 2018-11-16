@@ -150,7 +150,7 @@ public class AdminController {
 	   return mav;
    }
    
-   @RequestMapping(value="/project/category", method=RequestMethod.GET)
+   @RequestMapping(value="/project/category", method=RequestMethod.POST)
    public ModelAndView pCate() {
 	   
 	   ModelAndView mav = new ModelAndView();

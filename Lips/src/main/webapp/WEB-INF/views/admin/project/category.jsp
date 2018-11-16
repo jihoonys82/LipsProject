@@ -82,9 +82,9 @@
 	function createNewCate() {
 		$.ajax({
 			type: "post"
-				, url: "/admin/notice/delete"
+				, url: "/admin/project/category"
 				, dataType: "json"
-				, data: {"noticeId" : noticeId }
+				, data: {"categoryAssetId" : categoryAssetId }
 				, success: function(responseData) {
 					window.location.reload();
 				}

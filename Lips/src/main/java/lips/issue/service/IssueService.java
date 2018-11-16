@@ -515,12 +515,14 @@ public class IssueService {
 	public void setIssueAttachFile(IssueDto iDto, String[] filesArr) {
 		List<IssueAttachFileDto> iafDtos = new ArrayList<>();
 		IssueAttachFileDto iafDto;
-		for(String s : filesArr) {
-			iafDto = new IssueAttachFileDto();
-			iafDto.setIssueId(iDto.getIssueId());
-			iafDto.setFileId(Integer.parseInt(s));
-			
-			iafDtos.add(iafDto);
+		if(filesArr != null) {
+			for(String s : filesArr) {
+				iafDto = new IssueAttachFileDto();
+				iafDto.setIssueId(iDto.getIssueId());
+				iafDto.setFileId(Integer.parseInt(s));
+				
+				iafDtos.add(iafDto);
+			}
 		}
 		Map<String,List<IssueAttachFileDto>> map = new HashMap<>();
 		map.put("fileList", iafDtos);

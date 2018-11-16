@@ -125,7 +125,10 @@ public class IssueController {
 	 */
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public String issueCreateProc(IssueDto issueDto, String files) {
-		String[] filesArr = files.split(",");
+		String[] filesArr = null;
+		if(!files.isEmpty() && files.length()>1) {
+			filesArr = files.split(",");			
+		}
 		
 		IssueDto iDto = issueService.setNewIssue(issueDto);
 		issueService.setIssueAttachFile(iDto, filesArr);

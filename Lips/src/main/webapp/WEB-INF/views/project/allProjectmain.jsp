@@ -62,7 +62,6 @@
 	font-weight: bold;
 }
 
-}
 .ProjectNav {
 	background-image: -webkit-linear-gradient(top, #272727 0, #111 100%);
 	border: 1px solid #404040;
@@ -106,8 +105,6 @@
 </style>
 
 <div>
-
-
 	<div class="ProjectBoxing row">
 		<div style="width: 100%">
 			<a class="btn focus" href="/project/main">My Project</a>
@@ -127,18 +124,12 @@
 					<p>Join</p>
 				</div>
 			</div>
-		</div>
-
-
-
+		</div><!--  end of col -->
 
 		<!--프로젝트 리스트 :  반복문 돌릴거임  -->
 		<c:forEach items="${projectInfo}" var="projectinfo">
 			<div class="col col-4">
-
-
 				<div class="boxbox">
-
 					<div class="panel">
 						<div class="head">
 							<i class="icon-left"></i> <strong>${projectinfo.projectKey}</strong>
@@ -166,14 +157,8 @@
 									<span class="label mini danger ab">${projectinfo.status}</span>
 								</c:when>
 							</c:choose>
-
-
-
-
-
-
-
-						</div>
+						</div><!-- end of head -->
+						
 						<table class="table classic stripeless" style="font-size: 1em;">
 							<thead>
 								<tr>
@@ -192,72 +177,55 @@
 								</tr>
 								<tr>
 									<td>프로젝트 공개 여부</td>
-									<td><c:choose>
-
+									<td>
+										<c:choose>
 											<c:when test="${projectinfo.projectOpen eq 1}">
 												<span>공개</span>
 											</c:when>
 											<c:when test="${projectinfo.projectOpen eq 0}">
 												<span>비공개</span>
 											</c:when>
-										</c:choose></td>
+										</c:choose>
+									</td>
 								</tr>
 								<tr>
 									<td>프로젝트 생성일</td>
-									<td><span class="countDate"><fmt:formatDate
-												value="${projectinfo.createDate}" pattern="yyyy/MM/dd" /></span></td>
+									<td>
+										<span class="countDate">
+											<fmt:formatDate value="${projectinfo.createDate}" pattern="yyyy/MM/dd" />
+										</span>
+									</td>
 								</tr>
 								<tr>
 									<td>프로젝트 예상 종료일</td>
-									<td><span class="countDate"><fmt:formatDate
-												value="${projectinfo.closeDate}" pattern="yyyy/MM/dd" /></span></td>
+									<td>
+										<span class="countDate">
+											<fmt:formatDate value="${projectinfo.closeDate}" pattern="yyyy/MM/dd" />
+										</span>
+									</td>
 								</tr>
 								<tr>
 									<td>프로젝트 설명</td>
 									<td class="PBh">${projectinfo.projectDesc }</td>
 								</tr>
 							</tbody>
-						</table>
-
+						</table> <!-- end of body(table) -->
 
 						<div class="foot" style="text-align: center;">
-						
 							<c:choose>
-							<c:when test="${projectinfo.projectLeader eq id}">
-								<a href="/dashboard/dashview?projectId=${projectinfo.projectId}">프로젝트 바로가기</a>
-							</c:when>
-							<c:when test="${projectinfo.projectLeader ne id}">
-								<a href="/issue/issueList?listType=ProjectIssue&projectId=${projectinfo.projectId}">프로젝트 정보 보기</a>
-							</c:when>
-						</c:choose>
-							
-						</div>
-					
-
-					</div>
-
-
-
-					<%-- 						<div class="col-col style="background-color:green">${projectinfo.projectName}</div> --%>
-					<%-- 						<div style="background-color:yellow">${projectinfo.status}</div> --%>
-					<!-- 						<div style="background-color:red">View</div> -->
-					<!-- 						<div style="background-color:gray">Project Info</div> -->
-
-
-
-				</div>
-				<!-- 				</a> -->
-			</div>
-		</c:forEach>
-
-
-
-
-
-
-
-	</div>
-
+								<c:when test="${projectinfo.projectLeader eq id}">
+									<a href="/dashboard/dashview?projectId=${projectinfo.projectId}">프로젝트 바로가기</a>
+								</c:when>
+								<c:when test="${projectinfo.projectLeader ne id}">
+									<a href="/issue/issueList?listType=ProjectIssue&projectId=${projectinfo.projectId}">프로젝트 정보 보기</a>
+								</c:when>
+							</c:choose>
+						</div><!-- end of foot  -->
+					</div><!-- end of panel -->
+				</div><!--  end of boxbox -->
+			</div><!-- end of col -->
+		</c:forEach><!-- end of project List -->
+	</div> <!-- end of project boxing -->
 </div>
 
 <script>

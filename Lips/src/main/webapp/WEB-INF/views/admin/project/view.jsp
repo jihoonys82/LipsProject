@@ -367,7 +367,8 @@ $(document).ready(function() {
 			, dataType: "json"
 			, data: {"param": "leader",
 				"noticeTitle" : $("#bodyNotice").find("select").val(),
-				"noticeContent" : $("#bodyNotice").find("textarea").val()
+				"noticeContent" : $("#bodyNotice").find("textarea").val(),
+				"userId" : "${proInfo.projectLeader}"
 
 			},success : function(responseData){
 				

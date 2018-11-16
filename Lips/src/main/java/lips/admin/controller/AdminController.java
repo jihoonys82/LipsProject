@@ -34,8 +34,6 @@ public class AdminController {
    
    @RequestMapping(value="/main", method=RequestMethod.GET)
    public ModelAndView main(Model model) {
-      logger.info("메인 페이지");
-
       ModelAndView mav = new ModelAndView();
 	  List<Integer> cntList = adminService.getNumOfDash();
 	  List<Integer> pChart = adminService.getTotalPChart(); 
@@ -54,8 +52,6 @@ public class AdminController {
    
    @RequestMapping(value="/notice", method=RequestMethod.GET)
    public void notice(Model model) {
-	   logger.info("공지 페이지");
-	   
 	   List<NoticeDto> nInfo = adminService.getNinfo();
 	   NoticeDto oneLineHeader = adminService.getOneLineNotice();
 	   
@@ -83,10 +79,10 @@ public class AdminController {
 		   mav.addObject("more", moreNotice);
 	   }
 	   
-	   
 	   mav.setViewName("jsonView");
 	   return mav;
    }
+
    @RequestMapping(value="/notice/delete",method=RequestMethod.POST)
    public ModelAndView timeLineDelete(int noticeId) {
 	   ModelAndView mav = new ModelAndView();
@@ -98,8 +94,6 @@ public class AdminController {
   
    @RequestMapping(value="/project/chart", method=RequestMethod.GET)
    public ModelAndView proChart(Model model) {
-	   logger.info("프로젝트 차트 페이지");
-
 	   ModelAndView mav = new ModelAndView();
 
 	   List<Integer> cntList = adminService.getNumOfPro();
@@ -124,8 +118,6 @@ public class AdminController {
    
    @RequestMapping(value="/project/text", method=RequestMethod.GET)
    public void proText(Model model, @RequestParam(defaultValue="0", required=false)int curPage) {
-	  logger.info("프로젝트 텍스트 페이지");
-	  
 	  int totalPage = adminService.getPTotalCount();
 	  Paging paging = new Paging(totalPage, curPage);
 	  
@@ -140,8 +132,6 @@ public class AdminController {
    
    @RequestMapping(value="/project/category", method=RequestMethod.GET)
    public ModelAndView proCategory() {
-	   logger.info("프로젝트 카테고리 페이지");
-	   
 	   ModelAndView mav = new ModelAndView();
 	   
 	   List<CategoryAssetDto> cateList = adminService.getPCate();
@@ -152,7 +142,6 @@ public class AdminController {
    
    @RequestMapping(value="/project/category", method=RequestMethod.POST)
    public ModelAndView pCate(String param, CategoryAssetDto category) {
-	   
 	   ModelAndView mav = new ModelAndView();
 	   
 	   if(param.equals("newCategory")) {
@@ -166,8 +155,6 @@ public class AdminController {
    
    @RequestMapping(value="/user/chart", method=RequestMethod.GET)
    public ModelAndView userChart(Model model) {
-	   logger.info("유저 차트 페이지");
-	   
 	   ModelAndView mav = new ModelAndView();
 	   List<Integer> cntList = adminService.getNumOfUser();
 	   List<HashMap<String,String>> newUChart = adminService.getNewUByMonth();
@@ -191,28 +178,26 @@ public class AdminController {
 	   logger.info("유저 텍스트 페이지");
 	   
 	  int curPageParse = Integer.parseInt(curPage);
-	  logger.info(curPage);
-	  System.out.println(curPageParse);
-	   int totalPage = adminService.getUTotalCount();
-	   Paging paging = new Paging(totalPage,curPageParse);
+//	  logger.info(curPage);
+//	  System.out.println(curPageParse);
+	  int totalPage = adminService.getUTotalCount();
+	  Paging paging = new Paging(totalPage,curPageParse);
 	   
-	   List<? extends Object> uList = adminService.getUserList(paging);//0: userList 1: userIsLeaderList
-	   List<Integer> cntList = adminService.getNumOfUser();
+	  List<? extends Object> uList = adminService.getUserList(paging);//0: userList 1: userIsLeaderList
+	  List<Integer> cntList = adminService.getNumOfUser();
 	   	
-// 	   List<ProjectDto> pInfo = projectService.selPro(user);	   
+// 	  List<ProjectDto> pInfo = projectService.selPro(user);	   
 	   
-	   model.addAttribute("paging",paging);
-	   model.addAttribute("uList",uList.get(0));
-	   model.addAttribute("uLeaderList",uList.get(1));
-	   model.addAttribute("cntList",cntList);
+	  model.addAttribute("paging",paging);
+	  model.addAttribute("uList",uList.get(0));
+	  model.addAttribute("uLeaderList",uList.get(1));
+	  model.addAttribute("cntList",cntList);
 
-//	   model.addAttribute("pInfo",pInfo);
+//	  model.addAttribute("pInfo",pInfo);
    }
    
    @RequestMapping(value="/user/view", method=RequestMethod.GET)
    public void userDetailView(Model model, User user) {
-		logger.info("유저 상세 페이지");
-		
 		User userinfo = adminService.getUserInfo(user);
 		List proinfo = projectService.ProjectMain(user);
 		
@@ -222,7 +207,6 @@ public class AdminController {
    
    @RequestMapping(value="/user/view", method=RequestMethod.POST)
    public ModelAndView userClose(Model model, User user, String param) {
-		logger.info("유저 상세 페이지_강등 & 강등 취소");
 		ModelAndView mav = new ModelAndView();
 		
 		if(param.equals("true")) {
@@ -243,8 +227,6 @@ public class AdminController {
    
    @RequestMapping(value="/project/view", method=RequestMethod.GET)
    public void proDetailView(Model model, ProjectDto project) {
-	   logger.info("프로젝트 상세 페이지");
-	   
 	   ModelAndView mav = new ModelAndView();
 	   
 	   ProjectDto proInfo = adminService.getProInfo(project);
@@ -260,15 +242,15 @@ public class AdminController {
 //	   model.addAttribute("pTime",pTime);
 
 //	   ProjectDto projectinfo = adminService.getProInfo(project);
-//	   model.addAttribute("proInfo",projectinfo);
-	   
+//	   model.addAttribute("proInfo",projectinfo); 
    }
    
    
    @RequestMapping(value="/project/view", method=RequestMethod.POST)
    public ModelAndView projectManage(Model model, ProjectDto project, String param, NoticeDto notice) {
-		logger.info("프로젝트 상세 페이지_정지 & 재개");
 		ModelAndView mav = new ModelAndView();
+		ProjectDto proInfo = adminService.getProInfo(project);
+
 		String error = "";
 
 		if(param.equals("restart")) {
@@ -301,6 +283,7 @@ public class AdminController {
 		
 		mav.addObject("error",error);
 		mav.addObject("status",status);
+		mav.addObject("proInfo",proInfo);
 		mav.setViewName("jsonView");
 		return mav;
    }

@@ -4,15 +4,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="lips.alarm.dao.AlarmDao">
  	<select id="selNewAlarm" parameterType="lips.alarm.dto.Alarm" resultType="lips.alarm.dto.Alarm">
- 		select (select 'new' from dual) as content ,issueId, createDate as lastReq from issue where assignee = #{userId } and createDate > #{lastReq }
+ 		select (select 'new' from dual)as type,issueTitle as content, (select '새롭게 할당된 이슈가 있습니다.' from dual) as title,issueId, createDate as lastReq from issue where assignee = #{userId } and createDate > #{lastReq }
  		UNION
- 		select (select 'update' from dual) as content,issueId, modifyDate as lastReq from issue where assignee = #{userId } and modifyDate > #{lastReq } 
+ 		SELECT  (select 'update' from dual)as type,issueTitle as content,(select '진행중인 이슈에 대한 새로운 변경사항이 있습니다.' from dual) as title, issueId, modifyDate as lastReq from issue where assignee = #{userId } and modifyDate > #{lastReq } 
  		UNION
- 		SELECT (select 'comment' from dual) as content, i.issueId, c.createDate as lastReq FROM issue_comment c, issue i WHERE i.issueId = c.issueId AND i.assignee =#{userId } AND c.createDate > #{lastReq } 
+ 		SELECT  (select 'comment' from dual)as type,i.issueTitle as content,(select '진행중인 이슈에 새로운 댓글이 달렸습니다.' from dual) as title,  i.issueId, c.createDate as lastReq FROM issue_comment c, issue i WHERE i.issueId = c.issueId AND i.assignee =#{userId } AND c.createDate > #{lastReq } 
  		UNION
- 		SELECT (select 'updateFollow' from dual)as content, I.issueId, I.modifyDate as lastReq FROM issue I, issue_watcher W WHERE I.issueid = W.issueId AND W.userId = #{userId} AND I.modifyDate > #{lastReq} 
+ 		SELECT  (select 'updateFollow' from dual)as type,I.issueTitle as content,(select '팔로잉한 이슈에 대한 새로운 변경사항이 있습니다.' from dual) as title,  I.issueId, I.modifyDate as lastReq FROM issue I, issue_watcher W WHERE I.issueid = W.issueId AND W.userId = #{userId} AND I.modifyDate > #{lastReq} 
  		UNION
- 		SELECT (select 'commentFollow' from dual)as content, I.issueId, C.createDate as lastReq FROM issue_comment C, issue I, issue_watcher W WHERE I.issueId = C.issueId AND I.issueId = W.issueId AND C.issueId = W.issueID AND W.userId = #{userId} AND C.createDate > #{lastReq} order by LastReq desc
+ 		SELECT   (select 'notice' from dual)as type,noticeContent as content,noticeTitle as title,  NoticeId , CreateDate as lastReq FROM Notice N WHERE userId = #{userId} AND createDate > #{lastReq} AND NoticeCategory = 2
+ 		UNION
+ 		SELECT  (select 'notice' from dual)as type,noticeContent as content,noticeTitle as title,  NoticeId, CreateDate as lastReq FROM Notice N WHERE userId = #{userId} AND createDate > #{lastReq} AND NoticeCategory = 3
+ 		UNION
+ 		SELECT  (select 'commentFollow' from dual)as type,I.issueTitle as content,(select '팔로잉한 이슈에 새로운 댓글이 달렸습니다.' from dual) as title,  I.issueId, C.createDate as lastReq FROM issue_comment C, issue I, issue_watcher W WHERE I.issueId = C.issueId AND I.issueId = W.issueId AND C.issueId = W.issueID AND W.userId = #{userId} AND C.createDate > #{lastReq} order by LastReq desc
  	</select>
  	<update id="upLastReq" parameterType="lips.alarm.dto.Alarm" >
  		update alarm set lastRequest = #{lastReq } where userId = #{userId } 

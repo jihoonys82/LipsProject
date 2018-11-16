@@ -109,18 +109,6 @@ text-align: center;
 
 /* 버튼 cssend */
 </style>
-<script>
-$(document).ready(function() {
-	var usernick = '${usernick }';
-	var notifyTitle="Lips 알림 서비스";
-	var options = {
-			body	: usernick+"님 환영합니다. \r\n현재 알림기능을 사용 중 입니다."
-	}
-	notify(notifyTitle,options);
-});
-</script>
-
-
 
 <div class="row">
 	<div class="col col-6 mainContents">

@@ -48,7 +48,6 @@ public class CardServiceImpl implements CardService {
 		dto.setUserId(userId);
 		
 		IssueDto issueDeadline = dao.selIssueByDealine(dto);
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + issueDeadline);
 		
 		mav.addObject("issueCloseDeadline", issueDeadline);
 		

@@ -174,55 +174,5 @@ public class CardController {
 
 		return mav;
 	}
-	
-	@RequestMapping(value = "/card7", method = RequestMethod.GET)
-	public ModelAndView card7(
-			@RequestParam(required=false,defaultValue="0") int dashboardId,
-			@RequestParam(required=false,defaultValue="0") int positionX ,
-			@RequestParam(required=false,defaultValue="0") int positionY,
-			@RequestParam(required=false,defaultValue="0") int projectId,
-			CardDto dto
-			) {
-		ModelAndView mav = new ModelAndView();
-		String CardValue = csvc.CardValue(dto);
-		mav.addObject("cardvalue", CardValue);
-		
-		mav.setViewName("card/card7");
-		
-		return mav;
-	}
-	
-	@RequestMapping(value = "/card8", method = RequestMethod.GET)
-	public ModelAndView card8(
-			@RequestParam(required=false,defaultValue="0") int dashboardId,
-			@RequestParam(required=false,defaultValue="0") int positionX ,
-			@RequestParam(required=false,defaultValue="0") int positionY,
-			@RequestParam(required=false,defaultValue="0") int projectId,
-			CardDto dto
-			) {
-		ModelAndView mav = new ModelAndView();
-		String CardValue = csvc.CardValue(dto);
-		mav.addObject("cardvalue", CardValue);
-		
-		mav.setViewName("card/card8");
-		
-		return mav;
-	}
-	
-	@RequestMapping(value = "/card9", method = RequestMethod.GET)
-	public ModelAndView card9(
-			@RequestParam(required=false,defaultValue="0") int dashboardId,
-			@RequestParam(required=false,defaultValue="0") int positionX ,
-			@RequestParam(required=false,defaultValue="0") int positionY,
-			@RequestParam(required=false,defaultValue="0") int projectId,
-			CardDto dto
-			) {
-		ModelAndView mav = new ModelAndView();
-		String CardValue = csvc.CardValue(dto);
-		mav.addObject("cardvalue", CardValue);
-		
-		mav.setViewName("card/card9");
-		
-		return mav;
-	}
+	 
 }

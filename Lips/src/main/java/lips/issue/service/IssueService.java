@@ -516,6 +516,7 @@ public class IssueService {
 		List<IssueAttachFileDto> iafDtos = new ArrayList<>();
 		IssueAttachFileDto iafDto;
 		if(filesArr != null) {
+			
 			for(String s : filesArr) {
 				iafDto = new IssueAttachFileDto();
 				iafDto.setIssueId(iDto.getIssueId());
@@ -523,10 +524,10 @@ public class IssueService {
 				
 				iafDtos.add(iafDto);
 			}
+			Map<String,List<IssueAttachFileDto>> map = new HashMap<>();
+			map.put("fileList", iafDtos);
+			issueDao.inIssueAttachFile(map);
 		}
-		Map<String,List<IssueAttachFileDto>> map = new HashMap<>();
-		map.put("fileList", iafDtos);
-		issueDao.inIssueAttachFile(map);
 	}
 	
 }

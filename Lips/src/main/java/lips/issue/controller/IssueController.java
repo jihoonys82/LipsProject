@@ -125,8 +125,9 @@ public class IssueController {
 	 */
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public String issueCreateProc(IssueDto issueDto, String files) {
+		System.out.println("[FILES] : "+files);
 		String[] filesArr = null;
-		if(!files.isEmpty() && files.length()>1) {
+		if(!files.isEmpty() && files != "" ) {
 			filesArr = files.split(",");			
 		}
 		

@@ -146,7 +146,7 @@
 	var pieChart = jui.include("chart.builder");
 	var pieArr = ${chart.pieChart};
 	var pieData = {};
-	var pieName = [{name : "newAcc"},{name : "closedAcc"}];
+	var pieName = [{name : "closedAcc"},{name : "newAcc"}];
 	var pieArrData = [];
 	var pieSum = 0;
 	for(var i = 0;i<pieArr.length;i++){
@@ -186,7 +186,7 @@
 	        format : function(data, k) {
 	            return {
 	                key: names[k],
-	                value: data[k]
+	                value: data[k] + "%"
 	            }
 	        }
 	    }, {

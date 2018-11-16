@@ -398,7 +398,8 @@ $(document).ready(function() {
 			, data: {"param": "stop", 
 				"projectId": "${proInfo.projectId}",
 				"noticeTitle": $("#bodyStop").find("select").val(),
-				"noticeContent": $("#bodyStop").find("textarea").val()
+				"noticeContent": $("#bodyStop").find("textarea").val(),
+				"userId" : "${proInfo.projectLeader}"
 		
 			}, success: function(responseData) {
 				

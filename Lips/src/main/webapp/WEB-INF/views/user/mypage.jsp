@@ -291,7 +291,7 @@ input[name=fileName] {
     <div class="head">
 		<strong>내 파일 보관함 </strong>
     </div>
-    <div class="body" style="min-height:200px;">
+    <div class="body" style="height:500px; overflow:auto;">
 		<div class="panel myFileList">
 			<div class="head">
 				<strong>파일 목록</strong>

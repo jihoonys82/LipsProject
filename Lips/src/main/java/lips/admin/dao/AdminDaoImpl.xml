@@ -195,8 +195,8 @@
 	<insert id="inNoticeToLeader"
 		parameterType="lips.admin.dto.NoticeDto">
 		INSERT INTO notice (noticeid, noticeTitle,
-		noticeContent, createDate, noticeCategory) VALUES
-		(NOTICE_SEQ.nextval, #{noticeTitle}, #{noticeContent}, sysdate, 2)
+		noticeContent, createDate, noticeCategory, userId) VALUES
+		(NOTICE_SEQ.nextval, #{noticeTitle}, #{noticeContent}, sysdate, 2, #{userId})
 	</insert>
 
 	<insert id="inNoticeToStop"

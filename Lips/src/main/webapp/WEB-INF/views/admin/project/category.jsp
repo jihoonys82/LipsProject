@@ -11,7 +11,14 @@
 
 <div class="panel">
 	<div class="body">
-		<div class="infomationWith col col-12">카테고리 설정</div>
+		<div class="infomationWith col col-9">카테고리 설정</div>
+		<div class=infomation col col-3">
+			<ul id="tab_1" class="tab top">
+				<li><a href="/admin/project/chart">차트</a></li>
+				<li><a href="/admin/project/text">텍스트</a></li>
+				<li><a href="/admin/project/category">카테고리</a></li>
+			</ul>
+		</div>
 	</div>
 	
 	<div class="body">
@@ -40,7 +47,7 @@
 	<div class="body">
 		<label class="view-form-label">카테고리 리스트</label>
 		
-		<div class="div-scroll" style="margin-top : 1em; height: 23.3em;">
+		<div class="div-scroll" style="margin-top : 1em; height: 21em;">
 			<table class="table classic stripe" style="margin-top : 3em;">
 				<thead>
 					<tr>

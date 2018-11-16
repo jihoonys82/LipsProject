@@ -20,24 +20,24 @@
 			</div>
 			<div class="topguidebar">
 			<br>
-				<a class="btn">GuideMain</a>
-				<a class="btn">MainView</a>
-				<a class="btn">Issue</a>
-				<a class="btn">Project</a>
+				<ul id="tab_1" class="tab top">
+				    <li class="active" style="cursor:pointer"><a>GuideMain</a></li>
+				    <li style="cursor:pointer"><a>MainView</a></li>
+				    <li style="cursor:pointer"><a>Issue</a></li>
+				    <li style="cursor:pointer"><a>Project</a></li>
+				</ul>
     		</div>
+    		
+			<div id="tab_contents_1" class="guideList">
 			
-			
-			
-			<div class="guideList">
-			
-				<div class="GuideMain">
+				<div id="GuideMain">
 					<h1>가이드 페이지입니다!</h1>
 					<p>프로젝트 관리도구 LIPS 를 사용해 주셔서 감사합니다.</p>
 					<p>LIPS는 프로젝트 수행을 체계적으로 하기 위한 프로젝트 관리를 웹으로 제공하는 서비스입니다.</p>
 					<p>각 기능의 설명을 보고 싶으시다면 상단의 버튼을 눌러주세요 !</p>
 				</div>
 				
-				<div class="MainView" hidden="true">
+				<div id="MainView" hidden="true">
 					<h1>MainView</h1>
 					LIPS의 첫 시작 화면입니다.
 					<br>
@@ -68,7 +68,7 @@
 					<p>업무적인 프로젝트 외에도 개인 취미의 프로젝트 멤버를 Lips의 자유게시판에서 만나보세요!</p> 
 				</div>
 				
-				<div class="Issue" hidden="true">
+				<div id="Issue" hidden="true">
 					<h1>Issue</h1>
 					이슈 생성 및 이슈 확인 방법입니다.
 					<br>
@@ -139,7 +139,7 @@
 					<p>마찬가지로, 해당 프로젝트 팀원이 할 일의 달성률과 현재 상황의 진척도를 알 수 있습니다.</p>
 				</div>
 				
-				<div class="Project" hidden="true">
+				<div id="Project" hidden="true">
 				<h1>Project</h1>
 				LIPS의 꽃인 프로젝트 생성 및 참여 방법입니다.
 				<br>
@@ -197,10 +197,11 @@
 
 $("a").click(function(){
 	var text = $(this).text();
+	$(this).parent().parent().children("li").removeClass();
+	$(this).parent("li").addClass("active");
 	console.log(text);
 	$(".guideList").children("div").hide();
-	$("."+text).show();
-	
+	$("#"+text).show();
 });
 </script>
 

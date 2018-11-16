@@ -169,7 +169,7 @@
 			<input type="text" id="dashBoardName" placeholder="대시보드 이름"
 				style="color: black;">
 			<div style="text-align: center; margin-top: 45px;">
-				<button class="btn" onclick="save()">Save</button>
+				<button class="btn" onclick="nullchecker()">Save</button>
 				<button class="btn" onclick="dashSaveModal.hide()">Close</button>
 			</div>
 		</div>
@@ -393,10 +393,9 @@
 
 	}
 	var nullchecker = function(){
-		if(dataCollection = null){
-			console.log("AAA");
-		}else{
-			
-		}
+		if(Object.keys(dataCollection).length==0){
+			alert("카드를 넣은후 저장하세요");
+			dashSaveModal.hide();
+		}else{save();}
 	}
 </script>

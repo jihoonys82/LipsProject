@@ -191,10 +191,7 @@ $(document).ready(function() {
 					"noticeTitle" : $("div").children("select").val(),
 					"noticeContent" : $("div").children("textarea").val()
 			},success : function(responseData){
-								
-// 				$("div").children("select").val('');
-// 				$("div").children("textarea").val('');
-// 				modalNotice.hide();
+
 				window.location.reload();
 			} 
 		})
@@ -208,14 +205,9 @@ $(document).ready(function() {
 			, dataType: "json"
 			, data: {"param":"delete"}
 			, success : function(responseData) {
-				
-				console.log("test_delete");
-				
+			
 				$("#oneLine").empty();
 				$("#oneLine").val("삭제된 공지입니다");
-				
-// 				updateOneLineNotice();
-				
 			}
 		})
 	});

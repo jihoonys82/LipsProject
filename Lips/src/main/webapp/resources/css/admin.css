@@ -197,6 +197,13 @@ body {
 	margin-right: 5px;
 }
 
+.view-form-row .view-form-label-ca {
+	display: inline-block;
+	text-align : center;
+	width: 25%;
+	margin-right: 5px;
+}
+
 
 .view-form-row .view-form-input {
 	width: 60%;

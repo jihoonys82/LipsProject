@@ -151,10 +151,14 @@ public class AdminController {
    }
    
    @RequestMapping(value="/project/category", method=RequestMethod.POST)
-   public ModelAndView pCate() {
+   public ModelAndView pCate(String param, CategoryAssetDto category) {
 	   
 	   ModelAndView mav = new ModelAndView();
 	   
+	   if(param.equals("newCategory")) {
+		   adminService.createCategoryAsset(category);
+	   }
+	  
 	   mav.setViewName("jsonView");
 		
 	   return mav;

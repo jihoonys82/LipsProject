@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/resources/css/userinfo/mypage.css?ver=2" />
 <jsp:include page="./joinposhy.jsp" />
 
-<script src="http://malsup.github.com/min/jquery.form.min.js"></script> 
+<script type="text/javascript" src="/resources/js/jquery.form.min.js"></script> 
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
 <script type="text/javascript"	src="/resources/js/userinfo/inputValid.js?ver=1"></script>
 <script type="text/javascript">

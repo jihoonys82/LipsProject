@@ -186,7 +186,7 @@
 	        format : function(data, k) {
 	            return {
 	                key: names[k],
-	                value: data[k]
+	                value: data[k] + "%"
 	            }
 	        }
 	    }, {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import lips.admin.dao.AdminDao;
 import lips.admin.dto.NoticeDto;
+import lips.issue.dto.CategoryAssetDto;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
 import lips.utils.Paging;
@@ -18,6 +19,15 @@ public class AdminServiceImpl implements AdminService{
 
 	@Autowired AdminDao adminDao;
 	
+	@Override
+	public void createCategoryAsset(CategoryAssetDto category) {
+		adminDao.inPCate(category);
+	}
+	
+	@Override
+	public List<CategoryAssetDto> getPCate() {
+		return adminDao.selPCate();
+	}
 
 	@Override
 	public List<Integer> getTotalUChart() {

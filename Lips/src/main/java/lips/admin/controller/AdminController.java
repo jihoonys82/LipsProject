@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import lips.admin.dto.NoticeDto;
 import lips.admin.service.AdminService;
 import lips.admin.service.IndexService;
+import lips.issue.dto.CategoryAssetDto;
 import lips.project.dto.ProjectDto;
 import lips.project.service.ProjectService;
 import lips.userinfo.dto.User;
@@ -119,7 +120,6 @@ public class AdminController {
 	   
 	   mav.setViewName("admin/project/chart"); 
 	   return mav;
-
    }
    
    @RequestMapping(value="/project/text", method=RequestMethod.GET)
@@ -136,6 +136,28 @@ public class AdminController {
 	  model.addAttribute("pList",pList);
 	  model.addAttribute("cntList", cntList);
 	  
+   }
+   
+   @RequestMapping(value="/project/category", method=RequestMethod.GET)
+   public ModelAndView proCategory() {
+	   logger.info("프로젝트 카테고리 페이지");
+	   
+	   ModelAndView mav = new ModelAndView();
+	   
+	   List<CategoryAssetDto> cateList = adminService.getPCate();
+	   
+	   mav.addObject("cateList",cateList);
+	   return mav;
+   }
+   
+   @RequestMapping(value="/project/category", method=RequestMethod.GET)
+   public ModelAndView pCate() {
+	   
+	   ModelAndView mav = new ModelAndView();
+	   
+	   mav.setViewName("jsonView");
+		
+	   return mav;
    }
    
    @RequestMapping(value="/user/chart", method=RequestMethod.GET)

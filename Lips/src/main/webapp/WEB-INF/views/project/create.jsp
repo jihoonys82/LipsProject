@@ -118,6 +118,9 @@
             var projectDesc = $("#projectDesc").val();
             var projectOpen = $("#projectOpen").val();
             var projectCreater = $("#projectCreater").val();
+            
+            var inputDate = new Date(closeDate);
+            var date = new Date();
 
             var isValid=true;
             if(!projectName) {
@@ -137,7 +140,13 @@
                alert("프로젝트에 대한 설명을 입력하세요");
                isvalid=false;
                return;   
-            } 
+            } else if (date < inputDate ) {
+            	isvalid = true;
+            } else if (date > inputDate) {
+            	alert("종료 예정일을 확인해주세요");
+            	isvalid = false;
+            	return;
+            }
             
             
             

@@ -8,6 +8,7 @@
 			<ul id="tab_1" class="tab top">
 				<li><a href="/admin/project/chart">차트</a></li>
 				<li><a href="/admin/project/text">텍스트</a></li>
+				<li><a href="/admin/project/category">카테고리</a></li>
 			</ul>
 		</div>
 	</div>

@@ -5,6 +5,14 @@
 
 <mapper namespace="lips.admin.dao.AdminDao">
 
+	<insert id="inPCate" parameterType="lips.issue.dto.CategoryAssetDto">
+		INSERT INTO category_asset VALUES(CATEGORY_ASSET_SEQ.nextval, #{assetName}, #{assetCode}, #{assetDescription})
+	</insert>
+	
+	<select id="selPCate" resultType="lips.issue.dto.CategoryAssetDto">
+		select * from category_asset order by categoryAssetId
+	</select>
+
 	<select id="selUserInfo" resultType="lips.userinfo.dto.User"
 		parameterType="lips.utils.Paging">
 		SELECT * FROM
@@ -202,6 +210,7 @@
 		UPDATE NOTICE SET NOTICECATEGORY = 4 WHERE NOTICEID
 		=( SELECT MAX(NOTICEID) FROM NOTICE WHERE NOTICECATEGORY = 1)
 	</update>
+	
 	<update id="upTimeLineDelete" parameterType="Integer">
 		UPDATE NOTICE SET
 		NOTICECATEGORY = 5 WHERE NOTICEID = #{value }

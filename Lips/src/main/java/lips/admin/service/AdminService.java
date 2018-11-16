@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import lips.admin.dto.NoticeDto;
+import lips.issue.dto.CategoryAssetDto;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
 import lips.utils.Paging;
@@ -94,5 +95,9 @@ public interface AdminService {
 	public ProjectDto getProByUid(User user);
 	
 	public HashMap<String,String> getElapsedTime(ProjectDto project);
+	
+	public List<CategoryAssetDto> getPCate();
+	
+	public void createCategoryAsset(CategoryAssetDto category);
 	
 }

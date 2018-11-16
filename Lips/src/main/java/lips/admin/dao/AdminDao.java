@@ -6,11 +6,24 @@ import java.util.List;
 
 import lips.admin.dto.IndexDto;
 import lips.admin.dto.NoticeDto;
+import lips.issue.dto.CategoryAssetDto;
 import lips.project.dto.ProjectDto;
 import lips.userinfo.dto.User;
 import lips.utils.Paging;
 
 public interface AdminDao {
+	
+	/**
+	 *  카테고리에셋 insert 
+	 * @param category
+	 */
+	public void inPCate(CategoryAssetDto category);
+
+	/**
+	 *  프로젝트 카테고리 목록 불러오기
+	 * @return
+	 */
+	public List<CategoryAssetDto> selPCate();
 	
 	/**
 	 *  총유저수_차트용 

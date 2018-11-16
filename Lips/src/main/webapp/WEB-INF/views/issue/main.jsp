@@ -29,9 +29,9 @@
 	margin: 10px;
 }
 </style>
-<div class="right">
-	<a class="btn focus" href="/issue/create">새이슈</a>
-</div>
+<!-- <div class="right"> -->
+<!-- 	<a class="btn focus" href="/issue/create">새이슈</a> -->
+<!-- </div> -->
 <div class="row">
 	<div class="col col-6 issueHeadline">
 		<div class="h3" style="margin-bottom:15px">데드라인이 가까운 이슈</div>

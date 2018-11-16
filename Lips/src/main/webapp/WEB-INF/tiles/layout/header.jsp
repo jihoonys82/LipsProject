@@ -21,11 +21,12 @@
 		</ul>
 	</div>
 	<div class="inline right menu-right">
-		<div class="combo">
-			<input type="text" class="input" />
-			<a class="btn">Search</a>
-		</div>
+<!-- 		<div class="combo"> -->
+<!-- 			<input type="text" class="input" /> -->
+<!-- 			<a class="btn">Search</a> -->
+<!-- 		</div> -->
 		<sec:authorize access="hasAuthority('USER')">
+			<a class="btn focus" href="/issue/create">새이슈</a>
 			<a class="btn" href="<c:url value='/logout' />">logout</a>
 		</sec:authorize>
 		<sec:authorize access="!hasAuthority('USER')">

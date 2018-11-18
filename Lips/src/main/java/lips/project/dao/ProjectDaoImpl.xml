@@ -42,8 +42,8 @@ WHERE Ca.categoryassetid = Ic.categoryassetid and Ic.projectId=#{projectId} ORDE
  	
  	<!-- 프로젝트 종료(프로젝트 스테이터스 close처리 -->
  	<update id ="UpProStatus"  parameterType="lips.project.dto.ProjectDto" >
- 	UPDATE projectinfo SET status = 'CLOSE' WHERE projectId=#{projectId}
- 	</update>
+    UPDATE projectinfo SET status = 'CLOSE', CLOSEDATE = sysdate  WHERE projectId=#{projectId}
+    </update>
  	
  	
  	<!-- 몰라  -->
@@ -214,7 +214,7 @@ WHERE Ca.categoryassetid = Ic.categoryassetid and Ic.projectId=#{projectId} ORDE
 		SELECT * FROM
 		(SELECT rownum rnum, P.* FROM
 		(SELECT * FROM projectinfo 
-		WHERE PROJECTOPEN = 1 AND STATUS='OPEN' 
+		WHERE STATUS='OPEN' 
 		ORDER BY projectid DESC)
 		P ORDER BY rnum)
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}

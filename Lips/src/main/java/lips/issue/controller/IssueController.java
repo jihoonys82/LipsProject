@@ -334,8 +334,9 @@ public class IssueController {
 	}
 
 	@RequestMapping(value="/deleteIssue", method=RequestMethod.POST)
-	public String deleteIssue(IssueDto issueDto) {
-		
+	public String deleteIssue(int issueId) {
+		IssueDto issueDto = new IssueDto();
+		issueDto.setIssueId(issueId);
 		issueService.deleteIssue(issueDto);
 		
 		return "redirect:/issue/main";

@@ -538,10 +538,8 @@ public class IssueService {
 	 * @param issueDto
 	 */
 	public void deleteIssue(IssueDto issueDto) {
-		User user = new UserByToken().getInstance();
-		if(issueDto.getCreateUser().equals(user.getUserId())) {
-			issueDao.delIssue(issueDto);
-		}
+		//User user = new UserByToken().getInstance();
+		issueDao.delIssue(issueDto);
 	}
 	
 }

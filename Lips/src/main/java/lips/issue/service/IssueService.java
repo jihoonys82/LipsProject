@@ -72,7 +72,7 @@ public class IssueService {
 		mav.addObject("issueAssigned", issueDao.selIssueByAssignee(user));
 		mav.addObject("issueFollowing", issueDao.selIssueByFollowing(user));
 		
-		mav.addObject("issueStage", issueDao.selStageAsset(0)); // default load
+		mav.addObject("issueStage", issueDao.selAllStageAsset()); // default load
 		
 		return mav;
 	}

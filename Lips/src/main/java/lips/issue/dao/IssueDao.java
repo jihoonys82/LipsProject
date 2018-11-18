@@ -337,4 +337,10 @@ public interface IssueDao {
 	 * @return
 	 */
 	public List<AttachFileDto> selIssueFile(IssueDto issueDto);
+	
+	/**
+	 * Get All stage asset
+	 * @return
+	 */
+	public List<StageAssetDto> selAllStageAsset();
 }

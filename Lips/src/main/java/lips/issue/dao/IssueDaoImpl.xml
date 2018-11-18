@@ -310,4 +310,9 @@
   		WHERE IA.fileId = AF.fileId
   			AND IA.issueId = #{issueId}
   	</select>
+  	
+  	<select id="selAllStageAsset">
+  		SELECT * 
+  		FROM stage_asset 
+  	</select>
  </mapper>  

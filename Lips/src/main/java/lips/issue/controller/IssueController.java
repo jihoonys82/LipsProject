@@ -332,4 +332,13 @@ public class IssueController {
 		
 		return map;
 	}
+
+	@RequestMapping(value="/deleteIssue", method=RequestMethod.POST)
+	public String deleteIssue(IssueDto issueDto) {
+		
+		issueService.deleteIssue(issueDto);
+		
+		return "redirect:/issue/main";
+	}
+	
 }

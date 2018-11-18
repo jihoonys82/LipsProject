@@ -532,5 +532,16 @@ public class IssueService {
 			issueDao.inIssueAttachFile(map);
 		}
 	}
+
+	/**
+	 * Delete Issue
+	 * @param issueDto
+	 */
+	public void deleteIssue(IssueDto issueDto) {
+		User user = new UserByToken().getInstance();
+		if(issueDto.getCreateUser().equals(user.getUserId())) {
+			issueDao.delIssue(issueDto);
+		}
+	}
 	
 }

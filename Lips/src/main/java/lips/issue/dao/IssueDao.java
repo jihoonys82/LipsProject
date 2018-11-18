@@ -343,4 +343,10 @@ public interface IssueDao {
 	 * @return
 	 */
 	public List<StageAssetDto> selAllStageAsset();
+
+	/**
+	 * Delete a issue
+	 * @param issueDto
+	 */
+	public void delIssue(IssueDto issueDto);
 }

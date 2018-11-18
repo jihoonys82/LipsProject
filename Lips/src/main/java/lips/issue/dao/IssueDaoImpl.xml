@@ -311,8 +311,13 @@
   			AND IA.issueId = #{issueId}
   	</select>
   	
-  	<select id="selAllStageAsset">
+  	<select id="selAllStageAsset" resultType="lips.issue.dto.StageAssetDto">
   		SELECT * 
   		FROM stage_asset 
   	</select>
+  	
+  	<delete id="delIssue" parameterType="lips.issue.dto.IssueDto">
+  		DELETE FROM Issue
+  		WHERE issueId = ${issueId}
+  	</delete>
  </mapper>  

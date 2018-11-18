@@ -215,7 +215,7 @@
 								</tr>
 								<tr>
 									<c:if test='${projectinfo.status eq "CLOSE"}'>
-										<td>프로젝트 종료일</td>
+										<td style="color:red;">프로젝트 종료일</td>
 									</c:if>
 									<c:if test='${projectinfo.status ne "CLOSE"}'>
 										<td>프로젝트 예상 종료일</td>

@@ -190,7 +190,7 @@
 				<tbody>
 					<c:if test="${issueFollowing.size() eq 0 }">
 						<tr>
-							<td colspan="5" style="text-align:center;">팔로잉하는 이슈가 없습니다.</td>
+							<td colspan="6" style="text-align:center;">팔로잉하는 이슈가 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:forEach items="${issueFollowing }" var="folIssue">

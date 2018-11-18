@@ -65,9 +65,8 @@
 						<p>이 를 활용한다면, 가장 바쁜 프로젝트, 가장 큰 프로젝트 등이 상위 5개 안에 올라오게 되므로 유용하게 사용 가능합니다!</p>  
 						<hr>
 						<hr>
-						<h3 class="h_sub">ETC.</h3>
-						<p>또한, Lips에선 프로젝트 관리 뿐만 아니라 최신 순으로 정렬된 공지사항과 자유게시판을 제공합니다.</p>
-						<p>업무적인 프로젝트 외에도 개인 취미의 프로젝트 멤버를 Lips의 자유게시판에서 만나보세요!</p> 
+						<h3 class="h_sub">Freeboard & Notice</h3>
+						<p>Lips에선 프로젝트 관리 뿐만 아니라 최신 순으로 정렬된 공지사항과 자유게시판을 제공합니다.</p>
 					</div>
 					
 					<div id="Issue" hidden="true">
@@ -93,6 +92,7 @@
 						<p>카테고리 지정 화면입니다</p>
 						<p>현재 생성할 이슈의 카테고리를 지정해 줄 수 있습니다</p>
 						<p>처음 생성시엔 기본 카테고리는 issue탭으로 설정되어 있습니다,이후 프로젝트 관리탭에서 원하는 이슈의 카테고리를 지정해 줄 수 있습니다.</p>
+						<br>
 						<h3 class="h_sub">Assignee</h3>
 						<div class="img_area">
 							<img src="/resources/img/guide/Assignee.png">
@@ -100,6 +100,7 @@
 						<p>담당자 지정 화면입니다</p>
 						<p>두 글자 이상 입력하면 자동으로 참여중인 해당 프로젝트의 참여 인원들이 뜨며,</p>
 						<p>현재 생성할 이슈의 담당자를 지정해 줄 수 있으며 나에게 할당을 통해 현재 이슈를 자신에게 일임 할 수 있습니다</p>
+						<br>
 						<h3 class="h_sub">Issue Level</h3>
 						<div class="img_area">
 							<img src="/resources/img/guide/final_issue_level.png">
@@ -108,6 +109,7 @@
 						<p>현재 이슈의 단계를 지정해 줄 수 있습니다</p>
 						<p>두개의 프리셋을 지원합니다</p>
 						<p>이후 자신이 프로젝트 리더일때 프로젝트 관리탭에서 이슈 단계를 상세히 설정 할 수 있습니다.</p>
+						<br>
 						<h3 class="h_sub">File upload</h3>
 						<div class="img_area">
 							<img src="/resources/img/guide/final_issue_fileupload.png">
@@ -158,10 +160,10 @@
 					<hr>
 					<h3 class="h_sub">Project Main</h3>
 					<div class="img_area">
-						<img src="/resources/img/guide/project_main.png">
+						<img src="/resources/img/guide/final_projectmain_myproject.png">
 						<p>프로젝트 메인 화면입니다</p>
 						<p>현재 참여중인 프로젝트들의 정보를 간략히 알 수 있습니다</p>
-						<p>왼쪽 상단의<img src="/resources/img/guide/allproject.png">버튼을 클릭하여, LIPS 안의 전체 프로젝트를 확인 할 수 있습니다.</p>
+						<p>왼쪽 상단의<img src="/resources/img/guide/allproject.png">탭을 클릭하여, LIPS 안의 전체 프로젝트를 확인 할 수 있습니다.</p>
 						<p>프로젝트 메인 화면에서 Create 버튼을 누르면 프로젝트를 생성 가능하며, Join 버튼을 누르면 초대코드를 입력하여 프로젝트에 참여가 가능합니다</p>
 						<p>자신이 생성한 프로젝트는 오른쪽 상단에 톱니바퀴 버튼이 뜨며, 이 버튼을 활용하여 프로젝트 관리를 할 수 있습니다</p>
 					</div>
@@ -194,21 +196,39 @@
 						<p>프로젝트 공개 여부에서 공개 여부를 다시 설정할 수 있으며, 프로젝트 비공개시에는 프로젝트 메인 화면에서 아예 보이지 않게 됩니다.</p>
 						<p>project member 탭에서 리더를 위임하거나,해당 유저를 ban 시킬 수 있습니다.</p>
 						<p>프로젝트의 초대 코드의 유효기간은 하루이며, 코드의 유효기간이 지나고 다른 사람을 초대할 필요성이 있을 시에는 초대코드 재발급을 통해 새로운 초대코드를 발급받아 다른 사람을 프로젝트에 초대 할 수 있습니다.</p>
+						<p>프로젝트 종료처리를 하면 다시 활성화 시킬 수 없고 이슈등록이 제한되니 신중하게 사용해 주세요</p>
 					<h3 class="h_sub">Issue Custom</h3>
-						<img src="">
+						<img src="/resources/img/guide/issue_preset70.png">
 						<p>이슈 진행단계 커스텀입니다.</p>
-							
+						<p>이슈 생성 단계에서 기본적으로 지원하는 두개의 프리셋 외에도 이곳에서 원하는 내용의 이슈 진행단계 프리셋을 설정할 수 있습니다</p>
+						<p>새 프리셋 추가에서 프리셋 이름을 정하고, 신규 에셋 추가에서 원하는 에셋의 이름과 내용을 설정할 수 있습니다</p>
+						<img src="/resources/img/guide/issue_preset_ex.png">
+						<p>신규 에셋을 추가하여 새 프리셋을 추가한 예제입니다.</p>
+						<p>이후 저장을 누르면 현 프로젝트에서 새 이슈를 만들 때 마다 새로 지정한 프리셋을 활용할 수 있습니다</p>
+						<img src="/resources/img/guide/issue_preset_add.png">
+						<p>저장 후 새 프리셋이 추가된 모습입니다.</p>
+						<img src="/resources/img/guide/issue_preset_complete.png">
+						<p>새 이슈를 생성할 시 추가한 프리셋이 뜨는 화면입니다.</p>
 					</div>
 					<hr>
 					<hr>
 					<h3 class="h_sub">Project Custom</h3>
 					<div class="img_area">
-						<img src="">
+						<img src="/resources/img/guide/project_custom.png">
 						<p>프로젝트 커스텀 화면입니다</p>
 						<p>프로젝트 메인 화면에서 현재 자신이 참여중이거나 생성한 프로젝트 중에서 가능하며,</p> 
 						<p>'프로젝트 바로가기'를 통해 입장이 가능합니다.</p>
 						<br>
-						<img src="">
+						<img src="/resources/img/guide/project_custom_guide.png">
+						<p>이후 오른쪽 상단의 Custom 버튼을 누르면 뜨는 사용법 페이지입니다.</p>
+						<br>
+						<img src="/resources/img/guide/project_custom_lineselect.png">
+						<p>라인갯수를 x=2, y=1로 했을 때의 모습입니다.
+						<br>
+						<img src="/resources/img/guide/project_custom_select.png">
+						<p>커스텀 화면의 오른쪽에서 원하는 카드를 등록한 후 저장을 누르면 대시보드의 이름을 정할 수 있습니다.</p>
+						
+						
 						 
 					</div>
 					</div>

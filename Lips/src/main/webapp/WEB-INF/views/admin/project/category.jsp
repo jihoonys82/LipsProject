@@ -34,7 +34,7 @@
 					<input type="text" name="caCode" id="caCode" class="input view-form-input" /> 
 				</div>  
 				<div class="view-form-row">
-					<label for="caDes" class="view-form-label-ca">약어</label>
+					<label for="caDes" class="view-form-label-ca">설명</label>
 					<input type="text" name="caDes" id="caDes" class="input view-form-input" /> 
 				</div> 
 		</div>

@@ -92,6 +92,19 @@ input[name=fileName] {
  margin: 3px;
 }
 </style>
+<script type="text/javascript">
+var deleteIssue = function(issueId) {
+	if(confirm("이슈를 정말로 삭제하시겠습니까?")){
+		var $delForm = $("<form>").attr("id","delForm").attr("action","/issue/issueDelete").attr("method","post");
+		var $delInput = $("<input type='hidden' name='issueId' value='"+issueId+"'/>");
+		$("body").append($delForm);
+		$("form#delForm").append($delInput);
+		$("form#delForm").submit();
+	}
+	
+}
+</script>
+
 <!-- Issue control buttons -->
 <div class="row issueDetail issueBtnGroup">
 	<div class="panel ">
@@ -115,7 +128,8 @@ input[name=fileName] {
 			</c:if>	
 			<c:if test="${userId eq issue.createUser }">
 				<a href="/issue/issueUpdate?issueId=${issue.issueId }" class="btn" >수정</a>
-				<a href="/issue/issueDelete?issueId=${issue.issueId }" class="btn">삭제</a>
+				<button type="button" class="btn" onclick="deleteIssue(${issue.issueId})">삭제</button>
+<%-- 				<a href="/issue/issueDelete?issueId=${issue.issueId }" class="btn">삭제</a> --%>
 			</c:if>
 		</div>
 	</div>

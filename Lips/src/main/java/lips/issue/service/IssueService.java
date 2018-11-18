@@ -225,7 +225,7 @@ public class IssueService {
 		if(!issues.isEmpty()) {
 			mav.addObject("listType", listType);
 			mav.addObject("issues", issues);
-			mav.addObject("issueStage", issueDao.selStageAsset(Integer.parseInt(projectId)));
+			mav.addObject("issueStage", issueDao.selAllStageAsset());
 			mav.addObject("paging", paging);
 			mav.setViewName("issue/issueList");
 		} else {

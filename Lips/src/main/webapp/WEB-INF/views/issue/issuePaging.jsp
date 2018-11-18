@@ -32,6 +32,6 @@
 		<a href="/issue/issueList?listType=${param.listType }&projectId=${param.projectId }" class="next" disabled="disabled" >Next</a>
 	</c:if>
 	<c:if test="${paging.totalPage ne curPage }">
-		<a href="//issue/issueList?listType=${param.listType }&projectId=${param.projectId }${setUserId}${param.userId }&curPage=${paging.curPage+1 }" class="next">Next</a>
+		<a href="/issue/issueList?listType=${param.listType }&projectId=${param.projectId }${setUserId}${param.userId }&curPage=${paging.curPage+1 }" class="next">Next</a>
 	</c:if>
 </div>

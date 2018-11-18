@@ -95,7 +95,7 @@ input[name=fileName] {
 <script type="text/javascript">
 var deleteIssue = function(issueId) {
 	if(confirm("이슈를 정말로 삭제하시겠습니까?")){
-		var $delForm = $("<form>").attr("id","delForm").attr("action","/issue/issueDelete").attr("method","post");
+		var $delForm = $("<form>").attr("id","delForm").attr("action","/issue/deleteIssue").attr("method","post");
 		var $delInput = $("<input type='hidden' name='issueId' value='"+issueId+"'/>");
 		$("body").append($delForm);
 		$("form#delForm").append($delInput);

@@ -169,32 +169,35 @@ public class IssueService {
 		return issueDto;
 	}
 	
-	public ModelAndView getIssueList(String listType, String projectId, User issueOwner, int curPage) {
+	public ModelAndView getIssueList(String listType, String projectId, String userId, int curPage) {
 		
 		List<IssueDto> issues = new ArrayList<>();
 		ModelAndView mav = new ModelAndView();
-		logger.info(issueOwner.toString());
+		
+		User user = new User();
 		// if issue Owner is not defined, set it as current user.
-		if(issueOwner == null) {
-			issueOwner = new UserByToken().getInstance();
+		if(userId == null) {
+			user = new UserByToken().getInstance();
+		} else {
+			user = userDao.selUserById(userId);
 		}
 		int totalCount = 0; 
 		Paging paging = new Paging(totalCount); 
 		switch(listType) {
 		case "FollowingIssue": 
-			totalCount = issueDao.selTotalCountByIssueFollowing(issueOwner);
+			totalCount = issueDao.selTotalCountByIssueFollowing(user);
 			paging = new Paging(totalCount, curPage);
 			Map<String, String> fiMap = new HashMap<>();
-			fiMap.put("userId", issueOwner.getUserId());
+			fiMap.put("userId", user.getUserId());
 			fiMap.put("startNo", ((Integer)paging.getStartNo()).toString());
 			fiMap.put("endNo", ((Integer)paging.getEndNo()).toString());
 			issues = issueDao.selIssueByFollowingPaging(fiMap);
 			break;
 		case "AssignedIssue":
-			totalCount = issueDao.selTotalCountByAssignee(issueOwner);
+			totalCount = issueDao.selTotalCountByAssignee(user);
 			paging = new Paging(totalCount, curPage);
 			Map<String, String> aMap = new HashMap<>();
-			aMap.put("userId", issueOwner.getUserId());
+			aMap.put("userId", user.getUserId());
 			aMap.put("startNo", ((Integer)paging.getStartNo()).toString());
 			aMap.put("endNo", ((Integer)paging.getEndNo()).toString());
 			issues = issueDao.selIssueByAssgineePaging(aMap);
@@ -215,7 +218,7 @@ public class IssueService {
 			break;			
 		default :  // default - Assigned Issue for issue owner.
 			listType = "Default";
-			issues = issueDao.selIssueByAssignee(issueOwner);
+			issues = issueDao.selIssueByAssignee(user);
 			break;
 		}
 		

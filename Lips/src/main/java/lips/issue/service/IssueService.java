@@ -173,7 +173,7 @@ public class IssueService {
 		
 		List<IssueDto> issues = new ArrayList<>();
 		ModelAndView mav = new ModelAndView();
-		
+		logger.info(issueOwner.toString());
 		// if issue Owner is not defined, set it as current user.
 		if(issueOwner == null) {
 			issueOwner = new UserByToken().getInstance();

@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <sec:authentication property="principal.userId" var="userId"/>
 
-<script src="http://malsup.github.com/min/jquery.form.min.js"></script> 
+<script type="text/javascript" src="/resources/js/jquery.form.min.js"></script> 
 <script type="text/javascript" src="/resources/js/moment.min.js"></script>
 
 <c:set var="startNo" value="1"/>

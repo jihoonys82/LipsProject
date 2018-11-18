@@ -78,7 +78,7 @@ p {
 <button class="btn btn-primary" id="donation">Donation</button>
 </form>
   
-<a href="/intro">
+<a href="/">
 <button class="btn btn-secondary" id="back">Back</button>
 </a>	
    </div> 

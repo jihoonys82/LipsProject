@@ -195,7 +195,7 @@ $(document).ready(function() {
 		// 2. custom field data to json. TODO!!  
 		
 		// 3. form submit
-		$("form[action='/issue/create']").submit();
+		$("form[action='/issue/update']").submit();
 	});
 });
 
@@ -300,7 +300,7 @@ $(document).ready(function() {
 			<strong>이슈 수정</strong>
 		</div>
 		<div class="body">
-			<form action="/issue/create" method="post" enctype="multipart/form-data" onsubmit="customValue();">
+			<form action="/issue/update" method="post" enctype="multipart/form-data" onsubmit="customValue();">
 				<div class="h4 mb-1">기본항목</div>
 				<div class="issue-form-row">
 					<label for="projectId" class="issue-form-label">프로젝트</label>

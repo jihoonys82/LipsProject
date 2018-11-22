@@ -273,7 +273,7 @@
 				</c:forEach>
 			</div>
 			<c:if test="${paging.curPage eq paging.endPage}">
-				<a href="/project/main/all?curPage=${paging.curPage}" class="next">Next</a>
+				<a href="/project/main/all?curPage=${paging.curPage+1}" class="next">Next</a>
 			</c:if>
 			<c:if test="${paging.curPage ne paging.endPage}">
 				<a href="/project/main/all?curPage=${paging.curPage+1}" class="next">Next</a>
